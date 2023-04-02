@@ -5,7 +5,7 @@ require_once(__DIR__ . '/../database/department.class.php');
 
 <?php function output_single_department(Department $department) { ?>
     <li>
-        <p><?=$department->departmentName?></p>
+        <?=$department->departmentName?>
     </li>
 <?php } ?>
 

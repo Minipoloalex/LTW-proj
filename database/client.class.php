@@ -19,7 +19,7 @@
      
         function save($db) {
             $stmt = $db->prepare('
-              UPDATE Client SET Name = ?
+              UPDATE CLIENT SET Name = ?
               WHERE UserId = ?
             ');
       
@@ -29,8 +29,8 @@
         static function getClientWithPassword(PDO $db, string $email, string $password) : ?Client {
             $stmt = $db->prepare('
               SELECT *
-              FROM Client
-              WHERE lower(email) = ? AND password = ?
+              FROM CLIENT
+              WHERE lower(Email) = ? AND Password = ?
             ');
       
             $stmt->execute(array(strtolower($email), sha1($password)));
@@ -40,15 +40,15 @@
                 intval($client['UserID']),
                 $client['Name'],
                 $client['Username'],
-                $client['password'],
-                $client['email']
+                $client['Password'],
+                $client['Email']
               );
             } else return null;
           }
         
 
         static function searchClients(PDO $db, string $search, int $count) : array {
-            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM Client WHERE Name LIKE ? LIMIT ?');
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Name LIKE ? LIMIT ?');
             $stmt->execute(array($search . '%', $count));
         
             $clients = array();
@@ -68,7 +68,7 @@
         
 
         static function getClients(PDO $db, int $count)  : array {
-            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM Client LIMIT ? ');
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT LIMIT ? ');
             $stmt->execute(array($count));
 
             $clients = array();
@@ -86,7 +86,7 @@
 
 
         static function getById(PDO $db, int $id) : Client {
-            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM Client WHERE UserID = ?');
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE UserID = ?');
             $stmt->execute(array($id));
         
             $client = $stmt->fetch();
@@ -100,6 +100,10 @@
             );
           }
 
+          function name() {
+            return $this->username;
+          } //not really needed in ours
+      
 
 
     }

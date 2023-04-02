@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-
+require_once(__DIR__ . '/../database/client.class.php');
 ?>
 
 <?php function drawProfileForm(Client $client) { ?>

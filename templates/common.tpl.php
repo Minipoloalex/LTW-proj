@@ -12,7 +12,7 @@
     <title>Trouble Solver</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
@@ -21,19 +21,20 @@
     </header>
     <nav>
         <ul>
-            <!-- 2 options: Create Tickets and View Tickets (filters inside view tickets) -->
-            <li><a href="">My tickets</a></li>
-            
-            <li><a href="">Assigned tickets</a></li>
+          <li>Tickets
+            <ul>
+              <li><a href="../pages/tickets.php">My tickets</a></li>
+              <li><a href="../pages/create_ticket.php">Create ticket</a></li>
+              <li><a href="../pages/tickets.php">Assigned tickets</a></li>  <!--Same page: assigned and followed tickets (not assigned to them)-->
+              <li><a href="../pages/tickets.php">All tickets</a></li>
+            </ul>
+          </li>
+          
+          <li><a href="../pages/admin/departments_list.php">Departments</a></li>
+          <li><a href="../pages/admin/users_list.php">Users</a></li>
 
-<!-- For agent, only one department (assigned + unassigned [+ following]); For admin, all departments, filters available -->
-            <li><a href="">All tickets</a></li>
-
-            <li><a href="">Departments</a></li>
-            <li><a href="">Users</a></li>
-
-            <li><a href="">FAQs</a></li>
-            <li><a href="">Profile</a></li>
+          <li><a href="../pages/FAQ.php">FAQs</a></li>
+          <li><a href="../pages/profile.php">Profile</a></li>
         </ul>
 
     </nav>

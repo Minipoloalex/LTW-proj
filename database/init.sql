@@ -15,13 +15,12 @@ DROP TABLE IF EXISTS FORUM;
 ********************************************************************************/
 
 
-CREATE TABLE CLIENT (
+CREATE TABLE CLIENT(
     UserID INTEGER PRIMARY KEY,
     Name VARCHAR(120) NOT NULL,
     Username VARCHAR(255) NOT NULL UNIQUE,
-    Password VARCHAR(255) NOT NULL CHECK (LEN(Password) > 5), /* segurança da password */
-    Email VARCHAR(60) NOT NULL UNIQUE,
-    CONSTRAINT "PK_Client" PRIMARY KEY (UserID)
+    Password VARCHAR(255) NOT NULL CHECK (LENGTH(Password) > 5), /* segurança da password */
+    Email VARCHAR(60) NOT NULL UNIQUE
 );
 
 
@@ -41,7 +40,7 @@ CREATE TABLE ADMIN(
 
 /* admin <- agent <- client */
 
-CREATE TABLE TICKET (
+CREATE TABLE TICKET(
     TicketID INTEGER,
     UserID INTEGER,
     Status VARCHAR(255) NOT NULL DEFAULT 'open',
@@ -49,35 +48,36 @@ CREATE TABLE TICKET (
     Priority VARCHAR(255),
     Hashtag VARCHAR(255),
     AssignedAgent INTEGER,
-    DepartmentID VARCHAR(255),  /* can be null */
+    DepartmentID INTEGER,  /* can be null */
     
     CONSTRAINT "PK_Ticket" PRIMARY KEY(TicketID),
     FOREIGN KEY (UserID) REFERENCES CLIENT(UserID),
     FOREIGN KEY (AssignedAgent) REFERENCES AGENT(UserID),
-    FOREIGN KEY (DepartmentID) REFERENCES DEPARTMENT(DepartmentID),
+    FOREIGN KEY (DepartmentID) REFERENCES DEPARTMENT(DepartmentID)
     
     /*List all changes done to a ticket (e.g., status changes, assignments, edits).*/
 );
 
-CREATE TABLE DEPARTMENT (
+CREATE TABLE DEPARTMENT(
     DepartmentID INTEGER,
     DepartmentName VARCHAR(255) NOT NULL,
     PRIMARY KEY (DepartmentID)
 );
 
-CREATE TABLE HASHTAG (
+CREATE TABLE HASHTAG(
     HashtagID INTEGER PRIMARY KEY,
     HashtagName VARCHAR(50)
 );
 
 CREATE TABLE HASHTAG_TICKET(    /* many to many */
-    TicketID INTEGER PRIMARY KEY,
-    HashtagID INTEGER PRIMARY KEY,
+    TicketID INTEGER,
+    HashtagID INTEGER,
     FOREIGN KEY (TicketID) REFERENCES TICKET(TicketID),
-    FOREIGN KEY (HashtagID) REFERENCES HASHTAG(HashtagID)
+    FOREIGN KEY (HashtagID) REFERENCES HASHTAG(HashtagID),
+    PRIMARY KEY (TicketID, HashtagID)
 );
 
-CREATE TABLE ACTION (
+CREATE TABLE ACTION(
     ActionID INTEGER PRIMARY KEY,
     TicketID INTEGER,
     UserID INTEGER,
@@ -88,7 +88,7 @@ CREATE TABLE ACTION (
     FOREIGN KEY (UserID) REFERENCES Client(UserID)
 );
 
-CREATE TABLE MESSAGE (
+CREATE TABLE MESSAGE(
     MessageID INTEGER PRIMARY KEY,
     TicketID INTEGER,
     UserID INTEGER,
@@ -99,8 +99,8 @@ CREATE TABLE MESSAGE (
 );
 
 
-CREATE TABLE FORUM (
+CREATE TABLE FORUM(
     ForumId INTEGER PRIMARY KEY,
     Question TEXT,
-    Answer TEXT,
+    Answer TEXT
 );
