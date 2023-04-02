@@ -23,7 +23,7 @@
               WHERE UserId = ?
             ');
       
-            $stmt->execute(array($this->Name, $this->id));
+            $stmt->execute(array($this->name, $this->id));
           }
 
         static function getClientWithPassword(PDO $db, string $email, string $password) : ?Client {

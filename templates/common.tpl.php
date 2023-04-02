@@ -1,6 +1,12 @@
+<?php 
+  declare(strict_types = 1); 
+
+  require_once(__DIR__ . '/../utils/session.php');
+?>
+
 <?php function output_header() { ?>
-    
-    <DOCTYPE html>
+
+<DOCTYPE html>
 <html lang="en-US">
   <head>
     <title>Trouble Solver</title>
