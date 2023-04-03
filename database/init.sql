@@ -42,11 +42,13 @@ CREATE TABLE ADMIN(
 
 CREATE TABLE TICKET(
     TicketID INTEGER,
+    Title VARCHAR(50),
     UserID INTEGER,
     Status VARCHAR(255) NOT NULL DEFAULT 'open',
     SubmitDate INTEGER NOT NULL, 
     Priority VARCHAR(255),
     Hashtag VARCHAR(255),
+    Description TEXT,
     AssignedAgent INTEGER,
     DepartmentID INTEGER,  /* can be null */
     

@@ -1,5 +1,6 @@
 <?php
 declare(strict_types = 1);
+require_once(__DIR__ . '/client.class.php');
 class Agent extends Client {
     public int $departmentid;
 

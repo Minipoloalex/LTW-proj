@@ -7,16 +7,16 @@ require_once(__DIR__ . '/../database/client.class.php');
   <h2>Profile</h2>
   <form action="../actions/action_edit_profile.php" method="post" class="profile">
 
-    <label for="first_name">First Name:</label>
-    <input id="first_name" type="text" name="first_name" value="<?=$client->name?>">
+    <label for="name">Name:</label>
+    <input id="name" type="text" name="name" value="<?=$client->name?>">
     
-    <label for="last_name">Last Name:</label>
-    <input id="last_name" type="text" name="last_name" value="<?=$client->username?>">  
+    <label for="username">Last Name:</label>
+    <input id="username" type="text" name="username" value="<?=$client->username?>">  
     
     <button type="submit">Save</button>
   </form>
 <?php } ?>
 
 <?php function drawProfile() { ?>
-
+  
 <?php } ?>

@@ -8,7 +8,7 @@ class Department {
         $this->departmentName = $departmentName;
     }
 
-    public function getDepartments(PDO $db, int $count): array {
+    static public function getDepartments(PDO $db): array {
         $stmt = $db->prepare('SELECT DepartmentId, DepartmentName FROM DEPARTMENT');
         $stmt->execute();
 
@@ -21,7 +21,7 @@ class Department {
         }
         return $departments;
     }
-    public function getById(PDO $db, int $id): Department {
+    static public function getById(PDO $db, int $id): Department {
         $stmt = $db->prepare('SELECT DepartmentId, DepartmentName FROM DEPARTMENT WHERE DepartmentId = ?');
         $stmt->execute(array($id));
         $department = $stmt->fetch();
