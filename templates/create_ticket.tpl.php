@@ -22,18 +22,19 @@ require_once(__DIR__ . '/../database/department.class.php');
             Hashtags*
         </label>
         <select name='hashtags' id='tags' multiple>
-            <? foreach ($hashtags as $hashtag) { ?>    
-                <option value=<?$hashtag->hastagid?>><?$hashtag->HashtagName?><option>
-            <? } ?>
+            <?php foreach ($hashtags as $hashtag) { ?>    
+                <option value=<?=$hashtag->hashtagid?>><?=$hashtag->hashtagname?><option>
+            <?php } ?>
         </select>
         <label>Ticket description*
             <textarea></textarea>
         </label>
         <label>Department</label>
         <select name='departments' id='deps'>
-        <? foreach ($departments as $department) { ?>    
-                <option value=<?$department->departmentId?>><?$department->departmentName?><option>
-            <? } ?> 
+        <?php foreach ($departments as $department) { ?>    
+            <option value=<?=$department->departmentId?>><?=$department->departmentName?><option>
+        <?php } ?> 
+        </select>
         <button formaction="action_create_ticket.php" formmethod="post" type="submit">
             Create ticket
         </button>

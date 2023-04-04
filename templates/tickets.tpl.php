@@ -1,6 +1,7 @@
 <?php
 declare(strict_types = 1);
 require_once(__DIR__ . '/../database/ticket.class.php');
+require_once(__DIR__ . '/../database/hashtag.class.php');
 ?>
 
 <?php function drawTicket(Ticket $ticket) { ?>
@@ -11,11 +12,12 @@ require_once(__DIR__ . '/../database/ticket.class.php');
         <td><?=$ticket->status?></td>
         <td><?=$ticket->submitdate?></td>
         <td><?=$ticket->priority?></td>
-        <td><? foreach ($ticket->hashtags as $hashtag) { ?>
+        <td>
             <ul>
-                <li><?=$hashtag?></li>
+                <?php foreach ($ticket->hashtags as $hashtag) { ?>
+                    <li><?=$hashtag->hashtagname?></li>
+                <?php } ?>
             </ul>
-        <? } ?>
         </td>
         <td><?=$ticket->description?></td>
         <td><?=$ticket->assignedagent?></td>

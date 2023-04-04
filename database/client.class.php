@@ -90,13 +90,12 @@
             $stmt->execute(array($id));
         
             $client = $stmt->fetch();
-        
             return new Client(
                 intval($client['UserID']),
                 $client['Name'],
                 $client['Username'],
-                $client['password'],
-                $client['email']
+                $client['Password'],
+                $client['Email']
             );
           }
 

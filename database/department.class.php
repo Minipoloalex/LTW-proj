@@ -25,6 +25,7 @@ class Department {
         $stmt = $db->prepare('SELECT DepartmentId, DepartmentName FROM DEPARTMENT WHERE DepartmentId = ?');
         $stmt->execute(array($id));
         $department = $stmt->fetch();
+
         return new Department(
                 intval($department['DepartmentId']),
                 $department['DepartmentName']

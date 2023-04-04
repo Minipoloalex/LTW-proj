@@ -35,7 +35,7 @@ INSERT INTO TICKET (Title, TicketID, UserID, Status, SubmitDate, Priority, Hasht
 ('titulooo2', 2,  2, 'closed', 1647667800, 'low', '#bug_report','sad description', 4, 4),
 ('titulooo3', 3,  3, 'in progress', 1647732762, 'medium', '#billing_issue', 'happy description',2, 3),
 ('titulooo4', 4, 4, 'open', 1647714997, 'high', '#technical_issue','no description', 5, 2),
-('titulooo5', 5, 5, 'in progress', 1647703354, 'high', '#technical_issue','what description', 2, NULL);
+('titulooo5', 5, 5, 'in progress', 1647703354, 'high', '#technical_issue','what description', 2, 3);
 -- HASHTAG
 INSERT INTO HASHTAG (HashtagID, HashtagName) VALUES
 (1, '#customer_issue'),

@@ -3,11 +3,11 @@
 
 class Hashtag {
   public int $hashtagid;
-  public string $hastagname;
+  public string $hashtagname;
 
-  public function __construct(int $hashtagid, string $hastagname){
+  public function __construct(int $hashtagid, string $hashtagname){
       $this->hashtagid = $hashtagid;
-      $this->hastagname = $hastagname;
+      $this->hashtagname = $hashtagname;
   }
 
   static function getHashtags(PDO $db) : array {

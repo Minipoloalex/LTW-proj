@@ -11,6 +11,6 @@ $db = getDatabaseConnection();
 $tickets = Ticket::getTickets($db);
 
 output_header();
-// drawTicketsTable($tickets, "Opened tickets");
+drawTicketsTable($tickets, "Opened tickets");
 output_footer();
 ?>

@@ -20,9 +20,9 @@ class Agent extends Client {
                 intval($agent['UserID']),
                     $agent['Name'],
                     $agent['Username'],
-                    $agent['password'],
-                    $agent['email'],
-                    $agent['departmentid']
+                    $agent['Password'],
+                    $agent['Email'],
+                    $agent['DepartmentID']
               );
             }
         
@@ -39,9 +39,9 @@ class Agent extends Client {
                     intval($agent['UserID']),
                     $agent['Name'],
                     $agent['Username'],
-                    $agent['password'],
-                    $agent['email'],
-                    $agent['departmentid']
+                    $agent['Password'],
+                    $agent['Email'],
+                    $agent['DepartmentID']
                 );
             }
             return $agents;
@@ -58,9 +58,9 @@ class Agent extends Client {
             intval($agent['UserID']),
             $agent['Name'],
             $agent['Username'],
-            $agent['password'],
-            $agent['email'],
-            $agent['departmentid']
+            $agent['Password'],
+            $agent['Email'],
+            $agent['DepartmentID']
         );
       }
 }

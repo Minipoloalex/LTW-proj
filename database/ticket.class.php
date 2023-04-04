@@ -27,7 +27,7 @@ class Ticket
     $this->priority = $priority;
     $this->hashtags = $hashtags;
     $this->description = $description;
-    $this->$assignedagent = $assignedagent;
+    $this->assignedagent = $assignedagent;
     $this->departmentName = $departmentName;
   }
 
@@ -59,12 +59,22 @@ class Ticket
 
     while ($ticket = $stmt->fetch()) {
       $client = Client::getById($db, intval($ticket['UserID']));
-      $department = Department::getById($db, intval($ticket['DepartmentId']));
+      $department = Department::getById($db, intval($ticket['DepartmentID']));
       $agent = Agent::getById($db, intval($ticket['AssignedAgent']));
       $id = intval($ticket['TicketID']);
       $hashtags = Hashtag::getByTicketId($db, $id);
-
+      var_dump($agent->username);
       $tickets[] = new Ticket(
+  //       public int $ticketid;
+  // public string $title;
+  // public string $username;
+  // public string $status;
+  // public int $submitdate; // $date = date('F j', $article['published']);
+  // public string $priority;
+  // public array $hashtags;
+  // public string $description;
+  // public string $assignedagent;
+  // public string $departmentName;
         $id,
         $ticket['Title'],
         $client->username,
