@@ -17,7 +17,7 @@
   </head>
   <body>
     <header>
-      <h1><a href="#">Trouble Solver</a></h1>
+      <h1><a href="main_page.php">Trouble Solver</a></h1>
     </header>
     <nav>
         <ul>

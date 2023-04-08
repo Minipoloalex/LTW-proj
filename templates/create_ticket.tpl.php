@@ -4,8 +4,6 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 require_once(__DIR__ . '/../database/department.class.php');
 
 ?>
-<!-- obter lista de hashtags -->
-
 
 <?php function output_create_ticket_form(PDO $db)
 { 
@@ -33,7 +31,7 @@ require_once(__DIR__ . '/../database/department.class.php');
         <select name='departments' id='deps'>
         <?php foreach ($departments as $department) { ?>    
             <option value=<?=$department->departmentId?>><?=$department->departmentName?><option>
-        <?php } ?> 
+        <?php } ?>
         </select>
         <button formaction="action_create_ticket.php" formmethod="post" type="submit">
             Create ticket

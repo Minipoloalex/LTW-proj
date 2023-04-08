@@ -6,6 +6,8 @@ require_once(__DIR__ . '/../database/forum.class.php');
 
 <?php function output_single_faq(Forum $faq) { ?>
     <article>
+        <span class='question'><?=$faq->question?></span>
+        <span class='answer'><?=$faq->answer?></span>
     </article>
 <?php } ?>
 
