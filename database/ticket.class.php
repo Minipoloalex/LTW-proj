@@ -99,5 +99,67 @@ class Ticket
       $department->departmentName
     );
   }
+
+  static function filter(PDO $db, array $status, array $priorities, array $hashtags, array $agents, array $departments): array
+  {
+    $query = 'SELECT * FROM TICKET JOIN HASHTAG_TICKET USING(TicketID)';
+    $statusF = '';
+    $prioritiesF = '';
+    $hashtagsF = '';
+    $agentsF = '';
+    $departmentsF = '';
+    
+    if(!empty($status)){
+      for ($i = 0; $i<count($status); $i++) {
+        if ($i == 0) {$statusF = $statusF + sprintf('(Status = %s', $status[$i]);} 
+        else {$statusF = $statusF + sprintf(' or Status = %s', $status[$i]);}
+      }
+      $statusF = $statusF + ')';
+  }
+  
+  if(!empty($priorities)){
+    for ($i = 0; $i<count($priorities); $i++) {
+      if ($i == 0) {$prioritiesF = $prioritiesF + sprintf('(Priority = %s', $priorities[$i]);} 
+      else {$prioritiesF = $prioritiesF + sprintf(' or Priority = %s', $priorities[$i]);}
+    }
+    $prioritiesF = $prioritiesF + ')';
+}
+//conversão para IDs
+if(!empty($agents)){
+  for ($i = 0; $i<count($agents); $i++) {
+    if ($i == 0) {$agentsF = $agentsF + sprintf('(AssignedAgent = %s', $agents[$i]);} 
+    else {$agentsF = $agentsF + sprintf(' or AssignedAgent = %s', $agents[$i]);}
+  }
+  $agentsF = $agentsF + ')';
+}
+//conversão para IDs
+if(!empty($departments)){
+  for ($i = 0; $i<count($departments); $i++) {
+    if ($i == 0) {$departmentsF = $departmentsF + sprintf('(DepartmentID = %s', $departments[$i]);} 
+    else {$departmentsF = $departmentsF + sprintf(' or Depa tmentID= %s', $departments[$i]);}
+  }
+  $departmentsF = $departmentsF + ')';
+}
+
+//verificar
+if(!empty($hashtags)){
+  for ($i = 0; $i<count($hashtags); $i++) {
+    if ($i == 0) {$hashtagsF = $hashtagsF + sprintf('(Hashtags = %s', $hashtags[$i]);} 
+    else {$hashtagsF = $hashtagsF + sprintf(' or Hashtags = %s', $hashtags[$i]);}
+  }
+  $hashtagsF = $hashtagsF + ')';
+}   
+    
+    
+//criar a query    $stmt = $db->prepare('SELECT * FROM TICKET');
+    $stmt->execute();
+
+    $tickets = [];
+
+    while ($ticket = $stmt->fetch()) {
+      $tickets[] = Ticket::convertToTicket($db, $ticket);
+    }
+    return $tickets;
+  }
 }
 ?>

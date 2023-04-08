@@ -47,7 +47,6 @@ CREATE TABLE TICKET(
     Status VARCHAR(255) NOT NULL DEFAULT 'open',
     SubmitDate INTEGER NOT NULL, 
     Priority VARCHAR(255),
-    Hashtag VARCHAR(255),
     Description TEXT,
     AssignedAgent INTEGER,
     DepartmentID INTEGER,  /* can be null */
@@ -102,7 +101,7 @@ CREATE TABLE MESSAGE(
 
 
 CREATE TABLE FORUM(
-    ForumId INTEGER PRIMARY KEY,
+    ForumID INTEGER PRIMARY KEY,
     Question TEXT,
     Answer TEXT
 );
