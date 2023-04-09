@@ -151,7 +151,8 @@ if(!empty($hashtags)){
 }   
     
     
-//criar a query    $stmt = $db->prepare('SELECT * FROM TICKET');
+    //criar a query    $stmt = $db->prepare('SELECT * FROM TICKET');
+    $stmt = $db->prepare('');
     $stmt->execute();
 
     $tickets = [];

@@ -16,19 +16,23 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 $confirm_password = $_POST['confirm_password'];
 
-$ret_ = check_valid_data($name, $username, $email, $password, $confirm_password)
-if (!check_valid_data($name, $username, $email, $password, $confirm_password)) {
-    $session->addMessage('error', 'Invalid data');
+$valid_data = check_valid_data($name, $username, $email, $password, $confirm_password);
+if (!$valid_data[0]) {
+    $session->addMessage('error', $valid_data[1]);
     die(header('Location: ../pages/create_account.php'));
 }
-if (!check_acc_exists($db, $name, $username, $email, $password, $confirm_password)) {
-    $user_id = create_account($db, $name, $username, $email, $password, $confirm_password);
-    $session->setId($user_id);
-    // $session->setName($name);
-} else {
-    $session->addMessage('error', 'Account already exists');
+
+$account_exists = check_acc_exists($db, $name, $username, $email, $password, $confirm_password);
+if ($account_exists[0]) {
+    $session->addMessage('error', $account_exists[1]);
     die(header('Location: ../pages/create_account.php'));
 }
+
+$user_id = create_account($db, $name, $username, $email, $password, $confirm_password);
+$session->setId($user_id);
+// $session->setName($name);
+$session->addMessage('success', $account_exists[1]);
+
 
 header('Location: ../pages/main_page.php');
 ?>
