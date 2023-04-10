@@ -34,7 +34,7 @@ class Hashtag {
     $hashtags = [];
     while ($hashtag = $stmt->fetch()) {
       $hashtags[] = new Hashtag(
-        $hashtag['HashtagID'],
+        intval($hashtag['HashtagID']),
         $hashtag['HashtagName'],
       );
     }

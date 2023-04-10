@@ -53,3 +53,15 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
     </table>
 <?php } ?>
 
+<?php function drawFilterMenu(array $filterValues) { ?>
+    <section>
+        <h4>Filters</h4>
+        <legend>Status</legend>
+        <?php
+            foreach($filterValues[0] as $st){ ?>
+                <input type="radio" name=<?php $st?> id=<?php $st?> value=<?php $st?>/><label for=<?php $st?>><?php $st?></label><br/>
+            <?php } ?>
+    </section>
+
+
+<?php } ?>

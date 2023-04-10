@@ -91,7 +91,7 @@ class Ticket
       $ticket['Title'],
       $client->username,
       $ticket['Status'],
-      $ticket['SubmitDate'],
+      intval($ticket['SubmitDate']),
       $ticket['Priority'],
       $hashtags,
       $ticket['Description'],
@@ -102,7 +102,8 @@ class Ticket
 
   static function filter(PDO $db, array $status, array $priorities, array $hashtags, array $agents, array $departments): array
   {
-    $query = 'SELECT * FROM TICKET JOIN HASHTAG_TICKET USING(TicketID)';
+    var_dump($departments);
+    $query = 'SELECT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, H.HashtagID, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T JOIN HASHTAG_TICKET H USING(TicketID)';
     $statusF = '';
     $prioritiesF = '';
     $hashtagsF = '';
@@ -111,48 +112,53 @@ class Ticket
     
     if(!empty($status)){
       for ($i = 0; $i<count($status); $i++) {
-        if ($i == 0) {$statusF = $statusF + sprintf('(Status = %s', $status[$i]);} 
-        else {$statusF = $statusF + sprintf(' or Status = %s', $status[$i]);}
+        if ($i == 0) {$statusF = $statusF.sprintf('(T.Status = %s', $status[$i]);} 
+        else {$statusF = $statusF.sprintf(' or T.Status = %s', $status[$i]);}
       }
-      $statusF = $statusF + ')';
+      $statusF = $statusF.')';
   }
   
   if(!empty($priorities)){
+    if ($statusF != '') {$prioritiesF = ' and ';}
     for ($i = 0; $i<count($priorities); $i++) {
-      if ($i == 0) {$prioritiesF = $prioritiesF + sprintf('(Priority = %s', $priorities[$i]);} 
-      else {$prioritiesF = $prioritiesF + sprintf(' or Priority = %s', $priorities[$i]);}
+      if ($i == 0) {$prioritiesF = $prioritiesF.sprintf('(T.Priority = %s', $priorities[$i]);} 
+      else {$prioritiesF = $prioritiesF.sprintf(' or T.Priority = %s', $priorities[$i]);}
     }
-    $prioritiesF = $prioritiesF + ')';
+    $prioritiesF = $prioritiesF.')';
 }
+
+//conversão para IDs
+if(!empty($hashtags)){
+  if ($statusF != '' || $prioritiesF != '') {$hashtagsF = ' and ';}
+  for ($i = 0; $i<count($hashtags); $i++) {
+    if ($i == 0) {$hashtagsF = $hashtagsF.sprintf('(H.HashtagID = %s', $hashtags[$i]);} 
+    else {$hashtagsF = $hashtagsF.sprintf(' or H.HashtagID = %s', $hashtags[$i]);}
+  }
+  $hashtagsF = $hashtagsF.')';
+}
+
 //conversão para IDs
 if(!empty($agents)){
+  if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '') {$agentsF = ' and ';}
   for ($i = 0; $i<count($agents); $i++) {
-    if ($i == 0) {$agentsF = $agentsF + sprintf('(AssignedAgent = %s', $agents[$i]);} 
-    else {$agentsF = $agentsF + sprintf(' or AssignedAgent = %s', $agents[$i]);}
+    if ($i == 0) {$agentsF = $agentsF.sprintf('(T.AssignedAgent = %s', $agents[$i]);} 
+    else {$agentsF = $agentsF.sprintf(' or T.AssignedAgent = %s', $agents[$i]);}
   }
-  $agentsF = $agentsF + ')';
+  $agentsF = $agentsF.')';
 }
 //conversão para IDs
 if(!empty($departments)){
+  if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '' || $agentsF != '') {$departmentsF = ' and ';}
   for ($i = 0; $i<count($departments); $i++) {
-    if ($i == 0) {$departmentsF = $departmentsF + sprintf('(DepartmentID = %s', $departments[$i]);} 
-    else {$departmentsF = $departmentsF + sprintf(' or Depa tmentID= %s', $departments[$i]);}
+    var_dump($departments[$i]);
+    if ($i == 0) {$departmentsF = $departmentsF.sprintf('(T.DepartmentID = %s', $departments[$i]);} 
+    else {$departmentsF = $departmentsF.sprintf(' or T.DepartmentID= %s', $departments[$i]);}
   }
-  $departmentsF = $departmentsF + ')';
-}
-
-//verificar
-if(!empty($hashtags)){
-  for ($i = 0; $i<count($hashtags); $i++) {
-    if ($i == 0) {$hashtagsF = $hashtagsF + sprintf('(Hashtags = %s', $hashtags[$i]);} 
-    else {$hashtagsF = $hashtagsF + sprintf(' or Hashtags = %s', $hashtags[$i]);}
-  }
-  $hashtagsF = $hashtagsF + ')';
-}   
-    
-    
-    //criar a query    $stmt = $db->prepare('SELECT * FROM TICKET');
-    $stmt = $db->prepare('');
+  $departmentsF = $departmentsF.')';
+}    
+    echo $departmentsF;
+    echo $query.' WHERE '.$statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF.';';
+    $stmt = $db->prepare($query.' WHERE '.$statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF.';');
     $stmt->execute();
 
     $tickets = [];
@@ -161,6 +167,43 @@ if(!empty($hashtags)){
       $tickets[] = Ticket::convertToTicket($db, $ticket);
     }
     return $tickets;
+  }
+
+  static function getFilters(PDO $db): array {
+    $filters = [];
+    $status = ['open', 'in progress', 'closed'];
+    $priorities = ['high', 'medium', 'low'];
+    $hashtags = [];
+    $agents = [];
+    $departments = [];
+
+    $filters[]=$status;
+    $filters[]=$priorities;
+
+    $stmt = $db->prepare('SELECT * from HASHTAG;');
+    $stmt->execute();
+    while ($ht = $stmt->fetch()) {
+      $hashtags[] = $ht;
+    }
+    $filters[] = $hashtags;
+
+    $stmt = $db->prepare('SELECT UserID, Username FROM AGENT JOIN CLIENT USING(UserID);');
+    $stmt->execute();
+    while ($ag = $stmt->fetch()) {
+      $agents[] = $ag;
+    }
+    $filters[] = $agents;
+
+    $stmt = $db->prepare('SELECT * FROM DEPARTMENT;');
+    $stmt->execute();
+    while ($dp = $stmt->fetch()) {
+      $departments[] = $dp;
+    }
+    $filters[] = $departments;
+    var_dump($filters);
+
+
+    return $filters;
   }
 }
 ?>

@@ -64,7 +64,7 @@ class Agent extends Client
             $agent['Username'],
             $agent['Password'],
             $agent['Email'],
-            $agent['DepartmentID']
+            intval($agent['DepartmentID'])
         );
     }
 
