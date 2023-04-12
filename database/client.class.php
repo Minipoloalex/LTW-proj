@@ -45,7 +45,7 @@
               );
             } else return null;
           }
-        
+
 
         static function searchClients(PDO $db, string $search, int $count) : array {
             $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Name LIKE ? LIMIT ?');
@@ -102,7 +102,4 @@
           function name() {
             return $this->username;
           } //not really needed in ours
-      
-
-
     }

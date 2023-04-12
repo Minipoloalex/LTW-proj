@@ -43,6 +43,9 @@ function check_valid_data(string $name, string $username, string $email, string 
     if (empty($name) || empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
         return array(false, "Username, password, name and email are required");
     }
+    if ($password != $confirm_password) {
+        return array(false, "Passwords do not match");
+    }
     if (strlen($password) < 6) {
         return array(false, "Password must have at least 6 characters");
     }
@@ -59,9 +62,6 @@ function check_acc_exists(PDO $db, string $name, string $username, string $email
     $stmt->execute(array($email));
     if ($stmt->fetch()) {
         return array(true, "Email already exists");
-    }
-    if ($password != $confirm_password) {
-        return array(true, "Passwords do not match");
     }
     return array(false, "Account registered");
 }
