@@ -77,8 +77,8 @@
                     intval($client['UserID']),
                     $client['Name'],
                     $client['Username'],
-                    $client['password'],
-                    $client['email']
+                    $client['Password'],
+                    $client['Email']
                 );
             }
             return $clients;
@@ -102,4 +102,16 @@
           function name() {
             return $this->username;
           } //not really needed in ours
+
+
+          static function getType(PDO $db, int $id) : string {
+            $stmt = $db->prepare('SELECT * FROM ADMIN WHERE UserID = ?');
+            $stmt->execute(array($id));
+            if ($stmt->fetch()) return "Admin";
+
+            $stmt = $db->prepare('SELECT * FROM AGENT WHERE UserID = ?');
+            $stmt->execute(array($id));
+            if ($stmt->fetch()) return "Agent";
+            return "Client";
+          }
     }

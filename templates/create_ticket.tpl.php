@@ -9,12 +9,11 @@ require_once(__DIR__ . '/../database/department.class.php');
 { 
     $hashtags = Hashtag::getHashtags($db);
     $departments = Department::getDepartments($db);
-    print_r($hashtags);
-    print_r($departments);
+
     ?>
     <form>
         <label>Ticket title*
-            <input type='text' name='ticket'>
+            <input type='text' name='title'>
         </label>
         <label>
             Hashtags*

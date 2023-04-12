@@ -77,8 +77,8 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
         <?php
         foreach ($filterValues[2] as $fv) { ?>
             <?php var_dump($fv) ?>
-            <input type="checkbox" name="<?php echo $fv[1] ?>" id="<?php echo $fv[1] ?>" value="<?php echo $fv[0] ?>" />
-            <label for="<?php echo $fv[1] ?>"><?php echo $fv[1] ?></label><br />
+            <input type="checkbox" name="<?php echo $fv['HashtagName'] ?>" id="<?php echo $fv['HashtagName'] ?>" value="<?php echo $fv['HashtagID'] ?>" />
+            <label for="<?php echo $fv['HashtagName'] ?>"><?php echo $fv['HashtagName'] ?></label><br />
         <?php } ?>
         <legend>Agent</legend>
         <?php

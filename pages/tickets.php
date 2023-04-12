@@ -9,7 +9,7 @@ $f = true;
 
 $db = getDatabaseConnection();
 if($f) {
-  $tickets = Ticket::filter($db, [], ["'high'"], [], [], []);
+  $tickets = Ticket::filter($db, [], [], [], [], [1]);
   $filters = Ticket::getFilters($db);
 }
 else {

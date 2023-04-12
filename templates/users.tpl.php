@@ -12,14 +12,18 @@ require_once(__DIR__ . '/../database/client.class.php');
 <?php function drawUser(Client $user, PDO $db) { ?>
     <?php $nr_tickets_created = count(Ticket::getByUser($db, $user->id))?>
     <?php $nr_tickets_assigned = count(Ticket::getByAgent($db, $user->id))?>
-    
+    <?php $user_type = Client::getType($db, $user->id)?>
+
     <tr>
         <td><?=$user->name?></td>
         <td><?=$user->id?></td>
         <td><?=$user->username?></td>
-        <td><?='USERTYPE'?></td>
+        <td><?=$user_type?></td>
         <td><?=$nr_tickets_created?></td>
-        <td><?=$nr_tickets_assigned?></td>
+        
+        <td><?=($user_type != "Client") ? $nr_tickets_assigned : '-'; ?></td>
+        
+        <td><?=($user_type != "Client") ? Agent::getDepartment($db, $user->id) : '-' ?></td>
 <?php } ?>
 
 <?php function drawUsersTable(array $users, PDO $db) { ?> 

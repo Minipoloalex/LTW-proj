@@ -87,6 +87,14 @@ class Agent extends Client
         }
         return $agents;
     }
+
+    static function getDepartment(PDO $db, int $agentId) : string
+    {
+        $stmt = $db->prepare('SELECT * FROM AGENT JOIN DEPARTMENT USING(DepartmentID) WHERE UserID = ?');
+        $stmt->execute(array($agentId));
+        $department = $stmt->fetch();
+        return $department['DepartmentName'];
+    }
 }
 
 ?>

@@ -48,7 +48,7 @@ class Ticket
   }
   static function getByAgent(PDO $db, int $agentId): array
   {
-    $stmt = $db->prepare('SELECT * FROM TICKET WHERE AgentID = ?');
+    $stmt = $db->prepare('SELECT * FROM TICKET WHERE AssignedAgent = ?');
     $stmt->execute(array($agentId));
     $tickets = [];
     while ($ticket = $stmt->fetch()) {
@@ -102,6 +102,7 @@ class Ticket
   static function existsTicket(PDO $db, string $title, int $userID): bool {
     /* Same user can't create tickets with the same name */
     /* Not tested yet */
+    
     $stmt = $db->prepare('SELECT * FROM TICKET WHERE Title = ? AND UserID = ?');
     $stmt->execute(array($title, $userID));
     $ticket = $stmt->fetch();

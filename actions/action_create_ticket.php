@@ -15,12 +15,12 @@ $title = $_POST['title'];
 $description = $_POST['description'];
 $hashtags = $_POST['hashtags'];
 $departmentName = $_POST['department'];
-$assignedAgent = $_POST['assignedAgent'];
+/* agent will be null */
 $status = $_POST['status'];
 $priority = $_POST['priority'];
 $submitDate = $_POST['submitDate'];
-$userID = $_POST['userID'];     /* session userID */
-$username = $_POST['username'];  /* session username */
+$userID = $session->getId();     /* session userID */
+$username = $session->getName();  /* session username */
 
 if (Ticket::existsTicket($db, $title, $userID)) {
     $session->addMessage('error', "Ticket with the same title already exists");

@@ -18,7 +18,6 @@ require_once(__DIR__ . '/../database/ticket.class.php');
 
 <?php
 /*
-    // output hashtags could be a function
     <td>
         <ul>
             <?php foreach ($ticket->hashtags as $hashtag) { ?>

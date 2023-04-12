@@ -1,0 +1,64 @@
+.custom-shape-divider-top-1681308841 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1681308841 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 150px;
+}
+
+.custom-shape-divider-top-1681308841 .shape-fill {
+    fill: #f3b122;
+}
+
+/* grids */
+.container {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: 1fr 1fr 1fr 0.4fr 1fr;
+    gap: 1em 1em;
+    grid-template-areas:
+        ". . ."
+        "email email ."
+        "password password ."
+        ". buttons ."
+        ". . .";
+    width: 50em;
+    height: 50em;
+}
+
+.loginform input[type='email'] {
+    grid-area: email;
+}
+
+.loginform input[type='password'] {
+    grid-area: password;
+}
+
+.button {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        ". register login"
+        ". . ."
+        ". . .";
+    grid-area: buttons;
+}
+
+.create {
+    grid-area: register;
+}
+
+.login {
+    grid-area: login;
+}
