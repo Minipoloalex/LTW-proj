@@ -57,6 +57,7 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
     </table>
 <?php } ?>
 
+<!-- javascript -->
 <?php function drawFilterMenu(array $filterValues)
 { ?>
     <section>
@@ -76,21 +77,20 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
         <legend>Hashtags</legend>
         <?php
         foreach ($filterValues[2] as $fv) { ?>
-            <?php var_dump($fv) ?>
             <input type="checkbox" name="<?php echo $fv['HashtagName'] ?>" id="<?php echo $fv['HashtagName'] ?>" value="<?php echo $fv['HashtagID'] ?>" />
             <label for="<?php echo $fv['HashtagName'] ?>"><?php echo $fv['HashtagName'] ?></label><br />
         <?php } ?>
         <legend>Agent</legend>
         <?php
         foreach ($filterValues[3] as $fv) { ?>
-            <input type="checkbox" name="<?php echo $fv[1] ?>" id="<?php echo $fv[1] ?>" value="<?php echo $fv[0] ?>" />
-            <label for="<?php echo $fv[1] ?>"><?php echo $fv[1] ?></label><br />
+            <input type="checkbox" name="<?php echo $fv['Username'] ?>" id="<?php echo $fv['Username'] ?>" value="<?php echo $fv['UserID'] ?>" />
+            <label for="<?php echo $fv['Username'] ?>"><?php echo $fv['Username'] ?></label><br />
         <?php } ?>
         <legend>Department</legend>
         <?php
         foreach ($filterValues[4] as $fv) { ?>
-            <input type="checkbox" name="<?php echo $fv[1] ?>" id="<?php echo $fv[1] ?>" value="<?php echo $fv[0] ?>" />
-            <label for="<?php echo $fv[1] ?>"><?php echo $fv[1] ?></label><br />
+            <input type="checkbox" name="<?php echo $fv['DepartmentName'] ?>" id="<?php echo $fv['DepartmentName'] ?>" value="<?php echo $fv['DepartmentID'] ?>" />
+            <label for="<?php echo $fv['DepartmentName'] ?>"><?php echo $fv['DepartmentName'] ?></label><br />
         <?php } ?>
     </section>
 

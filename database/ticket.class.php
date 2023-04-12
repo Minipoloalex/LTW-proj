@@ -11,13 +11,13 @@ class Ticket
   public string $username;
   public string $status;
   public int $submitdate; // $date = date('F j', $article['published']);
-  public string $priority;
+  public ?string $priority;
   public array $hashtags;
   public string $description;
-  public string $assignedagent;
-  public string $departmentName;
+  public ?string $assignedagent;
+  public ?string $departmentName;
 
-  public function __construct(int $ticketid,string $title, string $username, string $status, int $submitdate, string $priority, array $hashtags, string $description, string $assignedagent, string $departmentName)
+  public function __construct(int $ticketid, string $title, string $username, string $status, int $submitdate, ?string $priority, array $hashtags, string $description, ?string $departmentName, ?string $assignedagent)
   {
     $this->ticketid = $ticketid;
     $this->title = $title;
@@ -27,8 +27,8 @@ class Ticket
     $this->priority = $priority;
     $this->hashtags = $hashtags;
     $this->description = $description;
-    $this->assignedagent = $assignedagent;
     $this->departmentName = $departmentName;
+    $this->assignedagent = $assignedagent;
   }
   static function getById(PDO $db, int $id): Ticket {
     $stmt = $db->prepare('SELECT * FROM TICKET WHERE TicketID = ?');
@@ -82,8 +82,8 @@ class Ticket
 
   private static function convertToTicket(PDO $db, array $ticket) {
     $client = Client::getById($db, intval($ticket['UserID']));
-    $department = Department::getById($db, intval($ticket['DepartmentID']));
-    $agent = Agent::getById($db, intval($ticket['AssignedAgent']));
+    $department = $ticket['DepartmentID'] != NULL ? Department::getById($db, intval($ticket['DepartmentID'])) : NULL;
+    $agent = $ticket['AssignedAgent'] != NULL ? Agent::getById($db, intval($ticket['AssignedAgent'])) : NULL;
     $id = intval($ticket['TicketID']);
     $hashtags = Hashtag::getByTicketId($db, $id);
     return new Ticket(
@@ -95,8 +95,8 @@ class Ticket
       $ticket['Priority'],
       $hashtags,
       $ticket['Description'],
-      $agent->username,
-      $department->departmentName
+      $agent != NULL ? $agent->username : NULL,
+      $department != NULL ? $department->departmentName: NULL,
     );
   }
   static function existsTicket(PDO $db, string $title, int $userID): bool {
@@ -109,13 +109,20 @@ class Ticket
     return $ticket;
   }
 
-  static function createTicket(PDO $db, string $title, string $username, string $status, int $submitdate, string $priority, array $hashtags, string $description, string $assignedagent, string $departmentName) : int {
+  static function createTicket(PDO $db, string $title, string $username, ?string $priority, array $hashtags, string $description, ?string $departmentName) : int {
     /* Not tested yet */
     /* Need to add hashtags to other table (not done yet) */
-    $stmt = $db->prepare('INSERT INTO TICKET VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)');
-    $stmt->execute(array($title, $username, $status, $submitdate, $priority, $description, $assignedagent, $departmentName));
+    $submitdate = idate('U');
+    var_dump($submitdate);
+    
+    $status = "open";
+
+    $stmt = $db->prepare('INSERT INTO TICKET VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, NULL)');  /* assignedAgent is null */
+    $stmt->execute(array($title, $username, $status, $submitdate, $priority, $description, $departmentName));
     return intval($db->lastInsertId());
   }
+
+  // adicionar filtros por data
   static function filter(PDO $db, array $status, array $priorities, array $hashtags, array $agents, array $departments): array
   {
     var_dump($departments);

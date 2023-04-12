@@ -9,24 +9,32 @@ $session = new Session();
 if (!$session->isLoggedIn()) {
     die(header('Location: ../pages/main_page.php'));
 }
+
 $db = getDatabaseConnection();
 
 $title = $_POST['title'];
 $description = $_POST['description'];
 $hashtags = $_POST['hashtags'];
-$departmentName = $_POST['department'];
-/* agent will be null */
-$status = $_POST['status'];
-$priority = $_POST['priority'];
-$submitDate = $_POST['submitDate'];
+
+$departmentName = $_POST['department']; /* Department can be null */
+$priority = $_POST['priority']; /* priority can be null */
+
+if (empty($title) || empty($description)) {
+    die(header('Location: ../pages/create_ticket.php')); /* Not tested: check if this works */
+}
+
 $userID = $session->getId();     /* session userID */
 $username = $session->getName();  /* session username */
+
 
 if (Ticket::existsTicket($db, $title, $userID)) {
     $session->addMessage('error', "Ticket with the same title already exists");
     die(header('Location: ../pages/create_ticket.php'));
 }
-Ticket::createTicket($db, $title, $username, $status, $submitDate, $priority, $hashtags, $description, $assignedAgent, $deparmentName);
+/* status is "open", submit date is now : defined inside createTicket; agent is always null */
+Ticket::createTicket($db, $title, $username, $priority, $hashtags, $description, $departmentName);
+
+
 /*
 comentário no ticket é chamada AJAX (pedido) no servidor para acrescentar, dá resposta a dizer que acrescentou
 assim, não é necessário dar refresh à pagina e não se perde o contexto

@@ -114,4 +114,35 @@
             if ($stmt->fetch()) return "Agent";
             return "Client";
           }
+          static function filter(PDO $db, array $types, array $departments, string $search) : array {
+            $query = 'SELECT UserID, Name, Username, Password, Email FROM CLIENT';
+            $typesF = '';
+            $departmentsF = '';
+            $nameF = '';
+
+            if(!empty($types)){
+              for ($i = 0; $i<count($types); $i++) {
+                if ($i == 0) {$statusF = $statusF.sprintf('(T.Status = %s', $types[$i]);} 
+                else {$statusF = $statusF.sprintf(' or T.Status = %s', $types[$i]);}
+              }
+              $statusF = $statusF.')';
+          }
+          }
+
+          static function getFilters(PDO $db): array {
+            $filters = [];
+            $type = ['Client', 'Agent', 'Admin'];
+            $departments = [];
+        
+            $filters[]=$type;
+        
+            $stmt = $db->prepare('SELECT * FROM DEPARTMENT;');
+            $stmt->execute();
+            while ($dp = $stmt->fetch()) {
+              $departments[] = $dp;
+            }
+            $filters[] = $departments;        
+        
+            return $filters;
+          }
     }
