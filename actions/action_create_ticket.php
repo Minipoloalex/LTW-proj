@@ -14,10 +14,10 @@ $db = getDatabaseConnection();
 
 $title = $_POST['title'];
 $description = $_POST['description'];
-$hashtags = $_POST['hashtags'];
+$hashtags = $_POST['hashtags'] ?? array();
+$departmentID = empty($_POST['department']) ? NULL : intval($_POST['department']); /* Department can be null */
 
-$departmentID = intval($_POST['department']); /* Department can be null */
-$priority = $_POST['priority']; /* priority can be null */
+$priority = $_POST['priority']; /* priority can be null (atm it is always null) */
 
 var_dump($title);
 var_dump($description);
@@ -28,16 +28,20 @@ var_dump($session->getId());
 var_dump($session->getName());
 
 if (empty($title) || empty($description)) {
-    die(header('Location: ../pages/create_ticket.php')); /* Not tested: check if this works */
+    die(header('Location: ../pages/create_ticket.php'));
 }
 
 $userID = $session->getId();     /* session userID */
 $username = $session->getName();  /* session username */
 
 
-if (Ticket::existsTicket($db, $title, $userID)) {
+if ($oldTicketID = Ticket::existsTicket($db, $title, $userID)) { // if does not exist -> old_id is NULL (type ?int)
     $session->addMessage('error', "Ticket with the same title already exists");
-    die(header('Location: ../pages/create_ticket.php'));
+    
+    // this can be a bit weird, since the ticket isn't being created, but the user can feel like it is
+    die(header('Location: ../pages/individual_ticket.php?id=' . $oldTicketID));
+    
+    // die(header('Location: ../pages/create_ticket.php'));    // could send to the ticket page of the already existent ticket
 }
 /* status is "open", submit date is now : defined inside createTicket; agent is always null */
 $newTicketID = Ticket::createTicket($db, $title, $userID, $priority, $hashtags, $description, $departmentID);

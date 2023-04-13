@@ -99,26 +99,21 @@ class Ticket
       $department != NULL ? $department->departmentName: NULL,
     );
   }
-  static function existsTicket(PDO $db, string $title, int $userID): bool {
+  static function existsTicket(PDO $db, string $title, int $userID): ?int {
     /* Same user can't create tickets with the same name */
-    /* Not tested yet */
-    
     $stmt = $db->prepare('SELECT * FROM TICKET WHERE Title = ? AND UserID = ?');
     $stmt->execute(array($title, $userID));
     $ticket = $stmt->fetch();
-    return $ticket;
+    return intval($ticket['TicketID']) ?? NULL;
   }
 
   static function createTicket(PDO $db, string $title, int $userID, ?string $priority, array $hashtags, string $description, ?int $departmentID) : int {
-    /* Not tested yet */
-    /* Need to add hashtags to other table (not done yet) */
+    /* TODO:  Need to add hashtags to other table (not done yet) */
     $submitdate = idate('U');
-    var_dump($submitdate);
-    
     $status = "open";
 
     $stmt = $db->prepare('INSERT INTO TICKET(TicketID, Title, UserID, Status, SubmitDate, Priority, Description, AssignedAgent, DepartmentID)
-    VALUES (NULL, ?, ?, ?, ?, ?, ?, NULL, ?)');  /* assignedAgent is null */
+    VALUES (NULL, ?, ?, ?, ?, ?, ?, NULL, ?)');  /* assignedAgent is always null */
     $stmt->execute(array($title, $userID, $status, $submitdate, $priority, $description, $departmentID));
     return intval($db->lastInsertId());
   }
