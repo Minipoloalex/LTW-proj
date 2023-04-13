@@ -17,7 +17,7 @@ class Ticket
   public ?string $assignedagent;
   public ?string $departmentName;
 
-  public function __construct(int $ticketid, string $title, string $username, string $status, int $submitdate, ?string $priority, array $hashtags, string $description, ?string $departmentName, ?string $assignedagent)
+  public function __construct(int $ticketid, string $title, string $username, string $status, int $submitdate, ?string $priority, array $hashtags, string $description, ?string $assignedagent, ?string $departmentName)
   {
     $this->ticketid = $ticketid;
     $this->title = $title;
@@ -109,7 +109,7 @@ class Ticket
     return $ticket;
   }
 
-  static function createTicket(PDO $db, string $title, string $username, ?string $priority, array $hashtags, string $description, ?string $departmentName) : int {
+  static function createTicket(PDO $db, string $title, int $userID, ?string $priority, array $hashtags, string $description, ?int $departmentID) : int {
     /* Not tested yet */
     /* Need to add hashtags to other table (not done yet) */
     $submitdate = idate('U');
@@ -117,8 +117,9 @@ class Ticket
     
     $status = "open";
 
-    $stmt = $db->prepare('INSERT INTO TICKET VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, NULL)');  /* assignedAgent is null */
-    $stmt->execute(array($title, $username, $status, $submitdate, $priority, $description, $departmentName));
+    $stmt = $db->prepare('INSERT INTO TICKET(TicketID, Title, UserID, Status, SubmitDate, Priority, Description, AssignedAgent, DepartmentID)
+    VALUES (NULL, ?, ?, ?, ?, ?, ?, NULL, ?)');  /* assignedAgent is null */
+    $stmt->execute(array($title, $userID, $status, $submitdate, $priority, $description, $departmentID));
     return intval($db->lastInsertId());
   }
 

@@ -48,7 +48,7 @@ CREATE TABLE TICKET(
     SubmitDate INTEGER NOT NULL, 
     Priority VARCHAR(255),
     Description TEXT,
-    AssignedAgent INTEGER,
+    AssignedAgent INTEGER, /* can be null */
     DepartmentID INTEGER,  /* can be null */
     
     CONSTRAINT "PK_Ticket" PRIMARY KEY(TicketID),

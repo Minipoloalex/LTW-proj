@@ -1,13 +1,13 @@
 <?php
 declare(strict_types = 1);
 require_once(__DIR__ . '/../database/connection.db.php');
-require_once(__DIR__ . '/..database/ticket.class.php');
+require_once(__DIR__ . '/../database/ticket.class.php');
 
 require_once(__DIR__ . '/../utils/session.php');
 
 $session = new Session();
 if (!$session->isLoggedIn()) {
-    die(header('Location: ../pages/main_page.php'));
+    die(header('Location: ../pages/landing_page.php'));
 }
 
 $db = getDatabaseConnection();
@@ -16,8 +16,16 @@ $title = $_POST['title'];
 $description = $_POST['description'];
 $hashtags = $_POST['hashtags'];
 
-$departmentName = $_POST['department']; /* Department can be null */
+$departmentID = intval($_POST['department']); /* Department can be null */
 $priority = $_POST['priority']; /* priority can be null */
+
+var_dump($title);
+var_dump($description);
+var_dump($hashtags);
+var_dump($departmentID);
+var_dump($priority);
+var_dump($session->getId());
+var_dump($session->getName());
 
 if (empty($title) || empty($description)) {
     die(header('Location: ../pages/create_ticket.php')); /* Not tested: check if this works */
@@ -32,8 +40,9 @@ if (Ticket::existsTicket($db, $title, $userID)) {
     die(header('Location: ../pages/create_ticket.php'));
 }
 /* status is "open", submit date is now : defined inside createTicket; agent is always null */
-Ticket::createTicket($db, $title, $username, $priority, $hashtags, $description, $departmentName);
+$newTicketID = Ticket::createTicket($db, $title, $userID, $priority, $hashtags, $description, $departmentID);
 
+header('Location: ../pages/individual_ticket.php?id=' . $newTicketID);
 
 /*
 comentário no ticket é chamada AJAX (pedido) no servidor para acrescentar, dá resposta a dizer que acrescentou

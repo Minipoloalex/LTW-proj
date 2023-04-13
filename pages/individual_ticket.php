@@ -13,7 +13,6 @@ $db = getDatabaseConnection();
 // validate if current user has access to ticket given by id
 // if not, redirect to home page (or login page if not logged in)
 
-var_dump($id);
 $ticket = Ticket::getById($db, $id);
 var_dump($ticket);
 

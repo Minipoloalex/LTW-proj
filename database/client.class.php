@@ -33,7 +33,7 @@
               WHERE lower(Email) = ? AND Password = ?
             ');
       
-            $stmt->execute(array(strtolower($email), sha1($password)));
+            $stmt->execute(array(strtolower($email), $password));
         
             if ($client = $stmt->fetch()) {
               return new Client(
