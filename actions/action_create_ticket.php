@@ -7,7 +7,7 @@ require_once(__DIR__ . '/../utils/session.php');
 
 $session = new Session();
 if (!$session->isLoggedIn()) {
-    die(header('Location: ../pages/landing_page.php'));
+    die(header('Location: ../pages/main_page.php'));
 }
 
 $db = getDatabaseConnection();
@@ -15,38 +15,28 @@ $db = getDatabaseConnection();
 $title = $_POST['title'];
 $description = $_POST['description'];
 $hashtags = $_POST['hashtags'] ?? array();
+
 $departmentID = empty($_POST['department']) ? NULL : intval($_POST['department']); /* Department can be null */
-
-$priority = $_POST['priority']; /* priority can be null (atm it is always null) */
-
-var_dump($title);
-var_dump($description);
-var_dump($hashtags);
-var_dump($departmentID);
-var_dump($priority);
-var_dump($session->getId());
-var_dump($session->getName());
+$priority = $_POST['priority']; /* priority can be null (atm is always null) */
 
 if (empty($title) || empty($description)) {
-    die(header('Location: ../pages/create_ticket.php'));
+    die(header('Location: ../pages/create_ticket.php')); /* Not tested: check if this works */
 }
 
 $userID = $session->getId();     /* session userID */
 $username = $session->getName();  /* session username */
 
 
-if ($oldTicketID = Ticket::existsTicket($db, $title, $userID)) { // if does not exist -> old_id is NULL (type ?int)
+if (Ticket::existsTicket($db, $title, $userID)) {
     $session->addMessage('error', "Ticket with the same title already exists");
-    
-    // this can be a bit weird, since the ticket isn't being created, but the user can feel like it is
-    die(header('Location: ../pages/individual_ticket.php?id=' . $oldTicketID));
-    
-    // die(header('Location: ../pages/create_ticket.php'));    // could send to the ticket page of the already existent ticket
+    die(header('Location: ../pages/create_ticket.php'));
 }
-/* status is "open", submit date is now : defined inside createTicket; agent is always null */
-$newTicketID = Ticket::createTicket($db, $title, $userID, $priority, $hashtags, $description, $departmentID);
 
-header('Location: ../pages/individual_ticket.php?id=' . $newTicketID);
+/* status is "open", submit date is now, agent always null: defined inside createTicket */
+$id = Ticket::createTicket($db, $title, $userID, $priority, $hashtags, $description, $departmentName);
+// $session->addMessage('success', "Ticket created successfully");
+
+header('Location: ../pages/individual_ticket.php?id=' . $id);
 
 /*
 comentário no ticket é chamada AJAX (pedido) no servidor para acrescentar, dá resposta a dizer que acrescentou
