@@ -1,3 +1,6 @@
+/*svg*/
+
+
 .custom-shape-divider-top-1681308841 {
     position: absolute;
     top: 0;
@@ -15,24 +18,32 @@
 }
 
 .custom-shape-divider-top-1681308841 .shape-fill {
-    fill: #f3b122;
+    fill: #846a8b;
 }
 
-/* grids */
-.container {
+/* landing page grids */
+form {
     position: relative;
     display: grid;
-    grid-template-columns: auto auto auto;
-    grid-template-rows: 1fr 1fr 1fr 0.4fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 1em 1em;
     grid-template-areas:
+        ". . ."
         ". . ."
         "email email ."
         "password password ."
         ". buttons ."
+        ". . ."
         ". . .";
     width: 50em;
     height: 50em;
+    padding: 2em;
+
+    /* background-color: #f7f7f7;
+border-radius: 10px;
+padding: 2em;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
 }
 
 .loginform input[type='email'] {
@@ -43,22 +54,150 @@
     grid-area: password;
 }
 
-.button {
+buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
-        ". register login"
-        ". . ."
-        ". . .";
+        ". register . login"
+        ". . . ."
+        ". . . .";
     grid-area: buttons;
 }
 
-.create {
+.register {
     grid-area: register;
 }
 
 .login {
     grid-area: login;
+}
+
+/*colors*/
+
+
+footer {
+    background-color: #dee2ff;
+    padding: 1em;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #846a8b;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.container {
+    background-color: #dee2ff;
+}
+
+.loginform input[type='email'],
+.loginform input[type='password'] {
+    /* padding: 1em; */
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    background-color: #eee;
+
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 0.5em;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-area: buttons;
+}
+
+.register,
+.login {
+    padding: 1em;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.register {
+    background-color: #846a8b;
+}
+
+.login {
+    background-color: #846a8b;
+}
+
+.register:hover,
+.login:hover {
+    opacity: 0.8;
+}
+
+body,
+footer {
+    margin: 0;
+}
+
+
+/* BOX title effect */
+
+/* html,
+body {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: navajowhite;
+} */
+
+.box {
+    display: flex;
+}
+
+.box .inner {
+    width: 400px;
+    height: 200px;
+    line-height: 200px;
+    font-size: 4em;
+    font-family: sans-serif;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.box .inner:first-child {
+    background-color: #846a8b;
+    color: #3c2b41;
+    transform-origin: right;
+    transform: perspective(100px) rotateY(-15deg);
+}
+
+.box .inner:last-child {
+    background-color: #b09bb6;
+    color: rgb(217, 209, 197);
+    transform-origin: left;
+    transform: perspective(100px) rotateY(15deg);
+}
+
+.box .inner span {
+    position: absolute;
+    animation: marquee 5s linear infinite;
+}
+
+.box .inner:first-child span {
+    animation-delay: 2.5s;
+    left: -100%;
+}
+
+@keyframes marquee {
+    from {
+        left: 100%;
+    }
+
+    to {
+        left: -100%;
+    }
 }
