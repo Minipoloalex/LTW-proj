@@ -6,21 +6,24 @@ require_once(__DIR__ . '/tickets.class.php');
 class Message {
     public int $id;
     public string $text;
-    public int $ticketID;
-    public function __construct(int $messageID, string $text, int $ticketID) {
+    public int $userID;
+    public int $date;
+    public function __construct(int $messageID, string $text, int $userID, int $date) {
         $this->id = $messageID;
         $this->text = $text;
-        $this->ticketID = $ticketID;
+        $this->userID = $userID;
+        $this->date = $date;
     }
     static function getByTicket(PDO $db, int $ticketID) : array {
-        $stmt = $db->prepare('SELECT * FROM MESSAGE WHERE TicketID = ?');
+        $stmt = $db->prepare('SELECT * FROM MESSAGE WHERE TicketID = ? ORDER BY TimeStamp ASC');
         $stmt->execute(array($ticketID));
         $messages = [];
         while ($message = $stmt->fetch()) {
             $messages[] = new Message(
                 intval($message["MessageID"]),
-                $message["Ticket"],
-                $message["TicketID"],
+                $message["MessageText"],
+                $message["UserID"],
+                $message["TimeStamp"],
             );
         }
         return $messages;

@@ -60,14 +60,14 @@ INSERT INTO ACTION (ActionID, TicketID, UserID, Type, TimeStamp) VALUES
 (5, 5, 2, 'process', 1647703354);
 
 -- MESSAGE
-INSERT INTO MESSAGE (MessageID, TicketID, UserID, MessageText) VALUES
-(1, 1, 1, 'Hello, I need help with my order.'),
-(2, 1, 2, 'Sure, what seems to be the problem?'),
-(3, 1, 1, 'My order was supposed to arrive yesterday, but it still has not arrived.'),
-(4, 1, 2, 'I am sorry to hear that. Let me check the status of your order.'),
-(5, 1, 2, 'It seems that your order is delayed. I will contact the courier and get back to you.'),
-(6, 1, 1, 'Thank you for your help.'),
-(7, 1, 2, 'No problem, we are happy to help.');
+INSERT INTO MESSAGE (MessageID, TicketID, UserID, MessageText, TimeStamp) VALUES
+(1, 1, 1, 'Hello, I need help with my order.', 1647724861),
+(2, 1, 2, 'Sure, what seems to be the problem?', 1647667800),
+(3, 1, 1, 'My order was supposed to arrive yesterday, but it still has not arrived.', 1647667800),
+(4, 1, 2, 'I am sorry to hear that. Let me check the status of your order.', 1647724861),
+(5, 1, 2, 'It seems that your order is delayed. I will contact the courier and get back to you.', 1647732762),
+(6, 1, 1, 'Thank you for your help.', 1647714997),
+(7, 1, 2, 'No problem, we are happy to help.', 1647703354);
 
 -- FORUM
 INSERT INTO FORUM (ForumID, Question, Answer) VALUES

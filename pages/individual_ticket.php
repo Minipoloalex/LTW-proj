@@ -14,10 +14,11 @@ $db = getDatabaseConnection();
 // if not, redirect to home page (or login page if not logged in)
 
 $ticket = Ticket::getById($db, $id);
-var_dump($ticket);
+$messages = array();
+$actions = array();
 
 output_header();
-output_single_ticket($ticket);
+output_single_ticket($ticket, $messages, $actions);
 output_footer();
 
 ?>

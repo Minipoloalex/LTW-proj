@@ -94,6 +94,7 @@ CREATE TABLE MESSAGE(
     TicketID INTEGER,
     UserID INTEGER,
     MessageText TEXT,
+    TimeStamp INTEGER NOT NULL,
 
     FOREIGN KEY (TicketID) REFERENCES TICKET(TicketID),
     FOREIGN KEY (UserID) REFERENCES Client(UserID)

@@ -27,7 +27,7 @@ $userID = $session->getId();     /* session userID */
 $username = $session->getName();  /* session username */
 
 
-if (Ticket::existsTicket($db, $title, $userID)) {
+if (Ticket::existsTicket($db, $title, $userID)) {   /* Could send to ticket page of the existing ticket */
     $session->addMessage('error', "Ticket with the same title already exists");
     die(header('Location: ../pages/create_ticket.php'));
 }
