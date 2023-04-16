@@ -25,22 +25,26 @@
 
 <?php function drawLoginForm()
 { ?>
-  <div class="container">
+<div class="landing-login">
+  <!-- <div class="container"> -->
     <form action="../actions/action_login.php" method="post" class="loginform">
       <input type="email" name="email" placeholder="email">
 
       <input type="password" name="password" placeholder="password">
       <buttons>
-        <a href="../pages/register.php" class='register'>Register</a>
-        <button type="submit" class='login'>Login</button>
+        <a href="../pages/register.php" class="register">Register</a>
+        <button type="submit" class="login">Login</button>
       </buttons>
 
     </form>
-  </div>
+  <!-- </div> -->
+</div>
 <?php } ?>
 
 <?php function drawRegisterForm()
 { ?>
+
+<div class="landing-register">
   <form action="../actions/action_create_account.php" method="post" class="registerform">
 
     <input type="text" name="name" placeholder="Name" class="name">
@@ -71,15 +75,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
 
-    <header>
-      <main>
-
-
-    </header>
-
     <body>
-      <div class="landing">
-
+      <main>
 
 
   <?php } ?>

@@ -121,7 +121,7 @@ class Ticket
   // adicionar filtros por data
   static function filter(PDO $db, array $status, array $priorities, array $hashtags, array $agents, array $departments): array
   {
-    var_dump($departments);
+  
     $query = 'SELECT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, H.HashtagID, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T JOIN HASHTAG_TICKET H USING(TicketID)';
     $statusF = '';
     $prioritiesF = '';
@@ -169,14 +169,11 @@ if(!empty($agents)){
 if(!empty($departments)){
   if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '' || $agentsF != '') {$departmentsF = ' and ';}
   for ($i = 0; $i<count($departments); $i++) {
-    var_dump($departments[$i]);
     if ($i == 0) {$departmentsF = $departmentsF.sprintf('(T.DepartmentID = %s', $departments[$i]);} 
     else {$departmentsF = $departmentsF.sprintf(' or T.DepartmentID= %s', $departments[$i]);}
   }
   $departmentsF = $departmentsF.')';
 }    
-    echo $departmentsF;
-    echo $query.' WHERE '.$statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF.';';
     $stmt = $db->prepare($query.' WHERE '.$statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF.';');
     $stmt->execute();
 
@@ -219,7 +216,6 @@ if(!empty($departments)){
       $departments[] = $dp;
     }
     $filters[] = $departments;
-    var_dump($filters);
 
 
     return $filters;

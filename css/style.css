@@ -5,28 +5,40 @@ body {
 }
 
 footer {
-    position: fixed;
     bottom: 0;
 }
 
-/* body::placeholder{font-family: 'Martel Sans', sans-serif;} */
+::placeholder{font-family: 'Martel Sans', sans-serif;} 
 
-div.landing {
+button {font-family: inherit; font-size: 1.2em;}
+
+.landing-register {
     display: grid;
     grid-template-columns: 0.6fr 1.4fr 2.1fr;
     grid-template-rows: 0.5fr 1.8fr 0.7fr;
     gap: 1em 1em;
     grid-template-areas:
         ". . ."
-        ". registerform ."
+        ". form ."
         ". . .";
-    width: 50em;
-    height: 50em;
 }
 
 .registerform {
-    grid-area: registerform
+    grid-area: form;
 }
+
+.landing-login {
+    display: grid;
+    grid-template-columns: 0.6fr 1.4fr 2.1fr;
+    grid-template-rows: 0.5fr 1.8fr 0.7fr;
+    gap: 1em 1em;
+    grid-template-areas:
+        ". . ."
+        ". form ."
+        ". . .";
+}
+
+.loginform {grid-area: form}
 
 /*svg*/
 
@@ -55,20 +67,16 @@ body {
 }
 
 /* landing page grids */
-form {
+.loginform {
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     gap: 1em 1em;
     grid-template-areas:
-        ". . ."
-        ". . ."
         "email email ."
         "password password ."
-        ". buttons ."
-        ". . ."
-        ". . .";
+        ". buttons .";
     width: 50em;
     height: 50em;
     padding: 2em;
@@ -90,11 +98,10 @@ box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
 buttons {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
         ". . register . login"
-        ". . . . ."
         ". . . . ."
         ". . . . .";
     grid-area: buttons;
@@ -118,12 +125,12 @@ footer {
     border: none;
     cursor: pointer;
     color: #846a8b;
-    font-family: 'Times New Roman', Times, serif;
+    font-family:'Martel Sans', sans-serif;
 }
 
-.container {
+/* .container {
     background-color: #dee2ff;
-}
+} */
 
 .loginform input[type='email'],
 .loginform input[type='password'] {
@@ -181,22 +188,22 @@ footer {
 .registerform {
     background-color: #846a8b;
     border-radius: 10px;
-    /* padding: 0.5em; */
+    padding: 0.5em;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 0.5fr;
     gap: 1em 1em;
     grid-template-areas:
-        "Name Name ."
-        "username username ."
-        "email email ."
-        "password password ."
-        "confirm confirm ."
-        "registerbuttons registerbuttons .";
-    width: 50em;
-    height: 50em;
+        "Name Name"
+        "username username"
+        "email email"
+        "password password"
+        "confirm confirm"
+        "registerbuttons registerbuttons";
+    width: 40em;
+    height: 40em; 
 }
 
 .Name {
@@ -221,21 +228,41 @@ footer {
 
 .registerbuttons {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding-left: 10em;
+    grid-template-columns: 1fr 1fr 1.5fr;
     grid-template-rows: 1fr;
     gap: 0px 0px;
     grid-template-areas:
-        ". already already create";
+        " already already create";
     grid-area: registerbuttons;
 }
 
 .create {
     grid-area: create;
+    border-radius: 10px;
+    border: none;
 }
 
 .loginback {
     grid-area: already;
 }
 
+.registerform input{
+    font-size: 1.2em;
+    border: none;
+    /* border-radius: 5px; */
+    /* background-color: #eee; */
 
-/* navbar on main page */
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 0.5em;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* tables on main page */
+
+table, th, td {
+    border: 1px solid #846a8b;
+    background-color: #dee2ff;
+   }
+   
