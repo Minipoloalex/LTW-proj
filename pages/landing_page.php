@@ -5,7 +5,10 @@ require_once(__DIR__ . '/../templates/landing_page.tpl.php');
 
 
 drawShape();
+/*body*/
 drawLandingPageHeader();
 drawLoginForm();
+drawLogo();
+/*body end*/
 output_footer();
 ?>

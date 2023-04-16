@@ -19,22 +19,22 @@
     <header>
       <h1><a href="main_page.php">Trouble Solver</a></h1>
     </header>
-    <nav>
-        <ul>
+    <nav class="navbar">
+        <ul class="navbar-nav">
           <li>Tickets
             <ul>
-              <li><a href="../pages/tickets.php">My tickets</a></li>
-              <li><a href="../pages/create_ticket.php">Create ticket</a></li>
-              <li><a href="../pages/tickets.php">Assigned tickets</a></li>  <!--Same page: assigned and followed tickets (not assigned to them)-->
-              <li><a href="../pages/tickets.php">All tickets</a></li>
+              <li><a href="../pages/tickets.php" class="nav-link">My tickets</a></li>
+              <li><a href="../pages/create_ticket.php" class="nav-link">Create ticket</a></li>
+              <li><a href="../pages/tickets.php" class="nav-link">Assigned tickets</a></li>  <!--Same page: assigned and followed tickets (not assigned to them)-->
+              <li><a href="../pages/tickets.php" class="nav-link">All tickets</a></li>
             </ul>
           </li>
           
-          <li><a href="../pages/admin/departments_list.php">Departments</a></li>
-          <li><a href="../pages/admin/users_list.php">Users</a></li>
+          <li><a href="../pages/departments_list.php" class="nav-link">Departments</a></li>
+          <li><a href="../pages/users_list.php" class="nav-link">Users</a></li>
 
-          <li><a href="../pages/FAQ.php">FAQs</a></li>
-          <li><a href="../pages/profile.php">Profile</a></li>
+          <li><a href="../pages/FAQ.php" class="nav-link">FAQs</a></li>
+          <li><a href="../pages/profile.php" class="nav-link">Profile</a></li>
         </ul>
 
     </nav>
