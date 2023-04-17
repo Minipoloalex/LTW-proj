@@ -1,7 +1,10 @@
 <?php
 
 require_once(__DIR__ . '/../database/connection.db.php');
+
 require_once(__DIR__ . '/../database/message.class.php');
+require_once(__DIR__ . '/../database/ticket.class.php');
+
 require_once(__DIR__ . '/../utils/session.php');
 
 $session = new Session();

@@ -16,19 +16,9 @@ async function postData(data) {
     })
 }
 
-const messageForm = document.querySelector("#message-form")
-
-// <?php function output_message(Message $message) { ?>
-//     <article class="message">
-//         <span class="user">UserID: <?=$message->userID?></span>
-//         <span class="date">DATE: <?=date('F j', $message->date)?></span>
-//         <p class="message">CONTENT: <?=$message->text?></p>
-//     </article>
-// <?php }?>
-
-messageForm.addEventListener('submit', (event) => {
+function submitNewMessage(event) {
     event.preventDefault()
-
+    
     const messagesList = document.querySelector('#messages-list')
     const messageInput = document.querySelector('#message-input')
     
@@ -67,4 +57,9 @@ messageForm.addEventListener('submit', (event) => {
 
         messagesList.appendChild(newMessage)
     })
-})
+}
+
+const messageForm = document.querySelector("#message-form")
+if (messageForm) {
+    messageForm.addEventListener('submit', addNewMessage)
+}
