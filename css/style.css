@@ -1,5 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400&display=swap');
+
+body {
+    font-family: 'Martel Sans', sans-serif;
+}
+
+footer {
+    bottom: 0;
+}
+
+::placeholder{font-family: 'Martel Sans', sans-serif;} 
+
+button {font-family: inherit; font-size: 1.2em;}
+
+.landing-register {
+    display: grid;
+    grid-template-columns: 0.6fr 1.4fr 2.1fr;
+    grid-template-rows: 0.5fr 1.8fr 0.7fr;
+    gap: 1em 1em;
+    grid-template-areas:
+        ". . ."
+        ". form ."
+        ". . .";
+}
+
+.registerform {
+    grid-area: form;
+}
+
+.landing-login {
+    display: grid;
+    grid-template-columns: 0.6fr 1.4fr 2.1fr;
+    grid-template-rows: 0.5fr 1.8fr 0.7fr;
+    gap: 1em 1em;
+    grid-template-areas:
+        ". . ."
+        ". form ."
+        ". . .";
+}
+
+.loginform {grid-area: form}
+
 /*svg*/
 
+body {
+    background-color: #dee2ff;
+}
 
 .custom-shape-divider-top-1681308841 {
     position: absolute;
@@ -22,20 +67,16 @@
 }
 
 /* landing page grids */
-form {
+.loginform {
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     gap: 1em 1em;
     grid-template-areas:
-        ". . ."
-        ". . ."
         "email email ."
         "password password ."
-        ". buttons ."
-        ". . ."
-        ". . .";
+        ". buttons .";
     width: 50em;
     height: 50em;
     padding: 2em;
@@ -56,13 +97,13 @@ box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
 
 buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
-        ". register . login"
-        ". . . ."
-        ". . . .";
+        ". . register . login"
+        ". . . . ."
+        ". . . . .";
     grid-area: buttons;
 }
 
@@ -82,23 +123,22 @@ footer {
     padding: 1em;
     font-size: 1.2em;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     color: #846a8b;
-    font-family: 'Times New Roman', Times, serif;
+    font-family:'Martel Sans', sans-serif;
 }
 
-.container {
+/* .container {
     background-color: #dee2ff;
-}
+} */
 
 .loginform input[type='email'],
 .loginform input[type='password'] {
     /* padding: 1em; */
     font-size: 1.2em;
     border: none;
-    border-radius: 5px;
-    background-color: #eee;
+    /* border-radius: 5px; */
+    /* background-color: #eee; */
 
     background-color: #f7f7f7;
     border-radius: 10px;
@@ -123,12 +163,13 @@ footer {
     color: #fff;
 }
 
-.register {
-    background-color: #846a8b;
-}
-
+.register,
 .login {
     background-color: #846a8b;
+    border-radius: 10px;
+    /* padding: 0.5em; */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
 }
 
 .register:hover,
@@ -141,63 +182,87 @@ footer {
     margin: 0;
 }
 
+/* register grid */
 
-/* BOX title effect */
 
-/* html,
-body {
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: navajowhite;
-} */
-
-.box {
-    display: flex;
-}
-
-.box .inner {
-    width: 400px;
-    height: 200px;
-    line-height: 200px;
-    font-size: 4em;
-    font-family: sans-serif;
-    font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.box .inner:first-child {
+.registerform {
     background-color: #846a8b;
-    color: #3c2b41;
-    transform-origin: right;
-    transform: perspective(100px) rotateY(-15deg);
+    border-radius: 10px;
+    padding: 0.5em;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 0.5fr;
+    gap: 1em 1em;
+    grid-template-areas:
+        "Name Name"
+        "username username"
+        "email email"
+        "password password"
+        "confirm confirm"
+        "registerbuttons registerbuttons";
+    width: 40em;
+    height: 40em; 
 }
 
-.box .inner:last-child {
-    background-color: #b09bb6;
-    color: rgb(217, 209, 197);
-    transform-origin: left;
-    transform: perspective(100px) rotateY(15deg);
+.Name {
+    grid-area: Name;
 }
 
-.box .inner span {
-    position: absolute;
-    animation: marquee 5s linear infinite;
+.username {
+    grid-area: username;
 }
 
-.box .inner:first-child span {
-    animation-delay: 2.5s;
-    left: -100%;
+.email {
+    grid-area: email;
 }
 
-@keyframes marquee {
-    from {
-        left: 100%;
-    }
-
-    to {
-        left: -100%;
-    }
+.password {
+    grid-area: password;
 }
+
+.confirm {
+    grid-area: confirm;
+}
+
+.registerbuttons {
+    display: grid;
+    padding-left: 10em;
+    grid-template-columns: 1fr 1fr 1.5fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        " already already create";
+    grid-area: registerbuttons;
+}
+
+.create {
+    grid-area: create;
+    border-radius: 10px;
+    border: none;
+}
+
+.loginback {
+    grid-area: already;
+}
+
+.registerform input{
+    font-size: 1.2em;
+    border: none;
+    /* border-radius: 5px; */
+    /* background-color: #eee; */
+
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 0.5em;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* tables on main page */
+
+table, th, td {
+    border: 1px solid #846a8b;
+    background-color: #dee2ff;
+   }
+   

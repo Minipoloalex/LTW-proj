@@ -16,44 +16,46 @@
 
 <?php } ?>
 
+
+<?php function drawLogo(){ ?>
+
+
+<?php } ?>
+
+
 <?php function drawLoginForm()
 { ?>
-  <div class="container">
+<div class="landing-login">
+  <!-- <div class="container"> -->
     <form action="../actions/action_login.php" method="post" class="loginform">
       <input type="email" name="email" placeholder="email">
 
       <input type="password" name="password" placeholder="password">
       <buttons>
-        <a href="../pages/register.php" class='register'>Register</a>
-        <button type="submit" class='login'>Login</button>
+        <a href="../pages/register.php" class="register">Register</a>
+        <button type="submit" class="login">Login</button>
       </buttons>
 
-
-      <!-- <div class="box">
-        <div class="inner">
-          <span>Trouble Solver</span>
-        </div>
-        <div class="inner">
-          <span>Trouble Solver</span>
-        </div>
-      </div> -->
-    </form>
-  </div>
+</form>
+</div>
 <?php } ?>
 
 <?php function drawRegisterForm()
 { ?>
+<div class="landing-register">
   <form action="../actions/action_create_account.php" method="post" class="registerform">
 
-    <input type="text" name="name" placeholder="Name">
-    <input type="text" name="username" placeholder="Username">
-    <input type="email" name="email" placeholder="Email">
-    <input type="password" name="password" placeholder="Password">
-    <input type="password" name="confirm_password" placeholder="Confirm password">
-
-    <p class='loginback'>Already have an account? <a href="../pages/landing_page.php">Login</a></p>
-    <button type="submit" class='create'>Create Account</button>
+    <input type="text" name="name" placeholder="Name" class="name">
+    <input type="text" name="username" placeholder="Username" class="username">
+    <input type="email" name="email" placeholder="Email" class="email">
+    <input type="password" name="password" placeholder="Password" class="password">
+    <input type="password" name="confirm_password" placeholder="Confirm password" class="confirm">
+    <div class="registerbuttons">
+    <p class="loginback">Already have an account? <a href="../pages/landing_page.php">Login</a></p>
+    <button type="submit" class="create">Create Account</button>
+    </div>
   </form>
+</div>
 <?php } ?>
 
 <?php function drawLandingPageHeader()
@@ -71,24 +73,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
 
-    <header>
+    <body>
       <main>
 
-
-    </header>
-
-    <body>
-
-    <!-- caixa 3D
-    <div class="box">
-        <div class="inner">
-          <span>Trouble Solver</span>
-        </div>
-        <div class="inner">
-          <span>Trouble Solver</span>
-        </div>
-      </div> -->
-    
-    </body>
 
   <?php } ?>
