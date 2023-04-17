@@ -7,13 +7,16 @@ require_once(__DIR__ . '/../utils/session.php');
 <?php function output_header()
 { ?>
 
-  <DOCTYPE html>
+  <!DOCTYPE html>
     <html lang="en-US">
 
     <head>
       <title>Trouble Solver</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <script src="../javascript/add_message.js" defer></script>
+
       <link rel="stylesheet" href="../css/style.css">
       <link rel="stylesheet" href="../css/nav.css">
 

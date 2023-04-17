@@ -10,6 +10,9 @@ require_once(__DIR__ . '/../database/message.class.php');
 require_once(__DIR__ . '/../database/action.class.php');
 
 
+if (!isset($_GET['id'])) {
+    die(header('Location: main_page.php'));
+}
 $id = intval($_GET['id']);
 $db = getDatabaseConnection();
 
@@ -23,6 +26,7 @@ var_dump($actions);
 
 output_header();
 output_single_ticket($ticket, $messages, $actions);
+output_message_form($id);
 output_footer();
 
 ?>
