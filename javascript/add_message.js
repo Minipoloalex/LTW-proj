@@ -30,11 +30,14 @@ messageForm.addEventListener('submit', (event) => {
     event.preventDefault()
 
     const messagesList = document.querySelector('#messages-list')
-    const messageTextArea = document.querySelector('#message-input')
-    const messageText = messageTextArea.value
-    messageTextArea.value = ""
+    const messageInput = document.querySelector('#message-input')
+    
+    const messageText = messageInput.value
+    const ticketID = messageInput.getAttribute("data-id")
 
-    postData({'message': messageText})
+    messageInput.value = ""
+    
+    postData({'message': messageText, 'ticketID': ticketID})
     .catch(() => console.error('Network Error'))
     .then(response => response.json())
     .catch(() => console.error('Error parsing JSON'))

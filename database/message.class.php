@@ -28,10 +28,10 @@ class Message {
         }
         return $messages;
     }
-    static function addMessage(PDO $db, int $userID, string $messageText) : Message {
+    static function addMessage(PDO $db, int $userID, int $ticketID, string $messageText) : Message {
         $date = time();
         $stmt = $db->prepare('INSERT INTO MESSAGE (TicketID, UserID, MessageText, TimeStamp) VALUES (?, ?, ?, ?)');
-        $stmt->execute(array(1, $userID, $messageText, $date));
+        $stmt->execute(array($ticketID, $userID, $messageText, $date));
         return new Message(
             intval($db->lastInsertId()),
             $messageText,

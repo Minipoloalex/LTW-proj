@@ -10,7 +10,7 @@ require_once(__DIR__ . '/../database/message.class.php');
 require_once(__DIR__ . '/../database/action.class.php');
 
 
-if (!isset($_GET['id'])) {
+if (!isset($_GET['id']) || !is_numeric($_GET['id']) || intval($_GET['id']) < 1) {
     die(header('Location: main_page.php'));
 }
 $id = intval($_GET['id']);
@@ -26,7 +26,7 @@ var_dump($actions);
 
 output_header();
 output_single_ticket($ticket, $messages, $actions);
-output_message_form($id);
+output_message_form($ticket->ticketid);
 output_footer();
 
 ?>
