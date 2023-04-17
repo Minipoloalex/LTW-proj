@@ -43,7 +43,7 @@
 
 <?php function drawRegisterForm()
 { ?>
-  <form action="../actions/action_create_account.php" method="post" class="loginform">
+  <form action="../actions/action_create_account.php" method="post" class="registerform">
 
     <input type="text" name="name" placeholder="Name">
     <input type="text" name="username" placeholder="Username">

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require_once(__DIR__ . '/tickets.class.php');
+require_once(__DIR__ . '/ticket.class.php');
 
 class Message {
     public int $id;

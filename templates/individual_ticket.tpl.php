@@ -18,7 +18,7 @@ require_once(__DIR__ . '/../database/message.class.php');
     </article>
     <?php foreach($messages as $message) {
         output_message($message);
-    } ?>
+    }
     ?>
 
 <?php
@@ -36,11 +36,24 @@ require_once(__DIR__ . '/../database/message.class.php');
 
 <?php } ?>
 <?php function output_message(Message $message) { ?>
-    <span class="user"><?=$message->userID?></span>
-    <span class="date"><?=date('F j', $message->date)?></span>
-    <p class="message"><?=$message->text?></p>
+    <span class="user">UserID: <?=$message->userID?></span>
+    <span class="date">DATE: <?=date('F j', $message->date)?></span>
+    <p class="message">CONTENT: <?=$message->text?></p>
 <?php }?>
 
 <?php function output_action(Action $action) { ?>
     
+<?php } ?>
+
+<?php function output_message_form() { ?>
+    <form id="messageform">
+        <textarea name="message" id="message" cols="30" rows="10"></textarea>
+        <button id="addmessage" formaction="../actions/create_message.php">Submit</button> 
+        
+        <!-- Javascript
+        comentário no ticket é chamada AJAX (pedido) no servidor para acrescentar, dá resposta a dizer que acrescentou.
+        assim, não é necessário dar refresh à pagina e não se perde o contexto
+        servidor vai à BD e responde a dizer que acrescentou -->
+
+    </form>
 <?php } ?>

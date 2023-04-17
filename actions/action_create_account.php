@@ -30,7 +30,7 @@ if ($account_exists[0]) {
 
 $user_id = create_account($db, $name, $username, $email, $password, $confirm_password);
 $session->setId($user_id);
-// $session->setName($name);
+$session->setName($username);
 $session->addMessage('success', $account_exists[1]);
 
 
