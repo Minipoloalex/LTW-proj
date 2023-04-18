@@ -36,14 +36,12 @@
         <button type="submit" class="login">Login</button>
       </buttons>
 
-    </form>
-  <!-- </div> -->
+</form>
 </div>
 <?php } ?>
 
 <?php function drawRegisterForm()
 { ?>
-
 <div class="landing-register">
   <form action="../actions/action_create_account.php" method="post" class="registerform">
 

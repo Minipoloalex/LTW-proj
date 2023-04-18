@@ -16,10 +16,13 @@ require_once(__DIR__ . '/../database/message.class.php');
         <span class="priority"><?=$ticket->priority?></span>
         <span class="date"><?=date('F j', $ticket->submitdate)?></span>
     </article>
-    <?php foreach($messages as $message) {
-        output_message($message);
-    } ?>
-    ?>
+    <section id="messages-list">
+        <?php
+        foreach($messages as $message) {
+            output_message($message);
+        }
+        ?>
+    </section>
 
 <?php
 /*
@@ -36,11 +39,29 @@ require_once(__DIR__ . '/../database/message.class.php');
 
 <?php } ?>
 <?php function output_message(Message $message) { ?>
-    <span class="user"><?=$message->userID?></span>
-    <span class="date"><?=date('F j', $message->date)?></span>
-    <p class="message"><?=$message->text?></p>
+    <article class="message">
+        <span class="user">UserID: <?=$message->userID?></span>
+        <span class="date">DATE: <?=date('F j', $message->date)?></span>
+        <p class="message">CONTENT: <?=$message->text?></p>
+    </article>
 <?php }?>
 
 <?php function output_action(Action $action) { ?>
     
+<?php } ?>
+
+<?php function output_message_form(int $ticketID) { ?>
+    <form id="message-form">
+        <!-- the user can change this value (validate in action.php)-->
+        <label>Add a message:
+            <input data-id="<?=$ticketID?>" type="text" name="message" id="message-input">
+        </label>
+        <button type="submit">Submit</button> 
+        
+        <!-- Javascript
+        comentário no ticket é chamada AJAX (pedido) no servidor para acrescentar, dá resposta a dizer que acrescentou.
+        assim, não é necessário dar refresh à pagina e não se perde o contexto
+        servidor vai à BD e responde a dizer que acrescentou -->
+
+    </form>
 <?php } ?>

@@ -38,10 +38,4 @@ $id = Ticket::createTicket($db, $title, $userID, $priority, $hashtags, $descript
 
 header('Location: ../pages/individual_ticket.php?id=' . $id);
 
-/*
-comentário no ticket é chamada AJAX (pedido) no servidor para acrescentar, dá resposta a dizer que acrescentou
-assim, não é necessário dar refresh à pagina e não se perde o contexto
-servidor vai à BD e responde a dizer que acrescentou
-*/
-
 ?>

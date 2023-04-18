@@ -13,6 +13,9 @@ require_once(__DIR__ . '/../database/client.class.php');
     <label for="username">Last Name:</label>
     <input id="username" type="text" name="username" value="<?=$client->username?>">  
     
+    <label for="email">Email:</label>
+    <input id="email" type="text" name="email" value="<?=$client->email?>">
+
     <button type="submit">Save</button>
   </form>
 <?php } ?>

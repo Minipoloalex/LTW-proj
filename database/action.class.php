@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require_once(__DIR__ . '/tickets.class.php');
+require_once(__DIR__ . '/ticket.class.php');
 
 class Action {
     public int $id;
@@ -13,7 +13,7 @@ class Action {
         $this->date = $date;
     }
     static function getByTicket(PDO $db, int $ticketID) : array {
-        $stmt = $db->prepare('SELECT * FROM ACTION WHERE TicketID = ?');
+        $stmt = $db->prepare('SELECT * FROM ACTION WHERE TicketID = ? ORDER BY TimeStamp ASC');
         $stmt->execute(array($ticketID));
         $actions = [];
         while ($action = $stmt->fetch()) {

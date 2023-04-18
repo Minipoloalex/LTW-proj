@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require_once(__DIR__ . '/tickets.class.php');
+require_once(__DIR__ . '/ticket.class.php');
 
 class Message {
     public int $id;
@@ -27,6 +27,17 @@ class Message {
             );
         }
         return $messages;
+    }
+    static function addMessage(PDO $db, int $userID, int $ticketID, string $messageText) : Message {
+        $date = time();
+        $stmt = $db->prepare('INSERT INTO MESSAGE (TicketID, UserID, MessageText, TimeStamp) VALUES (?, ?, ?, ?)');
+        $stmt->execute(array($ticketID, $userID, $messageText, $date));
+        return new Message(
+            intval($db->lastInsertId()),
+            $messageText,
+            $userID,
+            $date,
+        );
     }
 }
 

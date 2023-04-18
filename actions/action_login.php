@@ -17,6 +17,7 @@
     $session->addMessage('success', 'Login successful!');
   } else {
     $session->addMessage('error', 'Wrong password!');
+    die(header('Location: ../pages/landing_page.php'));
   }
 
   header('Location: ../pages/main_page.php');
