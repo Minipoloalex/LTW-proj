@@ -6,33 +6,37 @@ require_once(__DIR__ . '/../database/department.class.php');
 ?>
 
 <?php function output_create_ticket_form(PDO $db)
-{ 
+{
     $hashtags = Hashtag::getHashtags($db);
     $departments = Department::getDepartments($db);
 
     ?>
-    <form>
-        <label>Ticket title*
+    <form class="createticket">
+        <label>
+            Ticket title*
+            </label>
             <input type='text' name='title'>
-        </label>
+       
         <label>
             Hashtags*
         </label>
         <select name='hashtags[]' id='tags' multiple>
-            <?php foreach ($hashtags as $hashtag) { ?>    
-                <option value="<?=$hashtag->hashtagid?>"><?=$hashtag->hashtagname?><option>
-            <?php } ?>
+            <?php foreach ($hashtags as $hashtag) { ?>
+                <option value="<?= $hashtag->hashtagid ?>"><?= $hashtag->hashtagname ?>
+                <option>
+                <?php } ?>
         </select>
         <label>Ticket description*
-            <textarea name="description"></textarea>
         </label>
+        <textarea name="description"></textarea>
         <label>Department</label>
         <select name='department' id='deps'>
-        <?php foreach ($departments as $department) { ?>    
-            <option value=<?=$department->departmentId?>><?=$department->departmentName?><option>
-        <?php } ?>
+            <?php foreach ($departments as $department) { ?>
+                <option value=<?= $department->departmentId ?>><?= $department->departmentName ?>
+                <option>
+                <?php } ?>
         </select>
-        <button formaction="../actions/action_create_ticket.php" formmethod="post" type="submit">
+        <button formaction="../actions/action_create_ticket.php" formmethod="post" type="submit" class="submit">
             Create ticket
         </button>
     </form>

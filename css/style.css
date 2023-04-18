@@ -2,6 +2,8 @@
 
 body {
     font-family: 'Martel Sans', sans-serif;
+    /* background-color: #dee2ff; */
+    
 }
 
 footer {
@@ -264,5 +266,101 @@ footer {
 table, th, td {
     border: 1px solid #846a8b;
     background-color: #dee2ff;
-   }
+    border-collapse: collapse;
+    padding: 0.5em;
+}
    
+
+/* create ticket grid */
+/* 
+.createticket {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    gap: 1em 1em;
+    grid-template-areas:
+        "title title title"
+        "titleform titleform titleform"
+        "description description description"
+        "hashtag hashtag hashtag"
+        ". . ."
+        "submit submit submit";
+    width: 50em;
+    height: 50em;
+    padding: 2em;
+}
+
+.title {
+    grid-area: title;
+}
+
+
+.description {
+    grid-area: description;
+}
+
+#tags {
+    grid-area: hashtag;
+}
+
+
+.submit {
+    grid-area: submit;
+}
+
+.createticket input[type='text'], .createticket input[type='submit'], .createticket #tags, .createticket #deps {
+    font-size: 1.2em;
+    border: none;
+    /* border-radius: 5px; */
+    /* background-color: #eee; */
+
+    /* background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 0.5em;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+ */ 
+
+ .createticket {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+  }
+  
+  .createticket label {
+    grid-column: 1 / span 2;
+  }
+
+  .createticket input[name='title'] {
+    width: calc(50% - 0.5rem);
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    grid-column: 1 / span 1;
+  }
+  
+  .createticket input,
+  .createticket select,
+  .createticket textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+  }
+  
+  .createticket button[type='submit'] {
+    grid-column: 1 / span 1;
+    grid-row: 9 / span 1;
+    justify-self: start;
+    margin-top: 1rem;
+    font-size: 1.2em;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 0.5em;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: none;
+  }
+
