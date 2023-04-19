@@ -27,15 +27,17 @@
           }
 
         static function getClientWithPassword(PDO $db, string $email, string $password) : ?Client {
-            $stmt = $db->prepare('
+          $options = ['cost' => 12];
+          
+          $stmt = $db->prepare('
               SELECT *
               FROM CLIENT
-              WHERE lower(Email) = ? AND Password = ?
+              WHERE lower(Email) = ?
             ');
-      
-            $stmt->execute(array(strtolower($email), $password));
-        
-            if ($client = $stmt->fetch()) {
+            $stmt->execute(array(strtolower($email)));
+            $client = $stmt->fetch();
+
+            if ($client && password_verify($password, $client['Password'])) {
               return new Client(
                 intval($client['UserID']),
                 $client['Name'],
@@ -45,7 +47,15 @@
               );
             } else return null;
           }
+        static function create_account(PDO $db, string $name, string $username, string $email, string $password, string $confirm_password) : int {
+          $stmt = $db->prepare('INSERT INTO CLIENT (Name, Username, Email, Password) VALUES (?, ?, ?, ?)');
 
+          $options = ['cost' => 12];
+          $stmt->execute(array($name, $username, $email, password_hash($password, PASSWORD_DEFAULT, $options)));
+
+          return intval($db->lastInsertId());
+        }
+        
 
         static function searchClients(PDO $db, string $search, int $count) : array {
             $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Name LIKE ? LIMIT ?');

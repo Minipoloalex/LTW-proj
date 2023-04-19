@@ -6,6 +6,7 @@ class Session
     private array $messages;
     public function __construct()
     {
+        
         session_start();
 
         $this->messages = isset($_SESSION['messages']) ? $_SESSION['messages'] : array();

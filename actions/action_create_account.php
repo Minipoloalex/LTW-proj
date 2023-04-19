@@ -28,7 +28,7 @@ if ($account_exists[0]) {
     die(header('Location: ../pages/create_account.php'));
 }
 
-$user_id = create_account($db, $name, $username, $email, $password, $confirm_password);
+$user_id = Client::create_account($db, $name, $username, $email, $password, $confirm_password);
 $session->setId($user_id);
 $session->setName($username);
 $session->addMessage('success', $account_exists[1]);
@@ -66,10 +66,5 @@ function check_acc_exists(PDO $db, string $name, string $username, string $email
     return array(false, "Account registered");
 }
 
-function create_account(PDO $db, string $name, string $username, string $email, string $password, string $confirm_password) : int {
-    $stmt = $db->prepare('INSERT INTO CLIENT (Name, Username, Email, Password) VALUES (?, ?, ?, ?)');
-    $stmt->execute(array($name, $username, $email, $password));
-    return intval($db->lastInsertId());
-}
-
 ?>
+in
