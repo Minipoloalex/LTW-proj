@@ -19,14 +19,14 @@ require_once(__DIR__ . '/../database/department.class.php');
         <label>
             Hashtags*
         </label>
-        <div class="hashtag-options">
-    <?php foreach ($hashtags as $hashtag) { ?>
-        <label>
-            <input type="checkbox" name="hashtags[]" value="<?= $hashtag->hashtagid ?>">
-            <?= $hashtag->hashtagname ?>
-        </label>
-    <?php } ?>
-</div>
+        <div class="hashtag-select">
+            <?php foreach ($hashtags as $hashtag) { ?>
+                <input type="checkbox" name="hashtags[]" value="<?= $hashtag->hashtagid ?>">
+                <label>
+                    <?= $hashtag->hashtagname ?>
+                </label>
+            <?php } ?>
+        </div>
         <label>Ticket description*
         </label>
         <textarea name="description"></textarea>

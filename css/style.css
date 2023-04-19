@@ -331,6 +331,12 @@ table, th, td {
   .createticket label {
     grid-column: 1 / span 2;
   }
+
+  /* TROCAR AQUI AS CHECKBOXES PARA A FRENTE */
+  .createticket div .hashtag-select label {
+    grid-column: 2 / span 1;
+}
+
   
   .createticket input[name='title'] {
     width: 250px; /* fixed width */
@@ -375,4 +381,6 @@ table, th, td {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     border: none;
   }
+  
+  
   
