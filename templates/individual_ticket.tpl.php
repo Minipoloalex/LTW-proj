@@ -3,12 +3,27 @@ declare(strict_types = 1);
 
 require_once(__DIR__ . '/../database/ticket.class.php');
 require_once(__DIR__ . '/../database/message.class.php');
+require_once(__DIR__ . '/../database/agent.class.php');
+require_once(__DIR__ . '/../database/department.class.php');
+require_once(__DIR__ . '/../database/hashtag.class.php');
+
+require_once(__DIR__ . '/create_ticket.tpl.php');
 ?>
 
-<?php function output_single_ticket(Ticket $ticket, array $messages, array $actions) { ?>
+<?php function output_single_ticket(Ticket $ticket, array $messages, array $actions,
+array $all_hashtags, array $all_agents, array $all_departments) { ?>
     <article id="ticket">
         <header><h1><?=$ticket->title?></h1></header>
         <p><?=$ticket->description?></p>
+        <?php
+            // if user is admin/agent, he sees inputs. ticket user sees only spans
+        ?>
+        <!-- Admin/agent view -->
+        <?php output_change_ticket_info_form($ticket, $all_agents, $all_departments, $all_hashtags); ?>
+        <!-- TODO: get the arrays in pages/individual_ticket.php and pass them here -->
+
+        
+        <!-- Client view -->
         <span class="agent"><?=$ticket->assignedagent ?? "Agent is NULL!"?></span>
         <span class="department"><?=$ticket->departmentName ?? "Department is NULL!"?></span>
         <span class="user"><?=$ticket->username?></span>
@@ -71,4 +86,41 @@ require_once(__DIR__ . '/../database/message.class.php');
         servidor vai à BD e responde a dizer que acrescentou -->
 
     </form>
+<?php } ?>
+
+<?php function output_change_ticket_info_form(Ticket $ticket, array $agents, array $departments, array $hashtags) { ?>
+    <form>
+        <label>High
+            <input type="radio" name="priority" value="high">
+        </label>
+        <label>Medium
+            <input type="radio" name="priority" value="medium">
+        </label>
+        <label>Low
+            <input type="radio" name="priority" value="low">
+        </label>
+
+        <?php
+        output_department_form($departments);
+
+        output_agent_form($agents);
+
+        output_hashtag_form($hashtags);
+        ?>
+
+        <button type="submit">Save</button>
+        
+        <button id="close-ticket">Close</button>
+        <!-- Javascript to close the ticket and update the page -->
+    </form>
+<?php } ?>
+
+<?php function output_agent_form(array $agents) { ?>
+    <select name="agent" id="agent-select">
+        <?php foreach($agents as $agent) { ?>
+            <option value="<?=$agent->id?>"><?=$agent->username?></option>
+        <?php } ?>
+        <?php /* for each agent, option with agent userID and agent username */ ?>
+        <option id="agentid">agent_username</option>
+    </select>
 <?php } ?>

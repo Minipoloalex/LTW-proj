@@ -35,6 +35,7 @@ if (!$ticket) {
 
 $messages = Message::getByTicket($db, $id);
 $actions = Action::getByTicket($db, $id);
+
 var_dump($actions);
 
 output_header();

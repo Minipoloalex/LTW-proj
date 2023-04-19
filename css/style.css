@@ -11,14 +11,11 @@
 
 */
 
+
 body {
     font-family: 'Martel Sans', sans-serif;
     background-color: #dee2ff;
     
-}
-
-footer {
-    bottom: 0;
 }
 
 ::placeholder{font-family: 'Martel Sans', sans-serif;} 
@@ -84,7 +81,7 @@ button {font-family: inherit; font-size: 1.2em;}
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
     gap: 1em 1em;
     grid-template-areas:
         "email email ."
@@ -133,8 +130,8 @@ buttons {
 
 footer {
     background-color: #dee2ff;
-    padding: 1em;
-    font-size: 1.2em;
+    /* padding: 1em; */
+    font-size: 0.8em;
     border: none;
     cursor: pointer;
     color: #846a8b;
@@ -334,7 +331,7 @@ table, th, td {
 
   /* TROCAR AQUI AS CHECKBOXES PARA A FRENTE */
   .createticket div .hashtag-select label {
-    grid-column: 2 / span 1;
+    grid-column: 1 / span 3;
 }
 
   
@@ -345,6 +342,12 @@ table, th, td {
     border-radius: 5px;
     grid-column: 1 / span 1;
     grid-row: 2 / span 1;
+  }
+
+  .createticket input[name='title']{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
   
   .createticket input:not([name='title']),
@@ -369,6 +372,7 @@ table, th, td {
     resize: vertical; /* only allow vertical resizing */
   }
   
+  /* 'create ticket' button */
   .createticket button[type='submit'] {
     grid-column: 1 / span 1;
     grid-row: 9 / span 1;
@@ -383,4 +387,64 @@ table, th, td {
   }
   
   
+  /* profile page */
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
   
+  .profile h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .profile label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .profile ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .profile li {
+    margin-bottom: 1rem;
+  }
+  
+  .profile span {
+    margin-left: 0.5rem;
+  }
+  
+  .profile span.email {
+    word-break: break-all;
+  }
+  
+  .profile {
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 1em;
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    max-width: max-content;
+  }
+
+  /* #page-container {
+    position: relative;
+    min-height: 100vh;
+  } */
+
+  footer {
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    /* position: absolute;
+    height: 2.5rem; */
+  }

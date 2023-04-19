@@ -58,4 +58,3 @@ function check_valid_data(string $name, string $username, string $email, string 
 
 
 ?>
-in
