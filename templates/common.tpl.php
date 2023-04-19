@@ -16,6 +16,7 @@ require_once(__DIR__ . '/../utils/session.php');
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
       <script src="../javascript/add_message.js" defer></script>
+      <script src="../javascript/nav.js" defer></script>
 
       <link rel="stylesheet" href="../css/nav.css">
       <link rel="stylesheet" href="../css/style.css">
@@ -38,8 +39,8 @@ require_once(__DIR__ . '/../utils/session.php');
         <ul class="navbar-nav">
           <li class="logo">Trouble Solver </li>
           <li class="nav-item"><a href="../pages/profile.php" class="nav-link"><span class="material-symbols-outlined">person</span><span class = "link-text">Profile</span></a></li>
-          <li class="nav-item"><span class="nav-submenuheader"><span class="material-symbols-outlined">confirmation_number</span><span class = "link-text">Tickets</span>
-            <ul class="nav-submenu">
+          <li class="nav-item"><span class="nav-submenuheader" id="subHeader" onclick="toggleSubMenu()"><span class="material-symbols-outlined">confirmation_number</span><span class = "link-text">Tickets</span>
+            <ul class="nav-submenu" id="subMenu">
               <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">My tickets</a></li>
               <li class="nav-submenu-item"><a href="../pages/create_ticket.php" class="nav-link">Create ticket</a></li>
               <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">Assigned tickets</a></li>

@@ -77,14 +77,14 @@ main {
   color: var(--text-secondary);
 }
 
-.nav-submenuheader:hover {
+/* .nav-submenuheader:hover {
   height: fit-content;
   transition: height 1s ease-in-out;
 }
 
 .nav-submenuheader:hover .nav-submenu{
   display: block;
-}
+} */
 
 .nav-submenu {
   display: none;
@@ -197,18 +197,6 @@ main {
     width: 16rem;
   }
 
-  .navbar:hover .logo {
-    position: fixed;
-    width: auto;
-    z-index: 1;
-    transition: width 600ms ease;
-
-  }
-
-  .navbar:hover .navbar-nav .logo + li {
-    margin-top: 6.5rem;
-  }
-
   .navbar:hover .link-text {
     display: inline;
   }
@@ -225,7 +213,18 @@ main {
 
   .material-symbols-outlined {
     padding-left: 1em;
-  }  
+  }
+  
+  /* for fixed scrolling */
+  .navbar:hover .logo {
+    position: fixed;
+    width: auto;
+    z-index: 1;
+  }
+
+  .navbar:hover .navbar-nav .logo + li {
+    margin-top: 6.5rem;
+  }
 }
 
 
