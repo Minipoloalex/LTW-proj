@@ -6,11 +6,15 @@ class Session
     private array $messages;
     public function __construct()
     {
-        
         session_start();
+        session_set_cookie_params(0, '/', '', false, true);
 
         $this->messages = isset($_SESSION['messages']) ? $_SESSION['messages'] : array();
         unset($_SESSION['messages']);
+        
+        if (!isset($_SESSION['csrf'])) {
+            $_SESSION['csrf'] = Session::generate_random_token();
+        }
     }
 
     public function isLoggedIn(): bool
@@ -32,7 +36,11 @@ class Session
     {
         return isset($_SESSION['name']) ? $_SESSION['name'] : null;
     }
-
+    public function verifyCsrf(string $csrf): bool {
+        $return_value = $_SESSION['csrf'] !== $csrf;
+        $_SESSION['csrf'] = Session::generate_random_token();
+        return $return_value;
+    }
     public function setId(int $id)
     {
         $_SESSION['id'] = $id;
@@ -51,6 +59,8 @@ class Session
     {
         return $this->messages;
     }
-
+    private static function generate_random_token() {
+        return bin2hex(openssl_random_pseudo_bytes(32));
+    }
 }
 ?>

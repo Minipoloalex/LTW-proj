@@ -22,8 +22,8 @@ class Message {
             $messages[] = new Message(
                 intval($message["MessageID"]),
                 $message["MessageText"],
-                $message["UserID"],
-                $message["TimeStamp"],
+                intval($message["UserID"]),
+                intval($message["TimeStamp"]),
             );
         }
         return $messages;

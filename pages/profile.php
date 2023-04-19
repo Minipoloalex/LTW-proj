@@ -6,7 +6,7 @@ require_once(__DIR__ . '/../database/client.class.php');
 require_once(__DIR__ . '/../templates/common.tpl.php');
 require_once(__DIR__ . '/../templates/profile.tpl.php');
 
-if (!$session->isLoggedIn()) die(header('Location: /'));
+if (!$session->isLoggedIn()) die(header('Location: landing_page.php'));
 
 if (!isset($_GET['id'])) {
     die(header('Location: main_page.php'));
@@ -28,7 +28,7 @@ if (!$user) {
 
 
 output_header();
-drawProfileForm($user);
+drawProfileForm($user, $session);
 output_footer();
 
 ?>

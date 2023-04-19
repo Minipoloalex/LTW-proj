@@ -17,12 +17,13 @@ require_once(__DIR__ . '/../utils/session.php');
 
       <script src="../javascript/add_message.js" defer></script>
 
-      <link rel="stylesheet" href="../css/style.css">
       <link rel="stylesheet" href="../css/nav.css">
+      <link rel="stylesheet" href="../css/style.css">
 
       <!---navbar icons--->
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> <!-- -->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> <!-- -->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> <!--ticket-->
 
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -30,13 +31,14 @@ require_once(__DIR__ . '/../utils/session.php');
     </head>
 
     <body>
-      <header>
+      <!-- <header>
         <h1><a href="main_page.php">Trouble Solver</a></h1>
-      </header>
+      </header> -->
       <nav class="navbar">
         <ul class="navbar-nav">
           <li class="logo">Trouble Solver </li>
-          <li class="nav-item">Tickets
+          <li class="nav-item"><a href="../pages/profile.php" class="nav-link"><span class="material-symbols-outlined">person</span><span class = "link-text">Profile</span></a></li>
+          <li class="nav-item"><span class="material-symbols-outlined">confirmation_number</span><span class = "link-text">Tickets<span class = "link-text">
             <ul>
               <li><a href="../pages/tickets.php" class="nav-link">My tickets</a></li>
               <li><a href="../pages/create_ticket.php" class="nav-link">Create ticket</a></li>
@@ -46,11 +48,10 @@ require_once(__DIR__ . '/../utils/session.php');
             </ul>
           </li>
 
-          <li class="nav-item"><a href="../pages/departments_list.php" class="nav-link"><span class="material-symbols-outlined">apartment</span>Departments</a></li>
-          <li class="nav-item"><a href="../pages/users_list.php" class="nav-link">Users</a></li>
-
-          <li class="nav-item"><a href="../pages/FAQ.php" class="nav-link">FAQs</a></li>
-          <li class="nav-item"><a href="../pages/profile.php" class="nav-link"><span class="material-symbols-outlined">person</span>Profile</a></li>
+          <li class="nav-item"><a href="../pages/departments_list.php" class="nav-link"><span class="material-symbols-outlined">apartment</span><span class = "link-text">Departments</span></a></li>
+          <li class="nav-item"><a href="../pages/users_list.php" class="nav-link"><span class="material-symbols-outlined">group</span><span class = "link-text">Users</span></a></li>
+          <li class="nav-item"><a href="../pages/FAQ.php" class="nav-link"><span class="material-symbols-outlined">quiz</span><span class = "link-text">FAQs</span></a></li>
+          <li class="nav-item"><span formaction="../actions/action_logout" class="material-symbols-outlined">logout</span></li>
         </ul>
 
       </nav>

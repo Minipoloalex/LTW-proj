@@ -9,23 +9,24 @@ require_once(__DIR__ . '/../database/department.class.php');
 {
     $hashtags = Hashtag::getHashtags($db);
     $departments = Department::getDepartments($db);
-
     ?>
     <form class="createticket">
         <label>
             Ticket title*
-            </label>
-            <input type='text' name='title'>
-       
+        </label>
+        <input type='text' name='title'>
+
         <label>
             Hashtags*
         </label>
-        <select name='hashtags[]' id='tags' multiple>
-            <?php foreach ($hashtags as $hashtag) { ?>
-                <option value="<?= $hashtag->hashtagid ?>"><?= $hashtag->hashtagname ?>
-                <option>
-                <?php } ?>
-        </select>
+        <div class="hashtag-options">
+    <?php foreach ($hashtags as $hashtag) { ?>
+        <label>
+            <input type="checkbox" name="hashtags[]" value="<?= $hashtag->hashtagid ?>">
+            <?= $hashtag->hashtagname ?>
+        </label>
+    <?php } ?>
+</div>
         <label>Ticket description*
         </label>
         <textarea name="description"></textarea>
@@ -33,8 +34,8 @@ require_once(__DIR__ . '/../database/department.class.php');
         <select name='department' id='deps'>
             <?php foreach ($departments as $department) { ?>
                 <option value=<?= $department->departmentId ?>><?= $department->departmentName ?>
-                <option>
-                <?php } ?>
+                </option>
+            <?php } ?>
         </select>
         <button formaction="../actions/action_create_ticket.php" formmethod="post" type="submit" class="submit">
             Create ticket

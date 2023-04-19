@@ -36,7 +36,7 @@ main {
   position: fixed;
   background-color: var(--bg-primary);
   transition: width 600ms ease;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 .navbar-nav {
@@ -84,7 +84,7 @@ main {
   margin: 0 1.5rem;
 }
 
-.fa-primary {
+/* .fa-primary {
   color: #ff7eee;
 }
 
@@ -95,7 +95,7 @@ main {
 .fa-primary,
 .fa-secondary {
   transition: var(--transition-speed);
-}
+} */
 
 .logo {
   font-weight: bold;
@@ -176,6 +176,10 @@ main {
   {
     left: 0px;
   }
+
+  .material-symbols-outlined {
+    padding-left: 1em;
+  }  
 }
 
 
@@ -228,5 +232,5 @@ main {
   'FILL' 0,
   'wght' 400,
   'GRAD' 0,
-  'opsz' 48
+  'opsz' 64
 }

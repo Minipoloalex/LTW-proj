@@ -1,8 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400&display=swap');
 
+
+/*
+
+- navbar e LOGOS
+- logo trouble solver
+- login - grid 
+- register - diminuir caixas e ver caixa de fundo
+- 
+
+*/
+
 body {
     font-family: 'Martel Sans', sans-serif;
-    /* background-color: #dee2ff; */
+    background-color: #dee2ff;
     
 }
 
@@ -44,9 +55,9 @@ button {font-family: inherit; font-size: 1.2em;}
 
 /*svg*/
 
-body {
+/* body {
     background-color: #dee2ff;
-}
+} */
 
 .custom-shape-divider-top-1681308841 {
     position: absolute;
@@ -139,9 +150,6 @@ footer {
     /* padding: 1em; */
     font-size: 1.2em;
     border: none;
-    /* border-radius: 5px; */
-    /* background-color: #eee; */
-
     background-color: #f7f7f7;
     border-radius: 10px;
     padding: 0.5em;
@@ -160,18 +168,11 @@ footer {
     padding: 1em;
     font-size: 1.2em;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     color: #fff;
-}
-
-.register,
-.login {
     background-color: #846a8b;
-    border-radius: 10px;
-    /* padding: 0.5em; */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-
 }
 
 .register:hover,
@@ -321,7 +322,6 @@ table, th, td {
 }
 
  */ 
-
  .createticket {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -331,24 +331,36 @@ table, th, td {
   .createticket label {
     grid-column: 1 / span 2;
   }
-
+  
   .createticket input[name='title'] {
-    width: calc(50% - 0.5rem);
+    width: 250px; /* fixed width */
     padding: 0.5rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
     grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
   }
   
-  .createticket input,
-  .createticket select,
-  .createticket textarea {
+  .createticket input:not([name='title']),
+  .createticket select {
     width: 100%;
     padding: 0.5rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
 
+  .createticket select option{
+    font-family: 'Martel Sans', sans-serif
+  }
+  
+  .createticket textarea[name='description'] {
+    width: calc(100% - 2rem); /* resizeable width */
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    resize: vertical; /* only allow vertical resizing */
   }
   
   .createticket button[type='submit'] {
@@ -363,4 +375,4 @@ table, th, td {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     border: none;
   }
-
+  

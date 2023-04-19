@@ -20,7 +20,7 @@ class Action {
             $actions[] = new Action(
                 intval($action["ActionID"]),
                 $action["Type"],
-                $action["TimeStamp"],
+                intval($action["TimeStamp"]),
             );
         }
         return $actions;

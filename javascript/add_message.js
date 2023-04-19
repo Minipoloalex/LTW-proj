@@ -1,13 +1,9 @@
-function encodeForAjax(data) {
-    return Object.keys(data).map(function(k) {
-        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-    }).join('&')
-}
+import { encodeForAjax, escapeHTML } from 'utils.js'
 
 async function postData(data) {
     console.log(data)
     console.log(encodeForAjax(data))
-    return fetch('../actions/action_add_message.php', {
+    return fetch('../api/action_add_message.php', {
         method: 'post',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -39,7 +35,7 @@ function submitNewMessage(event) {
         
         const user = document.createElement("span")
         user.classList.add("user")
-        user.textContent = "UserID: " + json['userID'] + " "
+        user.textContent = "UserID: " + json['userID'] + " "    // username should also have escapeHTML(username)
         
         const date = document.createElement("span")
         date.classList.add("user")
@@ -48,7 +44,7 @@ function submitNewMessage(event) {
         const text = document.createElement("p")
         text.classList.add("message")
         
-        text.textContent = 'CONTENT: ' + json['text']
+        text.textContent = 'CONTENT: ' +  escapeHTML(json['text'])
 
 
         newMessage.appendChild(user)
@@ -61,5 +57,5 @@ function submitNewMessage(event) {
 
 const messageForm = document.querySelector("#message-form")
 if (messageForm) {
-    messageForm.addEventListener('submit', addNewMessage)
+    messageForm.addEventListener('submit', submitNewMessage)
 }

@@ -1,9 +1,12 @@
 <?php
 declare(strict_types = 1);
 require_once(__DIR__ . '/../database/client.class.php');
+
+require_once(__DIR__ . '/../utils/session.php');
+$session = new Session();
 ?>
 
-<?php function drawProfileForm(Client $client) { ?>
+<?php function drawProfileForm(Client $client, Session $session) { ?>
   <h2>Profile</h2>
   <form action="../actions/action_edit_profile.php" method="post" class="profile">
 
@@ -16,6 +19,7 @@ require_once(__DIR__ . '/../database/client.class.php');
     <label for="email">Email:</label>
     <input id="email" type="text" name="email" value="<?=$client->email?>">
 
+    <input name="csrf" type="hidden" value="<?=$session->getCsrf()?>">
     <button type="submit">Save</button>
   </form>
 <?php } ?>

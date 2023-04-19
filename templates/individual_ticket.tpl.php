@@ -23,6 +23,9 @@ require_once(__DIR__ . '/../database/message.class.php');
         }
         ?>
     </section>
+    <section id="actions-list">
+        <?php
+        ?>
 
 <?php
 /*
@@ -43,6 +46,7 @@ require_once(__DIR__ . '/../database/message.class.php');
         <span class="user">UserID: <?=$message->userID?></span>
         <span class="date">DATE: <?=date('F j', $message->date)?></span>
         <p class="message">CONTENT: <?=$message->text?></p>
+        <p class="message">CONTENT: <?=htmlentities($message->text)?></p>
     </article>
 <?php }?>
 
@@ -52,7 +56,7 @@ require_once(__DIR__ . '/../database/message.class.php');
 
 <?php function output_message_form(int $ticketID) { ?>
     <form id="message-form">
-        <!-- the user can change this value (validate in action.php)-->
+        <!-- the user can change this value (validate data-id in action.php)-->
         <label>Add a message:
             <input data-id="<?=$ticketID?>" type="text" name="message" id="message-input">
         </label>

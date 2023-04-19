@@ -27,8 +27,6 @@
           }
 
         static function getClientWithPassword(PDO $db, string $email, string $password) : ?Client {
-          $options = ['cost' => 12];
-          
           $stmt = $db->prepare('
               SELECT *
               FROM CLIENT
@@ -45,7 +43,8 @@
                 $client['Password'],
                 $client['Email']
               );
-            } else return null;
+            }
+            return null;
           }
         static function create_account(PDO $db, string $name, string $username, string $email, string $password, string $confirm_password) : int {
           $stmt = $db->prepare('INSERT INTO CLIENT (Name, Username, Email, Password) VALUES (?, ?, ?, ?)');
@@ -67,8 +66,8 @@
                 intval($client['UserID']),
                     $client['Name'],
                     $client['Username'],
-                    $client['password'],
-                    $client['email']
+                    $client['Password'],
+                    $client['Email']
               );
             }
         
