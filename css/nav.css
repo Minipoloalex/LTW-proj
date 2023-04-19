@@ -36,7 +36,10 @@ main {
   position: fixed;
   background-color: var(--bg-primary);
   transition: width 600ms ease;
-  /* overflow: scroll; */
+  overflow-y: scroll;
+}
+.navbar::-webkit-scrollbar {
+  display: none;
 }
 
 .navbar-nav {
@@ -49,6 +52,7 @@ main {
   height: 100%;
 }
 
+
 .nav-item {
   width: 100%;
 }
@@ -57,7 +61,7 @@ main {
   margin-top: auto;
 }
 
-.nav-link {
+.nav-link, .nav-submenuheader , .nav-logout {
   display: flex;
   align-items: center;
   height: 5rem;
@@ -67,10 +71,28 @@ main {
   transition: var(--transition-speed);
 }
 
-.nav-link:hover {
+.nav-link:hover , .nav-submenuheader:hover , .nav-logout:hover {
   filter: grayscale(0%) opacity(1);
   background: var(--bg-secondary);
   color: var(--text-secondary);
+}
+
+.nav-submenuheader:hover {
+  height: fit-content;
+  transition: height 1s ease-in-out;
+}
+
+.nav-submenuheader:hover .nav-submenu{
+  display: block;
+}
+
+.nav-submenu {
+  display: none;
+  text-decoration: none;
+}
+
+.nav-submenu-item {
+  text-decoration: none;
 }
 
 .link-text {
@@ -109,11 +131,13 @@ main {
   width: 100%;
 }
 
+/* not needed */
 .logo svg {
   transform: rotate(0deg);
   transition: var(--transition-speed);
 }
 
+/* not needed */
 .logo-text
 {
   display: inline;
@@ -142,9 +166,19 @@ main {
     flex-direction: row;
   }
 
-  .nav-link {
+  .nav-link, .nav-submenuheader {
     justify-content: center;
   }
+
+  .nav-logout {
+    display: none;
+  }
+
+  /* .nav-link:hover , .nav-submenuheader:hover {
+    filter: grayscale(0%) opacity(1);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+  } */
 
   main {
     margin: 0;
@@ -161,6 +195,18 @@ main {
 
   .navbar:hover {
     width: 16rem;
+  }
+
+  .navbar:hover .logo {
+    position: fixed;
+    width: auto;
+    z-index: 1;
+    transition: width 600ms ease;
+
+  }
+
+  .navbar:hover .navbar-nav .logo + li {
+    margin-top: 6.5rem;
   }
 
   .navbar:hover .link-text {
@@ -228,6 +274,8 @@ main {
 /* icons */
 
 .material-symbols-outlined {
+  text-decoration: none;
+  color: #b6b6b6;
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
