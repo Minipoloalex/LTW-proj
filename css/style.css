@@ -443,8 +443,10 @@ table, th, td {
 
   footer {
     bottom: 0;
+    right: 50vh;
+    padding: 0;
     text-align: center;
-    width: 100%;
-    /* position: absolute;
-    height: 2.5rem; */
+    width: fit-content;
+    position: absolute;
+    /* height: 2.5rem; */
   }

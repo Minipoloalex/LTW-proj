@@ -41,9 +41,9 @@ require_once(__DIR__ . '/../utils/session.php');
     <!-- <header>
         <h1><a href="main_page.php">Trouble Solver</a></h1>
       </header> -->
-    <nav class="navbar">
+    <nav class="navbar" >
       <ul class="navbar-nav">
-        <li class="logo">Trouble Solver </li>
+        <li class="logo">Trouble Solver</li>
         <li class="nav-item"><a href="../pages/profile.php" class="nav-link"><span
               class="material-symbols-outlined">person</span><span class="link-text">Profile</span></a></li>
         <li class="nav-item"><span class="nav-submenuheader" id="subHeader" onclick="toggleSubMenu()"><span
@@ -84,11 +84,10 @@ require_once(__DIR__ . '/../utils/session.php');
 
 <?php function output_footer()
     { ?>
-    
+    </main>
     <footer>
       LTW Trouble Ticket Project &copy; 2023
     </footer>
-    </main>
   </body>
 
   </html>

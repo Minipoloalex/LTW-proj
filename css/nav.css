@@ -36,6 +36,7 @@ main {
   position: fixed;
   background-color: var(--bg-primary);
   transition: width 600ms ease;
+  z-index: 1;
   overflow-y: scroll;
 }
 .navbar::-webkit-scrollbar {
@@ -89,11 +90,12 @@ main {
 .nav-submenu {
   display: none;
   text-decoration: none;
+  list-style: none;
 }
 
-.nav-submenu-item {
+/* .nav-submenu .nav-submenu-item {
   text-decoration: none;
-}
+} */
 
 .link-text {
   display: none;
@@ -129,6 +131,7 @@ main {
   font-size: 1.5rem;
   letter-spacing: 0.3ch;
   width: 100%;
+  /* transition: var(--transition-speed); */
 }
 
 /* not needed */
@@ -226,11 +229,6 @@ main {
     margin-top: 6.5rem;
   }
 }
-
-
-
-
-
 
 /* .dark {
   --text-primary: #b6b6b6;
