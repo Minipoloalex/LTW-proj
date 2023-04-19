@@ -1,4 +1,22 @@
-import { encodeForAjax, escapeHTML } from 'utils.js'
+const entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': '&quot;',
+    "'": '&#39;',
+    "/": '&#x2F;'
+};
+function escapeHtml(string) {
+    return String(string).replace(/[&<>"'\/]/g, function (s) {
+        return entityMap[s];
+    });
+}
+
+function encodeForAjax(data) {
+    return Object.keys(data).map(function(k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+    }).join('&')
+}
 
 async function postData(data) {
     console.log(data)
@@ -20,7 +38,7 @@ function submitNewMessage(event) {
     
     const messageText = messageInput.value
     const ticketID = messageInput.getAttribute("data-id")
-
+    console.log(messageText)
     messageInput.value = ""
     
     postData({'message': messageText, 'ticketID': ticketID})
@@ -44,7 +62,7 @@ function submitNewMessage(event) {
         const text = document.createElement("p")
         text.classList.add("message")
         
-        text.textContent = 'CONTENT: ' +  escapeHTML(json['text'])
+        text.textContent = 'CONTENT: ' +  escapeHtml(json['text'])
 
 
         newMessage.appendChild(user)
