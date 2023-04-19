@@ -38,20 +38,21 @@ require_once(__DIR__ . '/../utils/session.php');
         <ul class="navbar-nav">
           <li class="logo">Trouble Solver </li>
           <li class="nav-item"><a href="../pages/profile.php" class="nav-link"><span class="material-symbols-outlined">person</span><span class = "link-text">Profile</span></a></li>
-          <li class="nav-item"><span class="material-symbols-outlined">confirmation_number</span><span class = "link-text">Tickets<span class = "link-text">
-            <ul>
-              <li><a href="../pages/tickets.php" class="nav-link">My tickets</a></li>
-              <li><a href="../pages/create_ticket.php" class="nav-link">Create ticket</a></li>
-              <li><a href="../pages/tickets.php" class="nav-link">Assigned tickets</a></li>
+          <li class="nav-item"><span class="nav-submenuheader"><span class="material-symbols-outlined">confirmation_number</span><span class = "link-text">Tickets</span>
+            <ul class="nav-submenu">
+              <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">My tickets</a></li>
+              <li class="nav-submenu-item"><a href="../pages/create_ticket.php" class="nav-link">Create ticket</a></li>
+              <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">Assigned tickets</a></li>
               <!--Same page: assigned and followed tickets (not assigned to them)-->
-              <li><a href="../pages/tickets.php" class="nav-link">All tickets</a></li>
+              <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">All tickets</a></li>
             </ul>
+          </span>
           </li>
 
           <li class="nav-item"><a href="../pages/departments_list.php" class="nav-link"><span class="material-symbols-outlined">apartment</span><span class = "link-text">Departments</span></a></li>
           <li class="nav-item"><a href="../pages/users_list.php" class="nav-link"><span class="material-symbols-outlined">group</span><span class = "link-text">Users</span></a></li>
           <li class="nav-item"><a href="../pages/FAQ.php" class="nav-link"><span class="material-symbols-outlined">quiz</span><span class = "link-text">FAQs</span></a></li>
-          <li class="nav-item"><span formaction="../actions/action_logout" class="material-symbols-outlined">logout</span></li>
+          <li class="nav-item"><span class="nav-logout"><span formaction="../actions/action_logout" class="material-symbols-outlined">logout</span><span class = "link-text">Log Out</span></span></li>
         </ul>
 
       </nav>
