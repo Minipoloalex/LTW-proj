@@ -7,8 +7,8 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 <?php function drawTicket(Ticket $ticket)
 { ?>
     <tr>
-        <td><?= $ticket->title ?></td>
-        <td><?= $ticket->ticketid ?></td>
+        <td><?= $ticket->title?> </td>
+        <td><a href="../pages/individual_ticket.php?id=<?=$ticket->ticketid?>"><?=$ticket->ticketid?></a></td>
         <td><?= $ticket->username ?></td>
         <td><?= $ticket->status ?></td>
         <td><?= $ticket->submitdate ?></td>
@@ -57,7 +57,7 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
     </table>
 <?php } ?>
 
-<!-- javascript -->
+<!-- javascript: AJAX -->
 <?php function drawFilterMenu(array $filterValues)
 { ?>
     <section>

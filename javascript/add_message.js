@@ -21,7 +21,7 @@ function encodeForAjax(data) {
 async function postData(data) {
     console.log(data)
     console.log(encodeForAjax(data))
-    return fetch('../api/action_add_message.php', {
+    return fetch('../api/api_add_message.php', {
         method: 'post',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -47,13 +47,16 @@ function submitNewMessage(event) {
     .catch(() => console.error('Error parsing JSON'))
     .then(json => {
         console.log(json)
-
+        if (json['error']) {
+            console.error(json['error'])
+            return;
+        }
         const newMessage = document.createElement("article")
         newMessage.classList.add("message")
         
         const user = document.createElement("span")
         user.classList.add("user")
-        user.textContent = "UserID: " + json['userID'] + " "    // username should also have escapeHTML(username)
+        user.textContent = "UserID: " + json['userID'] + " "    // username could also have escapeHTML(username)
         
         const date = document.createElement("span")
         date.classList.add("user")
@@ -62,7 +65,7 @@ function submitNewMessage(event) {
         const text = document.createElement("p")
         text.classList.add("message")
         
-        text.textContent = 'CONTENT: ' +  escapeHtml(json['text'])
+        text.textContent = 'CONTENT: ' +  json['text']  // might need escapeHtml
 
 
         newMessage.appendChild(user)

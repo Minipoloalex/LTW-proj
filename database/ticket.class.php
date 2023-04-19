@@ -30,10 +30,13 @@ class Ticket
     $this->departmentName = $departmentName;
     $this->assignedagent = $assignedagent;
   }
-  static function getById(PDO $db, int $id): Ticket {
+  static function getById(PDO $db, int $id): ?Ticket {
     $stmt = $db->prepare('SELECT * FROM TICKET WHERE TicketID = ?');
     $stmt->execute(array($id));
     $ticket = $stmt->fetch();
+    if (!$ticket) {
+      return null;
+    }
     return Ticket::convertToTicket($db, $ticket);
   }
   static function getByUser(PDO $db, int $userId): array
