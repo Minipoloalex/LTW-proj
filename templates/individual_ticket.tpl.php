@@ -25,7 +25,11 @@ require_once(__DIR__ . '/../database/message.class.php');
     </section>
     <section id="actions-list">
         <?php
+        foreach($actions as $action) {
+            output_action($action);
+        }
         ?>
+    </section>
 
 <?php
 /*
@@ -45,7 +49,6 @@ require_once(__DIR__ . '/../database/message.class.php');
     <article class="message">
         <span class="user">UserID: <?=$message->userID?></span>
         <span class="date">DATE: <?=date('F j', $message->date)?></span>
-        <p class="message">CONTENT: <?=$message->text?></p>
         <p class="message">CONTENT: <?=htmlentities($message->text)?></p>
     </article>
 <?php }?>

@@ -54,6 +54,19 @@
 
           return intval($db->lastInsertId());
         }
+        static function check_acc_exists(PDO $db, string $name, string $username, string $email) {
+          $stmt = $db->prepare('SELECT * FROM CLIENT WHERE Username = ?');
+          $stmt->execute(array($username));
+          if ($stmt->fetch()) {
+              return array(true, "Username already exists");
+          }
+          $stmt = $db->prepare('SELECT * FROM CLIENT WHERE Email = ?');
+          $stmt->execute(array($email));
+          if ($stmt->fetch()) {
+              return array(true, "Email already exists");
+          }
+          return array(false, "Account registered");
+      }
         
 
         static function searchClients(PDO $db, string $search, int $count) : array {
@@ -122,6 +135,18 @@
             $stmt->execute(array($id));
             if ($stmt->fetch()) return "Agent";
             return "Client";
+          }
+          static function hasAcessToTicket(PDO $db, int $userID, $ticketID) {
+            $stmt = $db->prepare('Select * from ADMIN where UserID = ?');
+            $stmt->execute(array($userID));
+            if ($stmt->fetch()) return true;
+
+            $ticket = Ticket::getById($db, $ticketID);
+            $user = Client::getById($db, $userID);
+            // no assigned agent can be a plain client, so no need to check if it's an agent
+            if ($ticket->username == $user->username) return true;
+            if ($ticket->assignedagent == $user->username) return true;
+            return false;
           }
           static function filter(PDO $db, array $types, array $departments, string $search) : array {
             $query = 'SELECT UserID, Name, Username, Password, Email FROM CLIENT';

@@ -16,7 +16,7 @@ $id = intval($_GET['id']);
 $db = getDatabaseConnection();
 
 if ($id != $session->getId()) {
-    die(header('Location: /'));
+    die(header('Location: landing_page.php'));
 }
 
 $user = Client::getById($db, $id);

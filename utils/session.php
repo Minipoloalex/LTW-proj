@@ -6,8 +6,8 @@ class Session
     private array $messages;
     public function __construct()
     {
-        session_start();
         session_set_cookie_params(0, '/', '', false, true);
+        session_start();
 
         $this->messages = isset($_SESSION['messages']) ? $_SESSION['messages'] : array();
         unset($_SESSION['messages']);

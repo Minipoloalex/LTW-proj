@@ -1,9 +1,27 @@
-import { encodeForAjax, escapeHTML } from 'utils.js'
+const entityMap = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': '&quot;',
+    "'": '&#39;',
+    "/": '&#x2F;'
+};
+function escapeHtml(string) {
+    return String(string).replace(/[&<>"'\/]/g, function (s) {
+        return entityMap[s];
+    });
+}
+
+function encodeForAjax(data) {
+    return Object.keys(data).map(function(k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+    }).join('&')
+}
 
 async function postData(data) {
     console.log(data)
     console.log(encodeForAjax(data))
-    return fetch('../api/action_add_message.php', {
+    return fetch('../api/api_add_message.php', {
         method: 'post',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -20,7 +38,7 @@ function submitNewMessage(event) {
     
     const messageText = messageInput.value
     const ticketID = messageInput.getAttribute("data-id")
-
+    console.log(messageText)
     messageInput.value = ""
     
     postData({'message': messageText, 'ticketID': ticketID})
@@ -29,13 +47,16 @@ function submitNewMessage(event) {
     .catch(() => console.error('Error parsing JSON'))
     .then(json => {
         console.log(json)
-
+        if (json['error']) {
+            console.error(json['error'])
+            return;
+        }
         const newMessage = document.createElement("article")
         newMessage.classList.add("message")
         
         const user = document.createElement("span")
         user.classList.add("user")
-        user.textContent = "UserID: " + json['userID'] + " "    // username should also have escapeHTML(username)
+        user.textContent = "UserID: " + json['userID'] + " "    // username could also have escapeHTML(username)
         
         const date = document.createElement("span")
         date.classList.add("user")
@@ -44,7 +65,7 @@ function submitNewMessage(event) {
         const text = document.createElement("p")
         text.classList.add("message")
         
-        text.textContent = 'CONTENT: ' +  escapeHTML(json['text'])
+        text.textContent = 'CONTENT: ' +  json['text']  // might need escapeHtml
 
 
         newMessage.appendChild(user)

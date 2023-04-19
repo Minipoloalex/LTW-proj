@@ -1,3 +1,4 @@
+// note: it would be great to import this file from others
 const entityMap = {
     "&": "&amp;",
     "<": "&lt;",
