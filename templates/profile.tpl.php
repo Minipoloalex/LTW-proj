@@ -5,31 +5,32 @@ require_once(__DIR__ . '/../database/client.class.php');
 require_once(__DIR__ . '/../utils/session.php');
 ?>
 
-<?php function drawEditButton() {?>
-  <button onclick="editProfile()">Edit</button>
-<?php } ?>
 
-<?php function drawProfileForm(Client $client, Session $session) { ?>
-  <h2>Edit Profile</h2>
-  <form class="profile" class="edit_profile" action="../actions/action_edit_profile.php" method="post">
+<?php function drawProfileForm(Client $client, Session $session, string $type) { ?>
+  <h2>Your profile</h2>
+  <form class="profile"  method="post"> <!--- class="edit_profile" // action="../actions/action_edit_profile.php"--->
 
     <label for="name">Name:</label>
-    <input id="name" type="text" name="name" value="<?=$client->name?>">
+    <input id="name" type="text" name="name" value="<?=$client->name?>" readonly>
     
     <label for="username">Username:</label>
-    <input id="username" type="text" name="username" value="<?=$client->username?>">  
+    <input id="username" type="text" name="username" value="<?=$client->username?>" readonly>  
     
     <label for="email">Email:</label>
-    <input id="email" type="text" name="email" value="<?=$client->email?>">
+    <input id="email" type="text" name="email" value="<?=$client->email?>" readonly>
 
-    <label for="old-password">Old password:</label>
-    <input id="old-password" type="password" name="old_password" value="">
+    <label for="old-password" hidden >Old password:</label>
+    <input id="old-password" type="password" name="old_password" value="" readonly hidden>
 
-    <label for="new-password">New password:</label>
-    <input id="new-password" type="password" name="new_password" value="">
+    <label for="new-password" hidden>New password:</label>
+    <input id="new-password" type="password" name="new_password" value="" readonly hidden>
+    
+    <label for="type">Type:</label>
+    <input id="type" type="text" value="<?=$type?>" readonly>
 
     <input name="csrf" type="hidden" value="<?=$session->getCsrf()?>">
-    <button type="submit" id="save-btn">Save</button>
+    <!-- <button type="submit" id="save-btn">Save</button> -->
+    <button type="button" id="edit-btn">Edit</button>
 
   </form>
 <?php } ?>
@@ -50,7 +51,8 @@ require_once(__DIR__ . '/../utils/session.php');
     <label for="type">Type:</label>
     <span id="type"><?=$type?></span>
     
-    <button id="edit-btn" onclick="editProfile()">Edit</button>
+    <!-- <button id="edit-btn" >Edit</button>  -->
+    <!-- onclick="editProfile()" -->
   </div>
   
 <?php } ?>

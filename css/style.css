@@ -387,8 +387,8 @@ table, th, td {
   }
   
   
-  /* profile page */
-
+  /* profile page - GOOD*/
+/* 
   .profile {
     display: flex;
     flex-direction: column;
@@ -434,16 +434,92 @@ table, th, td {
     display: flex;
     flex-direction: column;
     max-width: max-content;
-  }
+  } */
 
-  .edit_profile {
-    display: hidden;
+
+  /* profile page - TEST */
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
   }
+  
+  .profile h2 {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .profile label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    /* display: block; */
+    width: 100%;
+  }
+  
+  .profile input {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  
+  .profile ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .profile li {
+    margin-bottom: 1rem;
+  }
+  
+  .profile span {
+    margin-left: 0.5rem;
+  }
+  
+  .profile span.email {
+    word-break: break-all;
+  }
+  
+
+  /* .edit_profile {
+    display: hidden;
+  } */
 
   /* #page-container {
     position: relative;
     min-height: 100vh;
   } */
+
+
+  /*for JS in profile edit page */
+
+  input[readonly] {
+    user-select: none;
+    cursor: default;
+  }
+
+  input[readonly]:focus {
+    outline: none;
+  }
+
+  .profile input {
+    border: none;
+    background-color: transparent;
+    /* background-color: #f7f7f7; */
+    box-shadow: none;
+  }
+
+  /* damn footer */
 
   footer {
     bottom: 0;

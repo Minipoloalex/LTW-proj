@@ -43,7 +43,7 @@ class Session
         $return_value = $_SESSION['csrf'] !== $csrf;
         $_SESSION['csrf'] = Session::generate_random_token();
         return $return_value;
-    }
+    } //sofia duvida: pq é que mudamos o valor do csrf da sessao atual?
     public function setId(int $id)
     {
         $_SESSION['id'] = $id;

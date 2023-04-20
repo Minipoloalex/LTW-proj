@@ -31,8 +31,8 @@ $type = Client::getType($db, $user->id);
 
 
 output_header();
-drawProfile($user, $type);
-drawProfileForm($user, $session);
+// drawProfile($user, $type);
+drawProfileForm($user, $session, $type);
 output_footer();
 
 ?>
