@@ -59,7 +59,7 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 
 <!-- javascript: AJAX -->
 
-<?php function drawFilterMenu(array $filterValues) : array
+<?php function drawFilterMenu(array $filterValues)
 { ?>
     <section>
         <h4>Filters</h4>
@@ -93,6 +93,7 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
             <input type="checkbox" name="departaments" id="<?php echo $fv['DepartmentName'] ?>" value="<?php echo $fv['DepartmentID'] ?>" />
             <label for="<?php echo $fv['DepartmentName'] ?>"><?php echo $fv['DepartmentName'] ?></label><br />
         <?php } ?>
-        <button type="submit" onclick=getFilterValues()>Filtrar
+        <button type="button" onclick="clearFilters()">Clear Filters</button>
+        <button type="submit" onclick=getFilterValues()>Filtrar</button>
     </section>
 <?php } ?>
