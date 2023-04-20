@@ -36,6 +36,9 @@ class Session
     {
         return isset($_SESSION['name']) ? $_SESSION['name'] : null;
     }
+    public function getCsrf(): ?string {
+        return $_SESSION['csrf'];
+    }
     public function verifyCsrf(string $csrf): bool {
         $return_value = $_SESSION['csrf'] !== $csrf;
         $_SESSION['csrf'] = Session::generate_random_token();

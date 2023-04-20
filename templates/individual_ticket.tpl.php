@@ -13,16 +13,15 @@ require_once(__DIR__ . '/create_ticket.tpl.php');
 <?php function output_single_ticket(Ticket $ticket, array $messages, array $actions,
 array $all_hashtags, array $all_agents, array $all_departments) { ?>
     <article id="ticket">
-        <header><h1><?=$ticket->title?></h1></header>
-        <p><?=$ticket->description?></p>
+        <header><h1 class="title"><?=$ticket->title?></h1></header>
+        <p class="description"><?=$ticket->description?></p>
         <?php
             // if user is admin/agent, he sees inputs. ticket user sees only spans
         ?>
         <!-- Admin/agent view -->
         <?php output_change_ticket_info_form($ticket, $all_agents, $all_departments, $all_hashtags); ?>
-        <!-- TODO: get the arrays in pages/individual_ticket.php and pass them here -->
 
-        
+        <h3> Client view </h3>
         <!-- Client view -->
         <span class="agent"><?=$ticket->assignedagent ?? "Agent is NULL!"?></span>
         <span class="department"><?=$ticket->departmentName ?? "Department is NULL!"?></span>
@@ -30,7 +29,14 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
         <span class="status"><?=$ticket->status?></span>
         <span class="priority"><?=$ticket->priority?></span>
         <span class="date"><?=date('F j', $ticket->submitdate)?></span>
+        <h4>Hashtags</h4>
+        <ul class="hashtags">
+            <?php foreach ($ticket->hashtags as $hashtag) { ?>
+                <li><?=$hashtag->hashtagname?></li>
+            <?php } ?>
+        </ul>
     </article>
+    
     <section id="messages-list">
         <?php
         foreach($messages as $message) {
@@ -90,16 +96,17 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
 
 <?php function output_change_ticket_info_form(Ticket $ticket, array $agents, array $departments, array $hashtags) { ?>
     <form>
-        <label>High
-            <input type="radio" name="priority" value="high">
-        </label>
-        <label>Medium
-            <input type="radio" name="priority" value="medium">
-        </label>
-        <label>Low
-            <input type="radio" name="priority" value="low">
-        </label>
-
+        <header><h3>Change ticket information</h3></header>
+            <label>High
+                <input type="radio" name="priority" value="high">
+            </label>
+            <label>Medium
+                <input type="radio" name="priority" value="medium">
+            </label>
+            <label>Low
+                <input type="radio" name="priority" value="low">
+            </label>
+        
         <?php
         output_department_form($departments);
 
@@ -110,17 +117,20 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
 
         <button type="submit">Save</button>
         
-        <button id="close-ticket">Close</button>
-        <!-- Javascript to close the ticket and update the page -->
+        <button id="close-ticket">Close ticket as solved</button>
+        <!-- Javascript to close the ticket and update the page (not done yet) -->
     </form>
 <?php } ?>
 
 <?php function output_agent_form(array $agents) { ?>
+    <label>
+        Agent
+    </label>
     <select name="agent" id="agent-select">
+        <option></option>
         <?php foreach($agents as $agent) { ?>
             <option value="<?=$agent->id?>"><?=$agent->username?></option>
         <?php } ?>
         <?php /* for each agent, option with agent userID and agent username */ ?>
-        <option id="agentid">agent_username</option>
     </select>
 <?php } ?>

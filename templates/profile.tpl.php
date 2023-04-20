@@ -16,19 +16,19 @@ require_once(__DIR__ . '/../utils/session.php');
     <label for="name">Name:</label>
     <input id="name" type="text" name="name" value="<?=$client->name?>">
     
-    <label for="username">Last Name:</label>
+    <label for="username">Username:</label>
     <input id="username" type="text" name="username" value="<?=$client->username?>">  
     
     <label for="email">Email:</label>
     <input id="email" type="text" name="email" value="<?=$client->email?>">
 
-    <label for="password">Old password:</label>
-    <input id="password" type="password" name="password" value="">
+    <label for="old-password">Old password:</label>
+    <input id="old-password" type="password" name="old_password" value="">
 
-    <label for="password">New password:</label>
-    <input id="password" type="password" name="password" value="">
+    <label for="new-password">New password:</label>
+    <input id="new-password" type="password" name="new_password" value="">
 
-    <input name="csrf" type="hidden" value="csrf(TODO: change this)">
+    <input name="csrf" type="hidden" value="<?=$session->getCsrf()?>">
     <button type="submit">Save</button>
 
   </form>
@@ -41,7 +41,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <label for="name">Name:</label>
     <span id="name"><?=$client->name?></span>
     
-    <label for="username">Last Name:</label>
+    <label for="username">Username:</label>
     <span id="username"><?=$client->username?></span>  
     
     <label for="email">Email:</label>

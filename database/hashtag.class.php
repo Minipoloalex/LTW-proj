@@ -24,13 +24,13 @@ class Hashtag {
   
       return $hashtags;
     }
-  static function getByTicketId(PDO $db, int $id) : array {
+  static function getByTicketId(PDO $db, int $ticketID) : array {
     $stmt = $db->prepare('
     SELECT *
     FROM HASHTAG_TICKET JOIN HASHTAG USING(HashtagID)
     WHERE TicketId = ?
     ');
-    $stmt->execute(array($id));
+    $stmt->execute(array($ticketID));
     $hashtags = [];
     while ($hashtag = $stmt->fetch()) {
       $hashtags[] = new Hashtag(
@@ -42,6 +42,20 @@ class Hashtag {
   }
   static function getByHashtagId(PDO $db, int $id) : array {
     return array(); // TODO: implement this function or getByHashtagName
+  }
+  static function addHashtagToTicket(PDO $db, int $ticketID, int $hashtagID) : void {
+    $stmt = $db->prepare('
+    INSERT INTO HASHTAG_TICKET (TicketID, HashtagID)
+    VALUES (?, ?)
+    ');
+    $stmt->execute(array($ticketID, $hashtagID));
+  }
+  static function removeHashtagFromTicket(PDO $db, int $ticketID, int $hashtagID) {
+    $stmt = $db->prepare('
+    DELETE FROM HASHTAG_TICKET
+    WHERE TicketID = ? AND HashtagID = ?
+    ');
+    $stmt->execute(array($ticketID, $hashtagID));
   }
 }
 

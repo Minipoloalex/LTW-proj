@@ -145,8 +145,16 @@
             $user = Client::getById($db, $userID);
             // no assigned agent can be a plain client, so no need to check if it's an agent
             if ($ticket->username == $user->username) return true;
-            if ($ticket->assignedagent == $user->username) return true;
-            return false;
+            return $ticket->assignedagent == $user->username;
+          }
+          static function canChangeTicketInfo(PDO $db, int $userID, $ticketID) {
+            $stmt = $db->prepare('Select * from ADMIN where UserID = ?');
+            $stmt->execute(array($userID));
+            if ($stmt->fetch()) return true;
+
+            $ticket = Ticket::getById($db, $ticketID);
+            $user = Client::getById($db, $userID);
+            return $ticket->assignedagent == $user->username;
           }
           static function filter(PDO $db, array $types, array $departments, string $search) : array {
             $query = 'SELECT UserID, Name, Username, Password, Email FROM CLIENT';

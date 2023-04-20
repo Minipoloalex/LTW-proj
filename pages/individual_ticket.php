@@ -35,11 +35,15 @@ if (!$ticket) {
 
 $messages = Message::getByTicket($db, $id);
 $actions = Action::getByTicket($db, $id);
+$hashtags = Hashtag::getHashtags($db);
+$agents = Agent::getAgents($db);
+$departments = Department::getDepartments($db);
+
 
 var_dump($actions);
 
 output_header();
-output_single_ticket($ticket, $messages, $actions);
+output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments);
 output_message_form($ticket->ticketid);
 output_footer();
 

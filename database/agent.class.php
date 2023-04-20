@@ -31,10 +31,10 @@ class Agent extends Client
         return $agents;
     }
 
-    static function getAgents(PDO $db, int $count): array
+    static function getAgents(PDO $db): array
     {
-        $stmt = $db->prepare('SELECT * FROM Agent JOIN Client USING (UserID) LIMIT ? ');
-        $stmt->execute(array($count));
+        $stmt = $db->prepare('SELECT * FROM Agent JOIN Client USING (UserID)');
+        $stmt->execute();
 
         $agents = array();
         while ($agent = $stmt->fetch()) {

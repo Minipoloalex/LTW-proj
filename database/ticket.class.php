@@ -111,14 +111,39 @@ class Ticket
   }
 
   static function createTicket(PDO $db, string $title, int $userID, ?string $priority, array $hashtags, string $description, ?int $departmentID) : int {
-    /* TODO:  Need to add hashtags to other table (not done yet) */
     $submitdate = idate('U');
     $status = "open";
-
+    
     $stmt = $db->prepare('INSERT INTO TICKET(TicketID, Title, UserID, Status, SubmitDate, Priority, Description, AssignedAgent, DepartmentID)
     VALUES (NULL, ?, ?, ?, ?, ?, ?, NULL, ?)');  /* assignedAgent is always null */
     $stmt->execute(array($title, $userID, $status, $submitdate, $priority, $description, $departmentID));
-    return intval($db->lastInsertId());
+    $ticketID = intval($db->lastInsertId());
+
+    foreach ($hashtags as $hashtagID) {
+      Hashtag::addHashtagToTicket($db, $ticketID, $hashtagID);
+    }
+
+    return $ticketID;
+  }
+  function updateTicket(PDO $db, ?int $departmentID, ?int $agentID, string $priority, array $hashtags) {
+    // TODO: test this
+    if ($this->departmentName !== $departmentID || $this->assignedagent !== $agentID || $this->priority !== $priority) {
+      $stmt = $db->prepare('UPDATE TICKET SET DepartmentID = ?, AssignedAgent = ?, Priority = ? WHERE TicketID = ?');
+      $stmt->execute(array($departmentID, $agentID, $priority, $this->ticketid));
+    }
+    $hashtags_to_add = array_diff($hashtags, $this->hashtags);
+    $hashtags_to_remove = array_diff($this->hashtags, $hashtags);
+    var_dump($this->hashtags);
+    var_dump($hashtags);
+    var_dump($hashtags_to_add);
+    var_dump($hashtags_to_remove);
+
+    foreach ($hashtags_to_add as $hashtagID) {
+      Hashtag::addHashtagToTicket($db, $this->ticketid, $hashtagID);
+    }
+    foreach ($hashtags_to_remove as $hashtagID) {
+      Hashtag::removeHashtagFromTicket($db, $this->ticketid, $hashtagID);
+    }
   }
 
   // adicionar filtros por data
