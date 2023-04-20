@@ -51,21 +51,9 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
         }
         ?>
     </section>
-
-<?php
-/*
-    <td>
-        <ul>
-            <?php foreach ($ticket->hashtags as $hashtag) { ?>
-                <li><?=$hashtag->hashtagname?></li>
-            <?php } ?>
-        </ul>
-    </td>
-    */
-?>
-    <!-- ticket history missing: messages, actions -->
-
 <?php } ?>
+
+
 <?php function output_message(Message $message) { ?>
     <article class="message">
         <span class="user">UserID: <?=$message->userID?></span>
@@ -97,40 +85,51 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
 <?php function output_change_ticket_info_form(Ticket $ticket, array $agents, array $departments, array $hashtags) { ?>
     <form>
         <header><h3>Change ticket information</h3></header>
-            <label>High
-                <input type="radio" name="priority" value="high">
-            </label>
-            <label>Medium
-                <input type="radio" name="priority" value="medium">
-            </label>
-            <label>Low
-                <input type="radio" name="priority" value="low">
-            </label>
+        <?php output_priority_form(); ?>
+
+        <?php        
+        output_department_form($departments, $ticket->departmentName);
+
+        output_agent_form($agents, $ticket->assignedagent);
         
-        <?php
-        output_department_form($departments);
-
-        output_agent_form($agents);
-
-        output_hashtag_form($hashtags);
+        $not_checked_hashtags = array_diff($hashtags, $ticket->hashtags);
+        output_hashtag_form($not_checked_hashtags, $ticket->hashtags);
         ?>
 
-        <button type="submit">Save</button>
+        <button type="submit" formaction=''>Save</button>
         
         <button id="close-ticket">Close ticket as solved</button>
         <!-- Javascript to close the ticket and update the page (not done yet) -->
     </form>
 <?php } ?>
 
-<?php function output_agent_form(array $agents) { ?>
+<?php function output_agent_form(array $agents, ?string $assignedagent) { ?>
     <label>
         Agent
     </label>
     <select name="agent" id="agent-select">
         <option></option>
         <?php foreach($agents as $agent) { ?>
-            <option value="<?=$agent->id?>"><?=$agent->username?></option>
+            
+            <?php if ($agent->username == $assignedagent) { ?>
+                <option value="<?=$agent->id?>" selected><?=$agent->username?></option>
+            <?php } else { ?>
+                <option value="<?=$agent->id?>"><?=$agent->username?></option>
+            <?php } ?>
         <?php } ?>
         <?php /* for each agent, option with agent userID and agent username */ ?>
     </select>
+<?php } ?>
+
+<?php function output_priority_form() { ?>
+    <h4>Priority</h4>
+    <label>High
+        <input type="radio" name="priority" value="high">
+    </label>
+    <label>Medium
+        <input type="radio" name="priority" value="medium">
+    </label>
+    <label>Low
+        <input type="radio" name="priority" value="low">
+    </label>
 <?php } ?>

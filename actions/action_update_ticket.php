@@ -15,8 +15,9 @@ require_once(__DIR__ . '/../database/department.class.php');
 
 require_once(__DIR__ . '/../utils/validate.php');
 
-if (!is_valid_id($_POST['ticketid'])) die(header('Location: main_page.php'));
-$ticketID = intval($POST['ticketID']);
+// TODO: check if it is 'ticketID' or 'ticketid', 'department', 'agent' ...
+if (!is_valid_id($_POST['ticketID'])) die(header('Location: main_page.php'));
+$ticketID = intval($_POST['ticketID']);
 
 if (!Client::canChangeTicketInfo($db, $session->getId(), $ticketID)) {
     die(header('Location: main_page.php'));
@@ -30,5 +31,5 @@ $priority = $_POST['priority'];
 
 $ticket = Ticket::getById($db, $ticketID);
 $ticket->updateTicket($db, $departmentID, $agentID, $priority, $hashtags);
-header('Location: ../pages/individual_ticket.php?id=' . $ticketID)
+header('Location: ../pages/individual_ticket.php?id=' . $ticketID);
 ?>

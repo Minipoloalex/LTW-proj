@@ -7,7 +7,6 @@ class Admin extends Agent {
     {
         parent::__construct($id, $name, $username, $password, $email, $departmentid);
     }
-
     
 }
 

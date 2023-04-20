@@ -58,41 +58,41 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 <?php } ?>
 
 <!-- javascript: AJAX -->
-<?php function drawFilterMenu(array $filterValues)
+
+<?php function drawFilterMenu(array $filterValues) : array
 { ?>
     <section>
         <h4>Filters</h4>
         <legend>Status</legend>
         <?php
         foreach ($filterValues[0] as $fv) { ?>
-            <input type="checkbox" name="<?php echo $fv ?>" id="<?php echo $fv ?>" value="<?php echo $fv ?>" /><label
+            <input type="checkbox" name="status" id="<?php echo $fv ?>" value="<?php echo $fv ?>" /><label
                 for="<?php echo $fv ?>"><?php echo $fv ?></label><br />
         <?php } ?>
         <legend>Priority</legend>
         <?php
         foreach ($filterValues[1] as $fv) { ?>
-            <input type="checkbox" name="<?php echo $fv ?>" id="<?php echo $fv ?>" value="<?php echo $fv ?>" /><label
+            <input type="checkbox" name="priorities" id="<?php echo $fv ?>" value="<?php echo $fv ?>" /><label
                 for="<?php echo $fv ?>"><?php echo $fv ?></label><br />
         <?php } ?>
         <legend>Hashtags</legend>
         <?php
         foreach ($filterValues[2] as $fv) { ?>
-            <input type="checkbox" name="<?php echo $fv['HashtagName'] ?>" id="<?php echo $fv['HashtagName'] ?>" value="<?php echo $fv['HashtagID'] ?>" />
+            <input type="checkbox" name="hashtags" id="<?php echo $fv['HashtagName'] ?>" value="<?php echo $fv['HashtagID'] ?>" />
             <label for="<?php echo $fv['HashtagName'] ?>"><?php echo $fv['HashtagName'] ?></label><br />
         <?php } ?>
         <legend>Agent</legend>
         <?php
         foreach ($filterValues[3] as $fv) { ?>
-            <input type="checkbox" name="<?php echo $fv['Username'] ?>" id="<?php echo $fv['Username'] ?>" value="<?php echo $fv['UserID'] ?>" />
+            <input type="checkbox" name="agents" id="<?php echo $fv['Username'] ?>" value="<?php echo $fv['UserID'] ?>" />
             <label for="<?php echo $fv['Username'] ?>"><?php echo $fv['Username'] ?></label><br />
         <?php } ?>
         <legend>Department</legend>
         <?php
         foreach ($filterValues[4] as $fv) { ?>
-            <input type="checkbox" name="<?php echo $fv['DepartmentName'] ?>" id="<?php echo $fv['DepartmentName'] ?>" value="<?php echo $fv['DepartmentID'] ?>" />
+            <input type="checkbox" name="departaments" id="<?php echo $fv['DepartmentName'] ?>" value="<?php echo $fv['DepartmentID'] ?>" />
             <label for="<?php echo $fv['DepartmentName'] ?>"><?php echo $fv['DepartmentName'] ?></label><br />
         <?php } ?>
+        <button type="submit" onclick=getFilterValues()>Filtrar
     </section>
-
-
 <?php } ?>

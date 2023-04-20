@@ -436,6 +436,10 @@ table, th, td {
     max-width: max-content;
   }
 
+  .edit_profile {
+    display: hidden;
+  }
+
   /* #page-container {
     position: relative;
     min-height: 100vh;

@@ -15,9 +15,10 @@ if($f) {
 else {
 $tickets = Ticket::getTickets($db);
 }
-
+$filters = Ticket::getFilters($db);
 output_header();
 drawFilterMenu($filters);
+
 drawTicketsTable($tickets, "Opened tickets");
 output_footer();
 ?>

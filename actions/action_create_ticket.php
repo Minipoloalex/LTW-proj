@@ -14,23 +14,27 @@ require_once(__DIR__ . '/../utils/validate.php');
 $title = $_POST['title'];
 $description = $_POST['description'];
 
-// this assumes each hashtagID is valid, but we have to check it.
-$hashtags = $_POST['hashtags'] != NULL ? array_map('intval', $_POST['hashtags']) : array();
-
-var_dump($hashtags);
-
-$departmentID = empty($_POST['department']) ? NULL : intval($_POST['department']); /* Department can be null */
-$priority = $_POST['priority'] ?? NULL; /* priority can be null (atm is always null) */
-
 if (!is_valid_string($title) || !is_valid_string($description)) {
     die(header('Location: ../pages/create_ticket.php'));
 }
+
+$hashtags = $_POST['hashtags'] ?? array();
+if ($hashtags != NULL) {
+    if (!is_valid_array_ids($hashtags)) die(header('Location: ../pages/create_ticket.php'));    // TODO: verify if this works
+}
+// possibly have to verify that all ids are valid ids (i.e. correspond to existing hashtags)
+$hashtags = array_map('intval', $hashtags);
+var_dump($hashtags);
+
+
+$departmentID = empty($_POST['department']) ? NULL : intval($_POST['department']); /* Department can be null */
+$priority = $_POST['priority'] ?? NULL; /* priority can be null (atm is always null) */
 
 $userID = $session->getId();     /* session userID */
 $username = $session->getName();  /* session username */
 
 
-if (Ticket::existsTicket($db, $title, $userID)) {   /* Could send to ticket page of the existing ticket */
+if (Ticket::existsTicket($db, $title, $userID)) {
     $session->addMessage('error', "Ticket with the same title already exists");
     die(header('Location: ../pages/create_ticket.php'));
 }

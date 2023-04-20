@@ -127,19 +127,20 @@
 
 
           static function getType(PDO $db, int $id) : string {
-            $stmt = $db->prepare('SELECT * FROM ADMIN WHERE UserID = ?');
-            $stmt->execute(array($id));
-            if ($stmt->fetch()) return "Admin";
+           if (Client::isAdmin($db, $id)) return "Admin";
 
             $stmt = $db->prepare('SELECT * FROM AGENT WHERE UserID = ?');
             $stmt->execute(array($id));
             if ($stmt->fetch()) return "Agent";
             return "Client";
           }
-          static function hasAcessToTicket(PDO $db, int $userID, $ticketID) {
-            $stmt = $db->prepare('Select * from ADMIN where UserID = ?');
+          static function isAdmin(PDO $db, int $userID): bool {
+            $stmt = $db->prepare('SELECT * FROM ADMIN WHERE UserID = ?');
             $stmt->execute(array($userID));
-            if ($stmt->fetch()) return true;
+            return $stmt->fetch();
+        }
+          static function hasAcessToTicket(PDO $db, int $userID, $ticketID) {
+            if (Client::isAdmin($db, $userID)) return true;
 
             $ticket = Ticket::getById($db, $ticketID);
             $user = Client::getById($db, $userID);
@@ -168,7 +169,7 @@
                 else {$statusF = $statusF.sprintf(' or T.Status = %s', $types[$i]);}
               }
               $statusF = $statusF.')';
-          }
+            }
           }
 
           static function getFilters(PDO $db): array {

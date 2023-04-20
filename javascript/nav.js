@@ -1,15 +1,19 @@
 function toggleSubMenu() {
-  var subMenu = document.getElementById("subMenu");
-  var subHeader = document.getElementById("subHeader");
+  const subMenu = document.getElementById("subMenu");
+  const subHeader = document.getElementById("subHeader");
+  const subHeaderLogo = document.querySelector("#subHeader .material-symbols-outlined")
   // var asd = subHeader.querySelectorAll(".material-symbols-outlined, .link-text")
   
   
   if (subMenu.style.display === "block") {
+    // para fechar
     subMenu.style.display = "none";
     subHeader.style.height = "5rem";
   } else {
+    // para abrir
     subMenu.style.display = "block";
-    subHeader.style.height = "fit-content";
+    subHeader.style.height = "fit-content"; 
+    //styles com toggle
     // asd.forEach( (element) => {
     //   element.style.alignItems = "start";
     // });
@@ -17,8 +21,9 @@ function toggleSubMenu() {
   }
 
   // Close submenu when mouse leaves navbar
-  var navbar = document.querySelector('.navbar');
-  navbar.addEventListener('mouseleave', function() {
+  const navbar = document.querySelector(".navbar");
+  navbar.addEventListener("mouseleave", function() {
+    // para fechar
     subMenu.style.display = "none";
     subHeader.style.height = "5rem";
   });

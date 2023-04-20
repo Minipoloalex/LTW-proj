@@ -11,7 +11,7 @@ require_once(__DIR__ . '/../utils/session.php');
 
 <?php function drawProfileForm(Client $client, Session $session) { ?>
   <h2>Edit Profile</h2>
-  <form action="../actions/action_edit_profile.php" method="post" class="profile">
+  <form class="profile" class="edit_profile" action="../actions/action_edit_profile.php" method="post">
 
     <label for="name">Name:</label>
     <input id="name" type="text" name="name" value="<?=$client->name?>">
@@ -29,7 +29,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <input id="new-password" type="password" name="new_password" value="">
 
     <input name="csrf" type="hidden" value="<?=$session->getCsrf()?>">
-    <button type="submit">Save</button>
+    <button type="submit" id="save-btn">Save</button>
 
   </form>
 <?php } ?>
@@ -37,7 +37,7 @@ require_once(__DIR__ . '/../utils/session.php');
 <?php function drawProfile(Client $client, string $type) {?>
   
   <h2>Profile</h2>
-  <div class="profile">
+  <div class="profile" class="saved_profile">
     <label for="name">Name:</label>
     <span id="name"><?=$client->name?></span>
     
@@ -49,6 +49,8 @@ require_once(__DIR__ . '/../utils/session.php');
   
     <label for="type">Type:</label>
     <span id="type"><?=$type?></span>
+    
+    <button id="edit-btn" onclick="editProfile()">Edit</button>
   </div>
   
 <?php } ?>

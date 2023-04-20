@@ -53,7 +53,6 @@ main {
   height: 100%;
 }
 
-
 .nav-item {
   width: 100%;
 }
@@ -77,15 +76,6 @@ main {
   background: var(--bg-secondary);
   color: var(--text-secondary);
 }
-
-/* .nav-submenuheader:hover {
-  height: fit-content;
-  transition: height 1s ease-in-out;
-}
-
-.nav-submenuheader:hover .nav-submenu{
-  display: block;
-} */
 
 .nav-submenu {
   display: none;
