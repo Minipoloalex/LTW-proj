@@ -85,14 +85,16 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
 <?php function output_change_ticket_info_form(Ticket $ticket, array $agents, array $departments, array $hashtags) { ?>
     <form>
         <header><h3>Change ticket information</h3></header>
-        <?php output_priority_form(); ?>
+        <?php output_priority_form($ticket->priority); ?>
 
-        <?php        
+        <?php
         output_department_form($departments, $ticket->departmentName);
 
         output_agent_form($agents, $ticket->assignedagent);
-        
-        $not_checked_hashtags = array_diff($hashtags, $ticket->hashtags);
+        $checked_hashtags = $ticket->hashtags;
+        $not_checked_hashtags = array_filter($hashtags, function($hashtag) use ($checked_hashtags) {
+            return array_search($hashtag->hashtagid, array_column($checked_hashtags, 'hashtagid'), true) === false;
+        });
         output_hashtag_form($not_checked_hashtags, $ticket->hashtags);
         ?>
 
@@ -111,7 +113,7 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
         <option></option>
         <?php foreach($agents as $agent) { ?>
             
-            <?php if ($agent->username == $assignedagent) { ?>
+            <?php if ($agent->username === $assignedagent) { ?>
                 <option value="<?=$agent->id?>" selected><?=$agent->username?></option>
             <?php } else { ?>
                 <option value="<?=$agent->id?>"><?=$agent->username?></option>
@@ -119,17 +121,4 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
         <?php } ?>
         <?php /* for each agent, option with agent userID and agent username */ ?>
     </select>
-<?php } ?>
-
-<?php function output_priority_form() { ?>
-    <h4>Priority</h4>
-    <label>High
-        <input type="radio" name="priority" value="high">
-    </label>
-    <label>Medium
-        <input type="radio" name="priority" value="medium">
-    </label>
-    <label>Low
-        <input type="radio" name="priority" value="low">
-    </label>
 <?php } ?>

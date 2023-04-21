@@ -24,7 +24,6 @@ if ($hashtags != NULL) {
 }
 // possibly have to verify that all ids are valid ids (i.e. correspond to existing hashtags)
 $hashtags = array_map('intval', $hashtags);
-var_dump($hashtags);
 
 
 $departmentID = empty($_POST['department']) ? NULL : intval($_POST['department']); /* Department can be null */
@@ -40,7 +39,7 @@ if (Ticket::existsTicket($db, $title, $userID)) {
 }
 
 /* status is "open", submit date is now, agent always null: defined inside createTicket */
-$id = Ticket::createTicket($db, $title, $userID, $priority, $hashtags, $description, $departmentName);
+$id = Ticket::createTicket($db, $title, $userID, $priority, $hashtags, $description, $departmentID);
 // $session->addMessage('success', "Ticket created successfully");
 
 header('Location: ../pages/individual_ticket.php?id=' . $id);

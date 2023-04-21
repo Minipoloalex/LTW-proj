@@ -16,6 +16,7 @@ require_once(__DIR__ . '/../database/department.class.php');
         </label>
         <input type='text' name='title'>
 
+        <?php output_priority_form(NULL); ?>
         <?php output_hashtag_form($hashtags, array()); ?>
 
         <label>Ticket description*
@@ -33,11 +34,12 @@ require_once(__DIR__ . '/../database/department.class.php');
     <select name='department' id='deps'>
         <option></option>
         <?php foreach ($departments as $department) {
-            $selected = "selected" ? $department->departmentName === $departmentName : "";
-        ?>
-        <!-- TODO: verify this $selected works - do it too for output_agent_form inside individual_ticket.tpl.php -->
-            <option value=<?= $department->departmentId ?> selected="<?=$selected?>"><?= $department->departmentName ?>
-            </option>
+            if ($department->departmentName === $departmentName) { ?>
+                <option value=<?=$department->departmentId?> selected><?=$department->departmentName?></option>
+
+            <?php } else { ?>
+                <option value=<?=$department->departmentId?>><?=$department->departmentName?></option>
+            <?php } ?>
         <?php } ?>
     </select>
 <?php } ?>
@@ -46,18 +48,42 @@ require_once(__DIR__ . '/../database/department.class.php');
         Hashtags*
     </label>
     <div class="hashtag-select">
-        
         <?php foreach ($not_selected_hashtags as $hashtag) { ?>
             <input type="checkbox" name="hashtags[]" value="<?= $hashtag->hashtagid ?>">
             <label>
                 <?= $hashtag->hashtagname ?>
             </label>
         <?php } ?>
-        <?php foreach ($selected_hashtags as $hashtag) { ?> 
+        <?php foreach ($selected_hashtags as $hashtag) { ?>
             <input type="checkbox" name="hashtags[]" value="<?= $hashtag->hashtagid ?>" checked>
             <label>
                 <?= $hashtag->hashtagname ?>
             </label>
         <?php } ?>
     </div>
-<?php } ?>    
+<?php } ?>
+
+<?php function output_priority_form(?string $selected_prio) { ?>
+    <h4>Priority</h4>
+    <label>High
+        <?php if ($selected_prio === "high") { ?>
+            <input type="radio" name="priority" value="high" checked>
+        <?php } else { ?>
+            <input type="radio" name="priority" value="high">
+        <?php } ?>
+    </label>
+    <label>Medium
+        <?php if ($selected_prio === "medium") { ?>
+            <input type="radio" name="priority" value="medium" checked>
+        <?php } else { ?>
+            <input type="radio" name="priority" value="medium">
+        <?php } ?>
+    </label>
+    <label>Low
+    <?php if ($selected_prio === "low") { ?>
+            <input type="radio" name="priority" value="low" checked>
+        <?php } else { ?>
+            <input type="radio" name="priority" value="low">
+        <?php } ?>
+    </label>
+<?php } ?>
