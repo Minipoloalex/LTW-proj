@@ -83,11 +83,12 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
 <?php } ?>
 
 <?php function output_change_ticket_info_form(Ticket $ticket, array $agents, array $departments, array $hashtags) { ?>
-    <form>
+    <form id="update-ticket-form">
         <header><h3>Change ticket information</h3></header>
-        <?php output_priority_form($ticket->priority); ?>
-
+        <input id="ticket-id" type="hidden" value='<?=$ticket->ticketid?>'>
         <?php
+        output_priority_form($ticket->priority);
+
         output_department_form($departments, $ticket->departmentName);
 
         output_agent_form($agents, $ticket->assignedagent);
@@ -98,7 +99,7 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
         output_hashtag_form($not_checked_hashtags, $ticket->hashtags);
         ?>
 
-        <button type="submit" formaction=''>Save</button>
+        <button type="submit">Save</button>
         
         <button id="close-ticket">Close ticket as solved</button>
         <!-- Javascript to close the ticket and update the page (not done yet) -->
@@ -114,9 +115,9 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
         <?php foreach($agents as $agent) { ?>
             
             <?php if ($agent->username === $assignedagent) { ?>
-                <option value="<?=$agent->id?>" selected><?=$agent->username?></option>
+                <option value=<?=$agent->id?> selected><?=$agent->username?></option>
             <?php } else { ?>
-                <option value="<?=$agent->id?>"><?=$agent->username?></option>
+                <option value=<?=$agent->id?>><?=$agent->username?></option>
             <?php } ?>
         <?php } ?>
         <?php /* for each agent, option with agent userID and agent username */ ?>
