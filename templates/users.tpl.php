@@ -23,7 +23,7 @@ require_once(__DIR__ . '/../database/client.class.php');
         
         <td><?=($user_type != "Client") ? $nr_tickets_assigned : '-'; ?></td>
         
-        <td><?=($user_type != "Client") ? Agent::getDepartment($db, $user->id) : '-' ?></td>
+        <td><?=($user_type != "Client") ? (Agent::getDepartment($db, $user->id) ?? '-') : '-' ?></td>
 <?php } ?>
 
 <?php function drawUsersTable(array $users, PDO $db) { ?> 

@@ -18,7 +18,7 @@ function encodeForAjax(data) {
     }).join('&')
 }
 
-async function postData(data) {
+async function postDataMessage(data) {
     console.log(data)
     console.log(encodeForAjax(data))
     return fetch('../api/api_add_message.php', {
@@ -41,7 +41,7 @@ function submitNewMessage(event) {
     console.log(messageText)
     messageInput.value = ""
     
-    postData({'message': messageText, 'ticketID': ticketID})
+    postDataMessage({'message': messageText, 'ticketID': ticketID})
     .catch(() => console.error('Network Error'))
     .then(response => response.json())
     .catch(() => console.error('Error parsing JSON'))
@@ -49,14 +49,14 @@ function submitNewMessage(event) {
         console.log(json)
         if (json['error']) {
             console.error(json['error'])
-            return;
+            return
         }
         const newMessage = document.createElement("article")
         newMessage.classList.add("message")
         
         const user = document.createElement("span")
         user.classList.add("user")
-        user.textContent = "UserID: " + json['userID'] + " "    // username could also have escapeHTML(username)
+        user.textContent = "UserID: " + json['userID'] + " "
         
         const date = document.createElement("span")
         date.classList.add("user")
@@ -65,7 +65,7 @@ function submitNewMessage(event) {
         const text = document.createElement("p")
         text.classList.add("message")
         
-        text.textContent = 'CONTENT: ' +  json['text']  // might need escapeHtml
+        text.textContent = 'CONTENT: ' +  json['text']
 
 
         newMessage.appendChild(user)
@@ -76,7 +76,7 @@ function submitNewMessage(event) {
     })
 }
 
-const messageForm = document.querySelector("#message-form")
-if (messageForm) {
-    messageForm.addEventListener('submit', submitNewMessage)
+const messageButton = document.querySelector("button#add-message")
+if (messageButton) {
+    messageButton.addEventListener('click', submitNewMessage)
 }

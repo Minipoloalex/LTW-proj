@@ -137,7 +137,7 @@
           static function isAdmin(PDO $db, int $userID): bool {
             $stmt = $db->prepare('SELECT * FROM ADMIN WHERE UserID = ?');
             $stmt->execute(array($userID));
-            return $stmt->fetch();
+            return $stmt->fetch() != NULL;
         }
           static function hasAcessToTicket(PDO $db, int $userID, $ticketID) {
             if (Client::isAdmin($db, $userID)) return true;

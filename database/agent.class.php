@@ -3,9 +3,9 @@ declare(strict_types=1);
 require_once(__DIR__ . '/client.class.php');
 class Agent extends Client
 {
-    public int $departmentid;
+    public ?int $departmentid;
 
-    public function __construct(int $id, string $name, string $username, string $password, string $email, int $departmentid)
+    public function __construct(int $id, string $name, string $username, string $password, string $email, ?int $departmentid)
     {
         parent::__construct($id, $name, $username, $password, $email);
         $this->departmentid = $departmentid;
@@ -44,7 +44,7 @@ class Agent extends Client
                 $agent['Username'],
                 $agent['Password'],
                 $agent['Email'],
-                $agent['DepartmentID']
+                $agent['DepartmentID'] != NULL ? intval($agent['DepartmentID']) : NULL
             );
         }
         return $agents;
@@ -64,7 +64,7 @@ class Agent extends Client
             $agent['Username'],
             $agent['Password'],
             $agent['Email'],
-            intval($agent['DepartmentID'])
+            $agent['DepartmentID'] != NULL ? intval($agent['DepartmentID']) : NULL
         );
     }
 
@@ -82,18 +82,19 @@ class Agent extends Client
                 $agent['Username'],
                 $agent['Password'],
                 $agent['Email'],
-                intval($agent['DepartmentID'])
+                $agent['DepartmentID'] != NULL ? intval($agent['DepartmentID']) : NULL
             );
         }
         return $agents;
     }
 
-    static function getDepartment(PDO $db, int $agentId) : string
+    static function getDepartment(PDO $db, int $agentId) : ?string
     {
         $stmt = $db->prepare('SELECT * FROM AGENT JOIN DEPARTMENT USING(DepartmentID) WHERE UserID = ?');
         $stmt->execute(array($agentId));
         $department = $stmt->fetch();
-        return $department['DepartmentName'];
+        if ($department) return $department['DepartmentName'];
+        return NULL;
     }
 }
 

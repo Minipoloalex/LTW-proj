@@ -4,6 +4,7 @@ require_once(__DIR__ . '/department.class.php');
 require_once(__DIR__ . '/hashtag.class.php');
 require_once(__DIR__ . '/agent.class.php');
 require_once(__DIR__ . '/client.class.php');
+
 class Ticket
 {
   public int $ticketid;
@@ -126,23 +127,30 @@ class Ticket
     return $ticketID;
   }
   function updateTicket(PDO $db, ?int $departmentID, ?int $agentID, string $priority, array $hashtags) {
-    // TODO: test this
+    $ticketHashtags = array_map(function($hashtag) {
+      return $hashtag->hashtagid;
+    }, $this->hashtags);
+
+    $hashtags_to_add = array_diff($hashtags, $ticketHashtags);
+    $hashtags_to_remove = array_diff($ticketHashtags, $hashtags);
+
     if ($this->departmentName !== $departmentID || $this->assignedagent !== $agentID || $this->priority !== $priority) {
+      $this->departmentName = $departmentID != NULL ? Department::getById($db, $departmentID)->departmentName : NULL;
+      $this->assignedagent = $agentID != NULL ? Agent::getById($db, $agentID)->username : NULL;
+
+      $this->priority = $priority;
       $stmt = $db->prepare('UPDATE TICKET SET DepartmentID = ?, AssignedAgent = ?, Priority = ? WHERE TicketID = ?');
       $stmt->execute(array($departmentID, $agentID, $priority, $this->ticketid));
     }
-    $hashtags_to_add = array_diff($hashtags, $this->hashtags);
-    $hashtags_to_remove = array_diff($this->hashtags, $hashtags);
-    var_dump($this->hashtags);
-    var_dump($hashtags);
-    var_dump($hashtags_to_add);
-    var_dump($hashtags_to_remove);
-
+    
     foreach ($hashtags_to_add as $hashtagID) {
       Hashtag::addHashtagToTicket($db, $this->ticketid, $hashtagID);
     }
     foreach ($hashtags_to_remove as $hashtagID) {
       Hashtag::removeHashtagFromTicket($db, $this->ticketid, $hashtagID);
+    }
+    if (!empty($hashtags_to_add) || !empty($hashtags_to_remove)) {
+      $this->hashtags = Hashtag::getByTicketId($db, $this->ticketid);
     }
   }
 
