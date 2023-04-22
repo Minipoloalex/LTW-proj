@@ -19,6 +19,28 @@ function getFilterValues() {
 
   const json = JSON.stringify(checkedValues);
 
+  fetch('tickets.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: json
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.text();
+    } else {
+      throw new Error('Error: ' + response.statusText);
+    }
+  })
+  .then(responseText => {
+    console.log(responseText);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+  /*
   const xhr = new XMLHttpRequest();
   xhr.open('POST', 'tickets.php');
   xhr.setRequestHeader('Content-Type', 'application/json');
@@ -32,6 +54,8 @@ function getFilterValues() {
     }
   };
   xhr.send(json);
+  */
+
 }
 
 function clearFilters() {
