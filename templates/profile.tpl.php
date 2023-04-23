@@ -28,13 +28,14 @@ require_once(__DIR__ . '/../utils/session.php');
     <label for="type">Type:</label>
     <input id="type" type="text" value="<?=$type?>" readonly>
 
-    <input name="csrf" type="hidden" value="<?=$session->getCsrf()?>">
+    <input id='csrf' name="csrf" type="hidden" value="<?=$session->getCsrf()?>">
     <!-- <button type="submit" id="save-btn">Save</button> -->
     <button type="button" id="edit-btn">Edit</button>
 
   </form>
 <?php } ?>
 
+<!-- now this form is not used! we only change the state of the drawProfileForm  -->
 <?php function drawProfile(Client $client, string $type) {?>
   
   <h2>Profile</h2>

@@ -6,7 +6,6 @@
 - navbar e LOGOS
 - logo trouble solver
 - register -> label depaparece da caixa, tentar replicar LOGIN
-- 
 
 */
 
@@ -549,7 +548,7 @@ td {
   } */
 
 
-/* -----------------  profile page TEST - gostei! ---------------------- */
+/* -----------------  profile page ---------------------- */
 
 .profile {
   display: flex;
@@ -584,23 +583,23 @@ td {
   width: 100%;
 }
 
-.profile ul {
+/* .profile ul {
   list-style: none;
   padding: 0;
   margin: 0;
-}
+} */
 
-.profile li {
+/* .profile li {
   margin-bottom: 1rem;
-}
+} */
 
-.profile span {
+/* .profile span {
   margin-left: 0.5rem;
 }
 
 .profile span.email {
   word-break: break-all;
-}
+} */
 
 
 /* -------------- for JAVASCRIPT in profile edit page ------------------------ */

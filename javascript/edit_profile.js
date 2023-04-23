@@ -29,6 +29,27 @@ const changepass = document.getElementById('changepass');
 const newpassInp = document.getElementById('new-password');
 const newpassLab = document.querySelector('label[for="new-password"]');
 
+/*buscar valores dos inputs*/
+const thename = document.getElementById('name');
+const email = document.getElementById('email');
+const username = document.getElementById('username');
+const oldpass = document.getElementById('old-password');
+const newpass = document.getElementById('new-password');
+const csrf = document.getElementById('csrf');
+
+async function postProfileData(data) {
+    console.log(data);
+    console.log(encodeForAjax(data))
+    return fetch('../api/api_edit_profile.php', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: encodeForAjax(data)
+    })
+}
+
+/*verificar se posso fazer toggle para 'edit' outra vez (apos dar save), apenas se os dados estiverem certos*/
 editBtn.addEventListener('click', () => {
 
     for (var lab of toggleLabs)
@@ -55,7 +76,23 @@ editBtn.addEventListener('click', () => {
     //aparecer botao de mudar password
     changepass.toggleAttribute('hidden');
 
-});
+    if (checkEditState()){
+        postProfileData({ 'name': thename.value, 'email': email.value, 'username': username.value, 'oldpass': oldpass.value, 'newpass': newpass.value, 'bool': checkChangeState(), 'csrf': csrf.value})
+        .catch(() => console.log('Network Error'))
+        .then(response => response.json())
+        .catch(() => console.log('Error parsing JSON'))
+        .then(json => { 
+            console.log(json)
+            if (json['error']) {
+                console.error(json['error'])
+                return
+            }
+
+    })
+
+}
+}
+);
 
 changepass.addEventListener('click', () => {
     newpassInp.toggleAttribute('hidden');
@@ -64,8 +101,15 @@ changepass.addEventListener('click', () => {
 
 })
 
-function checkstate() {
+function checkChangeState() {
     if (changepass.textContent === 'Cancel') {
+        return true; //se o botao de cancelar mudar de password estiver visivel, retorna true
+    }
+    return false;
+}
+
+function checkEditState() {
+    if (editBtn.textContent === 'Save') {
         return true; //se o botao de cancelar mudar de password estiver visivel, retorna true
     }
     return false;
