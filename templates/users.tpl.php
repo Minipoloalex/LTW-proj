@@ -9,7 +9,7 @@ require_once(__DIR__ . '/../database/client.class.php');
 ?>
 
 <!--- confirmar o GET BY AGENT e BY USER (ver se interpretei isso bem), como fazer o user type... --->
-<?php function drawUser(Client $user, PDO $db) { ?>
+<?php function drawUser(Client $user, PDO $db, array $all_departments) { ?>
     <?php $nr_tickets_created = count(Ticket::getByUser($db, $user->id))?>
     <?php $nr_tickets_assigned = count(Ticket::getByAgent($db, $user->id))?>
     <?php $user_type = Client::getType($db, $user->id)?>
@@ -24,10 +24,11 @@ require_once(__DIR__ . '/../database/client.class.php');
         
         <td><?=($user_type != "Client") ? $nr_tickets_assigned : '-'; ?></td>
         
-        <td><?=($user_type != "Client") ? (Agent::getDepartment($db, $user->id) ?? '-') : '-' ?></td>
+        <?php $user_department = ($user_type != "Client") ? (Agent::getDepartment($db, $user->id) ?? '-') : '-'; ?>
+        <td><?php drawUserDepartment($user, $user_type, $all_departments, $user_department) ?></td>
 <?php } ?>
 
-<?php function drawUsersTable(array $users, PDO $db) { ?> 
+<?php function drawUsersTable(array $users, PDO $db, $all_departments) { ?>
     <section id="users">
     <table>
         <thead>
@@ -45,7 +46,7 @@ require_once(__DIR__ . '/../database/client.class.php');
         <tbody>
             <?php
             foreach($users as $user) {
-                drawUser($user, $db);
+                drawUser($user, $db, $all_departments);
             }
             ?>
         </tbody>
@@ -87,4 +88,28 @@ require_once(__DIR__ . '/../database/client.class.php');
     <?php $id = $type . "-" . $userID; ?>
     <input type="radio" id="<?=$id?>" name="<?=$userID?>" value="<?=$user_type?>">
     <label for="<?=$id?>"><?=$user_type?></label><br>
+<?php } ?>
+
+<?php function drawUserDepartment(Client $user, string $user_type, array $departments, string $user_department) {
+    if ($user_type !== "Client") {
+        drawDepartmentSelect($user->id, $departments, $user_department);
+    }
+    else echo '-';
+}
+?>
+
+<?php function drawDepartmentSelect(int $userID, array $departments, string $agent_department) { ?>
+    <form>
+        <!-- TODO: duplicate code with create_ticket.tpl.php -->
+        <select name="department-<?=$userID?>">  
+            <option></option>
+            <?php foreach ($departments as $department) {
+                if ($department->departmentName === $agent_department) { ?>
+                    <option value=<?=$department->departmentId?> selected><?=$department->departmentName?></option>
+                <?php } else { ?>
+                    <option value=<?=$department->departmentId?>><?=$department->departmentName?></option>
+                <?php } ?>
+            <?php } ?>
+        </select>
+    </form>
 <?php } ?>

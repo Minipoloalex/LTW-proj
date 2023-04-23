@@ -43,7 +43,6 @@ if (!$message) {
     echo json_encode(array('error' => 'Failed to add message to database'));
     exit();
 }
-// message has 4 fields: id, text, userID, date
 echo json_encode(array(
     'id' => $message->id,
     'text' => $message->text,
