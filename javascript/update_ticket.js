@@ -72,3 +72,29 @@ const changeTicketInfoButton = document.querySelector("button#update-ticket")
 if (changeTicketInfoButton) {
     changeTicketInfoButton.addEventListener("click", updateTicketInformation)
 }
+
+const closeTicketButton = document.querySelector("button#close-ticket")
+if (closeTicketButton) {
+    closeTicketButton.addEventListener("click", function(event) {
+        // event.preventDefault()
+        // const form = "#update-ticket-form"
+        // const ticketID = document.querySelector(form + " #ticket-id").getAttribute("value")
+        // postDataTicketInfo({
+        //     'ticketID': ticketID,
+        //     'closed': true
+        // })
+        // .catch(() => console.error("Network Error"))
+        // .then(response => response.json())
+        // .catch(() => console.error("Error parsing JSON"))
+        // .then(json => {
+        //     if (json['error']) {
+        //         console.error(json['error'])
+        //     }
+        //     else if (json['success']) {
+        //         console.log(json['success'])
+        //         const updatedStatus = document.querySelector("#ticket-status")
+        //         updatedStatus.textContent = "Status: Closed"
+        //     }
+        // })
+    })
+}
