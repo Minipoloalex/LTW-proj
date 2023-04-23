@@ -22,13 +22,13 @@ $confirm_password = $_POST['confirm_password'];
 $valid_data = check_valid_data($name, $username, $email, $password, $confirm_password);
 if (!$valid_data[0]) {
     $session->addMessage('error', $valid_data[1]);
-    die(header('Location: ../pages/create_account.php'));
+    die(header('Location: ../pages/register.php'));
 }
 
 $account_exists = Client::check_acc_exists($db, $name, $username, $email);
 if ($account_exists[0]) {
     $session->addMessage('error', $account_exists[1]);
-    die(header('Location: ../pages/create_account.php'));
+    die(header('Location: ../pages/register.php'));
 }
 
 $user_id = Client::create_account($db, $name, $username, $email, $password, $confirm_password);

@@ -18,7 +18,8 @@ require_once(__DIR__ . '/../database/client.class.php');
         <td><?=$user->name?></td>
         <td><?=$user->id?></td>
         <td><?=$user->username?></td>
-        <td><?=$user_type?></td>
+        <?php /* <td><?=$user_type?></td> */ ?>
+        <td><?php drawUserType($user->id, $user_type) ?></td>
         <td><?=$nr_tickets_created?></td>
         
         <td><?=($user_type != "Client") ? $nr_tickets_assigned : '-'; ?></td>
@@ -49,5 +50,41 @@ require_once(__DIR__ . '/../database/client.class.php');
             ?>
         </tbody>
     </table>
+    <button id="save">Save</button>
+    <button id="cancel">Cancel</button>
     </section>
+<?php } ?>
+
+<?php function drawUserType(int $userID, string $user_type) { ?>
+    <form data-id="<?=$userID?>">
+        <?php
+        if ($user_type == "Client") {
+            drawCheckedType($userID, "client", "Client");
+            drawUncheckedType($userID, "agent", "Agent");
+            drawUncheckedType($userID, "admin", "Admin");
+        }
+        else if ($user_type == "Admin") {
+            drawUncheckedType($userID, "client", "Client");
+            drawUncheckedType($userID, "agent", "Agent");
+            drawCheckedType($userID, "admin", "Admin");
+        }
+        else {
+            drawUncheckedType($userID, "client", "Client");   
+            drawCheckedType($userID, "agent", "Agent");
+            drawUncheckedType($userID, "admin", "Admin");
+        }
+        
+        ?>
+    </form>
+<?php } ?>
+
+<?php function drawCheckedType(int $userID, string $type, string $user_type) { ?>
+    <?php $id = $type . "-" . $userID; ?>
+    <input type="radio" id="<?=$id?>" name="<?=$userID?>" value="<?=$user_type?>" checked>
+    <label for="<?=$id?>"><?=$user_type?></label><br>
+<?php } ?>
+<?php function drawUncheckedType(int $userID, string $type, string $user_type) { ?>
+    <?php $id = $type . "-" . $userID; ?>
+    <input type="radio" id="<?=$id?>" name="<?=$userID?>" value="<?=$user_type?>">
+    <label for="<?=$id?>"><?=$user_type?></label><br>
 <?php } ?>
