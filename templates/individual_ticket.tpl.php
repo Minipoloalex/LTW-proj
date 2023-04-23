@@ -23,16 +23,16 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
 
         <h3> Client view </h3>
         <!-- Client view -->
-        <span class="agent"><?=$ticket->assignedagent ?? "Agent is NULL!"?></span>
-        <span class="department"><?=$ticket->departmentName ?? "Department is NULL!"?></span>
-        <span class="user"><?=$ticket->username?></span>
-        <span class="status"><?=$ticket->status?></span>
-        <span class="priority"><?=$ticket->priority?></span>
-        <span class="date"><?=date('F j', $ticket->submitdate)?></span>
+        <span id="ticket-agent">Agent: <?=$ticket->assignedagent ?? "None"?></span>
+        <span id="ticket-department">Department: <?=$ticket->departmentName ?? "None"?></span>
+        <span id="ticket-user">Created by: <?=$ticket->username?></span>
+        <span id="ticket-status">Status: <?=$ticket->status?></span>
+        <span id="ticket-priority">Priority: <?=$ticket->priority?></span>
+        <span id="ticket-date">Created at: <?=date('F j', $ticket->submitdate)?></span>
         <h4>Hashtags</h4>
-        <ul class="hashtags">
+        <ul id="ticket-hashtags">
             <?php foreach ($ticket->hashtags as $hashtag) { ?>
-                <li><?=$hashtag->hashtagname?></li>
+                <li class="hashtag"><?=$hashtag->hashtagname?></li>
             <?php } ?>
         </ul>
     </article>
@@ -72,8 +72,8 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
         <label>Add a message:
             <input data-id="<?=$ticketID?>" type="text" name="message" id="message-input">
         </label>
-        <button type="submit">Submit</button> 
-        
+        <button id="add-message" type="submit">Submit</button> 
+
         <!-- Javascript
         comentário no ticket é chamada AJAX (pedido) no servidor para acrescentar, dá resposta a dizer que acrescentou.
         assim, não é necessário dar refresh à pagina e não se perde o contexto
@@ -99,7 +99,7 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
         output_hashtag_form($not_checked_hashtags, $ticket->hashtags);
         ?>
 
-        <button type="submit">Save</button>
+        <button id="update-ticket" type="submit">Save</button>
         
         <button id="close-ticket">Close ticket as solved</button>
         <!-- Javascript to close the ticket and update the page (not done yet) -->

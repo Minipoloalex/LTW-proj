@@ -137,7 +137,7 @@
           static function isAdmin(PDO $db, int $userID): bool {
             $stmt = $db->prepare('SELECT * FROM ADMIN WHERE UserID = ?');
             $stmt->execute(array($userID));
-            return $stmt->fetch();
+            return $stmt->fetch() != NULL;
         }
           static function hasAcessToTicket(PDO $db, int $userID, $ticketID) {
             if (Client::isAdmin($db, $userID)) return true;
@@ -188,4 +188,61 @@
         
             return $filters;
           }
+
+          /*for edit profile*/
+
+          function isEmailEqual(PDO $db, string $email) : bool {
+            return $this->email == $email;
+          }
+
+          function isNameEqual(PDO $db, string $name) : bool {
+            return  $this->name == $name;
+          }
+
+          function isUsernameEqual(PDO $db, string $username) : bool {
+            return $this->username == $username;
+          }
+
+          function isPassEqual(PDO $db, string $pass) : bool {
+            return password_verify($pass, $this->password);
+          }
+
+          static function getByEmail(PDO $db, string $email) : Client {
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Email = ?');
+            $stmt->execute(array($email));
+        
+            $client = $stmt->fetch();
+            return new Client(
+              intval($client['UserID']),
+              $client['Name'],
+              $client['Username'],
+              $client['Password'],
+              $client['Email']
+            );
+          }
+
+          static function getByUsername(PDO $db, string $username) : Client {
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Username = ?');
+            $stmt->execute(array($username));
+        
+            $client = $stmt->fetch();
+            return new Client(
+              intval($client['UserID']),
+              $client['Name'],
+              $client['Username'],
+              $client['Password'],
+              $client['Email']
+            );
+          }
+
+          function updateUserInfo(PDO $db, string $name, string $username, string $email) : bool {
+            $stmt = $db->prepare('UPDATE CLIENT SET Name = ?, Username = ?, Email = ? WHERE UserID = ?');
+            return $stmt->execute(array($name, $username, $email, $this->id));
+          }
+          
+          function updatePass(PDO $db, string $pass) : bool {
+            $stmt = $db->prepare('UPDATE CLIENT SET Password = ? WHERE UserID = ?');
+            return $stmt->execute(array(password_hash($pass, PASSWORD_DEFAULT), $this->id));
+          }
+
     }

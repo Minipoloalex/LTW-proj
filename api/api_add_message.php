@@ -12,14 +12,14 @@ $db = getDatabaseConnection();
 
 require_once(__DIR__ . '/../database/message.class.php');
 require_once(__DIR__ . '/../database/ticket.class.php');
+require_once(__DIR__ . '/../utils/validate.php');
 
-
-if (!isset($_POST['message']) || empty($_POST['message'])) {
+if (!is_valid_string($_POST['message'])) {
     http_response_code(400); // Bad request
     echo json_encode(array('error' => 'Missing message parameter'));
     exit();
 }
-if (!isset($_POST['ticketID']) || !is_numeric($_POST['ticketID']) || intval($_POST['ticketID']) < 1) {
+if (!is_valid_id($_POST['ticketID'])) {
     http_response_code(400); // Bad request
     echo json_encode(array('error' => 'Missing ticketID parameter'));
     exit();
@@ -43,7 +43,6 @@ if (!$message) {
     echo json_encode(array('error' => 'Failed to add message to database'));
     exit();
 }
-// message has 4 fields: id, text, userID, date
 echo json_encode(array(
     'id' => $message->id,
     'text' => $message->text,

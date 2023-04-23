@@ -18,9 +18,10 @@ require_once(__DIR__ . '/../templates/users.tpl.php');
 $count = 100; /* limite de users na lista */
 
 $users = Client::getClients($db, $count);
+$all_departments = Department::getDepartments($db);
 
 output_header();
-drawUsersTable($users, $db);
+drawUsersTable($users, $db, $all_departments);
 output_footer();
 
 ?>
