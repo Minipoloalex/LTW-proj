@@ -46,7 +46,9 @@ require_once(__DIR__ . '/../utils/session.php');
       </header> -->
     <nav class="navbar" >
       <ul class="navbar-nav">
-        <li class="logo">Trouble Solver</li>
+
+        <!-- <li class="logo">Trouble Solver</li> -->
+        <li class="logo"><img src="../css/images/logo.png" alt="logo"></li>
         <li class="nav-item"><a href="../pages/profile.php" class="nav-link"><span
               class="material-symbols-outlined">person</span><span class="link-text">Profile</span></a></li>
         <li class="nav-item"><span class="nav-submenuheader" id="subHeader" onclick="toggleSubMenu()"><span
