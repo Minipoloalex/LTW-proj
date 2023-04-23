@@ -10,7 +10,13 @@ $db = getDatabaseConnection();
 $filters = Ticket::getFilters($db);
 output_header();
 drawFilterMenu($filters);
-
+// $tickets = Ticket::filter($db, [], ['"high"'], [], [], []);
+// var_dump($tickets);
+$tickets = Ticket::getTickets($db);
+drawTicketsTable($tickets, 'All Tickets');
+output_footer();
+// handleRequest($db);
+/*
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   echo ('hello');
   // Handle AJAX request
@@ -42,6 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $tickets = Ticket::getTickets($db);
   drawTicketsTable($tickets, 'All Tickets');
   output_footer();
-}
+}*/
 
 ?>

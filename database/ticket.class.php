@@ -4,7 +4,7 @@ require_once(__DIR__ . '/department.class.php');
 require_once(__DIR__ . '/hashtag.class.php');
 require_once(__DIR__ . '/agent.class.php');
 require_once(__DIR__ . '/client.class.php');
-class Ticket
+class Ticket implements JsonSerializable
 {
   public int $ticketid;
   public string $title;
@@ -30,6 +30,21 @@ class Ticket
     $this->departmentName = $departmentName;
     $this->assignedagent = $assignedagent;
   }
+
+  public function jsonSerialize(){
+    return [
+      'ticketid' => $this->ticketid,
+      'title' => $this->title,
+      'username' => $this->username,
+      'status' => $this->status,
+      'submitdate' => $this->submitdate,
+      'priority' => $this->priority,
+      'hashtags' => $this->hashtags,
+      'description' => $this->description,
+      'assignedagent' => $this->assignedagent,
+      'departmentName' => $this->departmentName
+    ];
+  }  
   static function getById(PDO $db, int $id): ?Ticket {
     $stmt = $db->prepare('SELECT * FROM TICKET WHERE TicketID = ?');
     $stmt->execute(array($id));
@@ -201,7 +216,7 @@ if(!empty($departments)){
     else {$departmentsF = $departmentsF.sprintf(' or T.DepartmentID= %s', $departments[$i]);}
   }
   $departmentsF = $departmentsF.')';
-}    
+}   
     $stmt = $db->prepare($query.' WHERE '.$statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF.';');
     $stmt->execute();
 
@@ -215,7 +230,7 @@ if(!empty($departments)){
 
   static function getFilters(PDO $db): array {
     $filters = [];
-    $status = ['open', 'in progress', 'closed'];
+    $status = ["'open'", "'in progress'", "'closed'"];
     $priorities = ['high', 'medium', 'low'];
     $hashtags = [];
     $agents = [];

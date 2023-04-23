@@ -1,4 +1,4 @@
-function getFilterValues() {
+async function getFilterValues() {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   const checkedValues = {};
 
@@ -19,27 +19,62 @@ function getFilterValues() {
 
   const json = JSON.stringify(checkedValues);
 
-  fetch('tickets.php', {
+  // Fetch API
+  // const res = await fetch('tickets.php', {
+  const res = await fetch('../api/api_filter_tickets.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: json
   })
-  .then(response => {
-    if (response.ok) {
-      return response.text();
-    } else {
-      throw new Error('Error: ' + response.statusText);
-    }
-  })
-  .then(responseText => {
-    console.log(responseText);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+  // .then(response => {
+  //   if (response.ok) {
+  //     return response.text();
+  //   } else {
+  //     throw new Error('Error: ' + response.statusText);
+  //   }
+  // })
+  // .then(responseText => {
+  //   console.log(responseText);
+  // })
+  // .catch(error => {
+  //   console.error(error);
+  // });
+  if (res.ok) {
+    const tickets = await res.json();
+    const tableData = document.querySelector('#tableData');
+    tableData.innerHTML = '';
 
+    for (const ticket of tickets) {
+      console.log(ticket);
+      console.log(ticket.hashtags);
+      tableData.innerHTML += `
+        <tr>
+          <td>${ticket.title}</td>
+          <td>${ticket.id}</td>
+          <td>${ticket.username}</td>
+          <td>${ticket.status}</td>
+          <td>${ticket.submitdate}</td>
+          <td>${ticket.priority}</td>
+          <td>
+            <ul>
+            ${ticket.hashtags.map(hashtag => `<li>${hashtag.hashtagname}</li>`).join('')}
+            </ul>
+          </td>
+          <td>${ticket.description}</td>
+          <td>${ticket.assignedagent}</td>
+          <td>${ticket.departmentName}</td>
+        </tr>
+      `;
+    }
+  } else {
+    console.error('Error: ' + res.status);
+  }
+
+
+
+  // XMLHttpRequest
   /*
   const xhr = new XMLHttpRequest();
   xhr.open('POST', 'tickets.php');
