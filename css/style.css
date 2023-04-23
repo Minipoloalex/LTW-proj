@@ -5,79 +5,144 @@
 
 - navbar e LOGOS
 - logo trouble solver
-- login - grid 
-- register - diminuir caixas e ver caixa de fundo
+- register -> label depaparece da caixa, tentar replicar LOGIN
 - 
 
 */
 
 
 body {
-    font-family: 'Martel Sans', sans-serif;
-    background-color: #dee2ff;
-    
+  font-family: 'Martel Sans', sans-serif;
+  background-color: #dee2ff;
+
 }
 
-::placeholder{font-family: 'Martel Sans', sans-serif;} 
+/*-------------------LOGIN FORM DESIGN--------------------------------------*/
 
-button {font-family: inherit; font-size: 1.2em;}
-
-.landing-register {
-    display: grid;
-    grid-template-columns: 0.6fr 1.4fr 2.1fr;
-    grid-template-rows: 0.5fr 1.8fr 0.7fr;
-    gap: 1em 1em;
-    grid-template-areas:
-        ". . ."
-        ". form ."
-        ". . .";
+body.landingbody {
+  background-image: url('../css/images/fundo.jpg');
+  background-size: cover;
+  background-position: center center;
 }
 
-.registerform {
-    grid-area: form;
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.landing-login {
-    display: grid;
-    grid-template-columns: 0.6fr 1.4fr 2.1fr;
-    grid-template-rows: 0.5fr 1.8fr 0.7fr;
-    gap: 1em 1em;
-    grid-template-areas:
-        ". . ."
-        ". form ."
-        ". . .";
+.login-form {
+  width: 350px;
+  height: fit-content;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  /* semi-transparent white */
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  /*Gaussian blur effect*/
+
 }
 
-.loginform {grid-area: form}
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 1em;
+}
 
-/*svg*/
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 0.8em;
+  margin-bottom: 1em;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  font-family: 'Martel Sans', sans-serif;
+}
 
-/* body {
-    background-color: #dee2ff;
-} */
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.login-form input[type="submit"] {
+  width: 100%;
+  padding: 0.8em;
+  margin-top: 1em;
+  background-color: #846a8b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.login-form input[type="submit"]:hover {
+  background-color: #a492a9;
+}
+
+.login-form p {
+  text-align: center;
+  margin-top: 1em;
+}
+
+.login-form a {
+  color: #846a8b;
+}
+
+a.register {
+  color: white;
+  text-decoration: none;
+  /* Remove underline */
+  width: 100%;
+  padding: 0.5em;
+  margin-top: 1em;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+
+  background-color: #b4bdfc;
+}
+
+
+/*--------------------- SVG ----------------------------*/
 
 .custom-shape-divider-top-1681308841 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
 }
 
 .custom-shape-divider-top-1681308841 svg {
-    position: relative;
-    display: block;
-    width: calc(100% + 1.3px);
-    height: 150px;
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 150px;
 }
 
 .custom-shape-divider-top-1681308841 .shape-fill {
-    fill: #846a8b;
+  fill: #846a8b;
 }
 
-/* landing page grids */
-.loginform {
+/* -------------- NOT USED: landing page grids antigo -------------------- */
+/* .loginform {
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -91,12 +156,8 @@ button {font-family: inherit; font-size: 1.2em;}
     height: 50em;
     padding: 2em;
 
-    /* background-color: #f7f7f7;
-border-radius: 10px;
-padding: 2em;
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
-}
-
+} */
+/* 
 .loginform input[type='email'] {
     grid-area: email;
 }
@@ -123,151 +184,197 @@ buttons {
 
 .login {
     grid-area: login;
-}
-
-/*colors*/
-
-
-footer {
-    background-color: #dee2ff;
-    /* padding: 1em; */
-    font-size: 0.8em;
-    border: none;
-    cursor: pointer;
-    color: #846a8b;
-    font-family:'Martel Sans', sans-serif;
-}
-
-/* .container {
-    background-color: #dee2ff;
 } */
 
-.loginform input[type='email'],
-.loginform input[type='password'] {
-    /* padding: 1em; */
-    font-size: 1.2em;
-    border: none;
-    background-color: #f7f7f7;
-    border-radius: 10px;
-    padding: 0.5em;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
 
-.buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    grid-area: buttons;
-}
+/* ---------------------------- ANTIGO register grid  ----------------------------  */
 
-.register,
-.login {
-    padding: 1em;
-    font-size: 1.2em;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    color: #fff;
-    background-color: #846a8b;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.register:hover,
-.login:hover {
-    opacity: 0.8;
-}
-
-body,
-footer {
-    margin: 0;
-}
-
-/* register grid */
-
-
+/* 
 .registerform {
-    background-color: #846a8b;
-    border-radius: 10px;
-    padding: 0.5em;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #846a8b;
+  border-radius: 10px;
+  padding: 0.5em;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 0.5fr;
-    gap: 1em 1em;
-    grid-template-areas:
-        "Name Name"
-        "username username"
-        "email email"
-        "password password"
-        "confirm confirm"
-        "registerbuttons registerbuttons";
-    width: 40em;
-    height: 40em; 
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 0.5fr;
+  gap: 1em 1em;
+  grid-template-areas:
+    "Name Name"
+    "username username"
+    "email email"
+    "password password"
+    "confirm confirm"
+    "registerbuttons registerbuttons";
+  width: 40em;
+  height: 40em;
 }
 
 .Name {
-    grid-area: Name;
+  grid-area: Name;
 }
 
 .username {
-    grid-area: username;
+  grid-area: username;
 }
 
 .email {
-    grid-area: email;
+  grid-area: email;
 }
 
 .password {
-    grid-area: password;
+  grid-area: password;
 }
 
 .confirm {
-    grid-area: confirm;
+  grid-area: confirm;
 }
 
 .registerbuttons {
-    display: grid;
-    padding-left: 10em;
-    grid-template-columns: 1fr 1fr 1.5fr;
-    grid-template-rows: 1fr;
-    gap: 0px 0px;
-    grid-template-areas:
-        " already already create";
-    grid-area: registerbuttons;
+  display: grid;
+  padding-left: 10em;
+  grid-template-columns: 1fr 1fr 1.5fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    " already already create";
+  grid-area: registerbuttons;
 }
 
 .create {
-    grid-area: create;
-    border-radius: 10px;
-    border: none;
+  grid-area: create;
+  border-radius: 10px;
+  border: none;
 }
 
 .loginback {
-    grid-area: already;
+  grid-area: already;
 }
 
-.registerform input{
-    font-size: 1.2em;
-    border: none;
-    /* border-radius: 5px; */
-    /* background-color: #eee; */
+.registerform input {
+  font-size: 1.2em;
+  border: none;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 0.5em;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+} */
 
-    background-color: #f7f7f7;
-    border-radius: 10px;
-    padding: 0.5em;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+/*--------- TRYING TO MAKE THE REGISTER PAGE LOOK LIKE THE LOGIN PAGE --------------*/
+
+body.landingbody {
+  background-image: url('../css/images/fundo.jpg');
+  background-size: cover;
+  background-position: center center;
 }
 
-/* tables on main page */
-
-table, th, td {
-    border: 1px solid #846a8b;
-    background-color: #dee2ff;
-    border-collapse: collapse;
-    padding: 0.5em;
+.registerform {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  padding: 2em;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  width: 400px;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-   
+
+.registerform h2 {
+  text-align: center;
+  margin-bottom: 1em;
+  font-family: 'Martel Sans', sans-serif;
+}
+
+.registerform input[type="text"],
+.registerform input[type="email"],
+.registerform input[type="password"] {
+  width: 100%;
+  padding: 0.8em;
+  margin-bottom: 1em;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  font-family: 'Martel Sans', sans-serif;
+}
+
+.registerform input[type="text"]:focus,
+.registerform input[type="email"]:focus,
+.registerform input[type="password"]:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.registerform .create {
+  width: 100%;
+  padding: 0.8em;
+  margin-top: 1em;
+  background-color: #846a8b;
+  /* color: #fff; */
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.registerform .create:hover {
+  background-color: #a492a9;
+}
+
+.registerform p {
+  text-align: center;
+  margin-top: 1em;
+  font-family: 'Martel Sans', sans-serif;
+}
+
+.registerform a {
+  color: #846a8b;
+  font-family: 'Martel Sans', sans-serif;
+  text-decoration: none;
+}
+
+.registerform a:hover {
+  text-decoration: underline;
+}
+
+.registerform .registerbuttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
+}
+
+.registerform .registerbuttons button {
+  width: 30%;
+  padding: 0.8em;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  font-family: 'Martel Sans', sans-serif;
+  color: #fff;
+}
+
+.registerform .registerbuttons button:hover {
+  background-color: #a492a9;
+}
+
+
+
+/* ------------- tables on main page ------------------- */
+
+table,
+th,
+td {
+  border: 1px solid #846a8b;
+  background-color: #dee2ff;
+  border-collapse: collapse;
+  padding: 0.5em;
+}
+
 
 /* create ticket grid */
 /* 
@@ -310,84 +417,89 @@ table, th, td {
     font-size: 1.2em;
     border: none;
     /* border-radius: 5px; */
-    /* background-color: #eee; */
+/* background-color: #eee; */
 
-    /* background-color: #f7f7f7;
+/* background-color: #f7f7f7;
     border-radius: 10px;
     padding: 0.5em;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
- */ 
- .createticket {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1rem;
-  }
-  
-  .createticket label {
-    grid-column: 1 / span 2;
-  }
+ */
 
-  /* TROCAR AQUI AS CHECKBOXES PARA A FRENTE */
-  .createticket div .hashtag-select label {
-    grid-column: 1 / span 3;
+ /* ------------------- CREATE TICKET GRID -------------------- */
+.createticket {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
 }
 
-  
-  .createticket input[name='title'] {
-    width: 250px; /* fixed width */
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    grid-column: 1 / span 1;
-    grid-row: 2 / span 1;
-  }
+.createticket label {
+  grid-column: 1 / span 2;
+}
 
-  .createticket input[name='title']{
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .createticket input:not([name='title']),
-  .createticket select {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
+/* TROCAR AQUI AS CHECKBOXES PARA A FRENTE */
+.createticket div .hashtag-select label {
+  grid-column: 1 / span 3;
+}
 
-  .createticket select option{
-    font-family: 'Martel Sans', sans-serif
-  }
-  
-  .createticket textarea[name='description'] {
-    width: calc(100% - 2rem); /* resizeable width */
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    resize: vertical; /* only allow vertical resizing */
-  }
-  
-  /* 'create ticket' button */
-  .createticket button[type='submit'] {
-    grid-column: 1 / span 1;
-    grid-row: 9 / span 1;
-    justify-self: start;
-    margin-top: 1rem;
-    font-size: 1.2em;
-    background-color: #f7f7f7;
-    border-radius: 10px;
-    padding: 0.5em;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    border: none;
-  }
-  
-  
-  /* profile page - GOOD*/
+
+.createticket input[name='title'] {
+  width: 250px;
+  /* fixed width */
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.createticket input[name='title'] {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.createticket input:not([name='title']),
+.createticket select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.createticket select option {
+  font-family: 'Martel Sans', sans-serif
+}
+
+.createticket textarea[name='description'] {
+  width: calc(100% - 2rem);
+  /* resizeable width */
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  resize: vertical;
+  /* only allow vertical resizing */
+}
+
+/* 'create ticket button */
+.createticket button[type='submit'] {
+  grid-column: 1 / span 1;
+  grid-row: 9 / span 1;
+  justify-self: start;
+  margin-top: 1rem;
+  font-size: 1.2em;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 0.5em;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+
+/* --------------- profile page - NOT USED, gostei na altura ---------------*/
 /* 
   .profile {
     display: flex;
@@ -437,96 +549,102 @@ table, th, td {
   } */
 
 
-  /* profile page - TEST */
-  .profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-    background-color: #f7f7f7;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin: 0 auto;
-  }
-  
-  .profile h2 {
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-  
-  .profile label {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    /* display: block; */
-    width: 100%;
-  }
-  
-  .profile input {
-    border: none;
-    background-color: transparent;
-    box-shadow: none;
-    border-bottom: 1px solid #ccc;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    width: 100%;
-  }
-  
-  .profile ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .profile li {
-    margin-bottom: 1rem;
-  }
-  
-  .profile span {
-    margin-left: 0.5rem;
-  }
-  
-  .profile span.email {
-    word-break: break-all;
-  }
-  
+/* -----------------  profile page TEST - gostei! ---------------------- */
 
-  /* .edit_profile {
-    display: hidden;
-  } */
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 0 auto;
+}
 
-  /* #page-container {
-    position: relative;
-    min-height: 100vh;
-  } */
+.profile h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.profile label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.profile input {
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.profile ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile li {
+  margin-bottom: 1rem;
+}
+
+.profile span {
+  margin-left: 0.5rem;
+}
+
+.profile span.email {
+  word-break: break-all;
+}
 
 
-  /*for JS in profile edit page */
+/* -------------- for JAVASCRIPT in profile edit page ------------------------ */
 
-  input[readonly] {
-    user-select: none;
-    cursor: default;
-  }
+input[readonly] {
+  user-select: none;
+  cursor: default;
+}
 
-  input[readonly]:focus {
-    outline: none;
-  }
+input[readonly]:focus {
+  outline: none;
+}
 
-  .profile input {
-    border: none;
-    background-color: transparent;
-    /* background-color: #f7f7f7; */
-    box-shadow: none;
-  }
+.profile input {
+  border: none;
+  background-color: transparent;
+  /* background-color: #f7f7f7; */
+  box-shadow: none;
+}
 
-  /* damn footer */
+/* -------------------- damn footer --------------------- */
 
-  footer {
-    bottom: 0;
-    right: 50vh;
-    padding: 0;
-    text-align: center;
-    width: fit-content;
-    position: absolute;
-    /* height: 2.5rem; */
-  }
+footer {
+  bottom: 0;
+  /*CENTRAR FOOTER!! o right estava a dar problemas ao minimizar um pouco a pagina*/
+  /* right: 50vh; */
+  padding: 0;
+  text-align: center;
+  width: fit-content;
+  position: absolute;
+  /* height: 2.5rem; */
+}
+
+footer {
+  background-color: transparent;
+  /* padding: 1em; */
+  font-size: 0.8em;
+  border: none;
+  cursor: pointer;
+  color: #846a8b;
+  font-family: 'Martel Sans', sans-serif;
+}
+
+body,
+footer {
+  margin: 0;
+}

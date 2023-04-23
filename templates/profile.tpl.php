@@ -19,7 +19,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <label for="email">Email:</label>
     <input id="email" type="text" name="email" value="<?=$client->email?>" readonly>
 
-    <label for="old-password" hidden >Old password:</label>
+    <label for="old-password" hidden >Current password:</label><button type=button id='changepass' hidden>Change password</button>
     <input id="old-password" type="password" name="old_password" value="" readonly hidden>
 
     <label for="new-password" hidden>New password:</label>

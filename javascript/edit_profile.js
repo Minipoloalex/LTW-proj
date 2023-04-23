@@ -23,8 +23,11 @@
 
 const editBtn = document.getElementById('edit-btn');
 const inputs = document.querySelectorAll('input:not(#type)');
-const toggleInps = document.querySelectorAll('#old-password, #new-password, #type');
-const toggleLabs = document.querySelectorAll('label[for="old-password"], label[for="new-password"], label[for="type"]');
+const toggleInps = document.querySelectorAll('#old-password, #type');
+const toggleLabs = document.querySelectorAll('label[for="old-password"], label[for="type"]');
+const changepass = document.getElementById('changepass');
+const newpassInp = document.getElementById('new-password');
+const newpassLab = document.querySelector('label[for="new-password"]');
 
 editBtn.addEventListener('click', () => {
 
@@ -49,6 +52,21 @@ editBtn.addEventListener('click', () => {
     //mudar texto do botão
     editBtn.textContent = (editBtn.textContent === 'Save') ? 'Edit' : 'Save';
 
-    //sleep(1000);
+    //aparecer botao de mudar password
+    changepass.toggleAttribute('hidden');
+
 });
 
+changepass.addEventListener('click', () => {
+    newpassInp.toggleAttribute('hidden');
+    newpassLab.toggleAttribute('hidden');
+    changepass.textContent = (changepass.textContent === 'Change password') ? 'Cancel' : 'Change password';
+
+})
+
+function checkstate() {
+    if (changepass.textContent === 'Cancel') {
+        return true; //se o botao de cancelar mudar de password estiver visivel, retorna true
+    }
+    return false;
+}
