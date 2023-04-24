@@ -196,7 +196,6 @@ class Ticket implements JsonSerializable
     $prioritiesF = $prioritiesF.')';
 }
 
-//conversão para IDs
 if(!empty($hashtags)){
   if ($statusF != '' || $prioritiesF != '') {$hashtagsF = ' and ';}
   for ($i = 0; $i<count($hashtags); $i++) {
@@ -206,7 +205,6 @@ if(!empty($hashtags)){
   $hashtagsF = $hashtagsF.')';
 }
 
-//conversão para IDs
 if(!empty($agents)){
   if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '') {$agentsF = ' and ';}
   for ($i = 0; $i<count($agents); $i++) {
@@ -215,7 +213,7 @@ if(!empty($agents)){
   }
   $agentsF = $agentsF.')';
 }
-//conversão para IDs
+
 if(!empty($departments)){
   if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '' || $agentsF != '') {$departmentsF = ' and ';}
   for ($i = 0; $i<count($departments); $i++) {
@@ -235,9 +233,11 @@ if(!empty($departments)){
     return $tickets;
   }
 
+  // TODO
+  // null filters
   static function getFilters(PDO $db): array {
     $filters = [];
-    $status = ["'open'", "'in progress'", "'closed'"];
+    $status = ['open', 'in progress', 'closed'];
     $priorities = ['high', 'medium', 'low'];
     $hashtags = [];
     $agents = [];

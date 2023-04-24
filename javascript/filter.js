@@ -5,9 +5,9 @@ async function getFilterValues() {
   checkboxes.forEach(checkbox => {
     if (checkbox.checked) {
       if (checkedValues[checkbox.name]) {
-        checkedValues[checkbox.name].push(checkbox.value);
+        checkedValues[checkbox.name].push(`"${checkbox.value}"`);
       } else {
-        checkedValues[checkbox.name] = [checkbox.value];
+        checkedValues[checkbox.name] = [`"${checkbox.value}"`];
       }
     } else {
       if (!checkedValues[checkbox.name]) {
@@ -20,7 +20,6 @@ async function getFilterValues() {
   const json = JSON.stringify(checkedValues);
 
   // Fetch API
-  // const res = await fetch('tickets.php', {
   const res = await fetch('../api/api_filter_tickets.php', {
     method: 'POST',
     headers: {
@@ -28,19 +27,6 @@ async function getFilterValues() {
     },
     body: json
   })
-  // .then(response => {
-  //   if (response.ok) {
-  //     return response.text();
-  //   } else {
-  //     throw new Error('Error: ' + response.statusText);
-  //   }
-  // })
-  // .then(responseText => {
-  //   console.log(responseText);
-  // })
-  // .catch(error => {
-  //   console.error(error);
-  // });
   if (res.ok) {
     const tickets = await res.json();
     const tableData = document.querySelector('#tableData');

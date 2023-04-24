@@ -62,7 +62,6 @@ require_once(__DIR__ . '/../utils/session.php');
             </ul>
           </span>
         </li>
-
         <li class="nav-item"><a href="../pages/departments_list.php" class="nav-link"><span
               class="material-symbols-outlined">apartment</span><span class="link-text">Departments</span></a></li>
         <li class="nav-item"><a href="../pages/users_list.php" class="nav-link"><span
@@ -77,6 +76,7 @@ require_once(__DIR__ . '/../utils/session.php');
       </ul>
 
     </nav>
+    <article></article>
     <!--
     <section id="session-messages">
         <article>
