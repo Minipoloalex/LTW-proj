@@ -47,7 +47,7 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
                 <th>Assigned department</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="tableData">
             <?php
             foreach ($tickets as $ticket) {
                 drawTicket($ticket);
@@ -56,8 +56,6 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
         </tbody>
     </table>
 <?php } ?>
-
-<!-- javascript: AJAX -->
 
 <?php function drawFilterMenu(array $filterValues)
 { ?>
@@ -90,10 +88,10 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
         <legend>Department</legend>
         <?php
         foreach ($filterValues[4] as $fv) { ?>
-            <input type="checkbox" name="departaments" id="<?php echo $fv['DepartmentName'] ?>" value="<?php echo $fv['DepartmentID'] ?>" />
+            <input type="checkbox" name="departments" id="<?php echo $fv['DepartmentName'] ?>" value="<?php echo $fv['DepartmentID'] ?>" />
             <label for="<?php echo $fv['DepartmentName'] ?>"><?php echo $fv['DepartmentName'] ?></label><br />
         <?php } ?>
-        <button type="button" onclick="clearFilters()">Clear Filters</button>
+        <button type="button" onclick=clearFilters()>Clear Filters</button>
         <button type="submit" onclick=getFilterValues()>Filtrar</button>
     </section>
 <?php } ?>

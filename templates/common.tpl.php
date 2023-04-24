@@ -52,7 +52,7 @@ require_once(__DIR__ . '/../utils/session.php');
         <li class="nav-item"><a href="../pages/profile.php" class="nav-link"><span
               class="material-symbols-outlined">person</span><span class="link-text">Profile</span></a></li>
         <li class="nav-item"><span class="nav-submenuheader" id="subHeader" onclick="toggleSubMenu()"><span
-              class="material-symbols-outlined">confirmation_number</span><span class="link-text">Tickets</span>
+              class="material-symbols-outlined">confirmation_number</span><span class="link-text" id="subHeaderTitle">Tickets</span>
             <ul class="nav-submenu" id="subMenu">
               <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">My tickets</a></li>
               <li class="nav-submenu-item"><a href="../pages/create_ticket.php" class="nav-link">Create ticket</a></li>
@@ -62,7 +62,6 @@ require_once(__DIR__ . '/../utils/session.php');
             </ul>
           </span>
         </li>
-
         <li class="nav-item"><a href="../pages/departments_list.php" class="nav-link"><span
               class="material-symbols-outlined">apartment</span><span class="link-text">Departments</span></a></li>
         <li class="nav-item"><a href="../pages/users_list.php" class="nav-link"><span
@@ -77,6 +76,7 @@ require_once(__DIR__ . '/../utils/session.php');
       </ul>
 
     </nav>
+    <article></article>
     <!--
     <section id="session-messages">
         <article>

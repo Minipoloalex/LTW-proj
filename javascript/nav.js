@@ -1,18 +1,26 @@
 function toggleSubMenu() {
   const subMenu = document.getElementById("subMenu");
   const subHeader = document.getElementById("subHeader");
-  const subHeaderLogo = document.querySelector("#subHeader .material-symbols-outlined")
-  // var asd = subHeader.querySelectorAll(".material-symbols-outlined, .link-text")
-  
+  const subHeaderLogo = document.querySelectorAll("#subHeader .material-symbols-outlined, #subHeader #subHeaderTitle");
+  console.log(subHeaderLogo);
   
   if (subMenu.style.display === "block") {
     // para fechar
     subMenu.style.display = "none";
     subHeader.style.height = "5rem";
+    subHeader.style.alignItems = "center";
+    for (var element of subHeaderLogo) { 
+      element.style.marginTop = "0rem";
+    }
   } else {
     // para abrir
     subMenu.style.display = "block";
-    subHeader.style.height = "fit-content"; 
+    subHeader.style.height = "fit-content";
+    subHeader.style.alignItems = "start";
+    for (var element of subHeaderLogo) { 
+      element.style.marginTop = "1.7rem";
+    }    
+    
     //styles com toggle
     // asd.forEach( (element) => {
     //   element.style.alignItems = "start";
@@ -26,5 +34,9 @@ function toggleSubMenu() {
     // para fechar
     subMenu.style.display = "none";
     subHeader.style.height = "5rem";
+    subHeader.style.alignItems = "center";
+    for (var element of subHeaderLogo) { 
+      element.style.marginTop = "0rem";
+    }
   });
 }
