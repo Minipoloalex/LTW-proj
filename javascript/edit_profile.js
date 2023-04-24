@@ -67,7 +67,7 @@ editBtn.addEventListener('click', () => {
         input.style.backgroundColor = (input.style.backgroundColor === 'white') ? 'transparent' : 'white';
     }
 
-    //mudar tipo do botão
+    // mudar tipo do botão
     // editBtn.setAttribute('type', editBtn.getAttribute('type') === 'button' ? 'submit' : 'button');
 
     //mudar texto do botão

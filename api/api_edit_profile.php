@@ -69,9 +69,9 @@ $client = Client::getById($db, $session->getId());
 
 if ($client) {
 
-  /*error handling*/
+  /*error handling -> first check if the user typed a different email/username than before, and then if the new ones are already used */
   if (!$client->isEmailEqual($db, $_POST['email'])) {
-    if (Client::getByEmail($db, $_POST['email'])) {
+    if (Client::getByEmail($db, $_POST['email'])) { /*it enters this if statement if the email already exists for another user */
       http_response_code(400); // Bad request
       echo json_encode(array('error' => 'Email already in use'));
       exit();
@@ -88,7 +88,7 @@ if ($client) {
 
   $client->updateUserInfo($db, $_POST['name'], $_POST['username'], $_POST['email']);
 
-  if ($_POST['bool']) {
+  if ($_POST['bool']) { /*this bool is TRUE if the user wants to change the password, i.e. if the edit button was pushed, and is now with the content 'cancel' */
     if ($client->isPassEqual($db, $_POST['newpass'])) {
       http_response_code(400); // Bad request
       echo json_encode(array('error' => 'New password is the same as the old one'));

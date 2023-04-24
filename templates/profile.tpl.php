@@ -7,7 +7,7 @@ require_once(__DIR__ . '/../utils/session.php');
 
 
 <?php function drawProfileForm(Client $client, Session $session, string $type) { ?>
-  <h2>Your profile</h2>
+  <h2 id='yourprofile'>Your profile</h2>
   <form class="profile"  method="post"> <!--- class="edit_profile" // action="../actions/action_edit_profile.php"--->
 
     <label for="name">Name:</label>
