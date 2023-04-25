@@ -61,7 +61,8 @@ main {
   margin-top: auto;
 }
 
-.nav-link, .nav-submenuheader , .nav-logout {
+/* .nav-link:not(.nav-submenu-item .nav-link), .nav-submenu-wrapper , .nav-logout { */
+.nav-link, .nav-submenu-wrapper , .nav-logout {
   display: flex;
   align-items: center;
   height: 5rem;
@@ -71,10 +72,16 @@ main {
   transition: var(--transition-speed);
 }
 
-.nav-link:hover , .nav-submenuheader:hover , .nav-logout:hover {
+.nav-link:hover , .nav-submenu-wrapper:hover , .nav-logout:hover {
   filter: grayscale(0%) opacity(1);
   background: var(--bg-secondary);
   color: var(--text-secondary);
+}
+
+.nav-submenu-header {
+  display: flex;
+  align-items: center;
+  height: 1em;
 }
 
 .nav-submenu {
@@ -92,11 +99,11 @@ main {
   margin-left: 1rem;
 }
 
-.nav-link svg {
+/* .nav-link svg {
   width: 2rem;
   min-width: 2rem;
   margin: 0 1.5rem;
-}
+} */
 
 /* .fa-primary {
   color: #ff7eee;
@@ -125,23 +132,24 @@ main {
 }
 
 /* not needed */
-.logo svg {
+/* .logo svg {
   transform: rotate(0deg);
   transition: var(--transition-speed);
-}
+} */
 
 /* not needed */
-.logo-text
+/* .logo-text
 {
   display: inline;
   position: absolute;
   left: -999px;
   transition: var(--transition-speed);
-}
+} */
 
-.navbar:hover .logo svg {
+/*  not needed */
+/* .navbar:hover .logo svg {
   transform: rotate(-180deg);
-}
+} */
 
 /* Small screens */
 @media only screen and (max-width: 600px) {
@@ -159,7 +167,7 @@ main {
     flex-direction: row;
   }
 
-  .nav-link, .nav-submenuheader {
+  .nav-link, .nav-submenu-wrapper {
     justify-content: center;
   }
 
@@ -167,7 +175,7 @@ main {
     display: none;
   }
 
-  /* .nav-link:hover , .nav-submenuheader:hover {
+  /* .nav-link:hover , .nav-submenu-wrapper:hover {
     filter: grayscale(0%) opacity(1);
     background: var(--bg-secondary);
     color: var(--text-secondary);
@@ -194,11 +202,13 @@ main {
     display: inline;
   }
 
+  /* not needed */
   .navbar:hover .logo svg
   {
     margin-left: 11rem;
   }
 
+  /* not needed */
   .navbar:hover .logo-text
   {
     left: 0px;
@@ -207,12 +217,15 @@ main {
   .material-symbols-outlined {
     padding-left: 1em;
   }
-  
+  .navbar .logo{
+    transition: width 600ms;
+  }
   /* for fixed scrolling */
   .navbar:hover .logo {
     position: fixed;
-    width: auto;
+    width: 16rem;
     z-index: 1;
+    
   }
 
   .navbar:hover .navbar-nav .logo + li {

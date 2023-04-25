@@ -48,11 +48,11 @@ require_once(__DIR__ . '/../utils/session.php');
       <ul class="navbar-nav">
 
         <!-- <li class="logo">Trouble Solver</li> -->
-        <li class="logo"><img src="../css/images/logo.png" alt="logo"></li>
+        <li class="logo"><a href="../pages/main_page.php"><img src="../css/images/logo.png" alt="logo"></a></li>
         <li class="nav-item"><a href="../pages/profile.php" class="nav-link"><span
               class="material-symbols-outlined">person</span><span class="link-text">Profile</span></a></li>
-        <li class="nav-item"><span class="nav-submenuheader" id="subHeader" onclick="toggleSubMenu()"><span
-              class="material-symbols-outlined">confirmation_number</span><span class="link-text" id="subHeaderTitle">Tickets</span>
+        <li class="nav-item"><span class="nav-submenu-wrapper" id="subWrapper" onclick="toggleSubMenu()"><span class="nav-submenu-header"><span
+              class="material-symbols-outlined">confirmation_number</span><span class="link-text" id="subHeaderTitle">Tickets</span></span>
             <ul class="nav-submenu" id="subMenu">
               <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">My tickets</a></li>
               <li class="nav-submenu-item"><a href="../pages/create_ticket.php" class="nav-link">Create ticket</a></li>
