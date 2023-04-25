@@ -1,7 +1,7 @@
 /*******************************************************************************
    Populate Tables
 ********************************************************************************/
-
+PRAGMA foreign_keys=ON;
 -- CLIENT
 INSERT INTO CLIENT (UserID, Name, Username, Password, Email) VALUES
 (1, 'John Doe', 'johndoe', 'password123', 'johndoe@example.com'),
