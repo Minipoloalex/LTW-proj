@@ -34,13 +34,12 @@ const thename = document.getElementById('name');
 const email = document.getElementById('email');
 const username = document.getElementById('username');
 const oldpass = document.getElementById('old-password');
-const newpass = document.getElementById('new-password');
 const csrf = document.getElementById('csrf');
 
 async function postProfileData(data) {
     console.log(data);
     console.log(encodeForAjax(data))
-    return fetch('../api/api_edit_profile.php', {
+    return await fetch('../api/api_edit_profile.php', {
         method: 'post',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -50,7 +49,30 @@ async function postProfileData(data) {
 }
 
 /*verificar se posso fazer toggle para 'edit' outra vez (apos dar save), apenas se os dados estiverem certos*/
-editBtn.addEventListener('click', () => {
+editBtn.addEventListener('click', async () => {
+    // mudar tipo do botão
+    // editBtn.setAttribute('type', editBtn.getAttribute('type') === 'button' ? 'submit' : 'button');
+
+    if (checkEditState()) {
+        const res = await postProfileData({ 'name': thename.value, 'email': email.value, 'username': username.value, 'oldpass': oldpass.value, 'newpass': newpassInp.value, 'editpass': checkChangeState(), 'csrf': csrf.value })
+            // .catch(() => console.log('Network Error'))
+            // .then(response => response.json())
+            // .catch(() => console.log('Error parsing JSON'))
+            // .then(json => {
+            //     console.log(json)
+            //     if (json['error']) {
+            //         console.error(json['error'])
+            //         return
+            //     }
+
+            // })
+
+            console.log(res);
+            const json = await res.json();
+            console.log(json);
+            if (!res.ok) return;
+            
+    }
 
     for (var lab of toggleLabs)
         lab.toggleAttribute('hidden');
@@ -62,35 +84,26 @@ editBtn.addEventListener('click', () => {
     //colocar readonly
     for (var input of inputs) {
         input.toggleAttribute('readonly'); //toggle passa sempre para o oposto do atual (interruptor)
-        input.style.border = (input.style.border === '1px solid rgb(51, 51, 51)') ? 'none': '1px solid rgb(51, 51, 51)';
-        input.style.borderRadius = (input.style.borderRadius === '5px') ? '0px': '5px';
+        input.style.border = (input.style.border === '1px solid rgb(51, 51, 51)') ? 'none' : '1px solid rgb(51, 51, 51)';
+        input.style.borderRadius = (input.style.borderRadius === '5px') ? '0px' : '5px';
         input.style.backgroundColor = (input.style.backgroundColor === 'white') ? 'transparent' : 'white';
     }
-
-    //mudar tipo do botão
-    // editBtn.setAttribute('type', editBtn.getAttribute('type') === 'button' ? 'submit' : 'button');
 
     //mudar texto do botão
     editBtn.textContent = (editBtn.textContent === 'Save') ? 'Edit' : 'Save';
 
-    //aparecer botao de mudar password
-    changepass.toggleAttribute('hidden');
+       //aparecer botao de mudar password
+       changepass.toggleAttribute('hidden');
 
-    if (checkEditState()){
-        postProfileData({ 'name': thename.value, 'email': email.value, 'username': username.value, 'oldpass': oldpass.value, 'newpass': newpass.value, 'bool': checkChangeState(), 'csrf': csrf.value})
-        .catch(() => console.log('Network Error'))
-        .then(response => response.json())
-        .catch(() => console.log('Error parsing JSON'))
-        .then(json => { 
-            console.log(json)
-            if (json['error']) {
-                console.error(json['error'])
-                return
-            }
+       //apagar old password apos dar save
+        oldpass.value = '';
 
-    })
+        //apagar new password apos dar save
+        newpassInp.value = '';
+        newpassInp.setAttribute('hidden','hidden');
+        newpassLab.setAttribute('hidden','hidden');
+        changepass.textContent = 'Change password';
 
-}
 }
 );
 
@@ -103,9 +116,9 @@ changepass.addEventListener('click', () => {
 
 function checkChangeState() {
     if (changepass.textContent === 'Cancel') {
-        return true; //se o botao de cancelar mudar de password estiver visivel, retorna true
+        return 'yes'; //se o botao de cancelar mudar de password estiver visivel, retorna true
     }
-    return false;
+    return 'no';
 }
 
 function checkEditState() {

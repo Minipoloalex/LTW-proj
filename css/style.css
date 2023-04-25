@@ -117,7 +117,7 @@ a.register {
   background-color: #b4bdfc;
 }
 
-a.register:hover{
+a.register:hover {
   background-color: #c8cefa;
 }
 
@@ -430,7 +430,7 @@ td {
 
  */
 
- /* ------------------- CREATE TICKET GRID -------------------- */
+/* ------------------- CREATE TICKET GRID -------------------- */
 .createticket {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -567,12 +567,16 @@ td {
   box-shadow: 0 5px 15px rgba(112, 78, 125, 0.562);
 }
 
-h2 { /*"Your profile"*/
+h2#yourprofile {
+  /*"Your profile"*/
   margin-bottom: 1rem;
   text-align: center;
-  color: black; /* change text color */
-  font-size: 24px; /* change font size */
-  font-weight: bold; /* change font weight */
+  color: black;
+  /* change text color */
+  font-size: 24px;
+  /* change font size */
+  font-weight: bold;
+  /* change font weight */
   /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
   box-shadow: 0 5px 15px rgba(112, 78, 125, 0.562);
   background-color: #e8eafa;
@@ -666,4 +670,55 @@ footer {
 body,
 footer {
   margin: 0;
+}
+
+/* --------- MAIN PAGE CONTENT ---------- */
+
+.mainpage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 0.4fr 0.1fr 1fr 1fr;
+  gap: 10px 0px;
+  grid-template-areas:
+    "h1 h1"
+    "h2 h2"
+    "p1 p2"
+    "p3 p3";
+  justify-items: center;
+  height: fit-content;
+}
+
+.mainpage h1 {
+  grid-area: h1;
+  justify-self: center;
+  font-size: 3em;
+  color:rgba(112, 78, 125, 0.562);
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.mainpage h2 {
+  grid-area: h2;
+  align-items: end;
+}
+
+.mainpage p1 {
+  grid-area: p1;
+  display: flex;
+  align-items: center;
+  padding: 2.5em;
+  text-align: center;
+}
+
+.mainpage p2 {
+  grid-area: p2;
+  display: flex;
+  align-items: start;
+  padding: 2.5em;
+  text-align: center;
+}
+
+div.features {
+  grid-area: p3;
+  align-items: center;
+  justify-self: center;
 }

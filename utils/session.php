@@ -40,8 +40,8 @@ class Session
         return $_SESSION['csrf'];
     }
     public function verifyCsrf(string $csrf): bool {
-        $return_value = $_SESSION['csrf'] !== $csrf;
-        $_SESSION['csrf'] = Session::generate_random_token();
+        $return_value = $_SESSION['csrf'] === $csrf;
+        // $_SESSION['csrf'] = Session::generate_random_token();
         return $return_value;
     } 
     public function setId(int $id)
