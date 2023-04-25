@@ -45,4 +45,9 @@ function check_valid_password(string $pass){
 
     return array(true, "");
 }
+
+
+function is_valid_type(string $userType) {
+    return $userType === 'Client' || $userType === 'Agent' || $userType === 'Admin';
+}
 ?>
