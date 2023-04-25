@@ -29,8 +29,13 @@ async function getFilterValues() {
   })
   console.log(res);
   if (res.ok) {
+    // const resData = await res.json();
+    // updateTicketTable(resData);
+
     const tickets = await res.json();
+
     const tableData = document.querySelector('#tableData');
+    console.log(tableData);
     tableData.innerHTML = '';
 
     for (const ticket of tickets) {
@@ -53,6 +58,8 @@ async function getFilterValues() {
         </tr>
       `;
     }
+
+
   } else {
     console.error('Error: ' + res.status);
   }
@@ -84,4 +91,33 @@ function clearFilters() {
     checkbox.checked = false;
   });
   getFilterValues();
+}
+
+
+function updateTicketTable(tickets) {
+  
+    const tableData = document.querySelector('#tableData');
+    console.log(tableData);
+    tableData.innerHTML = '';
+
+    for (const ticket of tickets) {
+      tableData.innerHTML += `
+        <tr>
+          <td>${ticket.title}</td>
+          <td>${ticket.id}</td>
+          <td>${ticket.username}</td>
+          <td>${ticket.status}</td>
+          <td>${ticket.submitdate}</td>
+          <td>${ticket.priority}</td>
+          <td>
+            <ul>
+            ${ticket.hashtags.map(hashtag => `<li>${hashtag.hashtagname}</li>`).join('')}
+            </ul>
+          </td>
+          <td>${ticket.description}</td>
+          <td>${ticket.assignedagent}</td>
+          <td>${ticket.departmentName}</td>
+        </tr>
+      `;
+    }
 }

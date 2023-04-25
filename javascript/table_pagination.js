@@ -1,4 +1,5 @@
-// const table = document.getElementById("ticketTable");
+// TODO: fix thead and tbody
+// TODO: filters should be analayzed before pagination
 const table = document.querySelector(".display-table")
 console.log(table);
 console.log(table.rows);
@@ -11,6 +12,8 @@ if (table) {
   let i, ii, j = (tableHead) ? 1 : 0;
   const th = (tableHead ? table.rows[(0)].outerHTML : "");
   const pageCount = Math.ceil(rowCount / rowsPerPage);
+  
+  
   if (pageCount > 1) {
     for (i = j, ii = 0; i < rowCount; i++, ii++)
       tr[ii] = table.rows[i].outerHTML;
@@ -19,8 +22,8 @@ if (table) {
   }
 
   function sort(page) {
-    let rows = th, s = ((rowsPerPage * page) - rowsPerPage);
-    for (i = s; i < (s + rowsPerPage) && i < tr.length; i++)
+    let rows = th, s = ((rowsPerPage * page) - rowsPerPage); // s -> initial value of ticket
+    for (i = s; i < (s + rowsPerPage) && i < tr.length; i++) // tickets for the page
       rows += tr[i];
     table.innerHTML = rows;
     document.getElementById("paginationButtons").innerHTML = pageButtons(pageCount, page);
