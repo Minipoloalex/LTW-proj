@@ -382,6 +382,78 @@ td {
   padding: 0.5em;
 }
 
+.display-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.display-table caption {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.display-table th {
+  text-align: left;
+  background-color: #333;
+  color: white;
+  padding: 12px;
+}
+
+.display-table td {
+  border: 1px solid #333;
+  padding: 8px;
+}
+
+.display-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.display-table tr:hover {
+  background-color: #ddd;
+}
+
+.display-table ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.display-table ul li {
+  display: inline-block;
+  margin-right: 5px;
+  background-color: #ddd;
+  padding: 3px 6px;
+  border-radius: 3px;
+}
+
+table {
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+
 
 /* create ticket grid - OLD ONE */
 /* 
