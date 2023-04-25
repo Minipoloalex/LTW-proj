@@ -48,6 +48,7 @@ async function postProfileData(data) {
     })
 }
 
+if(editBtn){
 /*verificar se posso fazer toggle para 'edit' outra vez (apos dar save), apenas se os dados estiverem certos*/
 editBtn.addEventListener('click', async () => {
     // mudar tipo do botão
@@ -113,6 +114,7 @@ changepass.addEventListener('click', () => {
     changepass.textContent = (changepass.textContent === 'Change password') ? 'Cancel' : 'Change password';
 
 })
+}
 
 function checkChangeState() {
     if (changepass.textContent === 'Cancel') {
