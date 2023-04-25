@@ -20,6 +20,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <script src="../javascript/filter.js" defer></script>
     <script src="../javascript/edit_profile.js" defer></script>
     <script src="../javascript/update_ticket.js" defer></script>
+    <script src="../javascript/table_pagination.js" defer></script>
 
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/style.css">
