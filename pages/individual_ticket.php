@@ -27,6 +27,9 @@ $id = intval($_GET['id']);
 
 // validate if current user has access to ticket given by id
 // if not, redirect to home page (or login page if not logged in)
+if (!Client::hasAcessToTicket($db, $session->getId(), $id)) {
+    die(header('Location: main_page.php'));
+}
 
 $ticket = Ticket::getById($db, $id);
 if (!$ticket) {
@@ -43,6 +46,7 @@ $departments = Department::getDepartments($db);
 var_dump($actions);
 
 output_header();
+
 output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments);
 output_message_form($ticket->ticketid);
 output_footer();

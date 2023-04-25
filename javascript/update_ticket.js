@@ -14,6 +14,16 @@ function postDataTicketInfo(data) {
     })
 }
 
+function postClosedTicket(data) {
+    return fetch("../api/api_change_ticket_status.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: encodeForAjax(data)
+    })
+}
+
 
 function updateTicketInformation(event) {
     event.preventDefault()
@@ -76,25 +86,28 @@ if (changeTicketInfoButton) {
 const closeTicketButton = document.querySelector("button#close-ticket")
 if (closeTicketButton) {
     closeTicketButton.addEventListener("click", function(event) {
-        // event.preventDefault()
-        // const form = "#update-ticket-form"
-        // const ticketID = document.querySelector(form + " #ticket-id").getAttribute("value")
-        // postDataTicketInfo({
-        //     'ticketID': ticketID,
-        //     'closed': true
-        // })
-        // .catch(() => console.error("Network Error"))
-        // .then(response => response.json())
-        // .catch(() => console.error("Error parsing JSON"))
-        // .then(json => {
-        //     if (json['error']) {
-        //         console.error(json['error'])
-        //     }
-        //     else if (json['success']) {
-        //         console.log(json['success'])
-        //         const updatedStatus = document.querySelector("#ticket-status")
-        //         updatedStatus.textContent = "Status: Closed"
-        //     }
-        // })
+        event.preventDefault()
+        const form = "#update-ticket-form"
+        const ticketID = document.querySelector(form + " #ticket-id").getAttribute("value")
+        postClosedTicket({
+            'ticketID': ticketID,
+            'status': 'closed'
+        })
+        .catch(() => console.error("Network Error"))
+        .then(response => response.json())
+        .catch(() => console.error("Error parsing JSON"))
+        .then(json => {
+            if (json['error']) {
+                console.error(json['error'])
+            }
+            else if (json['success']) {
+                console.log(json['success'])
+                const updatedStatus = document.querySelector("#individual-ticket #ticket-status")
+                updatedStatus.textContent = 'closed'
+                updatedStatus.classList.add("closed")
+                // closeTicketButton.remove()
+                // closeTicketButton.disabled = true
+            }
+        })
     })
 }

@@ -168,6 +168,11 @@ class Ticket implements JsonSerializable
     }
   }
 
+  static function updateStatus(PDO $db, int $ticketID, string $status) {
+    $stmt = $db->prepare('UPDATE TICKET SET Status = ? WHERE TicketID = ?');
+    $stmt->execute(array($status, $ticketID));
+  }
+
   // adicionar filtros por data
   static function filter(PDO $db, array $status, array $priorities, array $hashtags, array $agents, array $departments): array
   {

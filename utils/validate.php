@@ -50,4 +50,8 @@ function check_valid_password(string $pass){
 function is_valid_type(string $userType) {
     return $userType === 'Client' || $userType === 'Agent' || $userType === 'Admin';
 }
+function is_valid_status(string $status) {
+    $status = strtolower($status);
+    return $status === 'open' || $status === 'closed' || $status === 'in progress';
+}
 ?>
