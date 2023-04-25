@@ -32,6 +32,9 @@ require_once(__DIR__ . '/../utils/session.php');
     <!-- <button type="submit" id="save-btn">Save</button> -->
     <button type="button" id="edit-btn">Edit</button>
 
+    <div class="success-message" id="success-message">Your profile was successfully edited.</div>
+		<div class="error-message" id="error-message">There was an error editing your profile. Please try again.</div>
+	
   </form>
 <?php } ?>
 

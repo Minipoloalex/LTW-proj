@@ -59,8 +59,9 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 
 <?php function drawFilterMenu(array $filterValues)
 { ?>
-    <section>
-        <h4>Filters</h4>
+    <section class="filter">
+        <h3 class="filter-header">Filters</h3>
+        <div class="filter-options">
         <legend>Status</legend>
         <?php
         foreach ($filterValues[0] as $fv) { ?>
@@ -93,5 +94,6 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
         <?php } ?>
         <button type="button" onclick=clearFilters()>Clear Filters</button>
         <button type="submit" onclick=getFilterValues()>Filtrar</button>
+        </div>
     </section>
 <?php } ?>

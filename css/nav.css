@@ -217,15 +217,16 @@ main {
   .material-symbols-outlined {
     padding-left: 1em;
   }
-  .navbar .logo{
+  .navbar .logo {
+    width: 5rem;
     transition: width 600ms;
   }
+  
   /* for fixed scrolling */
   .navbar:hover .logo {
     position: fixed;
     width: 16rem;
     z-index: 1;
-    
   }
 
   .navbar:hover .navbar-nav .logo + li {

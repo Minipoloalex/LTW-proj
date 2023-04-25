@@ -36,6 +36,10 @@ const username = document.getElementById('username');
 const oldpass = document.getElementById('old-password');
 const csrf = document.getElementById('csrf');
 
+/*mensagens de erro*/
+const successM = document.getElementById('success-message');
+const errorM = document.getElementById('error-message');
+
 async function postProfileData(data) {
     console.log(data);
     console.log(encodeForAjax(data))
@@ -71,7 +75,12 @@ editBtn.addEventListener('click', async () => {
             console.log(res);
             const json = await res.json();
             console.log(json);
-            if (!res.ok) return;
+            if (!res.ok){
+                errorM.style.display = 'block';
+                return;}
+            else{
+                successM.style.display = 'block';
+            }
             
     }
 
@@ -113,7 +122,18 @@ changepass.addEventListener('click', () => {
     newpassLab.toggleAttribute('hidden');
     changepass.textContent = (changepass.textContent === 'Change password') ? 'Cancel' : 'Change password';
 
+    
 })
+
+editBtn.addEventListener('click', function () {
+    successM.style.display = 'none';
+    errorM.style.display = 'none';
+});
+// editBtn.addEventListener('change', function () {
+//     successM.style.display = 'none';
+//     errorM.style.display = 'none';
+// });
+
 }
 
 function checkChangeState() {
@@ -129,3 +149,5 @@ function checkEditState() {
     }
     return false;
 }
+
+
