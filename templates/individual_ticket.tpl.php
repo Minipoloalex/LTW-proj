@@ -24,7 +24,12 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
             // if user is admin/agent, he sees inputs. ticket user sees only spans
         ?>
         <!-- Admin/agent view -->
-        <?php output_change_ticket_info_form($ticket, $all_agents, $all_departments, $all_hashtags); ?>
+        <?php 
+        if (!$ticket->isClosed()) {
+            output_change_ticket_info_form($ticket, $all_agents, $all_departments, $all_hashtags);
+        }
+        else output_reopen_ticket_form($ticket);
+        ?>
 
         <h3> Client view </h3>
         <!-- Client view -->
@@ -134,3 +139,10 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
         <span id="ticket-status"><?=$status?></span>
     <?php }
 } ?>
+
+<?php function output_reopen_ticket_form(Ticket $ticket) { ?>
+    <form id="reopen-ticket-form" action="../actions/action_reopen_ticket.php" method="post">
+        <input name="ticketID" type="hidden" value='<?=$ticket->ticketid?>'>
+        <button id="reopen-ticket" type="submit">Reopen ticket</button>
+    </form>
+<?php } ?>

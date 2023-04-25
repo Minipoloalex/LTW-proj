@@ -275,5 +275,9 @@ if(!empty($departments)){
 
     return $filters;
   }
+
+  function isClosed() {
+    return strtolower($this->status) === 'closed';
+  }
 }
 ?>

@@ -35,6 +35,7 @@ if (!Client::hasAcessToTicket($db, $userID, $ticketID)) {
 
 Ticket::updateStatus($db, $ticketID, $status);
 
+http_response_code(200); // OK
 echo json_encode(array(
     'success' => 'Ticket status updated',
     'status' => $status,

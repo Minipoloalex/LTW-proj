@@ -43,12 +43,10 @@ $agents = Agent::getAgents($db);
 $departments = Department::getDepartments($db);
 
 
-var_dump($actions);
-
 output_header();
-
 output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments);
-output_message_form($ticket->ticketid);
+if (!$ticket->isClosed()) output_message_form($ticket->ticketid);
+
 output_footer();
 
 ?>
