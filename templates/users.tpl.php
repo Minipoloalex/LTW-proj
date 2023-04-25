@@ -29,6 +29,7 @@ require_once(__DIR__ . '/../database/client.class.php');
 <?php } ?>
 
 <?php function drawUsersTable(array $users, PDO $db, $all_departments) { ?>
+    <input id="visible-users" type="hidden" name="user_ids" value="">
     <table class="display-table">
         <thead>
             <tr>
@@ -51,7 +52,7 @@ require_once(__DIR__ . '/../database/client.class.php');
         </tbody>
     </table>
     <button id="users-table-save-button">Save</button>
-    <button id="cancel">Cancel</button>
+    <button id="cancel"><a href="users_list.php">Cancel</a></button>
 <?php } ?>
 
 <?php function drawUserType(int $userID, string $user_type) { ?>

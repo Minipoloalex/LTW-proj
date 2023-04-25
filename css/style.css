@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400&display=swap');
 
 
+:root {
+  --button-green: #4CAF50;
+  --closed-red: #f44336;
+}
 /*
 
 - navbar e LOGOS
@@ -889,3 +893,23 @@ div.faq-page form {
 .filter-options legend {
   font-weight: bold;
 }
+
+/* ======================= INDIVIDUAL TICKET PAGE ======================= */
+
+/* =========================== TICKET STATUS ============================ */
+#individual-ticket #ticket-status {
+  padding: 1em 2em;
+  display: inline-block;  /* later change this */
+  text-transform: uppercase;
+  border-radius: 15%;
+}
+#individual-ticket #ticket-status:not(.closed) {
+  background-color: var(--button-green);
+}
+
+#individual-ticket #ticket-status.closed {
+  background-color: var(--closed-red);
+}
+/* =========================== END TICKET STATUS ======================== */
+
+

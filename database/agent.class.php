@@ -96,6 +96,10 @@ class Agent extends Client
         if ($department) return $department['DepartmentName'];
         return NULL;
     }
+    static function updateDepartment(PDO $db, int $userID, ?int $departmentID) {
+        $stmt = $db->prepare('UPDATE AGENT SET DepartmentID = ? WHERE UserID = ?');
+        $stmt->execute(array($departmentID, $userID));
+    }
 }
 
 ?>
