@@ -20,3 +20,21 @@ require_once(__DIR__ . '/../database/forum.class.php');
         ?>
     </section>
 <?php } ?>
+
+<?php function output_faq_form(Forum $faq = null) { ?>
+    <div class="faq-page">
+		<h1>Frequently Asked Questions</h1>
+		<p>Use the form below to ask a question about our service. Our agents will answer your question as soon as possible.</p>
+		<p>Agents can also use the FAQ to answer tickets, so your question might be added to the FAQ if it's a common question.</p>
+		<form id='faq-form' class="faq-form">
+			<label for="question">Your question:</label>
+			<textarea id="question" name="question" required></textarea>
+			<!-- <label for="username">Your username:</label> -->
+			<!-- <input type="text" id="username" name="username" required> -->
+			<button type="submit">Ask</button>
+		</form>
+		<div class="success-message" id="success-message">Your question has been sent successfully. We'll answer you as soon as possible.</div>
+		<div class="error-message" id="error-message">There was an error sending your question. Please try again.</div>
+	</div>
+
+<?php } ?>

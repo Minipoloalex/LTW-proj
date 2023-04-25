@@ -1,30 +1,46 @@
 function toggleSubMenu() {
-  const subMenu = document.getElementById("subMenu");
-  const subHeader = document.getElementById("subHeader");
-  const subHeaderLogo = document.querySelector("#subHeader .material-symbols-outlined")
-  // var asd = subHeader.querySelectorAll(".material-symbols-outlined, .link-text")
-  
-  
-  if (subMenu.style.display === "block") {
-    // para fechar
-    subMenu.style.display = "none";
-    subHeader.style.height = "5rem";
-  } else {
-    // para abrir
-    subMenu.style.display = "block";
-    subHeader.style.height = "fit-content"; 
-    //styles com toggle
-    // asd.forEach( (element) => {
-    //   element.style.alignItems = "start";
-    // });
-    // asd.style.position
-  }
-
-  // Close submenu when mouse leaves navbar
   const navbar = document.querySelector(".navbar");
-  navbar.addEventListener("mouseleave", function() {
-    // para fechar
-    subMenu.style.display = "none";
-    subHeader.style.height = "5rem";
-  });
+  const navItems = document.querySelectorAll(".nav-item");
+  const subMenu = document.getElementById("subMenu");
+  const subWrapper = document.getElementById("subWrapper");
+  const subHeaderItems = document.querySelectorAll("#subWrapper .material-symbols-outlined, #subWrapper #subHeaderTitle");
+  const subHeader = document.querySelector(".nav-submenu-header");
+  console.log(subHeader);
+  if (window.matchMedia("(min-width: 600px)").matches) {
+    //big screen
+    if (subMenu.style.display === "block") {
+      // para fechar
+      subMenu.style.display = "none";
+      subWrapper.style.height = "5rem";
+      subWrapper.style.alignItems = "center";
+      subHeader.style.paddingTop = "0rem";
+    } else {
+      // para abrir
+      subMenu.style.display = "block";
+      subWrapper.style.height = "fit-content";
+      subWrapper.style.alignItems = "start";
+      subHeader.style.paddingTop = "2.05rem";
+    }
+
+    // Close submenu when mouse leaves navbar
+    const navbar = document.querySelector(".navbar");
+    navbar.addEventListener("mouseleave", function () {
+      // para fechar
+      subMenu.style.display = "none";
+      subWrapper.style.height = "5rem";
+      subWrapper.style.alignItems = "center";
+      subHeader.style.paddingTop = "0rem";
+    });
+  } else {
+    //small screen
+      if(navbar.style.height === "5rem"){
+        navbar.style.height = "10rem";
+        for (var element of navItems) {
+          element.style.marginTop = "auto";
+        }
+
+      } else {
+        navbar.style.height = "5rem";
+      }
+  }
 }

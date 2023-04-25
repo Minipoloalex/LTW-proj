@@ -207,11 +207,14 @@
             return password_verify($pass, $this->password);
           }
 
-          static function getByEmail(PDO $db, string $email) : Client {
+          static function getByEmail(PDO $db, string $email) : ?Client {
             $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Email = ?');
             $stmt->execute(array($email));
-        
+            
             $client = $stmt->fetch();
+
+            if ($client == NULL) return NULL;
+            
             return new Client(
               intval($client['UserID']),
               $client['Name'],
@@ -221,11 +224,14 @@
             );
           }
 
-          static function getByUsername(PDO $db, string $username) : Client {
+          static function getByUsername(PDO $db, string $username) : ?Client {
             $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Username = ?');
             $stmt->execute(array($username));
         
             $client = $stmt->fetch();
+
+            if ($client == NULL) return NULL;
+
             return new Client(
               intval($client['UserID']),
               $client['Name'],
@@ -264,3 +270,5 @@
             $stmt->execute(array($userID));
           }
     }
+
+    

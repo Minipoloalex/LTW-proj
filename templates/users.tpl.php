@@ -29,7 +29,7 @@ require_once(__DIR__ . '/../database/client.class.php');
 <?php } ?>
 
 <?php function drawUsersTable(array $users, PDO $db, $all_departments) { ?>
-    <table id="users-table">
+    <table class="display-table">
         <thead>
             <tr>
                 <th>Name</th>

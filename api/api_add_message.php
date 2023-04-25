@@ -36,8 +36,6 @@ if (!Client::hasAcessToTicket($db, $userID, $ticketID)) {
     exit();
 }
 
-$db = getDatabaseConnection();
-
 $message = Message::addMessage($db, $userID, $ticketID, $message);
 
 if (!$message) {
