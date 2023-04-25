@@ -10,6 +10,7 @@ require_once(__DIR__ . '/../templates/FAQ.tpl.php');
 $db = getDatabaseConnection();
 $faqs = Forum::getFaqs($db, 10);
 
+output_faq_form();
 output_header();
 output_all_faqs($faqs);
 output_footer();

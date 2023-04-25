@@ -628,12 +628,12 @@ h2#yourprofile {
 
 /* -------------- for JAVASCRIPT in profile edit page ------------------------ */
 
-input[readonly] {
+.profile input[readonly] {
   user-select: none;
   cursor: default;
 }
 
-input[readonly]:focus {
+.profile input[readonly]:focus {
   outline: none;
 }
 
@@ -642,6 +642,22 @@ input[readonly]:focus {
   background-color: transparent;
   /* background-color: #f7f7f7; */
   box-shadow: none;
+}
+
+.profile button {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  /* width: 100%; */
+  transition: background-color 0.3s ease;
+}
+
+.profile button:hover {
+  background-color: #3e8e41;
 }
 
 /* -------------------- damn footer --------------------- */
@@ -721,4 +737,119 @@ div.features {
   grid-area: p3;
   align-items: center;
   justify-self: center;
+}
+
+
+/*----------------- FAQ PAGE -----------------*/
+
+
+
+/* question and answer */
+.faq {
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.question {
+  font-weight: bold;
+  font-size: 16px; 
+  color: #333;
+  display: block;
+}
+
+.answer {
+  margin-top: 10px;
+  font-size: 14px; 
+  color: #666;
+  display: block;
+}
+
+/* FAQ form */
+
+div.faq-page {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 20px;
+  padding: 20px;
+  margin-left: 80px;
+}
+
+div.faq-page h1 {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 0;
+}
+
+div.faq-page h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+div.faq-page p {
+  font-size: 16px;
+  margin-top: 0;
+}
+
+div.faq-page form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 10px;
+}
+
+.faq-form label {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.faq-form input[type="text"], textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  resize: vertical;
+  font-family: 'Martel Sans', sans-serif;
+}
+
+.faq-form button {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 15%;
+}
+
+.faq-form button:hover {
+  background-color: #3e8e41;
+}
+
+.faq-page .success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: none;
+}
+
+.faq-page .error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: none;
 }

@@ -24,6 +24,32 @@ class Forum {
         }
         return $faqs;
     }
+
+    static function addFaq(PDO $db, string $question): Forum {
+        $stmt = $db->prepare('INSERT INTO FORUM (Question) VALUES (?)');
+        $stmt->execute(array($question));
+
+        return new Forum(
+            intval($db->lastInsertId()),
+            $question,
+            ''
+        );
+    }
+
+    static function getFaqWithoutAnswer(PDO $db, int $count): array {
+        $stmt = $db->prepare('SELECT * FROM FORUM WHERE Answer IS NULL LIMIT ? ');
+        $stmt->execute(array($count));
+
+        $faqs = array();
+        while ($faq = $stmt->fetch()) {
+            $faqs[] = new Forum(
+                intval($faq['ForumID']),
+                $faq['Question'],
+                $faq['Answer']
+            );
+        }
+        return $faqs;
+    }
 }
 
 ?>
