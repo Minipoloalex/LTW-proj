@@ -250,5 +250,25 @@
             $stmt = $db->prepare('UPDATE CLIENT SET Password = ? WHERE UserID = ?');
             return $stmt->execute(array(password_hash($pass, PASSWORD_DEFAULT), $this->id));
           }
+          function demoteToClient(PDO $db, int $userID) {
+            $stmt = $db->prepare('DELETE FROM AGENT WHERE UserID = ?');
+            $stmt->execute(array($userID));
+          }
+          function demoteToAgent(PDO $db, int $userID) {
+            $stmt = $db->prepare('DELETE FROM ADMIN WHERE UserID = ?');
+            $stmt->execute(array($userID));
+          }
+          function upgradeToAdminFromAgent(PDO $db, int $userID) {
+            $stmt = $db->prepare('INSERT INTO ADMIN (UserID) VALUES (?)');
+            $stmt->execute(array($userID));
+          }
+          function upgradeToAdminFromClient(PDO $db, int $userID) {
+            $stmt = $db->prepare('INSER INTO AGENT (UserID, Department) VALUES (?, NULL)');
+            $stmt->execute(array($userID));
 
+            $stmt = $db->prepare('INSERT INTO ADMIN (UserID) VALUES (?)');
+            $stmt->execute(array($userID));
+          }
     }
+
+    

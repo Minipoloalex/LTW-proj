@@ -27,14 +27,13 @@ async function getFilterValues() {
     },
     body: json
   })
+  console.log(res);
   if (res.ok) {
     const tickets = await res.json();
     const tableData = document.querySelector('#tableData');
     tableData.innerHTML = '';
 
     for (const ticket of tickets) {
-      console.log(ticket);
-      console.log(ticket.hashtags);
       tableData.innerHTML += `
         <tr>
           <td>${ticket.title}</td>

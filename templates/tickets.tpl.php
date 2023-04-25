@@ -29,7 +29,7 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 <?php function drawTicketsTable($tickets, $caption)
 { ?>
 
-    <table>
+    <table id="ticketTable" class="display-table">
         <caption>
             <?= $caption ?>
         </caption>
