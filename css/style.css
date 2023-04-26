@@ -17,10 +17,10 @@
 body {
   font-family: 'Martel Sans', sans-serif;
   background-color: #dee2ff;
-
 }
 
-/*-------------------LOGIN FORM DESIGN--------------------------------------*/
+
+/*================= LOGIN FORM DESIGN =================*/
 
 body.landingbody {
   background-image: url('../css/images/fundo.jpg');
@@ -788,7 +788,7 @@ footer {
 .mainpage {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 0.4fr 0.1fr 1fr 1fr;
+  grid-template-rows: 0.1fr 0.1fr 1fr 1fr;
   gap: 10px 0px;
   grid-template-areas:
     "h1 h1"
@@ -837,12 +837,13 @@ div.features {
 
 /*----------------- FAQ PAGE -----------------*/
 
-#faqs {
-  margin: 10rem;
-}
+/* #faqs {
+  margin: 8rem;
+  margin-top: 2rem;
+} */
 
 
-/* question and answer */
+/* single faq -> question and answer */
 .faq {
   background-color: #f2f2f2;
   padding: 20px;
@@ -871,7 +872,7 @@ div.faq-page {
   grid-template-rows: auto auto auto;
   gap: 20px;
   padding: 20px;
-  margin-left: 80px;
+  /* margin-left: 80px; */
 }
 
 div.faq-page h1 {
@@ -952,6 +953,26 @@ div.faq-page form {
   display: none;
 }
 
+/*test for individual faq*/
+.faq {
+    position: relative;
+}
+.edit-faq {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.hide-faq {
+    position: absolute;
+    top: 0;
+    right: 40px;
+}
+.answer-faq {
+    position: absolute;
+    top: 0;
+    right: 80px;
+}
+
 
 /* faq icons for buttons */
 
@@ -1014,3 +1035,92 @@ button.display-faq, button.hide-faq, button.edit-faq{
 /* =========================== END TICKET STATUS ======================== */
 
 
+
+/* ================ RESPONSIVENESS (web e mobile) ================== */
+
+/*large screen - web*/
+@media only screen and (min-width: 600px) {
+  body main {
+    margin-left: 17rem;
+    margin-right: 17rem;
+  }
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 600px) {
+
+  body main {
+    margin-left: 0;
+  }
+
+  .login-form, .registerform {
+    width: 90%;
+    height: auto;
+    padding: 1em;
+    border-radius: 5px;
+  }
+
+  .mainpage {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 0.1fr 1fr 1fr;
+    gap: 10px 0px;
+    grid-template-areas:
+      "h1"
+      "h2"
+      "p1"
+      "p2"
+      "p3";
+  }
+  .mainpage p1, .mainpage p2 {
+    padding: 1em;
+  }
+}
+
+/* For tablet devices */
+@media only screen and (min-width: 601px) and (max-width: 960px) {
+  .login-form, .registerform {
+    width: 70%;
+    height: auto;
+    padding: 1.5em;
+    border-radius: 5px;
+  }
+
+  .mainpage {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 0.1fr 1fr 1fr;
+    gap: 10px 0px;
+    grid-template-areas:
+      "h1"
+      "h2"
+      "p1"
+      "p2"
+      "p3";
+  }
+  .mainpage p1, .mainpage p2 {
+    padding: 1em;
+  }
+}
+
+/* For desktop devices */
+@media only screen and (min-width: 961px) {
+  .login-container {
+    height: 100vh;
+  }
+
+  .login-form, .registerform {
+    width: 30%;
+    height: auto;
+    padding: 2em;
+    border-radius: 10px;
+  }
+}
+
+/* @media screen and (max-width: 767px) {
+  .mainpage {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .mainpage p1, .mainpage p2 {
+    padding: 1em;
+  }
+} */
