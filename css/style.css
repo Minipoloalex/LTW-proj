@@ -823,7 +823,7 @@ footer {
 .mainpage p2 {
   grid-area: p2;
   display: flex;
-  align-items: start;
+  align-items: center;
   padding: 2.5em;
   text-align: center;
 }
@@ -837,6 +837,9 @@ div.features {
 
 /*----------------- FAQ PAGE -----------------*/
 
+#faqs {
+  margin: 10rem;
+}
 
 
 /* question and answer */
@@ -948,6 +951,32 @@ div.faq-page form {
   margin-top: 10px;
   display: none;
 }
+
+
+/* faq icons for buttons */
+
+button.display-faq span.material-symbols-outlined, button.hide-faq span.material-symbols-outlined, button.edit-faq span.material-symbols-outlined {
+  padding: 0;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+button.display-faq {
+  height: fit-content;
+}
+/* 
+button.display-faq span.material-symbols-outlined {
+  padding: 0;
+} */
+
+button.display-faq, button.hide-faq, button.edit-faq{
+  padding: 0;
+  border: none; 
+}
+
 
 /* Filter */
 

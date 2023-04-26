@@ -4,11 +4,13 @@ declare(strict_types = 1);
 class Forum {
     public int $forumId;
     public string $question;
-    public string $answer;
-    public function __construct(int $forumId, string $question, string $answer = "not answered") {
+    public ?string $answer;
+    public int $displayed;
+    public function __construct(int $forumId, string $question, ?string $answer, int $displayed) {
         $this->forumId = $forumId;
         $this->question = $question;
         $this->answer = $answer;
+        $this->displayed = $displayed;
     }
 
     static function getFaqs(PDO $db, int $count): array {
@@ -20,7 +22,8 @@ class Forum {
             $faqs[] = new Forum(
                 intval($faq['ForumID']),
                 $faq['Question'],
-                $faq['Answer']
+                $faq['Answer'],
+                intval($faq['Displayed'])
             );
         }
         return $faqs;
@@ -28,13 +31,14 @@ class Forum {
 
     static function addFaq(PDO $db, string $question): Forum {
         // $question = trim($question);
-        $stmt = $db->prepare('INSERT INTO FORUM (Question) VALUES (?, ?)');
-        $stmt->execute(array($question, "not answered"));
+        $stmt = $db->prepare('INSERT INTO FORUM (Question) VALUES (?)');
+        $stmt->execute(array($question));
 
         return new Forum(
             intval($db->lastInsertId()),
             $question,
-            "not answered"
+            null,
+            0
         );
     }
 
@@ -47,7 +51,8 @@ class Forum {
             $faqs[] = new Forum(
                 intval($faq['ForumID']),
                 $faq['Question'],
-                $faq['Answer']
+                $faq['Answer'],
+                0
             );
         }
         return $faqs;
