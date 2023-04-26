@@ -12,12 +12,13 @@ if (cardContainer) {
   function getCards(data) {
     console.log(data);
     console.log(data.length);
-    const cardLimit = 99; // data.length;
+    const cardLimit = data.length; 99;
     cardTotalElem.innerHTML = cardLimit;
     const cardIncrease = 9;
     const pageCount = Math.ceil(cardLimit / cardIncrease);
     let currentPage = 1;
 
+      
     // not needed
     const getRandomColor = () => {
       const h = Math.floor(Math.random() * 360);
@@ -27,7 +28,7 @@ if (cardContainer) {
     const createCard = (index) => {
       const card = document.createElement("div");
       card.className = "card";
-      card.innerHTML = index;// data[index].title; //card inside elements
+      card.innerHTML = data[index-1].title; //index; //card inside elements
       card.style.backgroundColor = getRandomColor();
       cardContainer.appendChild(card);
     };
@@ -81,6 +82,7 @@ if (cardContainer) {
       }, 1000);
     };
 
+    addCards(currentPage);
     window.addEventListener("scroll", handleInfiniteScroll);
   }
 }
