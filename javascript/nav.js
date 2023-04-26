@@ -6,7 +6,8 @@ function toggleSubMenu() {
   const subHeaderItems = document.querySelectorAll("#subWrapper .material-symbols-outlined, #subWrapper #subHeaderTitle");
   const subHeader = document.querySelector(".nav-submenu-header");
   console.log(subHeader);
-  if (window.matchMedia("(min-width: 600px)").matches) {
+  // if (window.matchMedia("(min-width: 600px)").matches) {
+  if (window.matchMedia("(min-width: 961px)").matches) {
     //big screen
     if (subMenu.style.display === "block") {
       // para fechar

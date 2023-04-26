@@ -105,5 +105,6 @@ CREATE TABLE MESSAGE(
 CREATE TABLE FORUM(
     ForumID INTEGER PRIMARY KEY,
     Question TEXT,
-    Answer TEXT
+    Answer TEXT,
+    Displayed INTEGER
 );

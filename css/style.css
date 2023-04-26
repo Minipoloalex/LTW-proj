@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400&display=swap');
 
 
+:root {
+  --button-green: #4CAF50;
+  --closed-red: #f44336;
+}
 /*
 
 - navbar e LOGOS
@@ -13,10 +17,10 @@
 body {
   font-family: 'Martel Sans', sans-serif;
   background-color: #dee2ff;
-
 }
 
-/*-------------------LOGIN FORM DESIGN--------------------------------------*/
+
+/*================= LOGIN FORM DESIGN =================*/
 
 body.landingbody {
   background-image: url('../css/images/fundo.jpg');
@@ -122,149 +126,7 @@ a.register:hover {
 }
 
 
-/*--------------------- SVG ----------------------------*/
-
-.custom-shape-divider-top-1681308841 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-}
-
-.custom-shape-divider-top-1681308841 svg {
-  position: relative;
-  display: block;
-  width: calc(100% + 1.3px);
-  height: 150px;
-}
-
-.custom-shape-divider-top-1681308841 .shape-fill {
-  fill: #846a8b;
-}
-
-/* -------------- NOT USED: landing page grids antigo -------------------- */
-/* .loginform {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 1em 1em;
-    grid-template-areas:
-        "email email ."
-        "password password ."
-        ". buttons .";
-    width: 50em;
-    height: 50em;
-    padding: 2em;
-
-} */
-/* 
-.loginform input[type='email'] {
-    grid-area: email;
-}
-
-.loginform input[type='password'] {
-    grid-area: password;
-}
-
-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    gap: 0px 0px;
-    grid-template-areas:
-        ". . register . login"
-        ". . . . ."
-        ". . . . .";
-    grid-area: buttons;
-}
-
-.register {
-    grid-area: register;
-}
-
-.login {
-    grid-area: login;
-} */
-
-
-/* ---------------------------- ANTIGO register grid  ----------------------------  */
-
-/* 
-.registerform {
-  background-color: #846a8b;
-  border-radius: 10px;
-  padding: 0.5em;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 0.5fr;
-  gap: 1em 1em;
-  grid-template-areas:
-    "Name Name"
-    "username username"
-    "email email"
-    "password password"
-    "confirm confirm"
-    "registerbuttons registerbuttons";
-  width: 40em;
-  height: 40em;
-}
-
-.Name {
-  grid-area: Name;
-}
-
-.username {
-  grid-area: username;
-}
-
-.email {
-  grid-area: email;
-}
-
-.password {
-  grid-area: password;
-}
-
-.confirm {
-  grid-area: confirm;
-}
-
-.registerbuttons {
-  display: grid;
-  padding-left: 10em;
-  grid-template-columns: 1fr 1fr 1.5fr;
-  grid-template-rows: 1fr;
-  gap: 0px 0px;
-  grid-template-areas:
-    " already already create";
-  grid-area: registerbuttons;
-}
-
-.create {
-  grid-area: create;
-  border-radius: 10px;
-  border: none;
-}
-
-.loginback {
-  grid-area: already;
-}
-
-.registerform input {
-  font-size: 1.2em;
-  border: none;
-  background-color: #f7f7f7;
-  border-radius: 10px;
-  padding: 0.5em;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-} */
-
-/*--------- TRYING TO MAKE THE REGISTER PAGE LOOK LIKE THE LOGIN PAGE --------------*/
+/*--------- REGISTER FORM PAGE --------------*/
 
 body.landingbody {
   background-image: url('../css/images/fundo.jpg');
@@ -366,6 +228,27 @@ body.landingbody {
 }
 
 
+/*--------------------- SVG waves ----------------------------*/
+
+.custom-shape-divider-top-1681308841 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1681308841 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 150px;
+}
+
+.custom-shape-divider-top-1681308841 .shape-fill {
+  fill: #846a8b;
+}
 
 /* ------------- tables on main page ------------------- */
 
@@ -378,57 +261,77 @@ td {
   padding: 0.5em;
 }
 
-
-/* create ticket grid */
-/* 
-.createticket {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    gap: 1em 1em;
-    grid-template-areas:
-        "title title title"
-        "titleform titleform titleform"
-        "description description description"
-        "hashtag hashtag hashtag"
-        ". . ."
-        "submit submit submit";
-    width: 50em;
-    height: 50em;
-    padding: 2em;
+.display-table {
+  border-collapse: collapse;
+  width: 100%;
 }
 
-.title {
-    grid-area: title;
+.display-table caption {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
-
-.description {
-    grid-area: description;
+.display-table th {
+  text-align: left;
+  background-color: #333;
+  color: white;
+  padding: 12px;
 }
 
-#tags {
-    grid-area: hashtag;
+.display-table td {
+  border: 1px solid #333;
+  padding: 8px;
 }
 
-
-.submit {
-    grid-area: submit;
+.display-table tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
-.createticket input[type='text'], .createticket input[type='submit'], .createticket #tags, .createticket #deps {
-    font-size: 1.2em;
-    border: none;
-    /* border-radius: 5px; */
-/* background-color: #eee; */
-
-/* background-color: #f7f7f7;
-    border-radius: 10px;
-    padding: 0.5em;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+.display-table tr:hover {
+  background-color: #ddd;
 }
 
- */
+.display-table ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.display-table ul li {
+  display: inline-block;
+  margin-right: 5px;
+  background-color: #ddd;
+  padding: 3px 6px;
+  border-radius: 3px;
+}
+
+table {
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
 
 /* ------------------- CREATE TICKET GRID -------------------- */
 .createticket {
@@ -487,7 +390,7 @@ td {
   /* only allow vertical resizing */
 }
 
-/* 'create ticket button */
+/* create ticket button */
 .createticket button[type='submit'] {
   grid-column: 1 / span 1;
   grid-row: 9 / span 1;
@@ -500,57 +403,6 @@ td {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   border: none;
 }
-
-
-/* --------------- profile page - NOT USED, gostei na altura ---------------*/
-/* 
-  .profile {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem;
-    background-color: #f7f7f7;
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .profile h2 {
-    margin-bottom: 1rem;
-  }
-  
-  .profile label {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-  
-  .profile ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .profile li {
-    margin-bottom: 1rem;
-  }
-  
-  .profile span {
-    margin-left: 0.5rem;
-  }
-  
-  .profile span.email {
-    word-break: break-all;
-  }
-  
-  .profile {
-    background-color: #f7f7f7;
-    border-radius: 10px;
-    padding: 1em;
-    margin-top: 1em;
-    display: flex;
-    flex-direction: column;
-    max-width: max-content;
-  } */
-
 
 /* -----------------  profile page ---------------------- */
 
@@ -587,15 +439,11 @@ h2#yourprofile {
   margin-bottom: 1rem;
 }
 
-
-
 .profile label {
   font-weight: bold;
   margin-bottom: 0.5rem;
   width: 100%;
 }
-
-
 
 .profile input {
   border: none;
@@ -712,7 +560,7 @@ footer {
 .mainpage {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 0.4fr 0.1fr 1fr 1fr;
+  grid-template-rows: 0.1fr 0.1fr 1fr 1fr;
   gap: 10px 0px;
   grid-template-areas:
     "h1 h1"
@@ -729,11 +577,13 @@ footer {
   font-size: 3em;
   color:rgba(112, 78, 125, 0.562);
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 
 .mainpage h2 {
   grid-area: h2;
   align-items: end;
+  text-align: center;
 }
 
 .mainpage p1 {
@@ -747,7 +597,7 @@ footer {
 .mainpage p2 {
   grid-area: p2;
   display: flex;
-  align-items: start;
+  align-items: center;
   padding: 2.5em;
   text-align: center;
 }
@@ -761,27 +611,9 @@ div.features {
 
 /*----------------- FAQ PAGE -----------------*/
 
-
-
-/* question and answer */
-.faq {
-  background-color: #f2f2f2;
-  padding: 20px;
-  margin-bottom: 10px;
-}
-
-.question {
-  font-weight: bold;
-  font-size: 16px; 
-  color: #333;
-  display: block;
-}
-
-.answer {
-  margin-top: 10px;
-  font-size: 14px; 
-  color: #666;
-  display: block;
+#faqs {
+  margin: 2rem;
+  /* margin-top: 2rem; */
 }
 
 /* FAQ form */
@@ -792,7 +624,7 @@ div.faq-page {
   grid-template-rows: auto auto auto;
   gap: 20px;
   padding: 20px;
-  margin-left: 80px;
+  /* margin-left: 80px; */
 }
 
 div.faq-page h1 {
@@ -811,6 +643,7 @@ div.faq-page h2 {
 div.faq-page p {
   font-size: 16px;
   margin-top: 0;
+  text-align: center;
 }
 
 div.faq-page form {
@@ -873,6 +706,91 @@ div.faq-page form {
   display: none;
 }
 
+
+/* individual faq -> question and answer */
+.faq {
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.question {
+  font-weight: bold;
+  font-size: 16px; 
+  color: #333;
+  display: block;
+}
+
+.answer {
+  margin-top: 10px;
+  font-size: 14px; 
+  color: #666;
+  display: block;
+}
+
+.faq {
+  position: relative;
+}
+.edit-faq {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.hide-faq {
+  position: absolute;
+  top: 0;
+  right: 40px;
+}
+.display-faq {
+  position: absolute;
+  top: 0;
+  right: 80px;
+}
+
+/* faq icons for buttons */
+
+button.display-faq span.material-symbols-outlined, button.hide-faq span.material-symbols-outlined, button.edit-faq span.material-symbols-outlined {
+  /* padding: 0; */
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+
+/* button.display-faq span.material-symbols-outlined {
+  padding: 0;
+} */
+
+button.display-faq, button.hide-faq, button.edit-faq{
+  /* padding: 0; */
+  border: none; 
+  background-color: transparent;
+  /* height: fit-content; */
+}
+
+article.faq {
+  display: flex;
+  flex-direction: column;
+}
+
+.faq input.answer {
+  display: block;
+}
+
+.faq button.answer-faq {
+  display: block;
+  margin-top: auto; 
+} 
+
+.faq input.question {
+  margin-right: 5.2rem;
+}
+
+
 /* Filter */
 
 .filter {
@@ -888,4 +806,111 @@ div.faq-page form {
 
 .filter-options legend {
   font-weight: bold;
+}
+
+/* ======================= INDIVIDUAL TICKET PAGE ======================= */
+
+/* =========================== TICKET STATUS ============================ */
+#individual-ticket #ticket-status {
+  padding: 1em 2em;
+  display: inline-block;  /* later change this */
+  text-transform: uppercase;
+  border-radius: 15%;
+}
+#individual-ticket #ticket-status:not(.closed) {
+  background-color: var(--button-green);
+}
+
+#individual-ticket #ticket-status.closed {
+  background-color: var(--closed-red);
+}
+/* =========================== END TICKET STATUS ======================== */
+
+
+
+/* ================ RESPONSIVENESS (web e mobile) ================== */
+
+/* For mobile devices -> ATÉ 600 */
+@media only screen and (max-width: 600px) {
+
+  body main {
+    margin-bottom: 5rem;
+  }
+
+  .login-form, .registerform {
+    width: 90%;
+    height: auto;
+    padding: 1em;
+    border-radius: 5px;
+  }
+
+  .mainpage {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 0.1fr 1fr 1fr;
+    gap: 10px 0px;
+    grid-template-areas:
+      "h1"
+      "h2"
+      "p1"
+      "p2"
+      "p3";
+  }
+  .mainpage p1, .mainpage p2 {
+    padding: 1em;
+  }
+}
+
+/* For tablet devices -> 600 A 961*/
+@media only screen and (max-width: 961px) {
+  body main {
+    margin-bottom: 5rem;
+    /* margin-left: 10rem;
+    margin-right: 2rem; */
+  }
+
+  .login-form, .registerform {
+    width: 70%;
+    height: auto;
+    padding: 1.5em;
+    border-radius: 5px;
+  }
+
+  .mainpage {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 0.1fr 1fr 1fr;
+    gap: 10px 0px;
+    grid-template-areas:
+      "h1"
+      "h2"
+      "p1"
+      "p2"
+      "p3";
+  }
+  .mainpage p1, .mainpage p2 {
+    padding: 1em;
+  }
+}
+
+/* For desktop devices -> A PARTIR DE 961*/
+@media only screen and (min-width: 961px) {
+  body main div.mainpage {
+    margin-bottom: 5rem;
+  }
+
+  body main {
+    margin-bottom: 5rem;
+    margin-left: 17rem;
+    margin-right: 14rem;
+  }
+
+  .login-container {
+    height: 100vh;
+  }
+
+  .login-form, .registerform {
+    width: 30%;
+    height: auto;
+    padding: 2em;
+    border-radius: 10px;
+  }
 }

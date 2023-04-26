@@ -70,6 +70,7 @@ INSERT INTO MESSAGE (MessageID, TicketID, UserID, MessageText, TimeStamp) VALUES
 (7, 1, 2, 'No problem, we are happy to help.', 1647703354);
 
 -- FORUM
-INSERT INTO FORUM (ForumID, Question, Answer) VALUES
-(1, 'What is the best way to contact customer support?', 'You can reach our customer support team by phone or email.'),
-(2, 'How do I reset my password?', 'You can reset your password by clicking on the "Forgot Password" link on the login page.');
+INSERT INTO FORUM (ForumID, Question, Answer, Displayed) VALUES
+(1, 'What is the best way to contact customer support?', 'You can reach our customer support team by phone or email.', 1),
+(2, 'How do I reset my password?', 'You can reset your password by clicking on the "Forgot Password" link on the login page.', 1),
+(3, 'Dont answer this question', NULL, 0);

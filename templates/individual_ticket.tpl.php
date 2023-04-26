@@ -12,21 +12,30 @@ require_once(__DIR__ . '/create_ticket.tpl.php');
 
 <?php function output_single_ticket(Ticket $ticket, array $messages, array $actions,
 array $all_hashtags, array $all_agents, array $all_departments) { ?>
-    <article id="ticket">
-        <header><h1 class="title"><?=$ticket->title?></h1></header>
-        <p class="description"><?=$ticket->description?></p>
+    <article id="individual-ticket">
+        <header><h1 id="title"><?=$ticket->title?></h1></header>
+        <p id="description"><?=$ticket->description?></p>
+        <?php
+
+        ?>
+        <?php output_ticket_status($ticket->status); ?>
+        <!-- <span id="ticket-status"><?=$ticket->status?></span> -->
         <?php
             // if user is admin/agent, he sees inputs. ticket user sees only spans
         ?>
         <!-- Admin/agent view -->
-        <?php output_change_ticket_info_form($ticket, $all_agents, $all_departments, $all_hashtags); ?>
+        <?php 
+        if (!$ticket->isClosed()) {
+            output_change_ticket_info_form($ticket, $all_agents, $all_departments, $all_hashtags);
+        }
+        else output_reopen_ticket_form($ticket);
+        ?>
 
         <h3> Client view </h3>
         <!-- Client view -->
         <span id="ticket-agent">Agent: <?=$ticket->assignedagent ?? "None"?></span>
         <span id="ticket-department">Department: <?=$ticket->departmentName ?? "None"?></span>
         <span id="ticket-user">Created by: <?=$ticket->username?></span>
-        <span id="ticket-status">Status: <?=$ticket->status?></span>
         <span id="ticket-priority">Priority: <?=$ticket->priority?></span>
         <span id="ticket-date">Created at: <?=date('F j', $ticket->submitdate)?></span>
         <h4>Hashtags</h4>
@@ -112,14 +121,28 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
     </label>
     <select name="agent" id="agent-select">
         <option></option>
-        <?php foreach($agents as $agent) { ?>
-            
+        <?php foreach($agents as $agent) { ?> 
             <?php if ($agent->username === $assignedagent) { ?>
                 <option value=<?=$agent->id?> selected><?=$agent->username?></option>
             <?php } else { ?>
                 <option value=<?=$agent->id?>><?=$agent->username?></option>
             <?php } ?>
         <?php } ?>
-        <?php /* for each agent, option with agent userID and agent username */ ?>
     </select>
+<?php } ?>
+
+
+<?php function output_ticket_status(string $status) {
+    if ($status === 'closed') { ?>
+        <span id="ticket-status" class="closed"><?=$status?></span>
+    <?php } else { ?>
+        <span id="ticket-status"><?=$status?></span>
+    <?php }
+} ?>
+
+<?php function output_reopen_ticket_form(Ticket $ticket) { ?>
+    <form id="reopen-ticket-form" action="../actions/action_reopen_ticket.php" method="post">
+        <input name="ticketID" type="hidden" value='<?=$ticket->ticketid?>'>
+        <button id="reopen-ticket" type="submit">Reopen ticket</button>
+    </form>
 <?php } ?>

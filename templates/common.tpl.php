@@ -22,6 +22,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <script src="../javascript/update_ticket.js" defer></script>
     <script src="../javascript/add_FAQ.js" defer></script>
     <script src="../javascript/table_pagination.js" defer></script>
+    <script>src="../javascript/manage_FAQ.js" defer></script>
 
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/style.css">
@@ -40,7 +41,10 @@ require_once(__DIR__ . '/../utils/session.php');
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
       integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
-  </head>
+
+    <!---FAQ icons---> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    </head>
 
   <body>
     <!-- <header>
