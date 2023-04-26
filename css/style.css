@@ -126,149 +126,7 @@ a.register:hover {
 }
 
 
-/*--------------------- SVG ----------------------------*/
-
-.custom-shape-divider-top-1681308841 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-}
-
-.custom-shape-divider-top-1681308841 svg {
-  position: relative;
-  display: block;
-  width: calc(100% + 1.3px);
-  height: 150px;
-}
-
-.custom-shape-divider-top-1681308841 .shape-fill {
-  fill: #846a8b;
-}
-
-/* -------------- NOT USED: landing page grids antigo -------------------- */
-/* .loginform {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 1em 1em;
-    grid-template-areas:
-        "email email ."
-        "password password ."
-        ". buttons .";
-    width: 50em;
-    height: 50em;
-    padding: 2em;
-
-} */
-/* 
-.loginform input[type='email'] {
-    grid-area: email;
-}
-
-.loginform input[type='password'] {
-    grid-area: password;
-}
-
-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    gap: 0px 0px;
-    grid-template-areas:
-        ". . register . login"
-        ". . . . ."
-        ". . . . .";
-    grid-area: buttons;
-}
-
-.register {
-    grid-area: register;
-}
-
-.login {
-    grid-area: login;
-} */
-
-
-/* ---------------------------- ANTIGO register grid  ----------------------------  */
-
-/* 
-.registerform {
-  background-color: #846a8b;
-  border-radius: 10px;
-  padding: 0.5em;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 0.5fr;
-  gap: 1em 1em;
-  grid-template-areas:
-    "Name Name"
-    "username username"
-    "email email"
-    "password password"
-    "confirm confirm"
-    "registerbuttons registerbuttons";
-  width: 40em;
-  height: 40em;
-}
-
-.Name {
-  grid-area: Name;
-}
-
-.username {
-  grid-area: username;
-}
-
-.email {
-  grid-area: email;
-}
-
-.password {
-  grid-area: password;
-}
-
-.confirm {
-  grid-area: confirm;
-}
-
-.registerbuttons {
-  display: grid;
-  padding-left: 10em;
-  grid-template-columns: 1fr 1fr 1.5fr;
-  grid-template-rows: 1fr;
-  gap: 0px 0px;
-  grid-template-areas:
-    " already already create";
-  grid-area: registerbuttons;
-}
-
-.create {
-  grid-area: create;
-  border-radius: 10px;
-  border: none;
-}
-
-.loginback {
-  grid-area: already;
-}
-
-.registerform input {
-  font-size: 1.2em;
-  border: none;
-  background-color: #f7f7f7;
-  border-radius: 10px;
-  padding: 0.5em;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-} */
-
-/*--------- TRYING TO MAKE THE REGISTER PAGE LOOK LIKE THE LOGIN PAGE --------------*/
+/*--------- REGISTER FORM PAGE --------------*/
 
 body.landingbody {
   background-image: url('../css/images/fundo.jpg');
@@ -370,6 +228,27 @@ body.landingbody {
 }
 
 
+/*--------------------- SVG waves ----------------------------*/
+
+.custom-shape-divider-top-1681308841 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1681308841 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 150px;
+}
+
+.custom-shape-divider-top-1681308841 .shape-fill {
+  fill: #846a8b;
+}
 
 /* ------------- tables on main page ------------------- */
 
@@ -454,58 +333,6 @@ tr:hover {
 }
 
 
-
-/* create ticket grid - OLD ONE */
-/* 
-.createticket {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    gap: 1em 1em;
-    grid-template-areas:
-        "title title title"
-        "titleform titleform titleform"
-        "description description description"
-        "hashtag hashtag hashtag"
-        ". . ."
-        "submit submit submit";
-    width: 50em;
-    height: 50em;
-    padding: 2em;
-}
-
-.title {
-    grid-area: title;
-}
-
-
-.description {
-    grid-area: description;
-}
-
-#tags {
-    grid-area: hashtag;
-}
-
-
-.submit {
-    grid-area: submit;
-}
-
-.createticket input[type='text'], .createticket input[type='submit'], .createticket #tags, .createticket #deps {
-    font-size: 1.2em;
-    border: none;
-    /* border-radius: 5px; */
-/* background-color: #eee; */
-
-/* background-color: #f7f7f7;
-    border-radius: 10px;
-    padding: 0.5em;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
- */
-
 /* ------------------- CREATE TICKET GRID -------------------- */
 .createticket {
   display: grid;
@@ -563,7 +390,7 @@ tr:hover {
   /* only allow vertical resizing */
 }
 
-/* 'create ticket button */
+/* create ticket button */
 .createticket button[type='submit'] {
   grid-column: 1 / span 1;
   grid-row: 9 / span 1;
@@ -576,57 +403,6 @@ tr:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   border: none;
 }
-
-
-/* --------------- profile page - NOT USED, gostei na altura ---------------*/
-/* 
-  .profile {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem;
-    background-color: #f7f7f7;
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .profile h2 {
-    margin-bottom: 1rem;
-  }
-  
-  .profile label {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-  
-  .profile ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .profile li {
-    margin-bottom: 1rem;
-  }
-  
-  .profile span {
-    margin-left: 0.5rem;
-  }
-  
-  .profile span.email {
-    word-break: break-all;
-  }
-  
-  .profile {
-    background-color: #f7f7f7;
-    border-radius: 10px;
-    padding: 1em;
-    margin-top: 1em;
-    display: flex;
-    flex-direction: column;
-    max-width: max-content;
-  } */
-
 
 /* -----------------  profile page ---------------------- */
 
@@ -663,15 +439,11 @@ h2#yourprofile {
   margin-bottom: 1rem;
 }
 
-
-
 .profile label {
   font-weight: bold;
   margin-bottom: 0.5rem;
   width: 100%;
 }
-
-
 
 .profile input {
   border: none;
@@ -805,11 +577,13 @@ footer {
   font-size: 3em;
   color:rgba(112, 78, 125, 0.562);
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 
 .mainpage h2 {
   grid-area: h2;
   align-items: end;
+  text-align: center;
 }
 
 .mainpage p1 {
@@ -837,31 +611,9 @@ div.features {
 
 /*----------------- FAQ PAGE -----------------*/
 
-/* #faqs {
-  margin: 8rem;
-  margin-top: 2rem;
-} */
-
-
-/* single faq -> question and answer */
-.faq {
-  background-color: #f2f2f2;
-  padding: 20px;
-  margin-bottom: 10px;
-}
-
-.question {
-  font-weight: bold;
-  font-size: 16px; 
-  color: #333;
-  display: block;
-}
-
-.answer {
-  margin-top: 10px;
-  font-size: 14px; 
-  color: #666;
-  display: block;
+#faqs {
+  margin: 2rem;
+  /* margin-top: 2rem; */
 }
 
 /* FAQ form */
@@ -891,6 +643,7 @@ div.faq-page h2 {
 div.faq-page p {
   font-size: 16px;
   margin-top: 0;
+  text-align: center;
 }
 
 div.faq-page form {
@@ -953,31 +706,53 @@ div.faq-page form {
   display: none;
 }
 
-/*test for individual faq*/
+
+/* individual faq -> question and answer */
 .faq {
-    position: relative;
-}
-.edit-faq {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-.hide-faq {
-    position: absolute;
-    top: 0;
-    right: 40px;
-}
-.answer-faq {
-    position: absolute;
-    top: 0;
-    right: 80px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin-bottom: 10px;
 }
 
+.question {
+  font-weight: bold;
+  font-size: 16px; 
+  color: #333;
+  display: block;
+}
+
+.answer {
+  margin-top: 10px;
+  font-size: 14px; 
+  color: #666;
+  display: block;
+}
+
+.faq {
+  position: relative;
+}
+.edit-faq {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.hide-faq {
+  position: absolute;
+  top: 0;
+  right: 40px;
+}
+.display-faq {
+  position: absolute;
+  top: 0;
+  right: 80px;
+}
 
 /* faq icons for buttons */
 
 button.display-faq span.material-symbols-outlined, button.hide-faq span.material-symbols-outlined, button.edit-faq span.material-symbols-outlined {
-  padding: 0;
+  /* padding: 0; */
+  margin-top: 1rem;
+  margin-right: 0.5rem;
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
@@ -985,17 +760,34 @@ button.display-faq span.material-symbols-outlined, button.hide-faq span.material
   'opsz' 48
 }
 
-button.display-faq {
-  height: fit-content;
-}
-/* 
-button.display-faq span.material-symbols-outlined {
+
+/* button.display-faq span.material-symbols-outlined {
   padding: 0;
 } */
 
 button.display-faq, button.hide-faq, button.edit-faq{
-  padding: 0;
+  /* padding: 0; */
   border: none; 
+  background-color: transparent;
+  /* height: fit-content; */
+}
+
+article.faq {
+  display: flex;
+  flex-direction: column;
+}
+
+.faq input.answer {
+  display: block;
+}
+
+.faq button.answer-faq {
+  display: block;
+  margin-top: auto; 
+} 
+
+.faq input.question {
+  margin-right: 5.2rem;
 }
 
 
@@ -1038,19 +830,11 @@ button.display-faq, button.hide-faq, button.edit-faq{
 
 /* ================ RESPONSIVENESS (web e mobile) ================== */
 
-/*large screen - web*/
-@media only screen and (min-width: 600px) {
-  body main {
-    margin-left: 17rem;
-    margin-right: 17rem;
-  }
-}
-
-/* For mobile devices */
+/* For mobile devices -> ATÉ 600 */
 @media only screen and (max-width: 600px) {
 
   body main {
-    margin-left: 0;
+    margin-bottom: 5rem;
   }
 
   .login-form, .registerform {
@@ -1076,8 +860,14 @@ button.display-faq, button.hide-faq, button.edit-faq{
   }
 }
 
-/* For tablet devices */
-@media only screen and (min-width: 601px) and (max-width: 960px) {
+/* For tablet devices -> 600 A 961*/
+@media only screen and (max-width: 961px) {
+  body main {
+    margin-bottom: 5rem;
+    /* margin-left: 10rem;
+    margin-right: 2rem; */
+  }
+
   .login-form, .registerform {
     width: 70%;
     height: auto;
@@ -1101,8 +891,18 @@ button.display-faq, button.hide-faq, button.edit-faq{
   }
 }
 
-/* For desktop devices */
+/* For desktop devices -> A PARTIR DE 961*/
 @media only screen and (min-width: 961px) {
+  body main div.mainpage {
+    margin-bottom: 5rem;
+  }
+
+  body main {
+    margin-bottom: 5rem;
+    margin-left: 17rem;
+    margin-right: 14rem;
+  }
+
   .login-container {
     height: 100vh;
   }
@@ -1114,13 +914,3 @@ button.display-faq, button.hide-faq, button.edit-faq{
     border-radius: 10px;
   }
 }
-
-/* @media screen and (max-width: 767px) {
-  .mainpage {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-  .mainpage p1, .mainpage p2 {
-    padding: 1em;
-  }
-} */

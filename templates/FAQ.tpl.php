@@ -5,25 +5,23 @@ require_once(__DIR__ . '/../database/forum.class.php');
 
 <?php function output_single_faq(Forum $faq, string $type)
 { ?>
+
 	<article class="faq">
-		<span class="question">
-			<?= $faq->question ?>
-		</span>
-		<span class="answer">
-			<?= $faq->answer ?>
-		</span>
+		<input id="question" type="text" name="question" class="question" value="<?=$faq->question?>" readonly>
+
+		<input id="answer" type="text" name="answer" class="answer" value="<?=$faq->answer?>" readonly>
 
 		<?php if ($type !== 'Client') { ?>
-			<button class="edit-faq"><span class="material-symbols-outlined">edit</span></button>
+			<button class="edit-faq"><span id="editFaqBtn" class="material-symbols-outlined">edit</span></button>
 
 			<?php if ($faq->displayed===1) { ?>
-				<button class="hide-faq"><span class="material-symbols-outlined">visibility_off</span></button>
+				<button class="hide-faq"><span id="hideBtn" class="material-symbols-outlined">visibility_off</span></button>
 			<?php } else { ?>
-			<button class="display-faq"><span class="material-symbols-outlined">visibility</span></button>
+			<button class="hide-faq"><span id="displayBtn" class="material-symbols-outlined">visibility</span></button>
 			<?php } ?>
 
 			<?php if ($faq->answer === NULL) { ?>
-				<button class="answer-faq">Answer</button>
+				<button class="answer-faq">Answer question</button>
 			<?php } ?>
 
 		<?php } ?>
@@ -56,8 +54,7 @@ require_once(__DIR__ . '/../database/forum.class.php');
 			<!-- <input type="text" id="username" name="username" required> -->
 			<button type="submit">Ask</button>
 		</form>
-		<div class="success-message" id="success-message">Your question has been sent successfully. We'll answer you as soon
-			as possible.</div>
+		<div class="success-message" id="success-message">Your question has been sent successfully. We'll answer you as soon as possible.</div>
 		<div class="error-message" id="error-message">There was an error sending your question. Please try again.</div>
 	</div>
 
