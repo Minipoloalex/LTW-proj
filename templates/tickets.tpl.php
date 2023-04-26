@@ -92,8 +92,8 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
             <input type="checkbox" name="departments" id="<?php echo $fv['DepartmentName'] ?>" value="<?php echo $fv['DepartmentID'] ?>" />
             <label for="<?php echo $fv['DepartmentName'] ?>"><?php echo $fv['DepartmentName'] ?></label><br />
         <?php } ?>
-        <button type="button" onclick=clearFilters()>Clear Filters</button>
-        <button type="submit" onclick=getFilterValues()>Filtrar</button>
+        <button type="button" id="clear-filters" onclick=clearFilters()>Clear Filters</button>
+        <button type="submit" id="filter-values" onclick=getFilterValues()>Filtrar</button>
         </div>
     </section>
 <?php } ?>
