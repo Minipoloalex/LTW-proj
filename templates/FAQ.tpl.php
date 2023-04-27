@@ -12,16 +12,17 @@ require_once(__DIR__ . '/../database/forum.class.php');
 		<input id="answer" type="text" name="answer" class="answer" value="<?=$faq->answer?>" readonly>
 
 		<?php if ($type !== 'Client') { ?>
-			<button class="edit-faq"><span id="editFaqBtn" class="material-symbols-outlined">edit</span></button>
+			<button id="editFaqBtn" class="edit-faq"><span class="material-symbols-outlined">edit</span></button>
+			<button id="saveFaqBtn" class="save-faq" hidden><span class="material-symbols-outlined">save</span></button>
 
 			<?php if ($faq->displayed===1) { ?>
-				<button class="hide-faq"><span id="hideBtn" class="material-symbols-outlined">visibility_off</span></button>
+				<button id="hideBtn" class="hide-faq"><span class="material-symbols-outlined">visibility_off</span></button>
 			<?php } else { ?>
-			<button class="hide-faq"><span id="displayBtn" class="material-symbols-outlined">visibility</span></button>
+			<button id="displayBtn" class="hide-faq"><span class="material-symbols-outlined">visibility</span></button>
 			<?php } ?>
 
 			<?php if ($faq->answer === NULL) { ?>
-				<button class="answer-faq">Answer question</button>
+				<button id="answerFaq" class="answer-faq">Answer question</button>
 			<?php } ?>
 
 		<?php } ?>

@@ -790,6 +790,38 @@ article.faq {
   margin-right: 5.2rem;
 }
 
+/* individual faq buttons for javascript */
+.faq input[readonly] {
+  user-select: none;
+  cursor: default;
+}
+
+.faq input[readonly]:focus {
+  outline: none;
+}
+
+.faq input {
+  border: none;
+  background-color: transparent;
+  /* background-color: #f7f7f7; */
+  box-shadow: none;
+}
+
+.faq button.answer {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  /* width: 100%; */
+  transition: background-color 0.3s ease;
+}
+
+.faq button.answer:hover {
+  background-color: #3e8e41;
+}
 
 /* Filter */
 
