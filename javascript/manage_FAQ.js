@@ -1,3 +1,5 @@
+// !IMPORTANT: The correct code is in the other file -> manage_FAQ2.js
+
 const displayBtn = document.getElementById('displayBtn');
 const hideBtn = document.getElementById('hideBtn');
 // const editFaqBtn = document.getElementById('editFaqBtn');
@@ -22,6 +24,8 @@ function addEditListeners(){
     const saveFaqBtns = document.querySelectorAll('#saveFaqBtn');
     const questionInps = document.querySelectorAll('#question');
     const answerInps = document.querySelectorAll('#answer');
+    console.log(editFaqBtns);
+    console.log(saveFaqBtns);
     console.log(questionInps);
     console.log(answerInps);
 
@@ -93,7 +97,7 @@ function addEditListeners(){
         editFaqBtn.addEventListener('click', () => {
             editFaqBtn.toggleAttribute('hidden');
             saveFaqBtn.toggleAttribute('hidden');
-    
+            console.log(i);
             const questionInp = questionInps[i];
             const answerInp = answerInps[i];
                 // input.toggleAttribute('readonly');

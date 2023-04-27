@@ -28,7 +28,7 @@ require_once(__DIR__ . '/../database/forum.class.php');
 		<?php } ?>
 	</article>
 <?php } ?>
-
+<!-- !TODO: criar sections para faqs displayed/not displayed e para faqs not ansered -->
 <?php function output_all_faqs(array $faqs, string $type)
 { ?>
 	<section id='faqs'>

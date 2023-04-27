@@ -747,18 +747,6 @@ div.faq-page form {
   right: 80px;
 }
 
-.input-readonly {
-  border: none;
-  border-radius: 0px;
-  background-color: transparent;
-}
-
-.input-write {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: white;
-}
-
 /* faq icons for buttons */
 
 button.display-faq span.material-symbols-outlined, button.hide-faq span.material-symbols-outlined, button.edit-faq span.material-symbols-outlined, button.save-faq span.material-symbols-outlined {
@@ -812,11 +800,25 @@ article.faq {
   outline: none;
 }
 
-.faq input {
+
+/* !WARNING: comentei isto por causa das classes sequintes para os inputs nas faqs*/
+
+/* .faq input {
   border: none;
   background-color: transparent;
-  /* background-color: #f7f7f7; */
   box-shadow: none;
+} */
+
+.input-readonly {
+  border: none;
+  border-radius: 0px;
+  background-color: transparent;
+}
+
+.input-write {
+  border: 1px solid rgba(51, 51, 51);
+  border-radius: 5px;
+  background-color: white;
 }
 
 .faq button.answer-faq {

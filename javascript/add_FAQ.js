@@ -2,6 +2,7 @@ const form = document.getElementById('faq-form');
 const successMessage = document.getElementById('success-message');
 const errorMessage = document.getElementById('error-message');
 
+if(form){
 form.addEventListener('submit', function (e) {
 
     const question = document.getElementById('question-form').value;
@@ -48,3 +49,4 @@ form.addEventListener('change', function () {
     successMessage.style.display = 'none';
     errorMessage.style.display = 'none';
 });
+}
