@@ -731,7 +731,7 @@ div.faq-page form {
 .faq {
   position: relative;
 }
-.edit-faq {
+.edit-faq, .save-faq {
   position: absolute;
   top: 0;
   right: 0;
@@ -749,7 +749,7 @@ div.faq-page form {
 
 /* faq icons for buttons */
 
-button.display-faq span.material-symbols-outlined, button.hide-faq span.material-symbols-outlined, button.edit-faq span.material-symbols-outlined {
+button.display-faq span.material-symbols-outlined, button.hide-faq span.material-symbols-outlined, button.edit-faq span.material-symbols-outlined, button.save-faq span.material-symbols-outlined {
   /* padding: 0; */
   margin-top: 1rem;
   margin-right: 0.5rem;
@@ -765,7 +765,7 @@ button.display-faq span.material-symbols-outlined, button.hide-faq span.material
   padding: 0;
 } */
 
-button.display-faq, button.hide-faq, button.edit-faq{
+button.display-faq, button.hide-faq, button.edit-faq, button.save-faq{
   /* padding: 0; */
   border: none; 
   background-color: transparent;
@@ -807,7 +807,7 @@ article.faq {
   box-shadow: none;
 }
 
-.faq button.answer {
+.faq button.answer-faq {
   background-color: #4CAF50;
   color: white;
   font-size: 18px;
@@ -819,7 +819,7 @@ article.faq {
   transition: background-color 0.3s ease;
 }
 
-.faq button.answer:hover {
+.faq button.answer-faq:hover {
   background-color: #3e8e41;
 }
 
