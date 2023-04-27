@@ -747,6 +747,18 @@ div.faq-page form {
   right: 80px;
 }
 
+.input-readonly {
+  border: none;
+  border-radius: 0px;
+  background-color: transparent;
+}
+
+.input-write {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+}
+
 /* faq icons for buttons */
 
 button.display-faq span.material-symbols-outlined, button.hide-faq span.material-symbols-outlined, button.edit-faq span.material-symbols-outlined, button.save-faq span.material-symbols-outlined {

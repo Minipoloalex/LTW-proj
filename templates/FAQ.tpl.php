@@ -7,9 +7,9 @@ require_once(__DIR__ . '/../database/forum.class.php');
 { ?>
 
 	<article class="faq">
-		<input id="question" type="text" name="question" class="question" value="<?=$faq->question?>" readonly>
+		<input id="question" type="text" name="question" class="question input-readonly" value="<?=$faq->question?>" readonly>
 
-		<input id="answer" type="text" name="answer" class="answer" value="<?=$faq->answer?>" readonly>
+		<input id="answer" type="text" name="answer" class="answer input-readonly" value="<?=$faq->answer?>" readonly>
 
 		<?php if ($type !== 'Client') { ?>
 			<button id="editFaqBtn" class="edit-faq"><span class="material-symbols-outlined">edit</span></button>
@@ -49,8 +49,8 @@ require_once(__DIR__ . '/../database/forum.class.php');
 		<p>Agents can also use the FAQ to answer tickets, so your question might be added to the FAQ if it's a common
 			question.</p>
 		<form id='faq-form' class="faq-form">
-			<label for="question">Your question:</label>
-			<textarea id="question" name="question" required></textarea>
+			<label for="question-form">Your question:</label>
+			<textarea id="question-form" name="question-form" required></textarea>
 			<!-- <label for="username">Your username:</label> -->
 			<!-- <input type="text" id="username" name="username" required> -->
 			<button type="submit">Ask</button>

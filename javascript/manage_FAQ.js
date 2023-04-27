@@ -20,8 +20,10 @@ async function postFaqData(data) {
 function addEditListeners(){
     const editFaqBtns = document.querySelectorAll('#editFaqBtn');
     const saveFaqBtns = document.querySelectorAll('#saveFaqBtn');
-    console.log(editFaqBtns);
-    console.log(saveFaqBtns);
+    const questionInps = document.querySelectorAll('#question');
+    const answerInps = document.querySelectorAll('#answer');
+    console.log(questionInps);
+    console.log(answerInps);
 
     // editFaqBtns.forEach(editFaqBtn => {
     //     editFaqBtn.addEventListener('click', () => {
@@ -92,15 +94,21 @@ function addEditListeners(){
             editFaqBtn.toggleAttribute('hidden');
             saveFaqBtn.toggleAttribute('hidden');
     
-            for (var input of inputs) {
-                input.toggleAttribute('readonly');
-                input.style.border = (input.style.border === '1px solid rgb(51, 51, 51)') ? 'none' : '1px solid rgb(51, 51, 51)';
-                input.style.borderRadius = (input.style.borderRadius === '5px') ? '0px' : '5px';
-                input.style.backgroundColor = (input.style.backgroundColor === 'white') ? 'transparent' : 'white';
-            }
-    
-            question.toggleAttribute('readonly');
-            answer.toggleAttribute('readonly');
+            const questionInp = questionInps[i];
+            const answerInp = answerInps[i];
+                // input.toggleAttribute('readonly');
+                // input.style.border = (input.style.border === '1px solid rgb(51, 51, 51)') ? 'none' : '1px solid rgb(51, 51, 51)';
+                // input.style.borderRadius = (input.style.borderRadius === '5px') ? '0px' : '5px';
+                // input.style.backgroundColor = (input.style.backgroundColor === 'white') ? 'transparent' : 'white';
+            
+            console.log(questionInp);
+            questionInp.toggleAttribute('readonly');
+            questionInp.classList.toggle("input-readonly");
+            questionInp.classList.toggle("input-write");
+            console.log(answerInp);
+            answerInp.toggleAttribute('readonly');
+            answerInp.classList.toggle('input-readonly');
+            answerInp.classList.toggle('input-write');
         });}
 
     for(var i=0; i<saveFaqBtns.length; i++){
@@ -114,12 +122,12 @@ function addEditListeners(){
             const json = await res.json();
             console.log(json);
     
-            for (var input of inputs) {
-                input.toggleAttribute('readonly');
-                input.style.border = (input.style.border === '1px solid rgb(51, 51, 51)') ? 'none' : '1px solid rgb(51, 51, 51)';
-                input.style.borderRadius = (input.style.borderRadius === '5px') ? '0px' : '5px';
-                input.style.backgroundColor = (input.style.backgroundColor === 'white') ? 'transparent' : 'white';
-            }
+            // for (var input of inputs) {
+            //     input.toggleAttribute('readonly');
+            //     input.style.border = (input.style.border === '1px solid rgb(51, 51, 51)') ? 'none' : '1px solid rgb(51, 51, 51)';
+            //     input.style.borderRadius = (input.style.borderRadius === '5px') ? '0px' : '5px';
+            //     input.style.backgroundColor = (input.style.backgroundColor === 'white') ? 'transparent' : 'white';
+            // }
     
             question.toggleAttribute('readonly');
             answer.toggleAttribute('readonly');
