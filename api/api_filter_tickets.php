@@ -27,4 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo json_encode($tickets);
   }
 }
+else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+  // Handle AJAX request
+  $tickets = Ticket::getTickets($db);
+  http_response_code(200); // OK
+  echo json_encode($tickets);
+}
 ?>
