@@ -9,65 +9,78 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 
 require_once(__DIR__ . '/create_ticket.tpl.php');
 ?>
-
-<?php function output_single_ticket(Ticket $ticket, array $messages, array $actions,
-array $all_hashtags, array $all_agents, array $all_departments) { ?>
-    <article id="individual-ticket">
-        <header><h1 id="title"><?=$ticket->title?></h1></header>
-        <p id="description"><?=$ticket->description?></p>
-        <?php
-
-        ?>
-        <?php output_ticket_status($ticket->status); ?>
-        <!-- <span id="ticket-status"><?=$ticket->status?></span> -->
-        <?php
-            // if user is admin/agent, he sees inputs. ticket user sees only spans
-        ?>
-        <!-- Admin/agent view -->
-        <?php 
-        if (!$ticket->isClosed()) {
-            output_change_ticket_info_form($ticket, $all_agents, $all_departments, $all_hashtags);
-        }
-        else output_reopen_ticket_form($ticket);
-        ?>
-
-        <h3> Client view </h3>
-        <!-- Client view -->
-        <span id="ticket-agent">Agent: <?=$ticket->assignedagent ?? "None"?></span>
-        <span id="ticket-department">Department: <?=$ticket->departmentName ?? "None"?></span>
-        <span id="ticket-user">Created by: <?=$ticket->username?></span>
-        <span id="ticket-priority">Priority: <?=$ticket->priority?></span>
-        <span id="ticket-date">Created at: <?=date('F j', $ticket->submitdate)?></span>
-        <h4>Hashtags</h4>
-        <ul id="ticket-hashtags">
+<?php function output_single_ticket_agent_view(Ticket $ticket, array $messages, array $actions,
+array $all_hashtags, array $all_agents, array $all_departments) { 
+    if (!$ticket->isClosed()) {
+        output_change_ticket_info_form($ticket, $all_agents, $all_departments, $all_hashtags);
+    }
+    else {
+        output_single_ticket_info($ticket, $messages, $actions);
+        output_reopen_ticket_form($ticket);
+    }
+}
+function output_single_ticket_info(Ticket $ticket, array $messages, array $actions) { ?>
+    <span id="agent">Agent: <?=$ticket->assignedagent ?? "None"?></span>
+    <span id="department">Department: <?=$ticket->departmentName ?? "None"?></span>
+    <span id="priority">Priority: <?=$ticket->priority?></span>
+    
+    <div id="hashtags">
+        Hashtags
+        <ul id="hashtags">
             <?php foreach ($ticket->hashtags as $hashtag) { ?>
                 <li class="hashtag"><?=$hashtag->hashtagname?></li>
             <?php } ?>
         </ul>
+    </div>
+<?php }
+function output_single_ticket(Ticket $ticket, array $messages, array $actions,
+array $all_hashtags, array $all_agents, array $all_departments, bool $isAgentView) { ?>
+    <article id="individual-ticket">
+        <header><h1 id="title"><?=$ticket->title?></h1></header>
+        <p id="description"><?=$ticket->description?></p>
+        
+        <section id="ticket-info">
+            <header><h3>Ticket info</h3></header>
+            <?php
+
+            output_ticket_status($ticket->status);
+            ?>
+            <span id="ticket-user">Created by: <?=$ticket->username?></span>
+            <span id="ticket-date">Created at: <?=date('F j', $ticket->submitdate)?></span>
+            <?php
+            if ($isAgentView) {
+                output_single_ticket_agent_view($ticket, $messages, $actions, $all_hashtags, $all_agents, $all_departments);
+            }
+            else {
+                output_single_ticket_info($ticket, $messages, $actions);
+            }
+            ?>
+        </section>
+        <section id="messages-list">
+            <?php
+            foreach($messages as $message) {
+                output_message($message);
+            }
+            ?>
+        </section>
+        <section id="actions-list">
+            <?php
+            foreach($actions as $action) {
+                output_action($action);
+            }
+            ?>
+        </section>
     </article>
-    
-    <section id="messages-list">
-        <?php
-        foreach($messages as $message) {
-            output_message($message);
-        }
-        ?>
-    </section>
-    <section id="actions-list">
-        <?php
-        foreach($actions as $action) {
-            output_action($action);
-        }
-        ?>
-    </section>
 <?php } ?>
 
 
 <?php function output_message(Message $message) { ?>
     <article class="message">
-        <span class="user">UserID: <?=$message->userID?></span>
-        <span class="date">DATE: <?=date('F j', $message->date)?></span>
-        <p class="message">CONTENT: <?=htmlentities($message->text)?></p>
+        <header>
+            <span class="user">UserID: <?=$message->userID?></span>
+            <span class="date">DATE: <?=date('F j', $message->date)?></span>
+        </header>
+        <p class="text">CONTENT: <?=htmlentities($message->text)?></p>
     </article>
 <?php }?>
 
@@ -77,23 +90,16 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
 
 <?php function output_message_form(int $ticketID) { ?>
     <form id="message-form">
-        <!-- the user can change this value (validate data-id in action.php)-->
+        <!-- the user can change this value (TODO: validate data-id in action.php)-->
         <label>Add a message:
             <input data-id="<?=$ticketID?>" type="text" name="message" id="message-input">
         </label>
-        <button id="add-message" type="submit">Submit</button> 
-
-        <!-- Javascript
-        comentário no ticket é chamada AJAX (pedido) no servidor para acrescentar, dá resposta a dizer que acrescentou.
-        assim, não é necessário dar refresh à pagina e não se perde o contexto
-        servidor vai à BD e responde a dizer que acrescentou -->
-
+        <button id="add-message" type="submit">Submit</button>
     </form>
 <?php } ?>
 
 <?php function output_change_ticket_info_form(Ticket $ticket, array $agents, array $departments, array $hashtags) { ?>
-    <form id="update-ticket-form">
-        <header><h3>Change ticket information</h3></header>
+    <!-- <form> -->
         <input id="ticket-id" type="hidden" value='<?=$ticket->ticketid?>'>
         <?php
         output_priority_form($ticket->priority);
@@ -110,25 +116,24 @@ array $all_hashtags, array $all_agents, array $all_departments) { ?>
 
         <button id="update-ticket" type="submit">Save</button>
         
-        <button id="close-ticket">Close ticket as solved</button>
-        <!-- Javascript to close the ticket and update the page (not done yet) -->
-    </form>
+        <button id="close-ticket">Close ticket</button>
+    <!-- </form> -->
 <?php } ?>
 
 <?php function output_agent_form(array $agents, ?string $assignedagent) { ?>
-    <label>
+    <label id="agent">
         Agent
-    </label>
-    <select name="agent" id="agent-select">
-        <option></option>
-        <?php foreach($agents as $agent) { ?> 
-            <?php if ($agent->username === $assignedagent) { ?>
-                <option value=<?=$agent->id?> selected><?=$agent->username?></option>
-            <?php } else { ?>
-                <option value=<?=$agent->id?>><?=$agent->username?></option>
+        <select name="agent">
+            <option></option>
+            <?php foreach($agents as $agent) { ?> 
+                <?php if ($agent->username === $assignedagent) { ?>
+                    <option value=<?=$agent->id?> selected><?=$agent->username?></option>
+                <?php } else { ?>
+                    <option value=<?=$agent->id?>><?=$agent->username?></option>
+                <?php } ?>
             <?php } ?>
-        <?php } ?>
-    </select>
+        </select>
+    </label>
 <?php } ?>
 
 

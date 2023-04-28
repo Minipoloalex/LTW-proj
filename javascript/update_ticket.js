@@ -28,7 +28,7 @@ function postClosedTicket(data) {
 function updateTicketInformation(event) {
     event.preventDefault()
 
-    const form = "#update-ticket-form"
+    const form = "#ticket-info"
     const ticketID = document.querySelector(form + " #ticket-id").getAttribute("value")
     const ticketPriority = document.querySelector(form + " input[type='radio'][name='priority']:checked").getAttribute("value")
     const ticketDepartment = document.querySelector(form + " select[name='department']").value
@@ -54,25 +54,25 @@ function updateTicketInformation(event) {
         }
         else if (json['success']) {
             console.log(json['success'])
-            const updatedPrio = document.querySelector("#ticket-priority")
-            updatedPrio.textContent = "Priority: " + (json['priority'] ?? "None")
+            // const updatedPrio = document.querySelector("#ticket-priority")
+            // updatedPrio.textContent = "Priority: " + (json['priority'] ?? "None")
 
-            const updatedDept = document.querySelector("#ticket-department")
-            updatedDept.textContent = "Department: " + (json['department'] ?? "None")
+            // const updatedDept = document.querySelector("#ticket-department")
+            // updatedDept.textContent = "Department: " + (json['department'] ?? "None")
 
-            const updatedAgent = document.querySelector("#ticket-agent")
-            updatedAgent.textContent = "Agent: " + (json['agent'] ?? "None")
+            // const updatedAgent = document.querySelector("#ticket-agent")
+            // updatedAgent.textContent = "Agent: " + (json['agent'] ?? "None")
 
-            const updatedHashtags = document.querySelector("#ticket-hashtags")
-            updatedHashtags.innerHTML = ""
+            // const updatedHashtags = document.querySelector("#ticket-hashtags")
+            // updatedHashtags.innerHTML = ""
 
-            for (const hashtag of json['hashtags']) {
-                // <li class="hashtag"><?=$hashtag->hashtagname?></li>
-                const newHashtag = document.createElement("li")
-                newHashtag.classList.add("hashtag")
-                newHashtag.textContent = hashtag;
-                updatedHashtags.appendChild(newHashtag)
-            }
+            // for (const hashtag of json['hashtags']) {
+            //     // <li class="hashtag"><?=$hashtag->hashtagname?></li>
+            //     const newHashtag = document.createElement("li")
+            //     newHashtag.classList.add("hashtag")
+            //     newHashtag.textContent = hashtag;
+            //     updatedHashtags.appendChild(newHashtag)
+            // }
         }
     })
 }
@@ -108,8 +108,6 @@ function closeTicket(event) {
             const status = document.querySelector("#individual-ticket #ticket-status")
             status.textContent = 'closed'
             status.classList.add("closed")
-            
-            closeTicketButton.remove()
 
             const ticketForm = document.querySelector("#update-ticket-form")
             ticketForm.remove()
@@ -128,6 +126,7 @@ function closeTicket(event) {
             reopenTicketID.setAttribute("value", ticketID)
             reopenTicketForm.appendChild(reopenTicketID)
 
+            
             const reopenTicketButton = document.createElement("button")
             reopenTicketButton.setAttribute("id", "reopen-ticket")
             reopenTicketButton.setAttribute("type", "submit")
@@ -135,6 +134,8 @@ function closeTicket(event) {
             reopenTicketForm.appendChild(reopenTicketButton)
             
             status.insertAdjacentElement("afterend", reopenTicketForm)
+            
+            // also need to build the ticket info non-form
         }
     })
 }
