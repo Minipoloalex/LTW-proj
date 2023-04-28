@@ -59,7 +59,7 @@ function submitNewMessage(event) {
         
         const user = document.createElement("span")
         user.classList.add("user")
-        user.textContent = "UserID: " + json['userID']
+        user.textContent = json['username']
         header.appendChild(user)
         
         const date = document.createElement("span")

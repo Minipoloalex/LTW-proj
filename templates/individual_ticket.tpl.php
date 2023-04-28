@@ -84,7 +84,7 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
     ?>
     <article class="message <?=$class?>">
         <header>
-            <span class="user">UserID: <?=$message->userID?></span>
+            <span class="user"><?=$message->username?></span>
             <span class="date">DATE: <?=date('F j', $message->date)?></span>
         </header>
         <p class="text">CONTENT: <?=htmlentities($message->text)?></p>
@@ -99,7 +99,7 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
     <form id="message-form">
         <!-- the user can change this value (TODO: validate data-id in action.php)-->
         <label>Add a message:
-            <input data-id="<?=$ticketID?>" type="text" name="message" id="message-input">
+            <textarea data-id="<?=$ticketID?>" name="message" id="message-input"></textarea>
         </label>
         <button id="add-message" type="submit">Submit</button>
     </form>

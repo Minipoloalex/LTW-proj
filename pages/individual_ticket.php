@@ -45,7 +45,7 @@ $departments = Department::getDepartments($db);
 
 output_header();
 if ($session->getName() === $ticket->username) { /* usernames are unique */
-    output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments, $session->getId(), true);
+    output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments, $session->getId(), false);
 }
 else {
     output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments, $session->getId(), true);

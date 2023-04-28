@@ -102,7 +102,9 @@ fieldset legend {
     font-size: 1.5em;
 }
 /* ======================== TICKET CHANGE PRIORITY ======================== */
-
+#priority {
+    padding-left: 1em;
+}
 fieldset#priority {
     display: flex;
     flex-direction: row;
@@ -114,7 +116,6 @@ fieldset#priority label.radio-button {
     background-color: black;
     color: white;
     border: 1px solid white;
-    /* padding: 6px 12px; */
     font-size: 16px;
     cursor: pointer;
     padding-left: 1em;
@@ -135,6 +136,9 @@ fieldset#priority input[type="radio"]:checked + label.radio-button {
 }
 
 /* ======================== TICKET CHANGE HASHTAGS ======================== */
+#hashtags {
+    padding-left: 1em;
+}
 fieldset#hashtags {
     margin: 0 auto;
     display: flex;
@@ -166,8 +170,10 @@ fieldset#hashtags input[type="checkbox"]:checked + label {
 
 
 /* ======================== TICKET CHANGE DEPARTMENT ======================== */
+#ticket-info #department, #ticket-info #agent {
+    padding-left: 1em;  /* NOTE: this is for both client and agent view */
+}
 label#department, label#agent {
-    padding-left: 1em;
     display: flex;
     flex-direction: row;
     align-items: center;
