@@ -28,6 +28,7 @@ require_once(__DIR__ . '/../utils/session.php');
 
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/individual_ticket.css">
     <link rel="stylesheet" href="../css/cards.css">
 
     <!---navbar icons--->

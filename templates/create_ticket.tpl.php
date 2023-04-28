@@ -30,66 +30,65 @@ require_once(__DIR__ . '/../database/department.class.php');
 <?php } ?>
 
 <?php function output_department_form(array $departments, ?string $departmentName) { ?>
-    <label>Department</label>
-    <select name='department' id='deps'>
-        <option></option>
-        <?php foreach ($departments as $department) {
-            if ($department->departmentName === $departmentName) { ?>
-                <option value=<?=$department->departmentId?> selected><?=$department->departmentName?></option>
-            <?php } else { ?>
-                <option value=<?=$department->departmentId?>><?=$department->departmentName?></option>
+    <label id="department">Department
+        <select name='department'>
+            <option></option>
+            <?php foreach ($departments as $department) {
+                if ($department->departmentName === $departmentName) { ?>
+                    <option value=<?=$department->departmentId?> selected><?=$department->departmentName?></option>
+                <?php } else { ?>
+                    <option value=<?=$department->departmentId?>><?=$department->departmentName?></option>
+                <?php } ?>
             <?php } ?>
-        <?php } ?>
-    </select>
+        </select>
+    </label>
 <?php } ?>
 <?php function output_hashtag_form(array $not_selected_hashtags, array $selected_hashtags) { ?>
-    <label>
-        Hashtags*
-    </label>
-    <div class="hashtag-select">
-        <?php foreach ($not_selected_hashtags as $hashtag) { ?>
-            <input type="checkbox" name="hashtags[]" value="<?= $hashtag->hashtagid ?>">
-            <label>
-                <?= $hashtag->hashtagname ?>
-            </label>
+    <fieldset id="hashtags">
+        <legend>Hashtags</legend>
+        <?php foreach ($not_selected_hashtags as $hashtag) {
+            $id = $hashtag->hashtagid;
+            ?>
+            <input id="<?=$id?>" type="checkbox" name="hashtags[]" value="<?= $id ?>">
+            <label for="<?=$id?>"><?= $hashtag->hashtagname ?></label>
         <?php } ?>
-        <?php foreach ($selected_hashtags as $hashtag) { ?>
-            <input type="checkbox" name="hashtags[]" value="<?= $hashtag->hashtagid ?>" checked>
-            <label>
-                <?= $hashtag->hashtagname ?>
-            </label>
+        <?php foreach ($selected_hashtags as $hashtag) {
+            $id = $hashtag->hashtagid;
+            ?>
+            <input id="<?=$id?>" type="checkbox" name="hashtags[]" value="<?= $id ?>" checked>
+            <label for="<?=$id?>"><?= $hashtag->hashtagname ?></label>
         <?php } ?>
-    </div>
+    </fieldset>
 <?php } ?>
 
 <?php function output_priority_form(?string $selected_prio) { ?>
-    <h4>Priority</h4>
-    <label>High
+    <fieldset id="priority">
+        <legend>Priority</legend>
+        
         <?php if ($selected_prio === "high") {
-            output_selected_priority("high");
+            output_selected_priority("High");
         } else {
-            output_not_selected_priority("high");
+            output_not_selected_priority("High");
         } ?>
-    </label>
-    <label>Medium
+
         <?php if ($selected_prio === "medium") {
-            output_selected_priority("medium");
+            output_selected_priority("Medium");
         } else {
-            output_not_selected_priority("medium");
+            output_not_selected_priority("Medium");
         } ?>
-    </label>
-    <label>Low
-    <?php if ($selected_prio === "low") {
-            output_selected_priority("low");
+        <?php if ($selected_prio === "low") {
+            output_selected_priority("Low");
         } else {
-            output_not_selected_priority("low");
+            output_not_selected_priority("Low");
         } ?>
-    </label>
+    </fieldset>
 <?php } ?>
 
 <?php function output_not_selected_priority(string $prio) { ?>
-    <input type="radio" name="priority" value='<?=$prio?>'>
+    <input id="<?=strtolower($prio)?>" type="radio" name="priority" value='<?=strtolower($prio)?>'>
+    <label for="<?=strtolower($prio)?>" class="radio-button"><?=$prio?></label>
 <?php } ?>
 <?php function output_selected_priority(string $prio) { ?>
-    <input type="radio" name="priority" value='<?=$prio?>' checked>
+    <input id="<?=strtolower($prio)?>" type="radio" name="priority" value='<?=strtolower($prio)?>' checked>
+    <label for="<?=strtolower($prio)?>" class="radio-button"><?=$prio?></label>
 <?php } ?>

@@ -47,6 +47,7 @@ echo json_encode(array(
     'id' => $message->id,
     'text' => $message->text,
     'userID' => $message->userID,
+    'username' => $message->username,
     'date' => date('F j', $message->date),
 ));
 ?>

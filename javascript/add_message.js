@@ -53,23 +53,27 @@ function submitNewMessage(event) {
         }
         const newMessage = document.createElement("article")
         newMessage.classList.add("message")
+        newMessage.classList.add("self")    // Note: current user can only add messages from himself
+        
+        const header = document.createElement("header")
         
         const user = document.createElement("span")
         user.classList.add("user")
-        user.textContent = "UserID: " + json['userID'] + " "
+        user.textContent = json['username']
+        header.appendChild(user)
         
         const date = document.createElement("span")
-        date.classList.add("user")
+        date.classList.add("date")
         date.textContent = "DATE: " + json['date']
-        
+        header.appendChild(date)
+
         const text = document.createElement("p")
-        text.classList.add("message")
+        text.classList.add("text")
         
         text.textContent = 'CONTENT: ' +  json['text']
 
 
-        newMessage.appendChild(user)
-        newMessage.appendChild(date)
+        newMessage.appendChild(header)
         newMessage.appendChild(text)
 
         messagesList.appendChild(newMessage)

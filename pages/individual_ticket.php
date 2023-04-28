@@ -44,7 +44,12 @@ $departments = Department::getDepartments($db);
 
 
 output_header();
-output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments);
+if ($session->getName() === $ticket->username) { /* usernames are unique */
+    output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments, $session->getId(), false);
+}
+else {
+    output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments, $session->getId(), true);
+}
 if (!$ticket->isClosed()) output_message_form($ticket->ticketid);
 
 output_footer();

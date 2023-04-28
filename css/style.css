@@ -854,24 +854,6 @@ article.faq {
   font-weight: bold;
 }
 
-/* ======================= INDIVIDUAL TICKET PAGE ======================= */
-
-/* =========================== TICKET STATUS ============================ */
-#individual-ticket #ticket-status {
-  padding: 1em 2em;
-  display: inline-block;  /* later change this */
-  text-transform: uppercase;
-  border-radius: 15%;
-}
-#individual-ticket #ticket-status:not(.closed) {
-  background-color: var(--button-green);
-}
-
-#individual-ticket #ticket-status.closed {
-  background-color: var(--closed-red);
-}
-/* =========================== END TICKET STATUS ======================== */
-
 
 
 /* ================ RESPONSIVENESS (web e mobile) ================== */
