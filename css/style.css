@@ -668,21 +668,23 @@ div.faq-page form {
   resize: vertical;
   font-family: 'Martel Sans', sans-serif;
 }
-
-.faq-form button {
+/*ask button e answer button (propriedades iguais)*/
+.faq-form button, .faq button.answer-faq {
   background-color: #4CAF50;
   color: white;
-  font-size: 18px;
+  font-size: 1.2rem; /* or any other appropriate font size */
   border: none;
   border-radius: 5px;
-  padding: 10px;
+  padding: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   display: block;
-  width: 15%;
+  width: 50%;
+  max-width: 15rem; /* or any other appropriate max-width */
 }
+
+
 
 .faq-form button:hover {
   background-color: #3e8e41;
@@ -781,11 +783,6 @@ article.faq {
   display: block;
 }
 
-.faq button.answer-faq {
-  display: block;
-  margin-top: auto; 
-} 
-
 .faq input.question {
   margin-right: 5.2rem;
 }
@@ -821,20 +818,14 @@ article.faq {
   background-color: white;
 }
 
-.faq button.answer-faq {
-  background-color: #4CAF50;
-  color: white;
-  font-size: 18px;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  cursor: pointer;
-  /* width: 100%; */
-  transition: background-color 0.3s ease;
-}
-
 .faq button.answer-faq:hover {
   background-color: #3e8e41;
+}
+
+@media screen and (min-width: 768px) {
+  .faq-form button, button.answer-faq {
+    width: 15%;
+  }
 }
 
 /* Filter */

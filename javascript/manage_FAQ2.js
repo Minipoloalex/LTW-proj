@@ -37,14 +37,17 @@ if (editFaqBtns) {
     }
       toggle();
 
-      // !FIXME: edit->save->edit->...já não consigo dar save. WHY?
+      // !FIXME: edit->save->edit->...can't save again. WHY?
 
-      saveFaqBtn.addEventListener('click', () => {
+      saveFaqBtn.addEventListener('click', async () => {
         
         // !TODO: request to api
-
-        toggle()
-
+        const res = await postFaqData({ 'question': question.value, 'answer': answer.value, 'csrf': csrf.value });
+        if (res.ok) {
+          toggle();  
+        } else {
+          console.error('Error: ' + res.status);
+        }
 
       });
 

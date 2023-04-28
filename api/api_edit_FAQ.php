@@ -26,7 +26,6 @@ if (!is_valid_string($_POST['answer'])) {
     exit();
 }
 
-
 $db = getDatabaseConnection();
 $question = $_POST['question'];
 $answer = $_POST['answer'];
