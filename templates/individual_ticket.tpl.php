@@ -34,10 +34,10 @@ function output_single_ticket_info(Ticket $ticket, array $messages, array $actio
     </div>
 <?php }
 function output_single_ticket(Ticket $ticket, array $messages, array $actions,
-array $all_hashtags, array $all_agents, array $all_departments, bool $isAgentView) { ?>
+array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, bool $isAgentView) { ?>
     <article id="individual-ticket">
-        <header><h1 id="title"><?=$ticket->title?></h1></header>
-        <p id="description"><?=$ticket->description?></p>
+        <header><h1 id="ticket-title"><?=$ticket->title?></h1></header>
+        <p id="ticket-description"><?=$ticket->description?></p>
         
         <section id="ticket-info">
             <header><h3>Ticket info</h3></header>
@@ -45,8 +45,10 @@ array $all_hashtags, array $all_agents, array $all_departments, bool $isAgentVie
 
             output_ticket_status($ticket->status);
             ?>
-            <span id="ticket-user">Created by: <?=$ticket->username?></span>
-            <span id="ticket-date">Created at: <?=date('F j', $ticket->submitdate)?></span>
+            <div id="ticket-created">
+                <span id="ticket-user"><?=$ticket->username?></span>
+                <span id="ticket-date"><?=date('F j', $ticket->submitdate)?></span>
+            </div>
             <?php
             if ($isAgentView) {
                 output_single_ticket_agent_view($ticket, $messages, $actions, $all_hashtags, $all_agents, $all_departments);
@@ -59,7 +61,7 @@ array $all_hashtags, array $all_agents, array $all_departments, bool $isAgentVie
         <section id="messages-list">
             <?php
             foreach($messages as $message) {
-                output_message($message);
+                output_message($message, $sessionID, $ticket->username);
             }
             ?>
         </section>
@@ -74,8 +76,13 @@ array $all_hashtags, array $all_agents, array $all_departments, bool $isAgentVie
 <?php } ?>
 
 
-<?php function output_message(Message $message) { ?>
-    <article class="message">
+<?php function output_message(Message $message, int $sessionID, string $createdBy) { ?>
+    <?php
+    if ($sessionID === $message->userID) $class = 'self';
+    else if ($createdBy === $message->username) $class = 'original-poster';
+    else $class = 'other';
+    ?>
+    <article class="message <?=$class?>">
         <header>
             <span class="user">UserID: <?=$message->userID?></span>
             <span class="date">DATE: <?=date('F j', $message->date)?></span>

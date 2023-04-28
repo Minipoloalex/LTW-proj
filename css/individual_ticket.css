@@ -1,17 +1,25 @@
-/* ======================= INDIVIDUAL TICKET PAGE ======================= */
+main {
+    margin: 0 auto;
+    width: 55%;
+}
+/* =========================== TICKET TITLE ============================ */
+#individual-ticket #ticket-title {
+    margin: 0 auto;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 1em 0;
+    border-bottom: 1px solid grey;
+}
+#individual-ticket #ticket-description {
+    margin: 0 auto;    
+    background: lightgray;
+    margin-bottom: 5em;
 
-/* =========================== Page Grid ================================ */
-/* article#individual_ticket {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas: 
-        "ticket-info ticket-info"
-        "ticket-status ticket-status";
-    grid-gap: 1em;
-    padding: 1em;
-} */
-
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+}
 
 /* =========================== TICKET STATUS ============================ */
 #individual-ticket #ticket-status {
@@ -41,7 +49,7 @@
     grid-template-rows: repeat(7, auto);
     grid-template-areas:
         "header     status"
-        "user       date"
+        "created    created"
         "priority   priority"
         "hashtags   hashtags"
         "department department"
@@ -75,15 +83,15 @@
 #ticket-info button#close-ticket {
     grid-area: close;
 }
+#ticket-info #ticket-created {
+    grid-area: created;
+}
+
+/* ========================= TICKET INFO HEADER ========================= */
 #ticket-info header {
     margin: 0 auto;
     font-size: 1.4em;
-}
-#ticket-info #ticket-user {
-    grid-area: user;
-}
-#ticket-info #ticket-date {
-    grid-area: date;
+    /* border-bottom: 1px solid black; */
 }
 /* ======================== FIELDSET STYLING ======================== */
 fieldset {
@@ -209,20 +217,29 @@ button#close-ticket {
     cursor: pointer;
 }
 
-/* ======================== END CHANGE TICKET INFO FORM ======================== */
-  /* display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas: 
-        "ticket-info ticket-info"
-        "ticket-status ticket-status";
-    grid-gap: 1em;
-    padding: 1em; */
-main {
-    margin: 0 auto;
-    width: 60%;
+
+/* ======================== TICKET CREATED (USER AND DATE) ======================== */
+#ticket-info #ticket-created {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: 1px dashed gray;
+    padding-top: 0.5em;
 }
 
+#ticket-info #ticket-user, #ticket-info #ticket-date {
+    margin: 0.5em 1em;
+    color: black;
+    font-weight: bold;
+}
+#ticket-info #ticket-user:before {
+    opacity: 60%;
+    content: "Created by: ";
+}
+#ticket-info #ticket-date:before {
+    opacity: 60%;
+    content: "at ";
+}
 
 /* ======================== MESSAGE LIST ======================== */
 #messages-list {
@@ -241,9 +258,7 @@ main {
         "header     header"
         "text       text";
 }
-
 .message header {
-    background-color: lightgray;
     grid-area: header;
     display: flex;
     flex-direction: row;
@@ -267,6 +282,17 @@ main {
     content: "Published at ";
 }
 
+.message.self header {
+    background-color: darkgreen;
+    color: white;
+}
+.message.original-poster header {
+    background-color: var(--button-green);
+}
+.message.other header {
+    background-color: gray;
+    color: white;
+}
 
 /* ======================== MESSAGE FORM ======================== */
 /* Similar to FAQs form */

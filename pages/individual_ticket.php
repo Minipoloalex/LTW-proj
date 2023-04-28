@@ -44,11 +44,11 @@ $departments = Department::getDepartments($db);
 
 
 output_header();
-if ($session->getName() == $ticket->username) { /* usernames are unique */
-    output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments, true);
+if ($session->getName() === $ticket->username) { /* usernames are unique */
+    output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments, $session->getId(), true);
 }
 else {
-    output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments, true);
+    output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments, $session->getId(), true);
 }
 if (!$ticket->isClosed()) output_message_form($ticket->ticketid);
 
