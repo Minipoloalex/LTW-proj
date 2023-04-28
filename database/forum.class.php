@@ -86,6 +86,13 @@ class Forum {
             1
         );
     }
+
+    static function deleteFaq(PDO $db, string $question, string $answer): bool {
+        $stmt = $db->prepare('DELETE FROM FORUM WHERE Question = ? AND Answer = ?');
+        $stmt->execute(array($question, $answer));
+
+        return true;
+    }
 }
 
 ?>

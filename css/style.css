@@ -724,6 +724,7 @@ div.faq-page form {
 }
 
 .answer {
+  width: 95%;
   margin-top: 10px;
   font-size: 14px; 
   color: #666;
@@ -748,6 +749,11 @@ div.faq-page form {
   top: 0;
   right: 80px;
 }
+.delete-faq {
+  position: absolute;
+  top: 40px;
+  right: 0px;
+}
 
 /* faq icons for buttons */
 
@@ -762,12 +768,22 @@ button.display-faq span.material-symbols-outlined, button.hide-faq span.material
   'opsz' 48
 }
 
+button.delete-faq span.material-symbols-outlined {
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
 
 /* button.display-faq span.material-symbols-outlined {
   padding: 0;
 } */
 
-button.display-faq, button.hide-faq, button.edit-faq, button.save-faq{
+button.display-faq, button.hide-faq, button.edit-faq, button.save-faq, button.delete-faq{
   /* padding: 0; */
   border: none; 
   background-color: transparent;

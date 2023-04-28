@@ -7,48 +7,99 @@ require_once(__DIR__ . '/../utils/validate.php');
 require_once(__DIR__ . '/../database/connection.db.php');
 
 $session = new Session();
-
-if (!$session->isLoggedIn()) {
-    http_response_code(401); // Unauthorized
-    echo json_encode(array('error' => 'User not logged in'));
-    exit();
-}
-
-if (!is_valid_string($_POST['question'])) {
-    http_response_code(400); // Bad request
-    echo json_encode(array('error' => 'Missing question parameter'));
-    exit();
-}
-
-if (!is_valid_string($_POST['answer'])) {
-    http_response_code(400); // Bad request
-    echo json_encode(array('error' => 'Missing answer parameter'));
-    exit();
-}
-
 $db = getDatabaseConnection();
-$question = $_POST['question'];
-$answer = $_POST['answer'];
-$faq = Forum::getFaq($db, $question, $answer);
+// verify if POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // verify if user is logged in
+    if (!$session->isLoggedIn()) {
+        http_response_code(401); // Unauthorized
+        echo json_encode(array('error' => 'User not logged in'));
+        exit();
+    }
 
+    // verify if user is admin
+    if (Client::getType($db, $session->getId()) !== 'Admin') {
+        http_response_code(403); // Forbidden
+        echo json_encode(array('error' => 'User not authorized'));
+        exit();
+    }
 
-if (!$faq) {
-    http_response_code(500); // Internal server error
-    echo json_encode(array('error' => 'Failed to find FAQ on database'));
+    // verify if all parameters are set
+    if (!isset($_POST['question']) || !isset($_POST['answer'])) {
+        http_response_code(400); // Bad request
+        echo json_encode(array('error' => 'Missing parameters'));
+        exit();
+    }
+
+    // verify if parameters are valid
+    if (!is_valid_string($_POST['question']) || !is_valid_string($_POST['answer'])) {
+        http_response_code(400); // Bad request
+        echo json_encode(array('error' => 'Invalid parameters'));
+        exit();
+    }
+
+    // verify if question exists
+    $question = $_POST['question'];
+    $answer = $_POST['answer'];
+    $faq = Forum::getFaq($db, $question, $answer);
+
+    if (!$faq) {
+        http_response_code(500); // Internal server error
+        echo json_encode(array('error' => 'Failed to find FAQ on database'));
+        exit();
+    }
+
+    // update FAQ
+    $faq = Forum::updateFaq($db, $question, $answer);
+    echo json_encode(array('success' => 'FAQ updated successfully'));
     exit();
 }
 
-else {
-    $faq = Forum::updateFaq($db, $question, $answer);
+// verify if DELETE
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    // verify if user is logged in
+    if (!$session->isLoggedIn()) {
+        http_response_code(401); // Unauthorized
+        echo json_encode(array('error' => 'User not logged in'));
+        exit();
+    }
+
+    // verify if user is admin
+    if (Client::getType($db, $session->getId()) === "Client") {
+        http_response_code(403); // Forbidden
+        echo json_encode(array('error' => 'User not authorized'));
+        exit();
+    } 
+
+    // verify if all parameters are set
+    if (!isset($_GET['question']) || !isset($_GET['answer'])) {
+        http_response_code(400); // Bad request
+        echo json_encode(array('error' => 'Missing parameters'));
+        exit();
+    }
+
+    // verify if parameters are valid
+    if (!is_valid_string($_GET['question']) || !is_valid_string($_GET['answer'])) {
+        http_response_code(400); // Bad request
+        echo json_encode(array('error' => 'Invalid parameters'));
+        exit();
+    }
+
+    // verify if question exists
+    $question = $_GET['question'];
+    $answer = $_GET['answer'];
+    $faq = Forum::getFaq($db, $question, $answer);
+
+    if (!$faq) {
+        http_response_code(500); // Internal server error
+        echo json_encode(array('error' => 'Failed to find FAQ on database'));
+        exit();
+    }
+
+    // delete FAQ
+    $faq = Forum::deleteFaq($db, $question, $answer);
+    echo json_encode(array('success' => 'FAQ deleted successfully'));
+    exit();
 }
-
-echo json_encode(array(
-    'id' => $faq->forumId,
-    'question' => $faq->question,
-    'answer' => $faq->answer,
-));
-
-http_response_code(200); // OK
-echo json_encode(array('success' => 'FAQ updated'));
 
 ?>

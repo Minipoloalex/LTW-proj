@@ -14,6 +14,7 @@ require_once(__DIR__ . '/../database/forum.class.php');
 		<?php if ($type !== 'Client') { ?>
 			<button id="editFaqBtn" class="edit-faq"><span class="material-symbols-outlined">edit</span></button>
 			<button id="saveFaqBtn" class="save-faq" hidden><span class="material-symbols-outlined">save</span></button>
+			<button id="deleteFaqBtn" class="delete-faq" hidden><span class="material-symbols-outlined">delete</span></button>
 
 			<?php if ($faq->displayed===1) { ?>
 				<button id="hideBtn" class="hide-faq"><span class="material-symbols-outlined">visibility_off</span></button>
