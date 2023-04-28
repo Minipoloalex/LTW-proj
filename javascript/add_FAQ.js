@@ -4,7 +4,7 @@ const errorMessage = document.getElementById('error-message');
 
 form.addEventListener('submit', function (e) {
 
-    const question = document.getElementById('question').value;
+    const question = document.getElementById('question-form').value;
     console.log(question);
     console.log(form);
 

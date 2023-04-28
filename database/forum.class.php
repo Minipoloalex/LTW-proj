@@ -29,6 +29,23 @@ class Forum {
         return $faqs;
     }
 
+    static function getFaq(PDO $db, string $question, string $answer): Forum {
+        $stmt = $db->prepare('SELECT * FROM FORUM WHERE Question = ? AND Answer = ?');
+        $stmt->execute(array($question, $answer));
+
+        $faq = $stmt->fetch();
+        // if (!$faq) {
+        //     return null;
+        // }
+
+        return new Forum(
+            intval($faq['ForumID']),
+            $faq['Question'],
+            $faq['Answer'],
+            intval($faq['Displayed'])
+        );
+    }
+
     static function addFaq(PDO $db, string $question): Forum {
         // $question = trim($question);
         $stmt = $db->prepare('INSERT INTO FORUM (Question) VALUES (?)');
@@ -56,6 +73,18 @@ class Forum {
             );
         }
         return $faqs;
+    }
+
+    static function updateFaq(PDO $db, string $question, string $answer): Forum {
+        $stmt = $db->prepare('UPDATE FORUM SET Answer = ? WHERE Question = ?');
+        $stmt->execute(array($answer, $question));
+
+        return new Forum(
+            intval($db->lastInsertId()),
+            $question,
+            $answer,
+            1
+        );
     }
 }
 
