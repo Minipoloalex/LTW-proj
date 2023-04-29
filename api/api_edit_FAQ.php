@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 require_once(__DIR__ . '/../utils/session.php');
 require_once(__DIR__ . '/../database/forum.class.php');
 require_once(__DIR__ . '/../database/client.class.php');
@@ -37,26 +37,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(array('error' => 'Invalid parameters'));
         exit();
     }
-
-    // verify if question exists
-    $question = $_POST['question'];
-    $answer = $_POST['answer'];
-    $faq = Forum::getFaq($db, $question, $answer);
-
-    if (!$faq) {
-        http_response_code(500); // Internal server error
-        echo json_encode(array('error' => 'Failed to find FAQ on database'));
+    if (!is_valid_id($_POST['id'])) {
+        http_response_code(400); // Bad request
+        echo json_encode(array('error' => 'Invalid parameters'));
         exit();
     }
 
-    // update FAQ
-    $faq = Forum::updateFaq($db, $question, $answer);
-    echo json_encode(array('success' => 'FAQ updated successfully'));
+    /* ==================== */
+    // !NOTE: verify duplicate faqs
+    // verify if question exists
+    // $question = $_POST['question'];
+    // $answer = $_POST['answer'];
+    // $faq = Forum::getFaq($db, $question, $answer);
+
+    // if ($faq !== NULL) {
+    //     http_response_code(500); // Internal server error
+    //     echo json_encode(array('error' => 'Found similar FAQ on database'));
+    //     exit();
+    // }
+
+    /* ==================== */
+    $id = intval($_POST['id']);
+    $question = $_POST['question'];
+    $answer = $_POST['answer'];
+
+    $faq = Forum::updateFaq($db, $question, $answer, $id);
+
+    echo json_encode(array('success' => 'FAQ updated successfully', 'id' => $faq->forumId, 
+    'question' => $faq->question, 'answer' => $faq->answer, 'displayed' => $faq->displayed));
     exit();
 }
 
 // verify if DELETE
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    // TODO: receive id
     // verify if user is logged in
     if (!$session->isLoggedIn()) {
         http_response_code(401); // Unauthorized
@@ -101,5 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     echo json_encode(array('success' => 'FAQ deleted successfully'));
     exit();
 }
+
+echo json_encode(array('error' => 'Invalid request method'));
 
 ?>

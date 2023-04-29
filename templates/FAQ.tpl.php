@@ -4,19 +4,19 @@ require_once(__DIR__ . '/../database/forum.class.php');
 ?>
 
 <?php function output_single_faq(Forum $faq, string $type)
-{ ?>
+{ 	?>
 
-	<article class="faq">
-		<input id="question" type="text" name="question" class="question input-readonly" value="<?=$faq->question?>" readonly>
+	<article class="faq" data-id="<?=$faq->forumId?>">
+		<input id="question" type="text" name="question" class="question input-readonly" value="<?=htmlentities($faq->question)?>" readonly>
 
-		<input id="answer" type="text" name="answer" class="answer input-readonly" value="<?=$faq->answer?>" readonly>
+		<input id="answer" type="text" name="answer" class="answer input-readonly" value="<?=htmlentities($faq->answer ?? '')?>" readonly>
 
 		<?php if ($type !== 'Client') { ?>
 			<button id="editFaqBtn" class="edit-faq"><span class="material-symbols-outlined">edit</span></button>
 			<button id="saveFaqBtn" class="save-faq" hidden><span class="material-symbols-outlined">save</span></button>
 			<button id="deleteFaqBtn" class="delete-faq" hidden><span class="material-symbols-outlined">delete</span></button>
 
-			<?php if ($faq->displayed===1) { ?>
+			<?php if ($faq->displayed === 1) { ?>
 				<button id="hideBtn" class="hide-faq"><span class="material-symbols-outlined">visibility_off</span></button>
 			<?php } else { ?>
 			<button id="displayBtn" class="hide-faq"><span class="material-symbols-outlined">visibility</span></button>

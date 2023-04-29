@@ -29,14 +29,14 @@ class Forum {
         return $faqs;
     }
 
-    static function getFaq(PDO $db, string $question, string $answer): Forum {
+    static function getFaq(PDO $db, string $question, string $answer): ?Forum {
         $stmt = $db->prepare('SELECT * FROM FORUM WHERE Question = ? AND Answer = ?');
         $stmt->execute(array($question, $answer));
 
         $faq = $stmt->fetch();
-        // if (!$faq) {
-        //     return null;
-        // }
+        if (!$faq) {
+            return null;
+        }
 
         return new Forum(
             intval($faq['ForumID']),
@@ -75,12 +75,17 @@ class Forum {
         return $faqs;
     }
 
-    static function updateFaq(PDO $db, string $question, string $answer): Forum {
-        $stmt = $db->prepare('UPDATE FORUM SET Answer = ? WHERE Question = ?');
-        $stmt->execute(array($answer, $question));
+    static function updateFaq(PDO $db, string $question, string $answer, int $id): Forum {
+        $stmt = $db->prepare("UPDATE FORUM SET Question = ?, Answer = ? WHERE ForumID = ?");
+        // $stmt = $db->prepare('UPDATE FORUM SET Question = "A", Answer = "B" WHERE ForumID = 2');
+        // $stmt->execute();
+
+        $stmt->execute(array($question, $answer, $id));
+        // $stmt->execute(array("A", "B", $id));
+
 
         return new Forum(
-            intval($db->lastInsertId()),
+            $id,
             $question,
             $answer,
             1
