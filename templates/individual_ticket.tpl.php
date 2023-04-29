@@ -39,27 +39,29 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
         <header><h1 id="ticket-title"><?=$ticket->title?></h1></header>
         <p id="ticket-description"><?=$ticket->description?></p>
         
-        <section id="ticket-info">
-            <header>
-                <h3>Ticket info</h3>
-                <?php output_ticket_status($ticket->status); ?>
-            </header>
-            <?php
+        <div id="container-ticket-info">
+            <section id="ticket-info">
+                <header>
+                    <h3>Ticket info</h3>
+                    <?php output_ticket_status($ticket->status); ?>
+                </header>
+                <?php
 
-            ?>
-            <div id="ticket-created">
-                <span id="ticket-user"><?=$ticket->username?></span>
-                <span id="ticket-date"><?=date('F j', $ticket->submitdate)?></span>
-            </div>
-            <?php
-            if ($isAgentView) {
-                output_single_ticket_agent_view($ticket, $messages, $actions, $all_hashtags, $all_agents, $all_departments);
-            }
-            else {
-                output_single_ticket_info($ticket, $messages, $actions);
-            }
-            ?>
-        </section>
+                ?>
+                <div id="ticket-created">
+                    <span id="ticket-user"><?=$ticket->username?></span>
+                    <span id="ticket-date"><?=date('F j', $ticket->submitdate)?></span>
+                </div>
+                <?php
+                if ($isAgentView) {
+                    output_single_ticket_agent_view($ticket, $messages, $actions, $all_hashtags, $all_agents, $all_departments);
+                }
+                else {
+                    output_single_ticket_info($ticket, $messages, $actions);
+                }
+                ?>
+            </section>
+        </div>
         <section id="messages-list">
             <?php
             foreach($messages as $message) {
@@ -74,6 +76,7 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
             }
             ?>
         </section>
+        
     </article>
 <?php } ?>
 
