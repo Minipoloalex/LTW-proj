@@ -57,14 +57,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // }
 
     /* ==================== */
-    $id = intval($_POST['id']);
+    $id = $_POST['id'];
     $question = $_POST['question'];
     $answer = $_POST['answer'];
 
     $faq = Forum::updateFaq($db, $question, $answer, $id);
 
-    echo json_encode(array('success' => 'FAQ updated successfully', 'id' => $faq->forumId, 
-    'question' => $faq->question, 'answer' => $faq->answer, 'displayed' => $faq->displayed));
+    // echo json_encode(array('success' => 'FAQ updated successfully', 'id' => $faq->forumId, 'question' => $faq->question, 'answer' => $faq->answer, 'displayed' => $faq->displayed));
     exit();
 }
 

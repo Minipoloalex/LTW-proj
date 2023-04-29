@@ -12,7 +12,7 @@ if (cardContainer) {
   function getCards(data) {
     console.log(data);
     console.log(data.length);
-    const cardLimit = data.length; 99;
+    const cardLimit = data.length; //99;
     cardTotalElem.innerHTML = cardLimit;
     const cardIncrease = 9;
     const pageCount = Math.ceil(cardLimit / cardIncrease);
@@ -29,6 +29,11 @@ if (cardContainer) {
       const card = document.createElement("div");
       card.className = "card";
       card.innerHTML = data[index-1].title; //index; //card inside elements
+      card.innerHTML += data[index-1].description;
+      card.innerHTML += data[index-1].date;
+      card.innerHTML += data[index-1].status;
+      card.innerHTML += data[index-1].priority;
+
       card.style.backgroundColor = getRandomColor();
       cardContainer.appendChild(card);
     };

@@ -38,7 +38,7 @@ async function getFilterValues() {
     console.log(tableData);
     tableData.innerHTML = '';
 
-    for (const ticket of tickets) {
+    for (const ticket of tickets) {   // TODO: test special chars
       tableData.innerHTML += `
         <tr>
           <td>${ticket.title}</td>

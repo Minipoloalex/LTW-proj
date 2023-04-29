@@ -75,20 +75,30 @@ class Forum {
         return $faqs;
     }
 
-    static function updateFaq(PDO $db, string $question, string $answer, int $id): Forum {
-        $stmt = $db->prepare("UPDATE FORUM SET Question = ?, Answer = ? WHERE ForumID = ?");
+    static function updateFaq(PDO $db, string $question, string $answer, string $forumID): Forum {
+        $stmt = $db->prepare('UPDATE FORUM SET Question = :question, Answer = :answer WHERE ForumID = :id');
         // $stmt = $db->prepare('UPDATE FORUM SET Question = "A", Answer = "B" WHERE ForumID = 2');
         // $stmt->execute();
-
-        $stmt->execute(array($question, $answer, $id));
+        $stmt->bindParam(':question', $question);
+        $stmt->bindParam(':answer', $answer);
+        
+        $id = intval($forumID);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        // $stmt->execute(array($question, $answer, $id));
         // $stmt->execute(array("A", "B", $id));
-
+        echo json_encode(array(
+            'question' => $question,
+            'answer' => $answer,
+            'id' => $id,
+        ));
+        
 
         return new Forum(
-            $id,
+            intval($forumID),
             $question,
             $answer,
-            1
+            1   
         );
     }
 

@@ -1,3 +1,5 @@
+/* ================ TICKET CARDS ======================== */
+
 #card-container {
   display: flex;
   flex-wrap: wrap;
@@ -53,8 +55,8 @@
 }
 
 
+/* ================ Priorities ======================== */
 
-/* Priorities */
 .highP {
   background-color: #ff4d4d;
 }
