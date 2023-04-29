@@ -23,7 +23,7 @@ require_once(__DIR__ . '/../database/department.class.php');
         </label>
         <textarea name="description"></textarea>
         <?php output_department_form($departments, NULL); ?>
-        <button formaction="../actions/action_create_ticket.php" formmethod="post" type="submit" class="submit">
+        <button formaction="../actions/action_create_ticket.php" formmethod="post" type="submit" class="submit-ticket">
             Create ticket
         </button>
     </form>
@@ -44,7 +44,7 @@ require_once(__DIR__ . '/../database/department.class.php');
     </label>
 <?php } ?>
 <?php function output_hashtag_form(array $not_selected_hashtags, array $selected_hashtags) { ?>
-    <fieldset id="hashtags">
+    <fieldset id="hashtags" class="create-ticket">
         <legend>Hashtags</legend>
         <?php foreach ($not_selected_hashtags as $hashtag) {
             $id = $hashtag->hashtagid;
@@ -62,7 +62,7 @@ require_once(__DIR__ . '/../database/department.class.php');
 <?php } ?>
 
 <?php function output_priority_form(?string $selected_prio) { ?>
-    <fieldset id="priority">
+    <fieldset id="priority" class="create-ticket">
         <legend>Priority</legend>
         
         <?php if ($selected_prio === "high") {

@@ -27,9 +27,9 @@ require_once(__DIR__ . '/../utils/session.php');
     <script src="../javascript/cards.js" defer></script>
 
     <link rel="stylesheet" href="../css/nav.css">
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/individual_ticket.css">
     <link rel="stylesheet" href="../css/cards.css">
+    <link rel="stylesheet" href="../css/style.css">
 
     <!---navbar icons--->
   <link rel="stylesheet"

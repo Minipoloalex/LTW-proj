@@ -52,7 +52,6 @@ body.landingbody {
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.7);
   /* semi-transparent white */
-  border-radius: 10px;
   backdrop-filter: blur(10px);
   /*Gaussian blur effect*/
 
@@ -333,68 +332,46 @@ tr:hover {
 }
 
 
-/* ------------------- CREATE TICKET GRID -------------------- */
 .createticket {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   grid-gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(112, 78, 125, 0.562);
+  align-items: start; /* Add this line */
 }
 
 .createticket label {
-  grid-column: 1 / span 2;
+  font-weight: bold;
 }
 
-/* TROCAR AQUI AS CHECKBOXES PARA A FRENTE */
-.createticket div .hashtag-select label {
-  grid-column: 1 / span 3;
-}
-
-
-.createticket input[name='title'] {
-  width: 250px;
-  /* fixed width */
+.createticket input[type="text"],
+.createticket select,
+.createticket textarea {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 5px;
-  grid-column: 1 / span 1;
-  grid-row: 2 / span 1;
-}
-
-.createticket input[name='title'] {
-  border: 1px solid #ccc;
-  border-radius: 5px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  font-family: 'Martel Sans', sans-serif;
 }
 
-.createticket input:not([name='title']),
+.createticket input[type="text"],
 .createticket select {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 95%;
 }
 
-.createticket select option {
-  font-family: 'Martel Sans', sans-serif
-}
-
-.createticket textarea[name='description'] {
-  width: calc(100% - 2rem);
-  /* resizeable width */
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+.createticket textarea {
+  width: 95%;
   resize: vertical;
-  /* only allow vertical resizing */
 }
 
-/* create ticket button */
 .createticket button[type='submit'] {
-  grid-column: 1 / span 1;
-  grid-row: 9 / span 1;
-  justify-self: start;
+  justify-self: center;
   margin-top: 1rem;
   font-size: 1.2em;
   background-color: #f7f7f7;
@@ -403,6 +380,58 @@ tr:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   border: none;
 }
+
+.createticket label,
+.createticket input[type="text"],
+.createticket select,
+.createticket textarea,
+.createticket button[type='submit'] {
+  grid-column: 1;
+}
+
+.createticket select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
+.createticket option {
+  background-color: #f5f5f5;
+  color:black;
+}
+
+.createticket input[type="text"],
+.createticket textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  color:black;
+}
+
+.createticket label,
+.createticket button[type='submit'] {
+  color: black;
+}
+
+.createticket button.submit-ticket {
+  background-color: #53536e;  
+  color: white;
+  border-radius: 10px;
+  padding: 0.5em; 
+}
+
+
+.createticket ::placeholder {
+  color: #aaa;
+}
+
+.createticket fieldset#hashtags .create-ticket {
+  padding: 0;
+}
+
 
 /* -----------------  profile page ---------------------- */
 
