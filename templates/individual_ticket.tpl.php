@@ -40,10 +40,12 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
         <p id="ticket-description"><?=$ticket->description?></p>
         
         <section id="ticket-info">
-            <header><h3>Ticket info</h3></header>
+            <header>
+                <h3>Ticket info</h3>
+                <?php output_ticket_status($ticket->status); ?>
+            </header>
             <?php
 
-            output_ticket_status($ticket->status);
             ?>
             <div id="ticket-created">
                 <span id="ticket-user"><?=$ticket->username?></span>
