@@ -53,9 +53,7 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
                     <h3>Ticket info</h3>
                     <?php output_ticket_status($ticket->status); ?>
                 </header>
-                <?php
-
-                ?>
+                <?php output_ticket_id_hidden($ticket->ticketid); ?>
                 <div id="ticket-created">
                     <span id="ticket-user"><?=$ticket->username?></span>
                     <span id="ticket-date"><?=date('F j', $ticket->submitdate)?></span>
@@ -119,7 +117,6 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
 <?php } ?>
 
 <?php function output_change_ticket_info_form(Ticket $ticket, array $agents, array $departments, array $hashtags) { ?>
-        <input id="ticket-id" type="hidden" value='<?=$ticket->ticketid?>'>
         <?php
         output_priority_form($ticket->priority);
 
@@ -173,4 +170,8 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
     if ($view_type !== 'agent' && $view_type !== 'client') throw new Exception('Invalid type inside output_close_ticket_button');
     ?>
     <button id="close-ticket" class="close-<?=$view_type?>">Close ticket</button>
+<?php } ?>
+
+<?php function output_ticket_id_hidden(int $ticketID) { ?>
+    <input id="ticket-id" type="hidden" value='<?=$ticketID?>'>
 <?php } ?>

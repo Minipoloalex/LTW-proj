@@ -54,25 +54,6 @@ function updateTicketInformation(event) {
         }
         else if (json['success']) {
             console.log(json['success'])
-            // const updatedPrio = document.querySelector("#ticket-priority")
-            // updatedPrio.textContent = "Priority: " + (json['priority'] ?? "None")
-
-            // const updatedDept = document.querySelector("#ticket-department")
-            // updatedDept.textContent = "Department: " + (json['department'] ?? "None")
-
-            // const updatedAgent = document.querySelector("#ticket-agent")
-            // updatedAgent.textContent = "Agent: " + (json['agent'] ?? "None")
-
-            // const updatedHashtags = document.querySelector("#ticket-hashtags")
-            // updatedHashtags.innerHTML = ""
-
-            // for (const hashtag of json['hashtags']) {
-            //     // <li class="hashtag"><?=$hashtag->hashtagname?></li>
-            //     const newHashtag = document.createElement("li")
-            //     newHashtag.classList.add("hashtag")
-            //     newHashtag.textContent = hashtag;
-            //     updatedHashtags.appendChild(newHashtag)
-            // }
         }
     })
 }
@@ -90,8 +71,7 @@ if (closeTicketButton) {
 
 function closeTicket(event) {
     event.preventDefault()
-    const form = "#update-ticket-form"
-    const ticketID = document.querySelector(form + " #ticket-id").getAttribute("value")
+    const ticketID = document.querySelector("#ticket-info #ticket-id").getAttribute("value")
     postClosedTicket({
         'ticketID': ticketID,
         'status': 'closed'
@@ -105,15 +85,27 @@ function closeTicket(event) {
         }
         else if (json['success']) {
             console.log(json['success'])
+
             const status = document.querySelector("#individual-ticket #ticket-status")
             status.textContent = 'closed'
             status.classList.add("closed")
 
-            const ticketForm = document.querySelector("#update-ticket-form")
-            ticketForm.remove()
-            
+            // Remove the forms
             const messageForm = document.querySelector("#message-form")
             messageForm.remove()
+            const priority = document.querySelector("#priority")
+            if (priority) priority.remove()
+            const department = document.querySelector("#department")
+            if (department) department.remove()
+            const agent = document.querySelector("#agent")
+            if (agent) agent.remove()
+            const hashtags = document.querySelector("#hashtags")
+            if (hashtags) hashtags.remove()
+            const closeTicket = document.querySelector("#close-ticket")
+            if (closeTicket) closeTicket.remove()
+            const updateTicket = document.querySelector("#update-ticket")
+            if (updateTicket) updateTicket.remove()
+
 
             const reopenTicketForm = document.createElement("form")
             reopenTicketForm.setAttribute("id", "reopen-ticket-form")
@@ -126,16 +118,45 @@ function closeTicket(event) {
             reopenTicketID.setAttribute("value", ticketID)
             reopenTicketForm.appendChild(reopenTicketID)
 
-            
             const reopenTicketButton = document.createElement("button")
             reopenTicketButton.setAttribute("id", "reopen-ticket")
             reopenTicketButton.setAttribute("type", "submit")
             reopenTicketButton.textContent = "Reopen Ticket"
             reopenTicketForm.appendChild(reopenTicketButton)
             
-            status.insertAdjacentElement("afterend", reopenTicketForm)
+            const prioritySpan = document.createElement("span")
+            prioritySpan.setAttribute("id", "priority")
+            prioritySpan.textContent = "Priority: " + json['priority'] ?? "None"
             
-            // also need to build the ticket info non-form
+            const departmentSpan = document.createElement("span")
+            departmentSpan.setAttribute("id", "department")
+            departmentSpan.textContent = "Department: " + json['department'] ?? "None"
+            
+            const agentSpan = document.createElement("span")
+            agentSpan.setAttribute("id", "agent")
+            agentSpan.textContent = "Agent: " + json['agent'] ?? "None"
+
+            const hashtagsDiv = document.createElement('div')
+            hashtagsDiv.setAttribute("id", 'hashtags')
+            const hashtagsLegend = document.createElement('legend')
+            hashtagsLegend.textContent = 'Hashtags'
+            hashtagsDiv.appendChild(hashtagsLegend)
+
+            const hashtagsList = document.createElement('ul')
+            json['hashtags'].forEach(function(hashtag) {
+              const hashtagLi = document.createElement('li')
+              hashtagLi.classList.add('hashtag')
+              hashtagLi.textContent = hashtag
+              hashtagsList.appendChild(hashtagLi)
+            })
+            hashtagsDiv.appendChild(hashtagsList)
+            
+            const ticketInfoSection = document.querySelector("#ticket-info")
+            ticketInfoSection.appendChild(prioritySpan)
+            ticketInfoSection.appendChild(hashtagsDiv)
+            ticketInfoSection.appendChild(departmentSpan)
+            ticketInfoSection.appendChild(agentSpan)
+            ticketInfoSection.appendChild(reopenTicketForm)
         }
     })
 }
