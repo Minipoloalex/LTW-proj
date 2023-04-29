@@ -13,10 +13,18 @@ require_once(__DIR__ . '/create_ticket.tpl.php');
 array $all_hashtags, array $all_agents, array $all_departments) { 
     if (!$ticket->isClosed()) {
         output_change_ticket_info_form($ticket, $all_agents, $all_departments, $all_hashtags);
+        output_close_ticket_button("agent");
     }
     else {
         output_single_ticket_info($ticket, $messages, $actions);
         output_reopen_ticket_form($ticket);
+    }
+}
+function output_single_ticket_client_view(Ticket $ticket, array $messages, array $actions) {
+    output_single_ticket_info($ticket, $messages, $actions);
+    if ($ticket->isClosed()) output_reopen_ticket_form($ticket);
+    else {
+        output_close_ticket_button("client");
     }
 }
 function output_single_ticket_info(Ticket $ticket, array $messages, array $actions) { ?>
@@ -25,8 +33,8 @@ function output_single_ticket_info(Ticket $ticket, array $messages, array $actio
     <span id="priority">Priority: <?=$ticket->priority?></span>
     
     <div id="hashtags">
-        Hashtags
-        <ul id="hashtags">
+        <legend>Hashtags</legend>
+        <ul>
             <?php foreach ($ticket->hashtags as $hashtag) { ?>
                 <li class="hashtag"><?=$hashtag->hashtagname?></li>
             <?php } ?>
@@ -57,7 +65,7 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
                     output_single_ticket_agent_view($ticket, $messages, $actions, $all_hashtags, $all_agents, $all_departments);
                 }
                 else {
-                    output_single_ticket_info($ticket, $messages, $actions);
+                    output_single_ticket_client_view($ticket, $messages, $actions);
                 }
                 ?>
             </section>
@@ -111,7 +119,6 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
 <?php } ?>
 
 <?php function output_change_ticket_info_form(Ticket $ticket, array $agents, array $departments, array $hashtags) { ?>
-    <!-- <form> -->
         <input id="ticket-id" type="hidden" value='<?=$ticket->ticketid?>'>
         <?php
         output_priority_form($ticket->priority);
@@ -127,9 +134,7 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
         ?>
 
         <button id="update-ticket" type="submit">Save</button>
-        
-        <button id="close-ticket">Close ticket</button>
-    <!-- </form> -->
+
 <?php } ?>
 
 <?php function output_agent_form(array $agents, ?string $assignedagent) { ?>
@@ -162,4 +167,10 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
         <input name="ticketID" type="hidden" value='<?=$ticket->ticketid?>'>
         <button id="reopen-ticket" type="submit">Reopen ticket</button>
     </form>
+<?php } ?>
+
+<?php function output_close_ticket_button(string $view_type) {
+    if ($view_type !== 'agent' && $view_type !== 'client') throw new Exception('Invalid type inside output_close_ticket_button');
+    ?>
+    <button id="close-ticket" class="close-<?=$view_type?>">Close ticket</button>
 <?php } ?>
