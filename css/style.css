@@ -668,21 +668,23 @@ div.faq-page form {
   resize: vertical;
   font-family: 'Martel Sans', sans-serif;
 }
-
-.faq-form button {
+/*ask button e answer button (propriedades iguais)*/
+.faq-form button, .faq button.answer-faq {
   background-color: #4CAF50;
   color: white;
-  font-size: 18px;
+  font-size: 1.2rem; /* or any other appropriate font size */
   border: none;
   border-radius: 5px;
-  padding: 10px;
+  padding: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   display: block;
-  width: 15%;
+  width: 50%;
+  max-width: 15rem; /* or any other appropriate max-width */
 }
+
+
 
 .faq-form button:hover {
   background-color: #3e8e41;
@@ -722,6 +724,7 @@ div.faq-page form {
 }
 
 .answer {
+  width: 95%;
   margin-top: 10px;
   font-size: 14px; 
   color: #666;
@@ -746,6 +749,11 @@ div.faq-page form {
   top: 0;
   right: 80px;
 }
+.delete-faq {
+  position: absolute;
+  top: 40px;
+  right: 0px;
+}
 
 /* faq icons for buttons */
 
@@ -760,12 +768,22 @@ button.display-faq span.material-symbols-outlined, button.hide-faq span.material
   'opsz' 48
 }
 
+button.delete-faq span.material-symbols-outlined {
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
 
 /* button.display-faq span.material-symbols-outlined {
   padding: 0;
 } */
 
-button.display-faq, button.hide-faq, button.edit-faq, button.save-faq{
+button.display-faq, button.hide-faq, button.edit-faq, button.save-faq, button.delete-faq{
   /* padding: 0; */
   border: none; 
   background-color: transparent;
@@ -780,11 +798,6 @@ article.faq {
 .faq input.answer {
   display: block;
 }
-
-.faq button.answer-faq {
-  display: block;
-  margin-top: auto; 
-} 
 
 .faq input.question {
   margin-right: 5.2rem;
@@ -821,20 +834,14 @@ article.faq {
   background-color: white;
 }
 
-.faq button.answer-faq {
-  background-color: #4CAF50;
-  color: white;
-  font-size: 18px;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  cursor: pointer;
-  /* width: 100%; */
-  transition: background-color 0.3s ease;
-}
-
 .faq button.answer-faq:hover {
   background-color: #3e8e41;
+}
+
+@media screen and (min-width: 768px) {
+  .faq-form button, button.answer-faq {
+    width: 15%;
+  }
 }
 
 /* Filter */
