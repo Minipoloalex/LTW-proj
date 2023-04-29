@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 require_once(__DIR__ . '/../utils/session.php');
+require_once(__DIR__ . '/../utils/validate.php');
+require_once(__DIR__ . '/../database/ticket.class.php');
+require_once(__DIR__ . '/../database/connection.db.php');
+
 $session = new Session();
 if (!$session->isLoggedIn()) {
     http_response_code(401); // Unauthorized
     echo json_encode(array('error' => 'User not logged in'));
 }
 // TODO: csrf check
-require_once(__DIR__ . '/../database/connection.db.php');
 $db = getDatabaseConnection();
-
-require_once(__DIR__ . '/../database/ticket.class.php');
-require_once(__DIR__ . '/../utils/validate.php');
 
 if (!is_valid_id($_POST['ticketID'])) {
     http_response_code(400); // Bad request
@@ -34,12 +34,22 @@ if (!Client::hasAcessToTicket($db, $userID, $ticketID)) {
 }
 
 Ticket::updateStatus($db, $ticketID, $status);
+$ticket = Ticket::getById($db, $ticketID);
+if (!$ticket) {
+    http_response_code(500); // Internal server error
+    echo json_encode(array('error' => 'Ticket does not exist'));
+    exit();
+}
 
 http_response_code(200); // OK
 echo json_encode(array(
     'success' => 'Ticket status updated',
-    'status' => $status,
-    'ticketID' => $ticketID,
+    'ticketID' => $ticket->ticketid,
+    'department' => $ticket->departmentName,
+    'status' => $ticket->status,
+    'agent' => $ticket->assignedagent,
+    'priority' => $ticket->priority,
+    'hashtags' => array_column($ticket->hashtags, 'hashtagname')
 ));
 
 ?>
