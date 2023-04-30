@@ -12,9 +12,10 @@ if (cardContainer) {
   }
 
   function getCards(data) {
+    console.log(data);
     const cardLimit = data.length; //99;
     cardTotalElem.innerHTML = cardLimit;
-    const cardIncrease = 9;
+    const cardIncrease = 4;
     const pageCount = Math.ceil(cardLimit / cardIncrease);
     let currentPage = 1;
 
@@ -31,10 +32,12 @@ if (cardContainer) {
       card.className = "card";
       card.innerHTML = `
       <article>
-        <span class="card-title">${curr.title }</span><br>
+        <span class="card-title">${curr. title }</span><br>
         <span class="card-info">${curr.status}</span><br>
         <span class="card-info card-description">${curr.description}</span><br>
-        ${curr.hashtags.map(hashtag => `<span class="card-info card-hashtags">${hashtag.hashtagname}</span>`).join('')}
+        ${curr.hashtags.map(hashtag => `<span class="card-info card-hashtags">${hashtag.hashtagname}</span>`).join('')}<br>
+        <span class="card-info">${curr.assignedagent}</span><br>
+        <span class="card-info">${curr.departmentName}</span><br>
       </article>
       `
       //index; //card inside elements

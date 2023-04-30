@@ -1,6 +1,6 @@
 /* ================ TICKET CARDS ======================== */
 :root {
-  --nr-cards: 3;
+  --nr-cards: 2;
 }
 
 #card-container {

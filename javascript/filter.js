@@ -34,30 +34,35 @@ async function getFilterValues() {
 
     const tickets = await res.json();
 
-    const tableData = document.querySelector('#tableData');
-    console.log(tableData);
-    tableData.innerHTML = '';
+    const cardContainer = document.getElementById("card-container");
+    cardContainer.innerHTML = '';
+    getCards(tickets);
+    
+    
+    // const tableData = document.querySelector('#tableData');
+    // console.log(tableData);
+    // tableData.innerHTML = '';
 
-    for (const ticket of tickets) {   // TODO: test special chars
-      tableData.innerHTML += `
-        <tr>
-          <td>${ticket.title}</td>
-          <td>${ticket.id}</td>
-          <td>${ticket.username}</td>
-          <td>${ticket.status}</td>
-          <td>${ticket.submitdate}</td>
-          <td>${ticket.priority}</td>
-          <td>
-            <ul>
-            ${ticket.hashtags.map(hashtag => `<li>${hashtag.hashtagname}</li>`).join('')}
-            </ul>
-          </td>
-          <td>${ticket.description}</td>
-          <td>${ticket.assignedagent}</td>
-          <td>${ticket.departmentName}</td>
-        </tr>
-      `;
-    }
+    // for (const ticket of tickets) {   // TODO: test special chars
+    //   tableData.innerHTML += `
+    //     <tr>
+    //       <td>${ticket.title}</td>
+    //       <td>${ticket.id}</td>
+    //       <td>${ticket.username}</td>
+    //       <td>${ticket.status}</td>
+    //       <td>${ticket.submitdate}</td>
+    //       <td>${ticket.priority}</td>
+    //       <td>
+    //         <ul>
+    //         ${ticket.hashtags.map(hashtag => `<li>${hashtag.hashtagname}</li>`).join('')}
+    //         </ul>
+    //       </td>
+    //       <td>${ticket.description}</td>
+    //       <td>${ticket.assignedagent}</td>
+    //       <td>${ticket.departmentName}</td>
+    //     </tr>
+    //   `;
+    // }
 
 
   } else {
