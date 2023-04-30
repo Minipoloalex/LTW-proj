@@ -38,12 +38,13 @@ function output_single_ticket(Ticket $ticket, array $messages, array $actions,
 array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, bool $isAgentView) { ?>
     <article id="individual-ticket">
         <header><h1 id="ticket-title"><?=$ticket->title?></h1></header>
+        <h3>Ticket description:</h3>
         <p id="ticket-description"><?=$ticket->description?></p>
         
         <div id="container-ticket-info">
             <section id="ticket-info">
                 <header>
-                    <h3>Ticket info</h3>
+                    <h3 class="ticket-info-label">Ticket info</h3>
                     <?php output_ticket_status($ticket->status); ?>
                 </header>
                 <?php output_ticket_id_hidden($ticket->ticketid); ?>
@@ -147,10 +148,13 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
 <?php function output_ticket_status(string $status) {
     if ($status === 'closed') { ?>
         <span id="ticket-status" class="closed"><?=$status?></span>
-    <?php } else { ?>
-        <span id="ticket-status"><?=$status?></span>
-    <?php }
-} ?>
+    <?php } else if ($status === 'open') { ?>
+        <span id="ticket-status" class="open"><?=$status?></span>
+    <?php } 
+    else { ?>
+        <span id="ticket-status" class="in-progress"><?=$status?></span>
+<?php } ?>
+<?php } ?>
 
 <?php function output_reopen_ticket_form(Ticket $ticket) { ?>
     <form id="reopen-ticket-form" action="../actions/action_reopen_ticket.php" method="post">

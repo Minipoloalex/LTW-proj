@@ -64,9 +64,9 @@ require_once(__DIR__ . '/../utils/session.php');
         <li class="nav-item"><span class="nav-submenu-wrapper" id="subWrapper" onclick="toggleSubMenu()"><span class="nav-submenu-header"><span
               class="material-symbols-outlined">confirmation_number</span><span class="link-text" id="subHeaderTitle">Tickets</span></span>
             <ul class="nav-submenu" id="subMenu">
-              <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">My tickets</a></li>
+              <li class="nav-submenu-item"><a href="../pages/my_tickets.php" class="nav-link">My tickets</a></li>
               <li class="nav-submenu-item"><a href="../pages/create_ticket.php" class="nav-link">Create ticket</a></li>
-              <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">Assigned tickets</a></li>
+              <li class="nav-submenu-item"><a href="../pages/assigned_tickets.php" class="nav-link">Assigned tickets</a></li>
               <!--Same page: assigned and followed tickets (not assigned to them)-->
               <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">All tickets</a></li>
             </ul>
