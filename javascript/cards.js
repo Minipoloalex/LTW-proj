@@ -12,13 +12,18 @@ if (cardContainer) {
   }
 
   function getCards(data) {
+    cardContainer.innerHTML = '';
     console.log(data);
+    
     const cardLimit = data.length; //99;
     cardTotalElem.innerHTML = cardLimit;
     const cardIncrease = 4;
     const pageCount = Math.ceil(cardLimit / cardIncrease);
     let currentPage = 1;
-
+    if (!checkLoader() && currentPage < pageCount) { 
+      console.log("new loader", loader);
+      cardContainer.after(loader);
+    }
 
     // not needed
     // const getRandomColor = () => {
@@ -84,6 +89,7 @@ if (cardContainer) {
     /*infinite scroll*/
     const removeInfiniteScroll = () => {
       loader.remove();
+      // loader.toggleAttribute("hidden");
       window.removeEventListener("scroll", handleInfiniteScroll);
     };
 
@@ -100,8 +106,10 @@ if (cardContainer) {
       }, 1000);
     };
 
+    // loader.toggleAttribute("hidden");
     addCards(currentPage);
     window.addEventListener("scroll", handleInfiniteScroll);
+    
   }
 }
 
@@ -125,5 +133,11 @@ async function getTickets() {
   } else {
     console.error('Error: ' + res.status);
   }
+}
+
+function checkLoader(){
+  const loader = document.getElementById("loader");
+  if (loader) return true;
+  else return false;
 }
 

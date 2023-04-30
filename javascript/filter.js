@@ -34,8 +34,9 @@ async function getFilterValues() {
 
     const tickets = await res.json();
 
-    const cardContainer = document.getElementById("card-container");
-    cardContainer.innerHTML = '';
+    // const cardContainer = document.getElementById("card-container");
+    // cardContainer.innerHTML = '';
+    console.log(tickets);
     getCards(tickets);
     
     
