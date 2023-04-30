@@ -3,6 +3,8 @@ const cardCountElem = document.getElementById("card-count");
 const cardTotalElem = document.getElementById("card-total");
 const loader = document.getElementById("loader");
 
+// !TODO: descobrir maneira de arranjar tipo dos dados (ticket, user, etc)
+
 if (cardContainer) {
   window.onload = async function () {
     const tickets = await getTickets();
@@ -10,31 +12,39 @@ if (cardContainer) {
   }
 
   function getCards(data) {
-    console.log(data);
-    console.log(data.length);
     const cardLimit = data.length; //99;
     cardTotalElem.innerHTML = cardLimit;
     const cardIncrease = 9;
     const pageCount = Math.ceil(cardLimit / cardIncrease);
     let currentPage = 1;
 
-      
+
     // not needed
-    const getRandomColor = () => {
-      const h = Math.floor(Math.random() * 360);
-      return `hsl(${h}deg, 90%, 85%)`;
-    };
+    // const getRandomColor = () => {
+    //   const h = Math.floor(Math.random() * 360);
+    //   return `hsl(${h}deg, 90%, 85%)`;
+    // };
 
     const createCard = (index) => {
       const card = document.createElement("div");
+      const curr = data[index - 1];
       card.className = "card";
-      card.innerHTML = data[index-1].title; //index; //card inside elements
-      card.innerHTML += data[index-1].description;
-      card.innerHTML += data[index-1].date;
-      card.innerHTML += data[index-1].status;
-      card.innerHTML += data[index-1].priority;
+      card.innerHTML = `
+      <article>
+        <span class="card-title">${curr.title }</span><br>
+        <span class="card-info">${curr.status}</span><br>
+        <span class="card-info card-description">${curr.description}</span><br>
+        ${curr.hashtags.map(hashtag => `<span class="card-info card-hashtags">${hashtag.hashtagname}</span>`).join('')}
+      </article>
+      `
+      //index; //card inside elements
+      // card.innerHTML += data[index-1].description;
+      // card.innerHTML += data[index-1].date;
+      // card.innerHTML += data[index-1].status;
+      // card.innerHTML += data[index-1].priority;
 
-      card.style.backgroundColor = getRandomColor();
+      card.style.backgroundColor = 'white';
+      // card.style.backgroundColor = getRandomColor();
       cardContainer.appendChild(card);
     };
 
@@ -92,7 +102,17 @@ if (cardContainer) {
   }
 }
 
+// function buildCard(obj) {
+//   <div class="card">
+//     <article>
+//       <span class="card-title"></span>
+//       <span class="card-info"></span>
+//       <span class="card-info card-description"></span>
+//       <span class="card-info card-hashtags"></span>
 
+//     </article>
+//   </div>
+// }
 
 async function getTickets() {
   const response = await fetch("../api/api_filter_tickets.php");
@@ -103,3 +123,4 @@ async function getTickets() {
     console.error('Error: ' + res.status);
   }
 }
+

@@ -1,4 +1,7 @@
 /* ================ TICKET CARDS ======================== */
+:root {
+  --nr-cards: 3;
+}
 
 #card-container {
   display: flex;
@@ -6,7 +9,7 @@
 }
 .card {
   height: 55vh;
-  width: calc((100% / 3) - 16px);
+  width: calc((100% / var(--nr-cards)) - 16px);
   margin: 8px;
   border-radius: 3px;
   transition: all 200ms ease-in-out;
@@ -30,7 +33,7 @@
 }
 .skeleton-card {
   height: 55vh;
-  width: calc((100% / 3) - 16px);
+  width: calc((100% / var(--nr-cards)) - 16px);
   margin: 8px;
   border-radius: 3px;
   transition: all 200ms ease-in-out;
