@@ -2,7 +2,7 @@
 declare(strict_types=1);
 require_once(__DIR__ . '/../database/hashtag.class.php');
 require_once(__DIR__ . '/../database/department.class.php');
-
+require_once(__DIR__ . '/../templates/individual_ticket.tpl.php');
 ?>
 
 <?php function output_create_ticket_form(PDO $db)
@@ -44,6 +44,13 @@ require_once(__DIR__ . '/../database/department.class.php');
     </label>
 <?php } ?>
 <?php function output_hashtag_form(array $not_selected_hashtags, array $selected_hashtags) { ?>
+    <!-- <form class="autocomplete">
+        <label for="hashtag-input">Hashtags</label>
+        <input type="text" name="hashtag" id="hashtag-input">
+        <button id="add-hashtag" type="submit">Add</button>
+    </form> -->
+    <?php /*output_hashtag_list($selected_hashtags);*/ ?>
+    
     <fieldset id="hashtags" class="create-ticket">
         <legend>Hashtags</legend>
         <?php foreach ($not_selected_hashtags as $hashtag) {
@@ -59,6 +66,7 @@ require_once(__DIR__ . '/../database/department.class.php');
             <label for="<?=$id?>"><?= $hashtag->hashtagname ?></label>
         <?php } ?>
     </fieldset>
+
 <?php } ?>
 
 <?php function output_priority_form(?string $selected_prio) { ?>
