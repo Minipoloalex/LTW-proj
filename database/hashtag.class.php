@@ -57,6 +57,13 @@ class Hashtag {
     ');
     $stmt->execute(array($ticketID, $hashtagID));
   }
+
+  static function exists(PDO $db, string $hashtagName): bool {
+    $stmt = $db->prepare('SELECT * from HASHTAG WHERE HashtagName = ?');
+    $stmt->execute(array($hashtagName));
+    $hashtag = $stmt->fetch();
+    return $hashtag != NULL;
+  }
 }
 
 ?>
