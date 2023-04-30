@@ -9,12 +9,11 @@
     font-weight: bold;
     text-align: center;
     padding: 1em 0;
-    border-bottom: 1px solid grey;
 }
 #individual-ticket #ticket-description {
-    margin: 0 auto;    
+    margin: 0 auto;       
     background: rgba(255, 255, 255, 0.5);;
-    margin-bottom: 5em;
+    margin-bottom: 2rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); 
     border-radius: 10px;
 
@@ -23,22 +22,28 @@
     padding-left: 1em;      
 }
 
+#individual-ticket h3{
+    margin: 0 auto;
+}
 
 /* =========================== TICKET STATUS ============================ */
 #individual-ticket #ticket-status {
     margin: 0 auto;
     height: 2em;
-    padding: 1em 2em;
+    padding: 0.6em 1.2em 0.3em; /*top, lados, bottom*/
     text-transform: uppercase;
-    border-radius: 10em;
+    border-radius: 10px;
     align-self: center;
 }
-#individual-ticket #ticket-status:not(.closed) {
-    background-color: var(--button-green);
+#individual-ticket #ticket-status.open {
+    background-color: #23232E;
 }
 
 #individual-ticket #ticket-status.closed {
     background-color: var(--closed-red);
+}
+#individual-ticket #ticket-status.in-progress {
+    background-color: #4CAF50;
 }
 
 /* =========================== CONTAINER TICKET INFO ============================ */
@@ -48,9 +53,10 @@
     right: 1em; */
     /* min-width: 20rem; */
     width: 20rem;
-    margin: auto ;
+    margin: auto;
     border: 1px solid black;
     border-radius: 20px;
+    margin-bottom: 3rem;
 }
 /* ================================ TICKET INFO ================================== */
 #ticket-info {
@@ -108,6 +114,9 @@
     grid-area: created;
 }
 
+#ticket-info button#close-ticket.close-client:hover {
+    opacity: 80%;
+}
 /* ========================= TICKET INFO HEADER ========================= */
 #ticket-info header {
     display: flex;
@@ -124,7 +133,7 @@
     color: white;   
 }
 #ticket-info header h3 {
-    margin: 1em auto;
+    margin: 1rem auto 1rem 1rem;
     font-size: 1.4em;
     /* border-bottom: 1px solid black; */
 }
@@ -223,18 +232,19 @@ label#department, label#agent {
 }
 /* ======================== DROPDOWN SELECT ======================== */
 label select {
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
     padding-right: 1em;
     padding-left: 1em;
 
     font-size: 16px;
     border: 1px solid black;
     border-radius: 20px;
+    font-family: 'Martel Sans', sans-serif;
     
     margin-top: 6px;
     margin-bottom: 16px;
-    color: white;
+    /* color: white; */
     /* background-color: #23232e; */
     cursor: pointer;
 }
@@ -294,15 +304,28 @@ button#close-ticket {
 /* ======================== REOPEN TICKET FORM/BUTTON ======================== */
 
 #reopen-ticket-form button#reopen-ticket {    
-    border: 1px solid black;
+    /* border: 1px solid black;
     border-radius: 20px;
 
     cursor: pointer;
 
     padding: 0.5em 1em;
     margin-bottom: 1em;
-    margin-top: 0.5em;
+    margin-top: 0.5em; */
+    margin: 0.5em auto;
+    background-color: rgb(35,35,46);
+    border: none;
+    border-radius: 20px;
+    padding: 0.5em 1em;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
 }
+
+#reopen-ticket-form button#reopen-ticket:hover {
+   opacity: 80%;
+}
+
 /* ======================== TICKET MESSAGE LIST ======================== */
 #messages-list {
     display: flex;
@@ -319,6 +342,8 @@ button#close-ticket {
     grid-template-areas:
         "header     header"
         "text       text";
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 .message header {
     grid-area: header;
@@ -346,15 +371,22 @@ button#close-ticket {
 }
 
 .message.self header {
-    background-color: darkgreen;
+    background-color: #23232E;
     color: white;
 }
 .message.original-poster header {
     background-color: var(--button-green);
 }
 .message.other header {
-    background-color: gray;
+    background-color: #53536E;
     color: white;
+}
+
+.message p.text{
+    background-color: #F5F6FF;
+    margin: 0;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
 }
 
 /* ======================== MESSAGE FORM ======================== */

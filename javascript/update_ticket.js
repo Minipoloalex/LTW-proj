@@ -126,15 +126,15 @@ function closeTicket(event) {
             
             const prioritySpan = document.createElement("span")
             prioritySpan.setAttribute("id", "priority")
-            prioritySpan.textContent = "Priority: " + json['priority'] ?? "None"
+            prioritySpan.textContent = "Priority: " + (json['priority'] ?? "None")
             
             const departmentSpan = document.createElement("span")
             departmentSpan.setAttribute("id", "department")
-            departmentSpan.textContent = "Department: " + json['department'] ?? "None"
+            departmentSpan.textContent = "Department: " + (json['department'] ?? "None")
             
             const agentSpan = document.createElement("span")
             agentSpan.setAttribute("id", "agent")
-            agentSpan.textContent = "Agent: " + json['agent'] ?? "None"
+            agentSpan.textContent = "Agent: " + (json['agent'] ?? "None")
 
             const hashtagsDiv = document.createElement('div')
             hashtagsDiv.setAttribute("id", 'hashtags')
