@@ -484,24 +484,6 @@ h2#yourprofile {
   width: 100%;
 }
 
-/* .profile ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-} */
-
-/* .profile li {
-  margin-bottom: 1rem;
-} */
-
-/* .profile span {
-  margin-left: 0.5rem;
-}
-
-.profile span.email {
-  word-break: break-all;
-} */
-
 
 /* -------------- for JAVASCRIPT in profile edit page ------------------------ */
 
@@ -522,7 +504,7 @@ h2#yourprofile {
 }
 
 .profile button {
-  background-color: #4CAF50;
+  background-color: #846a8b;
   color: white;
   font-size: 18px;
   border: none;
@@ -534,7 +516,7 @@ h2#yourprofile {
 }
 
 .profile button:hover {
-  background-color: #3e8e41;
+  background-color: #a492a9;
 }
 
 .profile .success-message {
@@ -873,9 +855,9 @@ article.faq {
   }
 }
 
-/* Filter */
+/* ========================== Filter ========================== */
 
-.filter {
+/* .filter {
   background-color: #ccc;
   padding: 2em;
   padding-bottom: 1rem;
@@ -888,8 +870,73 @@ article.faq {
 
 .filter-options legend {
   font-weight: bold;
+} */
+
+.filter {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  /* padding-top: 15px; */
+  padding: 15px 20px 20px 25px;
+  box-shadow: 0 5px 15px rgba(112, 78, 125, 0.562);
 }
 
+.filter-header {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+  margin-top: 15px;
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.filter-options legend {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  flex-basis: 100%;
+}
+
+.filter-options input[type="checkbox"] {
+  display: none;
+}
+
+.filter-options label {
+  background-color: #f1f1f1;
+  border-radius: 20px;
+  color: #555;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 8px 16px;  
+  transition: background-color 0.2s ease-in-out;
+}
+
+.filter-options label:hover {
+  background-color: #ddd;
+}
+
+.filter-options input[type="checkbox"]:checked + label {
+  background-color: #846a8b;
+  color: #fff;
+}
+
+.filter button {
+  background-color: #846a8b;
+  border: none;
+  border-radius: 20px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 8px 16px;
+  transition: background-color 0.2s ease-in-out;
+}
 
 
 /* ================ RESPONSIVENESS (web e mobile) ================== */
