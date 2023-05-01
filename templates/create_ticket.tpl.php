@@ -44,9 +44,9 @@ require_once(__DIR__ . '/../templates/individual_ticket.tpl.php');
     </label>
 <?php } ?>
 <?php function output_hashtag_form(array $not_selected_hashtags, array $selected_hashtags) { ?>
-    <!-- <form class="autocomplete">
+    <!-- <form id="hashtags" class="autocomplete">
         <label for="hashtag-input">Hashtags</label>
-        <input type="text" name="hashtag" id="hashtag-input">
+        <input type="text" name="hashtag" id="hashtag-input" value="">
         <button id="add-hashtag" type="submit">Add</button>
     </form> -->
     <?php /*output_hashtag_list($selected_hashtags);*/ ?>
