@@ -14,7 +14,11 @@ drawFilterMenu($filters);
 $session = new Session();
 if (!$session->isLoggedIn()) die(header('Location: landing_page.php'));
 
-$tickets = Ticket::getByUser($db, $session->getId());
+$user = Client::getById($db, $session->getId());
+if (!$user) {
+    die(header('Location: ../pages/main_page.php'));
+}
+$tickets = Ticket::getByUser($db, $user->id);
 
 var_dump($tickets);
 drawTicketsTable($tickets, 'My Tickets');

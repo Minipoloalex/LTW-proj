@@ -24,9 +24,6 @@ if (!$user) {
     die(header('Location: ../pages/main_page.php'));
 }
 $type = Client::getType($db, $user->id);
-// $type = Client::getType($db, $id);
-
-
 
 output_header();
 // drawProfile($user, $type);

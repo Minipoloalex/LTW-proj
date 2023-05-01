@@ -93,7 +93,7 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
             <label for="<?php echo $fv['DepartmentName'] ?>"><?php echo $fv['DepartmentName'] ?></label><br />
         <?php } ?>
         <button type="button" id="clear-filters" onclick=clearFilters()>Clear Filters</button>
-        <button type="submit" id="filter-values" onclick=getFilterValues()>Filtrar</button>
+        <button type="submit" id="filter-values" onclick=getFilterValues()>Filter</button>
         </div>
     </section>
 <?php } ?>
