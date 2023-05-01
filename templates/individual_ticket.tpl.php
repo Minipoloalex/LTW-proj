@@ -176,7 +176,7 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
 <?php function output_hashtag_list(array $ticketHashtags) { ?>
     <div id="hashtags">
         <legend>Hashtags</legend>
-        <ul>
+        <ul id="hashtag-list">
             <?php foreach ($ticketHashtags as $hashtag) { ?>
                 <li class="hashtag"><?=$hashtag->hashtagname?></li>
             <?php } ?>
