@@ -151,6 +151,29 @@ main {
   transform: rotate(-180deg);
 } */
 
+.nav-popup {
+  z-index: 1;
+  display: none;
+  position: fixed;
+  background-color: var(--bg-secondary);
+  width: 100vw;
+  height: fit-content;
+  bottom: 5rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.nav-popmenu {
+  padding: 0;
+  list-style: none;
+  justify-content: center;
+}
+
+.active {
+  display: block;
+}
+
+
 /* Small screens */
 /* @media only screen and (max-width: 600px) { */
 /* Small and medium screeens */
@@ -234,6 +257,10 @@ main {
 
   .navbar:hover .navbar-nav .logo + li {
     margin-top: 6.5rem;
+  }
+
+  .nav-popup {
+    display: none;
   }
 }
 

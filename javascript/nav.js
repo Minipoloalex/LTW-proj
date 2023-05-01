@@ -1,11 +1,22 @@
-function toggleSubMenu() {
+const subWrapper = document.getElementById("subWrapper");
+const navPopup = document.getElementById("navPopup");
+
+window.addEventListener("resize", function () {
+  if (window.matchMedia("(min-width: 961px)").matches) {
+    navPopup.classList.remove("active");
+  }
+})
+
+subWrapper.addEventListener('click', function toggleSubMenu() {
   const navbar = document.querySelector(".navbar");
-  const navItems = document.querySelectorAll(".nav-item");
+  // const navItems = document.querySelectorAll(".nav-item");
   const subMenu = document.getElementById("subMenu");
-  const subWrapper = document.getElementById("subWrapper");
-  const subHeaderItems = document.querySelectorAll("#subWrapper .material-symbols-outlined, #subWrapper #subHeaderTitle");
+  const navPopup = document.getElementById("navPopup");
+
+  // const subHeaderItems = document.querySelectorAll("#subWrapper .material-symbols-outlined, #subWrapper #subHeaderTitle");
   const subHeader = document.querySelector(".nav-submenu-header");
-  console.log(subHeader);
+  console.log("click");
+
   // if (window.matchMedia("(min-width: 600px)").matches) {
   if (window.matchMedia("(min-width: 961px)").matches) {
     //big screen
@@ -32,16 +43,18 @@ function toggleSubMenu() {
       subWrapper.style.alignItems = "center";
       subHeader.style.paddingTop = "0rem";
     });
-  } else {
-    //small screen
-      if(navbar.style.height === "5rem"){
-        navbar.style.height = "10rem";
-        for (var element of navItems) {
-          element.style.marginTop = "auto";
-        }
-
-      } else {
-        navbar.style.height = "5rem";
-      }
   }
-}
+  else {
+    //small screen
+    if (navPopup.style.display === "block") {
+      navPopup.classList.remove("active");
+    } else {
+      navPopup.classList.toggle("active");
+      // document.addEventListener('click', function(event) {
+      //     const outsideClick = (!navPopup.contains(event.target));
+      //     console.log(outsideClick);
+      //     if (outsideClick) { navPopup.classList.remove("active"); }
+      //   });
+    }
+  }
+});
