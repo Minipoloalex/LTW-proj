@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 // ini_set('xdebug.overload_var_dump', 'off');
 require_once(__DIR__ . '/../templates/common.tpl.php');
 $session = new Session();

@@ -5,7 +5,7 @@
     <div id="card-container"></div>
     <!-- loading new cards  -->
     <div id="loader">
-      <div class="skeleton-card"></div>
+      <!-- <div class="skeleton-card"></div> -->
       <div class="skeleton-card"></div>
       <div class="skeleton-card"></div>
     </div>

@@ -32,14 +32,7 @@ function output_single_ticket_info(Ticket $ticket, array $messages, array $actio
     <span id="department">Department: <?=$ticket->departmentName ?? "None"?></span>
     <span id="priority">Priority: <?=$ticket->priority?></span>
     
-    <div id="hashtags">
-        <legend>Hashtags</legend>
-        <ul>
-            <?php foreach ($ticket->hashtags as $hashtag) { ?>
-                <li class="hashtag"><?=$hashtag->hashtagname?></li>
-            <?php } ?>
-        </ul>
-    </div>
+    <?php output_hashtag_list($ticket->hashtags); ?>
 <?php }
 function output_single_ticket(Ticket $ticket, array $messages, array $actions,
 array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, bool $isAgentView) { ?>
@@ -178,4 +171,15 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
 
 <?php function output_ticket_id_hidden(int $ticketID) { ?>
     <input id="ticket-id" type="hidden" value='<?=$ticketID?>'>
+<?php } ?>
+
+<?php function output_hashtag_list(array $ticketHashtags) { ?>
+    <div id="hashtags">
+        <legend>Hashtags</legend>
+        <ul>
+            <?php foreach ($ticketHashtags as $hashtag) { ?>
+                <li class="hashtag"><?=$hashtag->hashtagname?></li>
+            <?php } ?>
+        </ul>
+    </div>
 <?php } ?>
