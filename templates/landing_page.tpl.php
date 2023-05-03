@@ -24,12 +24,14 @@
 
 
 <?php function drawLoginForm()
-{ ?>
+{
+  $email_regex = "^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
+  ?>
   <div class="login-container">
     <form class="login-form" action="../actions/action_login.php" method="post">
       <h2>Login</h2>
       <label for="email">Email</label>
-      <input type="text" id="email" name="email">
+      <input type="text" id="email" name="email" pattern=<?=$email_regex?>>
       <label for="password">Password</label>
       <input type="password" id="password" name="password">
       <input type="submit" value="Login">
@@ -41,13 +43,17 @@
 <?php } ?>
 
 <?php function drawRegisterForm()
-{ ?>
+{
+  $email_regex = "^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
+  $name_regex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
+  $username_regex = "^[a-zA-Z0-9]+(([',. -][a-zA-Z0-9 ])?[a-zA-Z0-9]*)*$";
+  ?>
 <div class="landing-register">
   <form action="../actions/action_create_account.php" method="post" class="registerform">
     <h2>Register</h2>
-    <input type="text" name="name" placeholder="Name">
-    <input type="text" name="username" placeholder="Username">
-    <input type="email" name="email" placeholder="Email">
+    <input type="text" name="name" placeholder="Name" pattern="<?=$name_regex?>">
+    <input type="text" name="username" placeholder="Username" pattern="<?=$username_regex?>">
+    <input type="email" name="email" placeholder="Email" pattern="<?=$email_regex?>">
     <input type="password" name="password" placeholder="Password">
     <input type="password" name="confirm_password" placeholder="Confirm password">
     <div class="registerbuttons">

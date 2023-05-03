@@ -68,6 +68,12 @@ class Hashtag {
       $hashtag['HashtagName']
     );
   }
+  static function isValidId(PDO $db, int $hashtagID): bool {
+    $stmt = $db->prepare('SELECT * from HASHTAG WHERE HashtagID = ?');
+    $stmt->execute(array($hashtagID));
+    $hashtag = $stmt->fetch();
+    return $hashtag != NULL;
+  }
 }
 
 ?>

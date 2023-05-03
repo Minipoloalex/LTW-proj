@@ -31,6 +31,16 @@ class Department {
             $department['DepartmentName']
         );
     }
+    static public function addDepartment(PDO $db, string $name) : int {
+        $stmt = $db->prepare('INSERT INTO DEPARTMENT (DepartmentName) VALUES (?)');
+        $stmt->execute(array($name));
+        return intval($db->lastInsertId());
+    }
+    static public function isValidId($db, int $departmentID): bool {
+        $stmt = $db->prepare('SELECT * from DEPARTMENT WHERE DepartmentID = ?');
+        $stmt->execute(array($departmentID));
+        $department = $stmt->fetch();
+        return $department != NULL;
+    }
 }
-
 ?>

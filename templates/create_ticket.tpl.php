@@ -16,7 +16,7 @@ require_once(__DIR__ . '/../templates/individual_ticket.tpl.php');
         </label>
         <input type='text' name='title'>
 
-        <?php output_priority_form(NULL); ?>
+        <?php output_priority_form(); ?>
         <?php output_hashtag_form($hashtags, array()); ?>
 
         <label>Ticket description*
@@ -74,10 +74,10 @@ require_once(__DIR__ . '/../templates/individual_ticket.tpl.php');
 
 <?php } ?>
 
-<?php function output_priority_form(?string $selected_prio) { ?>
+<?php function output_priority_form(string $selected_prio = "low") { ?>
     <fieldset id="priority" class="create-ticket">
         <legend>Priority</legend>
-        
+
         <?php if ($selected_prio === "high") {
             output_selected_priority("High");
         } else {
