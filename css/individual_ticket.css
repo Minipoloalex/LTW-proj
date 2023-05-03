@@ -195,7 +195,7 @@ fieldset#priority input[type="radio"]:checked + label.radio-button {
 #hashtags {
     padding-left: 1em;
 }
-#ticket-info #hashtag-items {
+#hashtag-items {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -203,7 +203,7 @@ fieldset#priority input[type="radio"]:checked + label.radio-button {
     align-items: center;
     padding-left: 1em;
 }
-#ticket-info #hashtag-items article.hashtag {
+#hashtag-items article.hashtag {
     border:rgba(0, 0, 0, 0.5) 1px solid;
     border-radius: 10px;
     padding: 0.5em;
@@ -213,7 +213,7 @@ fieldset#priority input[type="radio"]:checked + label.radio-button {
     font-size: 1rem;
     text-align: center;
 }
-#ticket-info #hashtags .hashtag a.remove-hashtag {
+#hashtags .hashtag a.remove-hashtag {
     text-decoration: none;
     color: white;
     border-left: white 1px solid;
@@ -265,7 +265,14 @@ label select {
     font-size: 1rem;
 }
 /* ======================== ADD HASHTAG BUTTON ======================== */
-#ticket-info button#add-hashtag {
+button#add-hashtag {    /* also for create ticket page */
+    margin: 0.5em auto;
+    border: none;
+    border-radius: 20px;
+    padding: 0.2em 1em;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
     background-color: rgb(35,35,46);
     padding: 0.5rem 1rem;
 }
