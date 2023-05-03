@@ -15,19 +15,30 @@ $title = $_POST['title'];
 $description = $_POST['description'];
 
 if (!is_valid_string($title) || !is_valid_string($description)) {
+    $session->addMessage('error', "Invalid title or description");
     die(header('Location: ../pages/create_ticket.php'));
 }
 
 $hashtags = $_POST['hashtags'] ?? array();
-if ($hashtags != NULL) {
-    if (!is_valid_array_ids($hashtags)) die(header('Location: ../pages/create_ticket.php'));    // TODO: verify if this works
+if (!is_valid_array_hashtag_ids($db, $hashtags)) {
+    $session->addMessage('error', "There was an invalid hashtag");
+    die(header('Location: ../pages/create_ticket.php'));
 }
-// have to verify that all ids are valid ids (i.e. correspond to existing hashtags)
 $hashtags = array_map('intval', $hashtags);
 
+if (isset($_POST['department']) && !is_valid_departmentId($db, $_POST['department'])) {
+    // can be null
+    // but if it's not null, then must be valid
+    $session->addMessage('error', "Invalid department");
+    die(header('Location: ../pages/create_ticket.php'));
+}
+$departmentID = isset($_POST['department']) ? intval($_POST['department']) : NULL; /* Department can be null */
 
-$departmentID = empty($_POST['department']) ? NULL : intval($_POST['department']); /* Department can be null */
-$priority = $_POST['priority'] ?? NULL; /* priority can be null (atm is always null) */
+if (!is_valid_priority($_POST['priority'])) {
+    $session->addMessage('error', "Invalid priority");
+    die(header('Location: ../pages/create_ticket.php'));
+}
+$priority = $_POST['priority'];
 
 $userID = $session->getId();     /* session userID */
 $username = $session->getName();  /* session username */

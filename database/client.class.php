@@ -54,20 +54,20 @@
 
           return intval($db->lastInsertId());
         }
-        static function check_acc_exists(PDO $db, string $name, string $username, string $email) {
+        static function check_acc_exists(PDO $db, string $username, string $email) {
           $stmt = $db->prepare('SELECT * FROM CLIENT WHERE Username = ?');
-          $stmt->execute(array($username));
+          $stmt->execute(array(strtolower($username)));
           if ($stmt->fetch()) {
               return array(true, "Username already exists");
           }
           $stmt = $db->prepare('SELECT * FROM CLIENT WHERE Email = ?');
-          $stmt->execute(array($email));
+          $stmt->execute(array(strtolower($email)));
           if ($stmt->fetch()) {
               return array(true, "Email already exists");
           }
           return array(false, "Account registered");
       }
-        
+
 
         static function searchClients(PDO $db, string $search, int $count) : array {
             $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Name LIKE ? LIMIT ?');

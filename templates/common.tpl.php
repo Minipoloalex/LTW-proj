@@ -54,13 +54,8 @@ require_once(__DIR__ . '/../utils/session.php');
 </head>
 
 <body>
-  <!-- <header>
-        <h1><a href="main_page.php">Trouble Solver</a></h1>
-      </header> -->
     <nav class="navbar">
       <ul class="navbar-nav">
-
-        <!-- <li class="logo">Trouble Solver</li> -->
         <li class="logo"><a href="../pages/main_page.php"><img src="../css/images/logo.png" alt="logo"></a></li>
         <li class="nav-item"><a href="../pages/profile.php" class="nav-link"><span
               class="material-symbols-outlined">person</span><span class="link-text">Profile</span></a></li>
@@ -72,7 +67,6 @@ require_once(__DIR__ . '/../utils/session.php');
               <li class="nav-submenu-item"><a href="../pages/create_ticket.php" class="nav-link">Create ticket</a></li>
               <li class="nav-submenu-item"><a href="../pages/assigned_tickets.php" class="nav-link">Assigned tickets</a>
               </li>
-              <!--Same page: assigned and followed tickets (not assigned to them)-->
               <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">All tickets</a></li>
             </ul>
           </span>
@@ -85,9 +79,6 @@ require_once(__DIR__ . '/../utils/session.php');
               class="material-symbols-outlined">quiz</span><span class="link-text">FAQs</span></a></li>
         <li class="nav-item"><a href="../actions/action_logout.php" class="nav-link"><span
               class="material-symbols-outlined">logout</span><span class="link-text">Log Out</span></a></li>
-        <!-- <span class="nav-logout"><span formaction="../actions/action_logout"
-              class="material-symbols-outlined">logout</span><span class="link-text">Log Out</span></span></li> -->
-        <!-- <li class="nav-item"><span class="nav-logout"><a href="../actions/action_logout" class="material-symbols-outlined">logout</span><span class = "link-text">Log Out</span></span></li> -->
       </ul>
 
     </nav>
@@ -96,17 +87,13 @@ require_once(__DIR__ . '/../utils/session.php');
         <li class="nav-submenu-item"><a href="../pages/my_tickets.php" class="nav-link">My tickets</a></li>
         <li class="nav-submenu-item"><a href="../pages/create_ticket.php" class="nav-link">Create ticket</a></li>
         <li class="nav-submenu-item"><a href="../pages/assigned_tickets.php" class="nav-link">Assigned tickets</a></li>
-        <!--Same page: assigned and followed tickets (not assigned to them)-->
         <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">All tickets</a></li>
       </ul>
     </div>
-    <!--
     <section id="session-messages">
-        <article>
-        </article>
-      </section>
-    -->
-    <!-- <main id="page-container"> -->
+      <article>
+      </article>
+    </section>
     <main>
     <?php } ?>
 

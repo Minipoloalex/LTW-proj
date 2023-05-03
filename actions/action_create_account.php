@@ -25,7 +25,7 @@ if (!$valid_data[0]) {
     die(header('Location: ../pages/register.php'));
 }
 
-$account_exists = Client::check_acc_exists($db, $name, $username, $email);
+$account_exists = Client::check_acc_exists($db, $username, $email);
 if ($account_exists[0]) {
     $session->addMessage('error', $account_exists[1]);
     die(header('Location: ../pages/register.php'));
