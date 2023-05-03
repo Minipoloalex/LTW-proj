@@ -76,23 +76,12 @@ class Forum {
     }
 
     static function updateFaq(PDO $db, string $question, string $answer, string $forumID): Forum {
-        $stmt = $db->prepare('UPDATE FORUM SET Question = :question, Answer = :answer WHERE ForumID = :id');
-        // $stmt = $db->prepare('UPDATE FORUM SET Question = "A", Answer = "B" WHERE ForumID = 2');
-        // $stmt->execute();
-        $stmt->bindParam(':question', $question);
-        $stmt->bindParam(':answer', $answer);
+        $stmt = $db->prepare('UPDATE FORUM SET Question = ?, Answer = ? WHERE ForumID = ?');
         
         $id = intval($forumID);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        // $stmt->execute(array($question, $answer, $id));
-        // $stmt->execute(array("A", "B", $id));
-        echo json_encode(array(
-            'question' => $question,
-            'answer' => $answer,
-            'id' => $id,
-        ));
-        
+        $stmt->execute(array($question, $answer, $id));
+
+        // print_r('UPDATE FORUM SET Question = ?, Answer = ? WHERE ForumID = ?');
 
         return new Forum(
             intval($forumID),
@@ -102,10 +91,22 @@ class Forum {
         );
     }
 
-    static function deleteFaq(PDO $db, string $question, string $answer): bool {
-        $stmt = $db->prepare('DELETE FROM FORUM WHERE Question = ? AND Answer = ?');
-        $stmt->execute(array($question, $answer));
+    static function deleteFaq(PDO $db, string $forumID): bool {
+        $stmt = $db->prepare('DELETE FROM FORUM WHERE ForumID = ?');
+        $id = intval($forumID);
+        $stmt->execute(array($forumID));
 
+        return true;
+    }
+
+    static function alreadyExists(PDO $db, string $question): bool {
+        $stmt = $db->prepare('SELECT * FROM FORUM WHERE Question = ?');
+        $stmt->execute(array($question));
+
+        $faq = $stmt->fetch();
+        if (!$faq) {
+            return false;
+        }
         return true;
     }
 }

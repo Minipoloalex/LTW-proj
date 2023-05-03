@@ -16,7 +16,8 @@ form.addEventListener('submit', function (e) {
 
     // Here you can send the question to your backend for processing/storage
     // For example, you can use fetch() to send an HTTP POST request:
-    fetch('../api/api_add_FAQ.php', {
+    fetch('../api/api_FAQ.php', {
+    // fetch('../api/api_add_FAQ.php', {
         method: 'POST',
         headers: {
             // 'Content-Type': 'application/json'

@@ -1,8 +1,8 @@
-function encodeForAjax(data) {
-    return Object.keys(data).map(function(k) {
-        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-    }).join('&')
-}
+// function encodeForAjax(data) {
+//     return Object.keys(data).map(function(k) {
+//         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+//     }).join('&')
+// }
 
 function postDataTicketInfo(data) {
     return fetch("../api/api_update_ticket.php", {

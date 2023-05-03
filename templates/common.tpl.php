@@ -15,6 +15,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <script src="../javascript/utils.js" defer></script>
     <script src="../javascript/add_message.js" defer></script>
     <script src="../javascript/nav.js" defer></script>
     <script src="../javascript/filter.js" defer></script>

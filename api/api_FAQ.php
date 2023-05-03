@@ -8,8 +8,47 @@ require_once(__DIR__ . '/../database/connection.db.php');
 
 $session = new Session();
 $db = getDatabaseConnection();
-// verify if POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    
+if (!$session->isLoggedIn()) {
+    http_response_code(401); // Unauthorized
+    echo json_encode(array('error' => 'User not logged in'));
+    exit();
+}
+
+if (!is_valid_string($_POST['question'])) {
+    http_response_code(400); // Bad request
+    echo json_encode(array('error' => 'Missing question parameter'));
+    exit();
+}
+
+$question = $_POST['question'];
+
+if (Forum::alreadyExists($db, $question)) {
+    http_response_code(500); // Internal server error
+    echo json_encode(array('error' => 'Found similar FAQ on database'));
+    exit();
+}
+
+$faq = Forum::addFaq($db, $question);
+
+if (!$faq) {
+    http_response_code(500); // Internal server error
+    echo json_encode(array('error' => 'Failed to add FAQ to database'));
+    exit();
+}
+
+echo json_encode(array(
+    'id' => $faq->forumId,
+    'question' => $faq->question,
+    'answer' => $faq->answer,
+));
+
+}
+
+// verify if PUT
+if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     // verify if user is logged in
     if (!$session->isLoggedIn()) {
         http_response_code(401); // Unauthorized
@@ -25,19 +64,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // verify if all parameters are set
-    if (!isset($_POST['question']) || !isset($_POST['answer'])) {
+    if (!isset($_GET['question']) || !isset($_GET['answer'])) {
         http_response_code(400); // Bad request
         echo json_encode(array('error' => 'Missing parameters'));
         exit();
     }
 
     // verify if parameters are valid
-    if (!is_valid_string($_POST['question']) || !is_valid_string($_POST['answer'])) {
+    if (!is_valid_string($_GET['question']) || !is_valid_string($_GET['answer'])) {
         http_response_code(400); // Bad request
         echo json_encode(array('error' => 'Invalid parameters'));
         exit();
     }
-    if (!is_valid_id($_POST['id'])) {
+    if (!is_valid_id($_GET['id'])) {
         http_response_code(400); // Bad request
         echo json_encode(array('error' => 'Invalid parameters'));
         exit();
@@ -46,9 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     /* ==================== */
     // !NOTE: verify duplicate faqs
     // verify if question exists
-    // $question = $_POST['question'];
-    // $answer = $_POST['answer'];
-    // $faq = Forum::getFaq($db, $question, $answer);
+    // $question = $_GET['question'];
+    // $answer = $_GET['answer'];
+    // $faq = Forum::getFaq($db, $question, $answer); 
 
     // if ($faq !== NULL) {
     //     http_response_code(500); // Internal server error
@@ -57,18 +96,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // }
 
     /* ==================== */
-    $id = $_POST['id'];
-    $question = $_POST['question'];
-    $answer = $_POST['answer'];
+    $id = $_GET['id'];
+    $question = $_GET['question'];
+    $answer = $_GET['answer'];
+
+    
+    if (Forum::alreadyExists($db, $question)) {
+        http_response_code(500); // Internal server error
+        echo json_encode(array('error' => 'Found similar FAQ on database'));
+        exit();
+    }
 
     $faq = Forum::updateFaq($db, $question, $answer, $id);
 
-    // echo json_encode(array('success' => 'FAQ updated successfully', 'id' => $faq->forumId, 'question' => $faq->question, 'answer' => $faq->answer, 'displayed' => $faq->displayed));
+    echo json_encode(array('success' => 'FAQ updated successfully', 'id' => $faq->forumId, 'question' => $faq->question, 'answer' => $faq->answer, 'displayed' => $faq->displayed));
     exit();
 }
 
 // verify if DELETE
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+        print_r("am i here?");
     // TODO: receive id
     // verify if user is logged in
     if (!$session->isLoggedIn()) {
@@ -83,34 +130,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         echo json_encode(array('error' => 'User not authorized'));
         exit();
     } 
+    
+    // $question = $_GET['question'];
+    // $answer = $_GET['answer'];
 
-    // verify if all parameters are set
-    if (!isset($_GET['question']) || !isset($_GET['answer'])) {
-        http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Missing parameters'));
-        exit();
-    }
+    // $faq = Forum::getFaq($db, $question, $answer);
 
-    // verify if parameters are valid
-    if (!is_valid_string($_GET['question']) || !is_valid_string($_GET['answer'])) {
-        http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Invalid parameters'));
-        exit();
-    }
-
-    // verify if question exists
-    $question = $_GET['question'];
-    $answer = $_GET['answer'];
-    $faq = Forum::getFaq($db, $question, $answer);
-
-    if (!$faq) {
-        http_response_code(500); // Internal server error
-        echo json_encode(array('error' => 'Failed to find FAQ on database'));
-        exit();
-    }
+    // if (!$faq) {
+    //     http_response_code(500); // Internal server error
+    //     echo json_encode(array('error' => 'Failed to find FAQ on database'));
+    //     exit();
+    // }
 
     // delete FAQ
-    $faq = Forum::deleteFaq($db, $question, $answer);
+    $id = $_GET['id'];
+    $faq = Forum::deleteFaq($db, $id);
     echo json_encode(array('success' => 'FAQ deleted successfully'));
     exit();
 }

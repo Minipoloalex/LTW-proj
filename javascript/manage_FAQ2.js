@@ -1,7 +1,26 @@
-async function postFaqData(data) {
+// async function putFaqData(data) {
+//   console.log(data);
+//   return await fetch('../api/api_edit_FAQ.php', {
+//     method: 'PUT',
+//     headers: {
+//       'Content-Type': 'application/x-www-form-urlencoded'
+//     },
+//     body: encodeForAjax(data)
+//   })
+// }
+
+// function encodeForAjax(data) {
+//   return Object.keys(data).map(function(k) {
+//       return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+//   }).join('&')
+// }
+
+async function putFaqData(data) {
   console.log(data);
-  return await fetch('../api/api_edit_FAQ.php', {
-    method: 'POST',
+  // const url = `../api/api_edit_FAQ.php?id=${data.id}&question=${encodeURIComponent(data.question)}&answer=${encodeURIComponent(data.answer)}`;
+  const url = `../api/api_FAQ.php?id=${data.id}&${encodeForAjax({question: data.question, answer: data.answer})}`;
+  return await fetch(url, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
@@ -11,8 +30,8 @@ async function postFaqData(data) {
 
 async function deleteFaqData(data) {
   console.log(data);
-  return await fetch('../api/api_edit_FAQ.php', {
-    method: 'delete',
+  return await fetch(`../api/api_FAQ.php?id=${data.id}`, {
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
@@ -56,12 +75,12 @@ if (editFaqBtns) {
       console.log(question.value);
       console.log(answer.value);
 
-      const res = await postFaqData({ 'id': faq.getAttribute("data-id"),'question': question.value, 'answer': answer.value});
+      const res = await putFaqData({ 'id': faq.getAttribute("data-id"),'question': question.value, 'answer': answer.value});
       
       if (res.ok) {
         const a = await res.json();
         console.log(a);
-        console.log("sucess");
+        console.log("success");
         toggle();
       } else {
         console.error('Error: ' + res.status);
@@ -71,9 +90,9 @@ if (editFaqBtns) {
 
     deleteFaqBtn.addEventListener('click', async () => {
       // !TODO: request to api to delete faq
-      const res = await deleteFaqData({ 'question': question.value, 'answer': answer.value});
+      const res = await deleteFaqData({ 'id': faq.getAttribute("data-id")});
       if (res.ok) {
-        console.log("sucess");
+        console.log("success");
         // delete element
         faq.remove();
       } else {
