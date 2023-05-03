@@ -8,9 +8,8 @@ require_once(__DIR__ . '/../database/connection.db.php');
 
 $session = new Session();
 $db = getDatabaseConnection();
-// verify if POST
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // verify if user is logged in
     if (!$session->isLoggedIn()) {
         http_response_code(401); // Unauthorized
         echo json_encode(array('error' => 'User not logged in'));

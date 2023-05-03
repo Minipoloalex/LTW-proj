@@ -43,35 +43,33 @@ require_once(__DIR__ . '/../templates/individual_ticket.tpl.php');
         </select>
     </label>
 <?php } ?>
-<?php function output_hashtag_form(array $not_selected_hashtags, array $selected_hashtags) { ?>
-    <label for="hashtag-input">Hashtags</label>
-    <input autocomplete="off" type="text" name="hashtag" id="hashtag-search" value="" list="hashtag-datalist">
-    <datalist id="hashtag-datalist">
-        <?php foreach ($not_selected_hashtags as $hashtag) { ?>
-            <option value="<?= $hashtag->hashtagname ?>">
-        <?php } ?>
-    </datalist>
-    <button id="add-hashtag" type="submit">Add</button>
-    <?php /*output_hashtag_list($selected_hashtags); */?>
-    
+<?php function output_hashtag_form(array $not_selected_hashtags, array $selected_hashtags) { ?>    
     <fieldset id="hashtags" class="create-ticket">
-        <legend>Hashtags</legend>
-        
+        <label for="hashtag-search">Hashtags</label>
+        <input autocomplete="off" type="text" name="hashtag" id="hashtag-search" value="" list="hashtag-datalist">
+        <datalist id="hashtag-datalist">
+            <?php foreach ($not_selected_hashtags as $hashtag) { ?>
+                <option value="<?= $hashtag->hashtagname ?>">
+            <?php } ?>
+        </datalist>
+        <button id="add-hashtag" type="submit">Add</button>
         <?php /* foreach ($not_selected_hashtags as $hashtag)
             $id = $hashtag->hashtagid; ?>
             
             <input id="<?=$id?>" type="checkbox" name="hashtags[]" value="<?= $id ?>">
             <label for="<?=$id?>"><?= $hashtag->hashtagname ?></label>
         <?php } */ ?>
-        <?php foreach ($selected_hashtags as $hashtag) {
-            $id = $hashtag->hashtagid;
-            ?>
-            <article class="hashtag">
-                <input id="<?=$id?>" type="hidden" name="hashtags[]" value="<?= $id ?>" checked>
-                <label for="<?=$id?>"><?= $hashtag->hashtagname ?></label>
-                <a class="remove-hashtag" href="#">X</a>
-            </article>
-        <?php } ?>
+        <section id="hashtag-items">
+            <?php foreach ($selected_hashtags as $hashtag) {
+                $id = $hashtag->hashtagid;
+                ?>
+                <article class="hashtag">
+                    <input id="<?=$id?>" type="hidden" name="hashtags[]" value="<?= $id ?>" checked>
+                    <label for="<?=$id?>"><?= $hashtag->hashtagname ?></label>
+                    <a class="remove-hashtag" href="#">X</a>
+                </article>
+            <?php } ?>
+        </section>
     </fieldset>
 
 <?php } ?>

@@ -41,7 +41,7 @@ function addHashtag(event) {
             input.value = ""
             const hashtagID = json['hashtagID']
 
-            const hashtagList = document.querySelector("#hashtags")
+            const hashtagList = document.querySelector("#hashtags section#hashtag-items")
             const hashtagItems = hashtagList.querySelectorAll("input")
             for (const item of hashtagItems) {
                 if (parseInt(item.value) === hashtagID || parseInt(item.id) === hashtagID) {
