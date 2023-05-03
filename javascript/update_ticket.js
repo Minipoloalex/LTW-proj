@@ -33,7 +33,7 @@ function updateTicketInformation(event) {
     const ticketPriority = document.querySelector(form + " input[type='radio'][name='priority']:checked").getAttribute("value")
     const ticketDepartment = document.querySelector(form + " select[name='department']").value
     const ticketAgent = document.querySelector(form + " select[name='agent']").value
-    const ticketHashtags = document.querySelectorAll(form + " input[type='checkbox'][name='hashtags[]']:checked")
+    const ticketHashtags = document.querySelectorAll(form + " input[name='hashtags[]']")
     const ticketHashtagIDs = []
     for (const hashtag of ticketHashtags) {
         ticketHashtagIDs.push(hashtag.getAttribute("value"))

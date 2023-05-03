@@ -22,7 +22,7 @@ $hashtags = $_POST['hashtags'] ?? array();
 if ($hashtags != NULL) {
     if (!is_valid_array_ids($hashtags)) die(header('Location: ../pages/create_ticket.php'));    // TODO: verify if this works
 }
-// possibly have to verify that all ids are valid ids (i.e. correspond to existing hashtags)
+// have to verify that all ids are valid ids (i.e. correspond to existing hashtags)
 $hashtags = array_map('intval', $hashtags);
 
 
