@@ -2,6 +2,7 @@ const cardContainer = document.getElementById("card-container");
 const cardCountElem = document.getElementById("card-count");
 const cardTotalElem = document.getElementById("card-total");
 const loader = document.getElementById("loader");
+let flag;
 
 // !TODO: descobrir maneira de arranjar tipo dos dados (ticket, user, etc)
 
@@ -12,6 +13,7 @@ if (cardContainer) {
   }
 
   function getCards(data) {
+    console.log(flag);
     cardContainer.innerHTML = '';
     console.log(data);
     
@@ -90,6 +92,7 @@ if (cardContainer) {
     const removeInfiniteScroll = () => {
       loader.remove();
       // loader.toggleAttribute("hidden");
+      flag = false;
       window.removeEventListener("scroll", handleInfiniteScroll);
     };
 
@@ -106,10 +109,14 @@ if (cardContainer) {
       }, 1000);
     };
 
+    // getEventListeners(window);
+    window.removeEventListener("scroll", handleInfiniteScroll);
+    flag = false;
     // loader.toggleAttribute("hidden");
     addCards(currentPage);
+    flag = true;
     window.addEventListener("scroll", handleInfiniteScroll);
-    
+    console.log(flag);
   }
 }
 
