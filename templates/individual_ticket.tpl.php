@@ -9,25 +9,22 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 
 require_once(__DIR__ . '/create_ticket.tpl.php');
 ?>
-<?php function output_single_ticket_agent_view(Ticket $ticket, array $messages, array $actions,
-array $all_hashtags, array $all_agents, array $all_departments) { 
+<?php function output_single_ticket_agent_view(Ticket $ticket, Session $session, array $all_hashtags, array $all_agents, array $all_departments) { 
     if (!$ticket->isClosed()) {
         output_change_ticket_info_form($ticket, $all_agents, $all_departments, $all_hashtags);
         output_close_ticket_button("agent");
     }
     else {
-        output_single_ticket_info($ticket, $messages, $actions);
-        output_reopen_ticket_form($ticket);
+        output_single_ticket_info($ticket);
+        output_reopen_ticket_form($ticket, $session);
     }
 }
-function output_single_ticket_client_view(Ticket $ticket, array $messages, array $actions) {
-    output_single_ticket_info($ticket, $messages, $actions);
-    if ($ticket->isClosed()) output_reopen_ticket_form($ticket);
-    else {
-        output_close_ticket_button("client");
-    }
+function output_single_ticket_client_view(Ticket $ticket, Session $session) {
+    output_single_ticket_info($ticket);
+    if ($ticket->isClosed()) output_reopen_ticket_form($ticket, $session);
+    else output_close_ticket_button("client");
 }
-function output_single_ticket_info(Ticket $ticket, array $messages, array $actions) { ?>
+function output_single_ticket_info(Ticket $ticket) { ?>
     <span id="agent">Agent: <?=$ticket->assignedagent ?? "None"?></span>
     <span id="department">Department: <?=$ticket->departmentName ?? "None"?></span>
     <span id="priority">Priority: <?=$ticket->priority?></span>
@@ -35,7 +32,7 @@ function output_single_ticket_info(Ticket $ticket, array $messages, array $actio
     <?php output_hashtag_list($ticket->hashtags); ?>
 <?php }
 function output_single_ticket(Ticket $ticket, array $messages, array $actions,
-array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, bool $isAgentView) { ?>
+array $all_hashtags, array $all_agents, array $all_departments, Session $session, bool $isAgentView) { ?>
     <article id="individual-ticket">
         <header><h1 id="ticket-title"><?=$ticket->title?></h1></header>
         <h3>Ticket description:</h3>
@@ -47,17 +44,20 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
                     <h3 class="ticket-info-label">Ticket info</h3>
                     <?php output_ticket_status($ticket->status); ?>
                 </header>
-                <?php output_ticket_id_hidden($ticket->ticketid); ?>
+                <?php 
+                output_ticket_id_hidden($ticket->ticketid);
+                output_csrf_input($session);
+                ?>
                 <div id="ticket-created">
                     <span id="ticket-user"><?=$ticket->username?></span>
                     <span id="ticket-date"><?=date('F j', $ticket->submitdate)?></span>
                 </div>
                 <?php
                 if ($isAgentView) {
-                    output_single_ticket_agent_view($ticket, $messages, $actions, $all_hashtags, $all_agents, $all_departments);
+                    output_single_ticket_agent_view($ticket, $session, $all_hashtags, $all_agents, $all_departments);
                 }
                 else {
-                    output_single_ticket_client_view($ticket, $messages, $actions);
+                    output_single_ticket_client_view($ticket, $session);
                 }
                 ?>
             </section>
@@ -65,7 +65,7 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
         <section id="messages-list">
             <?php
             foreach($messages as $message) {
-                output_message($message, $sessionID, $ticket->username);
+                output_message($message, $session->getId(), $ticket->username);
             }
             ?>
         </section>
@@ -102,7 +102,6 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
 
 <?php function output_message_form(int $ticketID) { ?>
     <form id="message-form">
-        <!-- the user can change this value (TODO: validate data-id in action.php)-->
         <label>Add a message:
             <textarea data-id="<?=$ticketID?>" name="message" id="message-input"></textarea>
         </label>
@@ -156,9 +155,12 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
 <?php } ?>
 <?php } ?>
 
-<?php function output_reopen_ticket_form(Ticket $ticket) { ?>
+<?php function output_reopen_ticket_form(Ticket $ticket, Session $session) { ?>
     <form id="reopen-ticket-form" action="../actions/action_reopen_ticket.php" method="post">
-        <input name="ticketID" type="hidden" value='<?=$ticket->ticketid?>'>
+        <?php
+        output_ticket_id_hidden($ticket->ticketid);
+        output_csrf_input($session);
+        ?>
         <button id="reopen-ticket" type="submit">Reopen ticket</button>
     </form>
 <?php } ?>
@@ -170,7 +172,7 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
 <?php } ?>
 
 <?php function output_ticket_id_hidden(int $ticketID) { ?>
-    <input id="ticket-id" type="hidden" value='<?=$ticketID?>'>
+    <input id="ticket-id" name="ticketID" type="hidden" value='<?=$ticketID?>'>
 <?php } ?>
 
 <?php function output_hashtag_list(array $ticketHashtags) { ?>

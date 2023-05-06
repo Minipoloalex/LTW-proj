@@ -1,15 +1,18 @@
 <?php
 declare(strict_types = 1);
 require_once(__DIR__ . '/../utils/session.php');
+require_once(__DIR__ . '/../utils/validate.php');
+require_once(__DIR__ . '/../database/connection.db.php');
+require_once(__DIR__ . '/../database/ticket.class.php');
 $session = new Session();
 if (!$session->isLoggedIn()) {
     die(header('Location: ../pages/main_page.php'));
 }
-require_once(__DIR__ . '/../database/connection.db.php');
-$db = getDatabaseConnection();
+if (!$session->verifyCsrf($_POST['csrf'] ?? '')) {
+    die(header('Location: ../pages/create_ticket.php'));
+}
 
-require_once(__DIR__ . '/../database/ticket.class.php');
-require_once(__DIR__ . '/../utils/validate.php');
+$db = getDatabaseConnection();
 
 $title = $_POST['title'];
 $description = $_POST['description'];

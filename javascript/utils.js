@@ -1,4 +1,3 @@
-// note: it would be great to import this file from others
 const entityMap = {
     "&": "&amp;",
     "<": "&lt;",
@@ -17,4 +16,15 @@ function encodeForAjax(data) {
     return Object.keys(data).map(function(k) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
     }).join('&')
+}
+
+function getCsrf() {
+    return document.querySelector("input[name='csrf']").getAttribute("value")
+}
+
+function setCsrf(csrfValue) {
+    const csrf = document.querySelectorAll("input[name='csrf']")
+    for (const input of csrf) {
+        input.setAttribute("value", csrfValue)
+    }
 }

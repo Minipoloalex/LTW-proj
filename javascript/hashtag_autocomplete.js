@@ -28,11 +28,13 @@ function addHashtag(event) {
     */
     event.preventDefault()
     const hashtag = input.value
-    postHashtag({'hashtagName': hashtag})
+    const csrf = getCsrf()
+    postHashtag({'hashtagName': hashtag, 'csrf': csrf})
     .catch(error => console.log(error))
     .then((response) => response.json())
     .catch(error => console.log(error))
     .then((json) => {
+        setCsrf(json['csrf'] ?? '')
         if (json['error']) {
             console.error(json['error'])
         }

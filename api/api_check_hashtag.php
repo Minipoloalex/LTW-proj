@@ -11,6 +11,11 @@ if (!$session->isLoggedIn()) {
     echo json_encode(array('error' => 'User not logged in'));
     exit();
 }
+if (!$session->verifyCsrf($_POST['csrf'] ?? '')) {
+    http_response_code(403); // Forbidden
+    echo json_encode(array('error' => 'CSRF token invalid'));
+    exit();
+}
 if (!is_valid_string($_POST['hashtagName'])) {
     http_response_code(400); // Bad request
     echo json_encode(array('error' => 'Missing hashtag parameter'));
@@ -18,10 +23,7 @@ if (!is_valid_string($_POST['hashtagName'])) {
 }
 
 $db = getDatabaseConnection();
-$hashtag = $_POST['hashtagName'];
-$userID = $session->getId();
-
-$hashtag = Hashtag::getByName($db, $hashtag);
+$hashtag = Hashtag::getByName($db, $_POST['hashtagName']);
 if ($hashtag == NULL) {
     http_response_code(400); // Bad request
     echo json_encode(array('error' => 'Hashtag does not exist'));
@@ -32,5 +34,6 @@ http_response_code(200); // OK
 echo json_encode(array(
     'success' => 'Hashtag exists',
     'hashtagID' => $hashtag->hashtagid,
+    'csrf' => $session->getCsrf()
 ));
 ?>

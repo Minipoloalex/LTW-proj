@@ -7,8 +7,7 @@ require_once(__DIR__ . '/../utils/validate.php');
 
 $session = new Session();
 if (!$session->isLoggedIn()) die(header('Location: ../pages/landing_page.php'));
-// TODO: csrf check
-
+if (!$session->verifyCsrf($_POST['csrf'] ?? '')) die(header('Location: ../pages/create_ticket.php'));
 
 $db = getDatabaseConnection();
 

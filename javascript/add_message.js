@@ -1,23 +1,3 @@
-// const entityMap = {
-//     "&": "&amp;",
-//     "<": "&lt;",
-//     ">": "&gt;",
-//     '"': '&quot;',
-//     "'": '&#39;',
-//     "/": '&#x2F;'
-// };
-function escapeHtml(string) {
-    return String(string).replace(/[&<>"'\/]/g, function (s) {
-        return entityMap[s];
-    });
-}
-
-// function encodeForAjax(data) {
-//     return Object.keys(data).map(function(k) {
-//         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-//     }).join('&')
-// }
-
 async function postDataMessage(data) {
     console.log(data)
     console.log(encodeForAjax(data))
@@ -40,13 +20,16 @@ function submitNewMessage(event) {
     const ticketID = messageInput.getAttribute("data-id")
     console.log(messageText)
     messageInput.value = ""
+
+    const csrf = getCsrf()
     
-    postDataMessage({'message': messageText, 'ticketID': ticketID})
+    postDataMessage({'message': messageText, 'ticketID': ticketID, 'csrf': csrf})
     .catch(() => console.error('Network Error'))
     .then(response => response.json())
     .catch(() => console.error('Error parsing JSON'))
     .then(json => {
         console.log(json)
+        setCsrf(json['csrf'] ?? [])
         if (json['error']) {
             console.error(json['error'])
             return

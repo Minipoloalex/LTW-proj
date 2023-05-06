@@ -1,16 +1,19 @@
 <?php
 declare(strict_types=1);
+require_once(__DIR__ . '/../utils/session.php');
 require_once(__DIR__ . '/../database/hashtag.class.php');
 require_once(__DIR__ . '/../database/department.class.php');
 require_once(__DIR__ . '/../templates/individual_ticket.tpl.php');
+require_once(__DIR__ . '/../templates/common.tpl.php');
 ?>
 
-<?php function output_create_ticket_form(PDO $db)
+<?php function output_create_ticket_form(PDO $db, Session $session)
 {
     $hashtags = Hashtag::getHashtags($db);
     $departments = Department::getDepartments($db);
     ?>
     <form class="createticket">
+        <?php output_csrf_input($session); ?>
         <label>
             Ticket title*
         </label>

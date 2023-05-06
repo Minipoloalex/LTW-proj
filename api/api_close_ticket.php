@@ -10,7 +10,12 @@ if (!$session->isLoggedIn()) {
     http_response_code(401); // Unauthorized
     echo json_encode(array('error' => 'User not logged in'));
 }
-// TODO: csrf check
+if (!$session->verifyCsrf($_POST['csrf'] ?? '')) {
+    http_response_code(403); // Forbidden
+    echo json_encode(array('error' => 'CSRF token invalid'));
+    exit();
+}
+
 $db = getDatabaseConnection();
 
 if (!is_valid_ticket_id($db, $_POST['ticketID'])) {
@@ -49,7 +54,8 @@ echo json_encode(array(
     'status' => $ticket->status,
     'agent' => $ticket->assignedagent,
     'priority' => $ticket->priority,
-    'hashtags' => array_column($ticket->hashtags, 'hashtagname')
+    'hashtags' => array_column($ticket->hashtags, 'hashtagname'),
+    'csrf' => $session->getCsrf()
 ));
 
 ?>

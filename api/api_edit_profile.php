@@ -11,14 +11,7 @@ if (!$session->isLoggedIn()) {
   echo json_encode(array('error' => 'User not logged in'));
   exit();
 }
-
-if (!is_valid_string($_POST['csrf'])) {
-  http_response_code(400); // Bad request
-  echo json_encode(array('error' => 'Missing csrf parameter'));
-  exit();
-}
-
-if (!$session->verifyCsrf($_POST['csrf'])) {
+if (!$session->verifyCsrf($_POST['csrf'] ?? '')) {
   http_response_code(403); // Forbidden
   echo json_encode(array('error' => 'Invalid csrf token'));
   exit();
@@ -106,6 +99,10 @@ if ($_POST['editpass'] === 'yes') { /* if the edit password button was pushed, a
 $client->updateUserInfo($db, $_POST['name'], $_POST['username'], $_POST['email']);
 
 http_response_code(200); // OK
-echo json_encode(array('success' => 'Profile updated'));
+echo json_encode(
+  array(
+    'success' => 'Profile updated',
+    'csrf' => $session->getCsrf()
+  ));
 
 ?>

@@ -43,7 +43,8 @@ function updateTicketInformation(event) {
         'department': ticketDepartment,
         'agent': ticketAgent,
         'priority': ticketPriority,
-        'hashtags': ticketHashtagIDs
+        'hashtags': ticketHashtagIDs,
+        'csrf': getCsrf()
     })
     .catch(() => console.error("Network Error"))
     .then(response => response.json())
@@ -74,12 +75,14 @@ function closeTicket(event) {
     const ticketID = document.querySelector("#ticket-info #ticket-id").getAttribute("value")
     postClosedTicket({
         'ticketID': ticketID,
-        'status': 'closed'
+        'status': 'closed',
+        'csrf': getCsrf()
     })
     .catch(() => console.error("Network Error"))
     .then(response => response.json())
     .catch(() => console.error("Error parsing JSON"))
     .then(json => {
+        setCsrf(json['csrf'] ?? '')
         if (json['error']) {
             console.error(json['error'])
         }
@@ -114,9 +117,16 @@ function closeTicket(event) {
             
             const reopenTicketID = document.createElement("input")
             reopenTicketID.setAttribute("type", "hidden")
+            reopenTicketID.setAttribute("id", "ticket-id")
             reopenTicketID.setAttribute("name", "ticketID")
             reopenTicketID.setAttribute("value", ticketID)
             reopenTicketForm.appendChild(reopenTicketID)
+
+            const reopenTicketCSRF = document.createElement("input")
+            reopenTicketCSRF.setAttribute("type", "hidden")
+            reopenTicketCSRF.setAttribute("name", "csrf")
+            reopenTicketCSRF.setAttribute("value", json['csrf'])
+            reopenTicketForm.appendChild(reopenTicketCSRF)
 
             const reopenTicketButton = document.createElement("button")
             reopenTicketButton.setAttribute("id", "reopen-ticket")

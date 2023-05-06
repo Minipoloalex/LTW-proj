@@ -2,6 +2,12 @@
 declare(strict_types=1);
 
 require_once(__DIR__ . '/../utils/session.php');
+require_once(__DIR__ . '/../utils/validate.php');
+require_once(__DIR__ . '/../database/connection.db.php');
+require_once(__DIR__ . '/../database/hashtag.class.php');
+require_once(__DIR__ . '/../database/department.class.php');
+require_once(__DIR__ . '/../database/client.class.php');
+require_once(__DIR__ . '/../database/ticket.class.php');
 
 $session = new Session();
 if (!$session->isLoggedIn()) {
@@ -9,17 +15,12 @@ if (!$session->isLoggedIn()) {
     echo json_encode(array('error' => 'User not logged in'));
     exit();
 }
-// csrf check (?)
-
-require_once(__DIR__ . '/../database/connection.db.php');
+if (!$session->verifyCsrf($_POST['csrf'] ?? '')) {
+    http_response_code(403); // Forbidden
+    echo json_encode(array('error' => 'CSRF token invalid', 'csrf' => $session->getCsrf(), 'post' => $_POST));
+    exit();
+}
 $db = getDatabaseConnection();
-
-require_once(__DIR__ . '/../database/hashtag.class.php');
-require_once(__DIR__ . '/../database/department.class.php');
-require_once(__DIR__ . '/../database/client.class.php');
-require_once(__DIR__ . '/../database/ticket.class.php');
-
-require_once(__DIR__ . '/../utils/validate.php');
 
 $hashtags = $_POST['hashtags'] != NULL ? explode(',', $_POST['hashtags']) : array();
 
@@ -57,6 +58,7 @@ echo json_encode(array(
     'agent' => $ticket->assignedagent,
     'priority' => $ticket->priority,
     'hashtags' => array_map(fn($hashtag) => $hashtag->hashtagname, $ticket->hashtags),
+    'csrf' => $session->getCsrf()
 ));
 
 ?>
