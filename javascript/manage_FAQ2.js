@@ -50,8 +50,9 @@ if (editFaqBtns) {
     const question = faq.querySelector('#question');
     const answer = faq.querySelector('#answer');
     const saveFaqBtn = faq.querySelector('#saveFaqBtn');
-    const answerBtn =faq.querySelector('#aswerFaq');
-    // if (answerBtn.hasAttribute('hidden')) {editFaqBtn.toggleAttribute('hidden');}
+    const answerBtn =faq.querySelector('#answerFaq');
+    console.log(answerBtn);
+    if (answerBtn) {editFaqBtn.toggleAttribute('hidden');}
     // const deleteFaqBtn = faq.querySelector('#deleteFaqBtn');
     console.log(question.value);
     console.log(answer.value);
@@ -106,7 +107,7 @@ if (editFaqBtns) {
   });
 
   deleteFaqBtns.forEach((deleteFaqBtn) => {
-    deleteFaqBtn.toggleAttribute('hidden');
+    // deleteFaqBtn.toggleAttribute('hidden');
     const faq = deleteFaqBtn.parentElement;
 
     const answerBtn = faq.querySelector('#aswerFaq');
@@ -181,6 +182,7 @@ if (answerBtns) {
         console.log("success");
         appear();
       } else {
+        console.log(res);
         console.error('Error: ' + res.status);
       }
 

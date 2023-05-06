@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $answer = $_GET['answer'];
 
     
-    if (Forum::alreadyExists($db, $question)) {
+    if (Forum::alreadyExists($db, $id, $question)) {
         http_response_code(500); // Internal server error
         echo json_encode(array('error' => 'Found similar FAQ on database'));
         exit();

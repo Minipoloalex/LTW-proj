@@ -4,24 +4,27 @@ require_once(__DIR__ . '/../database/forum.class.php');
 ?>
 
 <?php function output_single_faq(Forum $faq, string $type)
-{ 	?>
+{ ?>
 
-	<article class="faq" data-id="<?=$faq->forumId?>">
-		<input id="question" type="text" name="question" class="question input-readonly" value="<?=htmlentities($faq->question)?>" readonly>
+	<article class="faq" data-id="<?= $faq->forumId ?>">
+		<input id="question" type="text" name="question" class="question input-readonly"
+			value="<?= htmlentities($faq->question) ?>" readonly>
 
-		<input id="answer" type="text" name="answer" class="answer input-readonly" value="<?=htmlentities($faq->answer ?? '')?>" readonly>
+		<input id="answer" type="text" name="answer" class="answer input-readonly"
+			value="<?= htmlentities($faq->answer ?? '') ?>" readonly>
 
 		<?php if ($type !== 'Client') { ?>
-			<button id="editFaqBtn" class="edit-faq" hidden><span class="material-symbols-outlined">edit</span></button>
+			<button id="editFaqBtn" class="edit-faq"><span class="material-symbols-outlined">edit</span></button>
 			<button id="saveFaqBtn" class="save-faq" hidden><span class="material-symbols-outlined">save</span></button>
-			<button id="deleteFaqBtn" class="delete-faq" hidden><span class="material-symbols-outlined">delete</span></button>
+			<button id="deleteFaqBtn" class="delete-faq"><span class="material-symbols-outlined">delete</span></button>
 
 			<?php if ($faq->displayed === 1) { ?>
 				<button id="hideBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility_off</span></button>
 			<?php } else { ?>
-			<button id="displayBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility</span></button>
+				<button id="displayBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility</span></button>
 			<?php } ?>
 
+			<!-- // !FIXME: esta verificação tem que passar para js. Todos têm que ter este botão. -->
 			<?php if ($faq->answer === NULL) { ?>
 				<button id="answerFaq" class="answer-faq">Answer question</button>
 			<?php } ?>
@@ -56,7 +59,8 @@ require_once(__DIR__ . '/../database/forum.class.php');
 			<!-- <input type="text" id="username" name="username" required> -->
 			<button type="submit">Ask</button>
 		</form>
-		<div class="success-message" id="success-message">Your question has been sent successfully. We'll answer you as soon as possible.</div>
+		<div class="success-message" id="success-message">Your question has been sent successfully. We'll answer you as soon
+			as possible.</div>
 		<div class="error-message" id="error-message">There was an error sending your question. Please try again.</div>
 	</div>
 

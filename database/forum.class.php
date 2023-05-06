@@ -1,19 +1,22 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
-class Forum {
+class Forum
+{
     public int $forumId;
     public string $question;
     public ?string $answer;
     public int $displayed;
-    public function __construct(int $forumId, string $question, ?string $answer, int $displayed) {
+    public function __construct(int $forumId, string $question, ?string $answer, int $displayed)
+    {
         $this->forumId = $forumId;
         $this->question = $question;
         $this->answer = $answer;
         $this->displayed = $displayed;
     }
 
-    static function getFaqs(PDO $db, int $count): array {
+    static function getFaqs(PDO $db, int $count): array
+    {
         $stmt = $db->prepare('SELECT * FROM FORUM LIMIT ? ');
         $stmt->execute(array($count));
 
@@ -29,7 +32,8 @@ class Forum {
         return $faqs;
     }
 
-    static function getFaq(PDO $db, string $question, string $answer): ?Forum {
+    static function getFaq(PDO $db, string $question, string $answer): ?Forum
+    {
         $stmt = $db->prepare('SELECT * FROM FORUM WHERE Question = ? AND Answer = ?');
         $stmt->execute(array($question, $answer));
 
@@ -46,7 +50,8 @@ class Forum {
         );
     }
 
-    static function addFaq(PDO $db, string $question): Forum {
+    static function addFaq(PDO $db, string $question): Forum
+    {
         // $question = trim($question);
         $stmt = $db->prepare('INSERT INTO FORUM (Question) VALUES (?)');
         $stmt->execute(array($question));
@@ -59,7 +64,8 @@ class Forum {
         );
     }
 
-    static function getFaqWithoutAnswer(PDO $db, int $count): array {
+    static function getFaqWithoutAnswer(PDO $db, int $count): array
+    {
         $stmt = $db->prepare('SELECT * FROM FORUM WHERE Answer IS NULL LIMIT ? ');
         $stmt->execute(array($count));
 
@@ -75,9 +81,10 @@ class Forum {
         return $faqs;
     }
 
-    static function updateFaq(PDO $db, string $question, string $answer, string $forumID): Forum {
+    static function updateFaq(PDO $db, string $question, string $answer, string $forumID): Forum
+    {
         $stmt = $db->prepare('UPDATE FORUM SET Question = ?, Answer = ? WHERE ForumID = ?');
-        
+
         $id = intval($forumID);
         $stmt->execute(array($question, $answer, $id));
 
@@ -87,11 +94,12 @@ class Forum {
             intval($forumID),
             $question,
             $answer,
-            1   
+            1
         );
     }
 
-    static function deleteFaq(PDO $db, string $forumID): bool {
+    static function deleteFaq(PDO $db, string $forumID): bool
+    {
         $stmt = $db->prepare('DELETE FROM FORUM WHERE ForumID = ?');
         $id = intval($forumID);
         $stmt->execute(array($forumID));
@@ -99,7 +107,8 @@ class Forum {
         return true;
     }
 
-    static function alreadyExists(PDO $db, string $question): bool {
+    static function alreadyExists(PDO $db, string $forumID, string $question): bool
+    {
         $stmt = $db->prepare('SELECT * FROM FORUM WHERE Question = ?');
         $stmt->execute(array($question));
 
@@ -107,7 +116,13 @@ class Forum {
         if (!$faq) {
             return false;
         }
-        return true;
+        // !NOTE: This ensures that the question is not the same as the one being updated
+        foreach ($faq as $f) {
+            if ($f['ForumID'] != $forumID) {
+                return true;
+            }
+            return false;
+        }
     }
 }
 
