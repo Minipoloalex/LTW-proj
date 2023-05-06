@@ -10,53 +10,48 @@ $session = new Session();
 $db = getDatabaseConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    
-if (!$session->isLoggedIn()) {
-    http_response_code(401); // Unauthorized
-    echo json_encode(array('error' => 'User not logged in'));
-    exit();
-}
-
-if (!is_valid_string($_POST['question'])) {
-    http_response_code(400); // Bad request
-    echo json_encode(array('error' => 'Missing question parameter'));
-    exit();
-}
-
-$question = $_POST['question'];
-
-if (Forum::alreadyExists($db, $question)) {
-    http_response_code(500); // Internal server error
-    echo json_encode(array('error' => 'Found similar FAQ on database'));
-    exit();
-}
-
-$faq = Forum::addFaq($db, $question);
-
-if (!$faq) {
-    http_response_code(500); // Internal server error
-    echo json_encode(array('error' => 'Failed to add FAQ to database'));
-    exit();
-}
-
-echo json_encode(array(
-    'id' => $faq->forumId,
-    'question' => $faq->question,
-    'answer' => $faq->answer,
-));
-
-}
-
-// verify if PUT
-if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-    // verify if user is logged in
     if (!$session->isLoggedIn()) {
         http_response_code(401); // Unauthorized
         echo json_encode(array('error' => 'User not logged in'));
         exit();
     }
 
-    // verify if user is admin
+    if (!is_valid_string($_POST['question'])) {
+        http_response_code(400); // Bad request
+        echo json_encode(array('error' => 'Missing question parameter'));
+        exit();
+    }
+
+    $question = $_POST['question'];
+
+    if (Forum::alreadyExists($db, $question)) {
+        http_response_code(400); // Bad request
+        echo json_encode(array('error' => 'Found similar FAQ on database'));
+        exit();
+    }
+    $faq = Forum::addFaq($db, $question);
+
+    if (!$faq) {
+        http_response_code(500); // Internal server error
+        echo json_encode(array('error' => 'Failed to add FAQ to database'));
+        exit();
+    }
+
+    echo json_encode(array(
+        'id' => $faq->forumId,
+        'question' => $faq->question,
+        'answer' => $faq->answer,
+    ));
+
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+    if (!$session->isLoggedIn()) {
+        http_response_code(401); // Unauthorized
+        echo json_encode(array('error' => 'User not logged in'));
+        exit();
+    }
+
     if (Client::getType($db, $session->getId()) !== 'Admin') {
         http_response_code(403); // Forbidden
         echo json_encode(array('error' => 'User not authorized'));

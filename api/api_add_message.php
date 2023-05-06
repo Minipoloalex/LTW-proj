@@ -21,7 +21,7 @@ if (!is_valid_string($_POST['message'])) {
     echo json_encode(array('error' => 'Missing message parameter'));
     exit();
 }
-if (!is_valid_id($_POST['ticketID'])) {
+if (!is_valid_ticket_id($db, $_POST['ticketID'])) {
     http_response_code(400); // Bad request
     echo json_encode(array('error' => 'Missing ticketID parameter'));
     exit();
@@ -35,7 +35,12 @@ if (!Client::hasAcessToTicket($db, $userID, $ticketID)) {
     echo json_encode(array('error' => 'User does not have access to ticket'));
     exit();
 }
-
+$ticket = Ticket::getById($db, $ticketID);
+if ($ticket->isClosed()) {
+    http_response_code(401); // Unauthorized
+    echo json_encode(array('error' => 'Ticket is closed'));
+    exit();
+}
 $message = Message::addMessage($db, $userID, $ticketID, $message);
 
 if (!$message) {
@@ -43,6 +48,8 @@ if (!$message) {
     echo json_encode(array('error' => 'Failed to add message to database'));
     exit();
 }
+
+http_response_code(200); // OK
 echo json_encode(array(
     'id' => $message->id,
     'text' => $message->text,

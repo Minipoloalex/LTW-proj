@@ -1,3 +1,7 @@
+<?php
+require_once(__DIR__ . '/common.tpl.php');
+require_once(__DIR__ . '/../utils/session.php');
+?>
 <?php function drawShape()
 { ?>
   <div class="custom-shape-divider-top-1681308841">
@@ -23,13 +27,14 @@
 <?php } ?>
 
 
-<?php function drawLoginForm()
+<?php function drawLoginForm(Session $session)
 {
   $email_regex = "^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
   ?>
   <div class="login-container">
     <form class="login-form" action="../actions/action_login.php" method="post">
       <h2>Login</h2>
+      <?php output_csrf_input($session) ?>
       <label for="email">Email</label>
       <input type="text" id="email" name="email" pattern=<?=$email_regex?>>
       <label for="password">Password</label>
@@ -42,7 +47,7 @@
 
 <?php } ?>
 
-<?php function drawRegisterForm()
+<?php function drawRegisterForm(Session $session)
 {
   $email_regex = "^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
   $name_regex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
@@ -51,6 +56,7 @@
 <div class="landing-register">
   <form action="../actions/action_create_account.php" method="post" class="registerform">
     <h2>Register</h2>
+    <?php output_csrf_input($session) ?>
     <input type="text" name="name" placeholder="Name" pattern="<?=$name_regex?>">
     <input type="text" name="username" placeholder="Username" pattern="<?=$username_regex?>">
     <input type="email" name="email" placeholder="Email" pattern="<?=$email_regex?>">

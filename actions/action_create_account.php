@@ -2,16 +2,18 @@
 declare(strict_types = 1);
 
 require_once(__DIR__ . '/../utils/session.php');
+require_once(__DIR__ . '/../database/connection.db.php');
+require_once(__DIR__ . '/../utils/validate.php');
+require_once(__DIR__ . '/../database/client.class.php');
 $session = new Session();
 if ($session->isLoggedIn()) {
     die(header('Location: ../pages/main_page.php'));
 }
-
-require_once(__DIR__ . '/../database/connection.db.php');
+if (!$session->verifyCsrf($_POST['csrf'] ?? '')) {
+    die(header('Location: ../pages/register.php'));
+}
 $db = getDatabaseConnection();
 
-require_once(__DIR__ . '/../utils/validate.php');
-require_once(__DIR__ . '/../database/client.class.php');
 
 $name = $_POST['name'];
 $username = $_POST['username'];

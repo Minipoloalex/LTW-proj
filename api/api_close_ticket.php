@@ -13,7 +13,7 @@ if (!$session->isLoggedIn()) {
 // TODO: csrf check
 $db = getDatabaseConnection();
 
-if (!is_valid_id($_POST['ticketID'])) {
+if (!is_valid_ticket_id($db, $_POST['ticketID'])) {
     http_response_code(400); // Bad request
     echo json_encode(array('error' => 'Missing ticketID parameter'));
     exit();

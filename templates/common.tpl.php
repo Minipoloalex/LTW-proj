@@ -117,10 +117,9 @@ require_once(__DIR__ . '/../utils/session.php');
   </html>
 <?php } ?>
 
-<?php function drawLogoutForm( /* Session $session */)
-{ ?>
-  <form action="../actions/action_logout.php" method="post" class="logout">
-    <a href="../pages/profile.php"><!--$session->getName()--></a>
-    <button type="submit">Logout</button>
-  </form>
+
+<?php function output_csrf_input(Session $session) {
+  $token = $session->getCsrf();
+  ?>
+  <input type="hidden" name="csrf" value="<?=$token?>">
 <?php } ?>

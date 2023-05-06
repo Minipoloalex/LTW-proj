@@ -90,9 +90,9 @@ array $all_hashtags, array $all_agents, array $all_departments, int $sessionID, 
     <article class="message <?=$class?>">
         <header>
             <span class="user"><?=$message->username?></span>
-            <span class="date">DATE: <?=date('F j', $message->date)?></span>
+            <span class="date"><?=date('F j', $message->date)?></span>
         </header>
-        <p class="text">CONTENT: <?=htmlentities($message->text)?></p>
+        <p class="text"><?=htmlentities($message->text)?></p>
     </article>
 <?php }?>
 

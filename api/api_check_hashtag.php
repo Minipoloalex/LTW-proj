@@ -28,6 +28,7 @@ if ($hashtag == NULL) {
     exit();
 }
 
+http_response_code(200); // OK
 echo json_encode(array(
     'success' => 'Hashtag exists',
     'hashtagID' => $hashtag->hashtagid,

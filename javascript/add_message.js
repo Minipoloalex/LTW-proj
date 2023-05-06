@@ -64,13 +64,13 @@ function submitNewMessage(event) {
         
         const date = document.createElement("span")
         date.classList.add("date")
-        date.textContent = "DATE: " + json['date']
+        date.textContent = json['date']
         header.appendChild(date)
 
         const text = document.createElement("p")
         text.classList.add("text")
         
-        text.textContent = 'CONTENT: ' +  json['text']
+        text.textContent = json['text']
 
 
         newMessage.appendChild(header)

@@ -26,7 +26,6 @@ function is_valid_name(?String $name): bool {
 function is_valid_username(?String $username): bool {
     return isset($username) && !empty($username) && preg_match('/^[a-zA-Z0-9]+$/', $username);
 }
-
 function check_valid_data(string $name, string $username, string $email, string $password, string $confirm_password) {
     // TODO: do not allow special characters in name/username. only letters, spaces and numbers: slide 24/63 web security
     if (!is_valid_name($name) || !is_valid_username($username) || !is_valid_email($email) || !is_valid_string($password) || !is_valid_string($confirm_password)) {
@@ -77,5 +76,10 @@ function is_valid_departmentId(PDO $db, ?string $departmentID): bool{
 function is_valid_priority(?string $priority): bool {
     return isset($priority) && !empty($priority) &&
     ($priority == "high" || $priority == "medium" || $priority == "low");
+}
+function is_valid_ticket_id($db, ?String $ticketID): bool {
+    if (!is_valid_id($ticketID)) return false;
+    $ticket = Ticket::getById($db, intval($ticketID));
+    return $ticket != null;
 }
 ?>

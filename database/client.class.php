@@ -196,7 +196,7 @@
           }
 
           function isNameEqual(PDO $db, string $name) : bool {
-            return  $this->name == $name;
+            return $this->name == $name;
           }
 
           function isUsernameEqual(PDO $db, string $username) : bool {
@@ -209,7 +209,7 @@
 
           static function getByEmail(PDO $db, string $email) : ?Client {
             $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Email = ?');
-            $stmt->execute(array($email));
+            $stmt->execute(array(strtolower($email)));
             
             $client = $stmt->fetch();
 
