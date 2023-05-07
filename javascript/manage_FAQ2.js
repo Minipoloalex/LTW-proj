@@ -9,11 +9,6 @@
 //   })
 // }
 
-// function encodeForAjax(data) {
-//   return Object.keys(data).map(function(k) {
-//       return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-//   }).join('&')
-// }
 
 async function putFaqData(data) {
   console.log(data);
@@ -50,9 +45,9 @@ if (editFaqBtns) {
     const question = faq.querySelector('#question');
     const answer = faq.querySelector('#answer');
     const saveFaqBtn = faq.querySelector('#saveFaqBtn');
-    const answerBtn =faq.querySelector('#answerFaq');
+    const answerBtn = faq.querySelector('#answerFaq');
     console.log(answerBtn);
-    if (answerBtn) {editFaqBtn.toggleAttribute('hidden');}
+    if (answerBtn) { editFaqBtn.toggleAttribute('hidden'); }
     // const deleteFaqBtn = faq.querySelector('#deleteFaqBtn');
     console.log(question.value);
     console.log(answer.value);
@@ -137,27 +132,27 @@ if (answerBtns) {
     const editFaqBtn = faq.querySelector('#editFaqBtn');
     const deleteFaqBtn = faq.querySelector('#deleteFaqBtn');
     const displayBtn = faq.querySelector('#displayBtn');
+    const saveAnsBtn = faq.querySelector('#saveAnswerBtn');
 
     // editFaqBtn.toggleAttribute('hidden');
     // deleteFaqBtn.toggleAttribute('hidden');
 
     const toggle = () => {
       answerBtn.toggleAttribute('hidden');
+      saveAnsBtn.toggleAttribute('hidden');
 
       answer.toggleAttribute('readonly');
       answer.classList.toggle("input-readonly");
       answer.classList.toggle("input-write");
 
-      saveFaqBtn.toggleAttribute('hidden');
+      // saveFaqBtn.toggleAttribute('hidden');
     }
 
     const appear = () => {
       /*appear:*/
       displayBtn.toggleAttribute('hidden');
-      deleteFaqBtn.toggleAttribute('hidden');
+      // deleteFaqBtn.toggleAttribute('hidden');
       editFaqBtn.toggleAttribute('hidden');
-      /*disappear:*/
-      saveFaqBtn.toggleAttribute('hidden');
 
       /*readonly:*/
       answer.toggleAttribute('readonly');
@@ -166,11 +161,13 @@ if (answerBtns) {
     }
 
 
+
     answerBtn.addEventListener('click', () => {
       toggle();
+      
     });
 
-    saveFaqBtn.addEventListener('click', async () => {
+    saveAnsBtn.addEventListener('click', async () => {
       console.log(question.value);
       console.log(answer.value);
 
@@ -181,6 +178,9 @@ if (answerBtns) {
         console.log(a);
         console.log("success");
         appear();
+        answerBtn.remove();
+        saveAnsBtn.remove();
+        // appear();
       } else {
         console.log(res);
         console.error('Error: ' + res.status);
@@ -189,7 +189,7 @@ if (answerBtns) {
     });
 
   })
-};
+}
 
 
 

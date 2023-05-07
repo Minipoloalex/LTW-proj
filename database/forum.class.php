@@ -107,7 +107,7 @@ class Forum
         return true;
     }
 
-    static function alreadyExists(PDO $db, string $forumID, string $question): bool
+    static function alreadyExists(PDO $db, string $question): bool
     {
         $stmt = $db->prepare('SELECT * FROM FORUM WHERE Question = ?');
         $stmt->execute(array($question));
@@ -116,13 +116,16 @@ class Forum
         if (!$faq) {
             return false;
         }
-        // !NOTE: This ensures that the question is not the same as the one being updated
-        foreach ($faq as $f) {
-            if ($f['ForumID'] != $forumID) {
-                return true;
-            }
-            return false;
-        }
+
+        return true;
+        // // !NOTE: This ensures that the question is not the same as the one being updated
+        // foreach ($faq as $f) {
+        //     if ($f['ForumID'] != intval($forumID)) {
+        //         return true;
+        //     }
+            
+        // }
+        // return false;
     }
 }
 

@@ -7,11 +7,11 @@ require_once(__DIR__ . '/../database/forum.class.php');
 { ?>
 
 	<article class="faq" data-id="<?= $faq->forumId ?>">
-		<input id="question" type="text" name="question" class="question input-readonly"
-			value="<?= htmlentities($faq->question) ?>" readonly>
+		<textarea id="question" name="question" class="question input-readonly"
+			value="<?= htmlentities($faq->question) ?>" maxlength="100" rows="1" readonly><?= htmlentities($faq->question) ?></textarea>
 
-		<input id="answer" type="text" name="answer" class="answer input-readonly"
-			value="<?= htmlentities($faq->answer ?? '') ?>" readonly>
+		<textarea id="answer" name="answer" class="answer input-readonly"
+			value="<?= htmlentities($faq->answer ?? '') ?>" rows="1" readonly><?= htmlentities($faq->answer ?? '') ?></textarea>
 
 		<?php if ($type !== 'Client') { ?>
 			<button id="editFaqBtn" class="edit-faq"><span class="material-symbols-outlined">edit</span></button>
@@ -27,6 +27,7 @@ require_once(__DIR__ . '/../database/forum.class.php');
 			<!-- // !FIXME: esta verificação tem que passar para js. Todos têm que ter este botão. -->
 			<?php if ($faq->answer === NULL) { ?>
 				<button id="answerFaq" class="answer-faq">Answer question</button>
+				<button id="saveAnswerBtn" class="save-answer" hidden>Save answer</button>
 			<?php } ?>
 
 		<?php } ?>
@@ -53,8 +54,8 @@ require_once(__DIR__ . '/../database/forum.class.php');
 		<p>Agents can also use the FAQ to answer tickets, so your question might be added to the FAQ if it's a common
 			question.</p>
 		<form id='faq-form' class="faq-form">
-			<label for="question-form">Your question:</label>
-			<textarea id="question-form" name="question-form" required></textarea>
+			<label for="question-form">Your question (max 100 chars):</label>
+			<textarea id="question-form" name="question-form" maxlength="100" rows="1" required></textarea>
 			<!-- <label for="username">Your username:</label> -->
 			<!-- <input type="text" id="username" name="username" required> -->
 			<button type="submit">Ask</button>

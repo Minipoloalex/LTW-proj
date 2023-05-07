@@ -9,6 +9,7 @@ require_once(__DIR__ . '/../database/connection.db.php');
 $session = new Session();
 $db = getDatabaseConnection();
 
+/*add faq*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     if (!$session->isLoggedIn()) {
         http_response_code(401); // Unauthorized
@@ -45,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 }
 
+/*edit faq and answer faq*/
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     if (!$session->isLoggedIn()) {
         http_response_code(401); // Unauthorized
@@ -96,11 +98,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $answer = $_GET['answer'];
 
     
-    if (Forum::alreadyExists($db, $id, $question)) {
-        http_response_code(500); // Internal server error
-        echo json_encode(array('error' => 'Found similar FAQ on database'));
-        exit();
-    }
+    // if (Forum::alreadyExists($db, $question, $id)) {
+    //     http_response_code(500); // Internal server error
+    //     echo json_encode(array('error' => 'Found similar FAQ on database'));
+    //     exit();
+    // }
 
     $faq = Forum::updateFaq($db, $question, $answer, $id);
 
@@ -108,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     exit();
 }
 
+/*delete faq*/
 // verify if DELETE
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         print_r("am i here?");

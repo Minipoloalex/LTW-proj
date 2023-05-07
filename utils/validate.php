@@ -24,7 +24,7 @@ function is_valid_name(?String $name): bool {
     return isset($name) && !empty($name) && preg_match('/^[a-zA-Z ]+$/', $name);
 }
 function is_valid_username(?String $username): bool {
-    return isset($username) && !empty($username) && preg_match('/^[a-zA-Z0-9]+$/', $username);
+    return isset($username) && !empty($username);
 }
 function check_valid_data(string $name, string $username, string $email, string $password, string $confirm_password) {
     // TODO: do not allow special characters in name/username. only letters, spaces and numbers: slide 24/63 web security

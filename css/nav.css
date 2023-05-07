@@ -240,9 +240,10 @@ main {
     left: 0px;
   }
 
-  .material-symbols-outlined {
+  .nav-icon {
     padding-left: 1em;
   }
+
   .navbar .logo {
     width: 5rem;
     transition: width 600ms;

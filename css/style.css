@@ -668,7 +668,7 @@ div.faq-page form {
   font-weight: bold;
 }
 
-.faq-form input[type="text"], textarea {
+.faq-form textarea {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -679,8 +679,8 @@ div.faq-page form {
   font-family: 'Martel Sans', sans-serif;
 }
 /*ask button e answer button (propriedades iguais)*/
-.faq-form button, .faq button.answer-faq {
-  background-color: #4CAF50;
+.faq-form button, .faq button.answer-faq, .faq button.save-answer {
+  background-color: #846a8b;
   color: white;
   font-size: 1.2rem; /* or any other appropriate font size */
   border: none;
@@ -688,16 +688,12 @@ div.faq-page form {
   padding: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin: 0 auto;
-  display: block;
-  width: 50%;
-  max-width: 15rem; /* or any other appropriate max-width */
+  margin: 1rem auto 0;
+  width: fit-content;
 }
 
-
-
 .faq-form button:hover {
-  background-color: #3e8e41;
+  background-color: #a492a9;
 }
 
 .faq-page .success-message {
@@ -718,32 +714,34 @@ div.faq-page form {
   display: none;
 }
 
-
 /* individual faq -> question and answer */
 .faq {
   background-color: #f2f2f2;
   padding: 20px;
   margin-bottom: 10px;
+  position: relative;
 }
 
-.question {
+.faq .question {
+  width: 90%;
+  /* resize: vertical; */
   font-weight: bold;
-  font-size: 16px; 
+  font-size: 14px; 
   color: #333;
   display: block;
+  font-family: 'Martel Sans', sans-serif;
 }
 
-.answer {
-  width: 95%;
+.faq .answer {
+  width: 90%;
+  /* resize: none; */
   margin-top: 10px;
   font-size: 14px; 
   color: #666;
   display: block;
+  font-family: 'Martel Sans', sans-serif;
 }
 
-.faq {
-  position: relative;
-}
 .edit-faq, .save-faq {
   position: absolute;
   top: 0;
@@ -764,6 +762,7 @@ div.faq-page form {
   top: 40px;
   right: 0px;
 }
+
 
 /* faq icons for buttons */
 
@@ -836,20 +835,24 @@ article.faq {
   border: none;
   border-radius: 0px;
   background-color: transparent;
+  resize: none;
+  outline: none;
 }
 
 .input-write {
   border: 1px solid rgba(51, 51, 51);
   border-radius: 5px;
   background-color: white;
+  resize: vertical;
 }
 
-.faq button.answer-faq:hover {
-  background-color: #3e8e41;
+.faq-form button:hover, .faq button.answer-faq:hover, .faq button.save-answer:hover {
+  background-color: #a492a9;
 }
+
 
 @media screen and (min-width: 768px) {
-  .faq-form button, button.answer-faq {
+  .faq-form button, button.answer-faq, button.save-answer {
     width: 15%;
   }
 }

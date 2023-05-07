@@ -65,9 +65,9 @@ require_once(__DIR__ . '/../utils/session.php');
         <!-- <li class="logo">Trouble Solver</li> -->
         <li class="logo"><a href="../pages/main_page.php"><img src="../css/images/logo.png" alt="logo"></a></li>
         <li class="nav-item"><a href="../pages/profile.php" class="nav-link"><span
-              class="material-symbols-outlined">person</span><span class="link-text">Profile</span></a></li>
-        <li class="nav-item"><span class="nav-submenu-wrapper" id="subWrapper" onclick="toggleSubMenu()"><span
-              class="nav-submenu-header"><span class="material-symbols-outlined">confirmation_number</span><span
+              class="material-symbols-outlined nav-icon">person</span><span class="link-text">Profile</span></a></li>
+        <li class="nav-item"><span class="nav-submenu-wrapper" id="subWrapper"><span
+              class="nav-submenu-header"><span class="material-symbols-outlined nav-icon">confirmation_number</span><span
                 class="link-text" id="subHeaderTitle">Tickets</span></span>
             <ul class="nav-submenu" id="subMenu">
               <li class="nav-submenu-item"><a href="../pages/my_tickets.php" class="nav-link">My tickets</a></li>
@@ -80,13 +80,13 @@ require_once(__DIR__ . '/../utils/session.php');
           </span>
         </li>
         <li class="nav-item"><a href="../pages/departments_list.php" class="nav-link"><span
-              class="material-symbols-outlined">apartment</span><span class="link-text">Departments</span></a></li>
+              class="material-symbols-outlined nav-icon">apartment</span><span class="link-text">Departments</span></a></li>
         <li class="nav-item"><a href="../pages/users_list.php" class="nav-link"><span
-              class="material-symbols-outlined">group</span><span class="link-text">Users</span></a></li>
+              class="material-symbols-outlined nav-icon">group</span><span class="link-text">Users</span></a></li>
         <li class="nav-item"><a href="../pages/FAQ.php" class="nav-link"><span
-              class="material-symbols-outlined">quiz</span><span class="link-text">FAQs</span></a></li>
+              class="material-symbols-outlined nav-icon">quiz</span><span class="link-text">FAQs</span></a></li>
         <li class="nav-item"><a href="../actions/action_logout.php" class="nav-link"><span
-              class="material-symbols-outlined">logout</span><span class="link-text">Log Out</span></a></li>
+              class="material-symbols-outlined nav-icon">logout</span><span class="link-text">Log Out</span></a></li>
         <!-- <span class="nav-logout"><span formaction="../actions/action_logout"
               class="material-symbols-outlined">logout</span><span class="link-text">Log Out</span></span></li> -->
         <!-- <li class="nav-item"><span class="nav-logout"><a href="../actions/action_logout" class="material-symbols-outlined">logout</span><span class = "link-text">Log Out</span></span></li> -->
@@ -94,6 +94,15 @@ require_once(__DIR__ . '/../utils/session.php');
 
     </nav>
     <article></article>
+    <div class="nav-popup" id="navPopup">
+      <ul class="nav-popmenu" id="popMenu">
+        <li class="nav-submenu-item"><a href="../pages/my_tickets.php" class="nav-link">My tickets</a></li>
+        <li class="nav-submenu-item"><a href="../pages/create_ticket.php" class="nav-link">Create ticket</a></li>
+        <li class="nav-submenu-item"><a href="../pages/assigned_tickets.php" class="nav-link">Assigned tickets</a></li>
+        <!--Same page: assigned and followed tickets (not assigned to them)-->
+        <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">All tickets</a></li>
+      </ul>
+    </div>
     <!--
     <section id="session-messages">
         <article>
