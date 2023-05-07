@@ -42,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         'id' => $faq->forumId,
         'question' => $faq->question,
         'answer' => $faq->answer,
+        'displayed' => $faq->displayed,
+        'type' => Client::getType($db, $session->getId())
     ));
 
 }

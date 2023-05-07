@@ -18,6 +18,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <script src="../javascript/utils.js" defer></script>
     <script src="../javascript/add_message.js" defer></script>
     <script src="../javascript/nav.js" defer></script>
+    <script src="../javascript/cards.js" defer></script>
     <script src="../javascript/filter.js" defer></script>
     <script src="../javascript/edit_profile.js" defer></script>
     <script src="../javascript/update_ticket.js" defer></script>
@@ -25,7 +26,6 @@ require_once(__DIR__ . '/../utils/session.php');
     <!-- <script src="../javascript/table_pagination.js" defer></script> -->
     <!-- <script src="../javascript/manage_FAQ.js" defer></script> -->
     <script src="../javascript/manage_FAQ2.js" defer></script>
-    <script src="../javascript/cards.js" defer></script>
     <script src="../javascript/hashtag_autocomplete.js" defer></script>
 
 

@@ -26,19 +26,23 @@ if (form) {
             // body: JSON.stringify({ question: question })
             body: encodeForAjax(data)
 
-        }).then(function (response) {
+        }).then(async function (response) {
             if (response.ok) {
                 successMessage.style.display = 'block';
                 form.reset();
-
+                // faq. type.
+                const res = await response.json();
+                console.log(res);
+                const type = res.type;
+                
                 // new faq:
                 let html = `
-                    <article class="faq" data-id="${faq.forumId}">
+                    <article class="faq" data-id="${res.id}">
                     <textarea id="question" name="question" class="question input-readonly"
-                    value="${faq.question}" maxlength="100" rows="1" readonly>${faq.question}</textarea>
+                    value="${res.question}" maxlength="100" rows="1" readonly>${res.question}</textarea>
 
                     <textarea id="answer" name="answer" class="answer input-readonly"
-                    value="${faq.answer ?? ''}" rows="1" readonly>${faq.answer ?? ''}</textarea>
+                    value="${res.answer ?? ''}" rows="1" readonly>${res.answer ?? ''}</textarea>
                     `;
 
                 if (type !== 'Client') {
@@ -48,7 +52,7 @@ if (form) {
                     <button id="deleteFaqBtn" class="delete-faq"><span class="material-symbols-outlined">delete</span></button>
                     `;
 
-                    if (faq.displayed === 1) {
+                    if (res.displayed === 1) {
                         html += `
                         <button id="hideBtn" class="hide-faq"><span class="material-symbols-outlined">visibility_off</span></button>
                         `;
@@ -58,7 +62,7 @@ if (form) {
                         `;
                     }
 
-                    if (faq.answer === null) {
+                    if (res.answer === null) {
                         html += `
                         <button id="answerFaq" class="answer-faq">Answer question</button>
                         <button id="saveAnswerBtn" class="save-answer" hidden>Save answer</button>

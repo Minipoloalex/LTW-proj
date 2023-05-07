@@ -54,7 +54,7 @@ require_once(__DIR__ . '/../database/forum.class.php');
 		<p>Agents can also use the FAQ to answer tickets, so your question might be added to the FAQ if it's a common
 			question.</p>
 		<form id='faq-form' class="faq-form">
-			<label for="question-form">Your question (max 100 chars):</label>
+			<label for="question-form">Your question <small>(max 100 chars)</small>:</label>
 			<textarea id="question-form" name="question-form" maxlength="100" rows="1" required></textarea>
 			<!-- <label for="username">Your username:</label> -->
 			<!-- <input type="text" id="username" name="username" required> -->
