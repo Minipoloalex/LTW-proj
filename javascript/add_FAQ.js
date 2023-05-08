@@ -48,7 +48,7 @@ if (form) {
                         question.setAttribute('readonly', '');
                         question.textContent = data.question;
                         faq.appendChild(question);
-                        
+
                         let answer = document.createElement('textarea');
                         answer.setAttribute('class', 'answer input-readonly');
                         answer.setAttribute('name', 'answer');
@@ -57,85 +57,88 @@ if (form) {
                         answer.setAttribute('readonly', '');
                         answer.textContent = data.answer ?? '';
                         faq.appendChild(answer);
-                        
+
                         //if (type !== 'Client') {
-                            let editBtn = document.createElement('button');
-                            editBtn.setAttribute('class', 'edit-faq');
-                            editBtn.setAttribute('id', 'editFaqBtn');
-                            editBtn.innerHTML = '<span class="material-symbols-outlined">edit</span>';
-                            faq.appendChild(editBtn);
+                        let editBtn = document.createElement('button');
+                        editBtn.setAttribute('class', 'edit-faq');
+                        editBtn.setAttribute('id', 'editFaqBtn');
+                        editBtn.innerHTML = '<span class="material-symbols-outlined">edit</span>';
+                        faq.appendChild(editBtn);
 
+                        let saveBtn = document.createElement('button');
+                        saveBtn.setAttribute('class', 'save-faq');
+                        saveBtn.setAttribute('id', 'saveFaqBtn');
+                        saveBtn.setAttribute('hidden', '');
+                        saveBtn.innerHTML = '<span class="material-symbols-outlined">save</span>';
+                        faq.appendChild(saveBtn);
 
-                            let saveBtn = document.createElement('button');
-                            saveBtn.setAttribute('class', 'save-faq');
-                            saveBtn.setAttribute('id', 'saveFaqBtn');
-                            saveBtn.setAttribute('hidden', '');
-                            saveBtn.innerHTML = '<span class="material-symbols-outlined">save</span>';
-                            faq.appendChild(saveBtn);
+                        let deleteBtn = document.createElement('button');
+                        deleteBtn.setAttribute('class', 'delete-faq');
+                        deleteBtn.setAttribute('id', 'deleteFaqBtn');
+                        deleteBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
+                        faq.appendChild(deleteBtn);
 
-                            let deleteBtn = document.createElement('button');
-                            deleteBtn.setAttribute('class', 'delete-faq');
-                            deleteBtn.setAttribute('id', 'deleteFaqBtn');
-                            deleteBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
-                            faq.appendChild(deleteBtn);
+                        
+                        let hideBtn = document.createElement('button');
+                        let displayBtn = document.createElement('button');
 
-                            if (data.displayed === 1) {
-                                let hideBtn = document.createElement('button');
-                                hideBtn.setAttribute('class', 'hide-faq');
-                                hideBtn.setAttribute('id', 'hideBtn');
-                                hideBtn.innerHTML = '<span class="material-symbols-outlined">visibility_off</span>';
-                                faq.appendChild(hideBtn);
-                                
-                                let displayBtn = document.createElement('button');
-                                displayBtn.setAttribute('class', 'hide-faq');
-                                displayBtn.setAttribute('id', 'displayBtn');
-                                displayBtn.setAttribute('hidden', '');
-                                displayBtn.innerHTML = '<span class="material-symbols-outlined">visibility</span>';
-                                faq.appendChild(displayBtn);
-                            
-                            } else {
-                                let hideBtn = document.createElement('button');
-                                hideBtn.setAttribute('class', 'hide-faq');
-                                hideBtn.setAttribute('id', 'hideBtn');
-                                hideBtn.setAttribute('hidden', '');
-                                hideBtn.innerHTML = '<span class="material-symbols-outlined">visibility_off</span>';
-                                faq.appendChild(hideBtn);
+                        if (data.displayed === 1) {
+                            // let hideBtn = document.createElement('button');
+                            hideBtn.setAttribute('class', 'hide-faq');
+                            hideBtn.setAttribute('id', 'hideBtn');
+                            hideBtn.innerHTML = '<span class="material-symbols-outlined">visibility_off</span>';
+                            faq.appendChild(hideBtn);
 
-                                let displayBtn = document.createElement('button');
-                                displayBtn.setAttribute('class', 'hide-faq');
-                                displayBtn.setAttribute('id', 'displayBtn');
-                                displayBtn.innerHTML = '<span class="material-symbols-outlined">visibility</span>';
-                                faq.appendChild(displayBtn);
-                            }
+                            // let displayBtn = document.createElement('button');
+                            displayBtn.setAttribute('class', 'hide-faq');
+                            displayBtn.setAttribute('id', 'displayBtn');
+                            displayBtn.setAttribute('hidden', '');
+                            displayBtn.innerHTML = '<span class="material-symbols-outlined">visibility</span>';
+                            faq.appendChild(displayBtn);
 
-                            if (data.answer === null) {
-                                let answerFaqBtn = document.createElement('button');
-                                answerFaqBtn.setAttribute('class', 'answer-faq');
-                                answerFaqBtn.setAttribute('id', 'answerFaq');
-                                answerFaqBtn.textContent = 'Answer question';
-                                faq.appendChild(answerFaqBtn);
+                        } else {
+                            // let hideBtn = document.createElement('button');
+                            hideBtn.setAttribute('class', 'hide-faq');
+                            hideBtn.setAttribute('id', 'hideBtn');
+                            hideBtn.setAttribute('hidden', '');
+                            hideBtn.innerHTML = '<span class="material-symbols-outlined">visibility_off</span>';
+                            faq.appendChild(hideBtn);
 
-                                let saveAnswerBtn = document.createElement('button');
-                                saveAnswerBtn.setAttribute('class', 'save-answer');
-                                saveAnswerBtn.setAttribute('id', 'saveAnswerBtn');
-                                saveAnswerBtn.setAttribute('hidden', '');
-                                saveAnswerBtn.textContent = 'Save answer';
-                                faq.appendChild(saveAnswerBtn);
+                            // let displayBtn = document.createElement('button');
+                            displayBtn.setAttribute('class', 'hide-faq');
+                            displayBtn.setAttribute('id', 'displayBtn');
+                            displayBtn.innerHTML = '<span class="material-symbols-outlined">visibility</span>';
+                            faq.appendChild(displayBtn);
+                        }
 
-                                handleAnswer(answerFaqBtn);
-                            }
+                        if (data.answer === null) {
+                            let answerFaqBtn = document.createElement('button');
+                            answerFaqBtn.setAttribute('class', 'answer-faq');
+                            answerFaqBtn.setAttribute('id', 'answerFaq');
+                            answerFaqBtn.textContent = 'Answer question';
+                            faq.appendChild(answerFaqBtn);
 
-                            handleEdit(editBtn);
-                            handleDelete(deleteBtn);
-                            handleDisplay(displayBtn);
-                            handleHide(hideBtn);
+                            let saveAnswerBtn = document.createElement('button');
+                            saveAnswerBtn.setAttribute('class', 'save-answer');
+                            saveAnswerBtn.setAttribute('id', 'saveAnswerBtn');
+                            saveAnswerBtn.setAttribute('hidden', '');
+                            saveAnswerBtn.textContent = 'Save answer';
+                            faq.appendChild(saveAnswerBtn);
+
+                            handleAnswer(answerFaqBtn);
+                        }
+
+                        handleEdit(editBtn);
+                        handleDelete(deleteBtn);
+                        handleDisplay(displayBtn);
+                        handleHide(hideBtn);
 
                         // }
-                        
+
                         faqSection.appendChild(faq);
                         handleTextAreas(question);
                         handleTextAreas(answer);
-                        
+
                     }
                 });
                 // response.json().then(data => {
