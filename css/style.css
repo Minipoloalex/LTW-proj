@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400&display=swap');
 
 
-:root {
+/* :root {
   --button-green: #4CAF50;
   --closed-red: #f44336;
-}
+} */
 /*
 
 - navbar e LOGOS
@@ -546,13 +546,9 @@ footer {
   padding: 0;
   text-align: center;
   width: fit-content;
-  position: absolute;
+  /* position: absolute; */
   /* height: 2.5rem; */
-}
-
-footer {
   background-color: transparent;
-  /* padding: 1em; */
   font-size: 0.8em;
   border: none;
   cursor: pointer;
@@ -623,7 +619,6 @@ div.features {
 
 #faqs {
   margin: 2rem;
-  /* margin-top: 2rem; */
 }
 
 /* FAQ form */
@@ -673,22 +668,23 @@ div.faq-page form {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: 5px;
   box-sizing: border-box;
   resize: vertical;
   font-family: 'Martel Sans', sans-serif;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 /*ask button e answer button (propriedades iguais)*/
 .faq-form button, .faq button.answer-faq, .faq button.save-answer {
   background-color: #846a8b;
   color: white;
-  font-size: 1.2rem; /* or any other appropriate font size */
+  font-size: 0.9rem; /* or any other appropriate font size */
   border: none;
   border-radius: 5px;
-  padding: 1rem;
+  padding: 0.8rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin: 1rem auto 0;
+  margin: 0.5rem auto 0;
   width: fit-content;
 }
 
@@ -718,8 +714,10 @@ div.faq-page form {
 .faq {
   background-color: #f2f2f2;
   padding: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   position: relative;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .faq .question {
@@ -766,8 +764,9 @@ div.faq-page form {
 
 /* faq icons for buttons */
 
-button.display-faq span.material-symbols-outlined, button.hide-faq span.material-symbols-outlined, button.edit-faq span.material-symbols-outlined, button.save-faq span.material-symbols-outlined {
-  /* padding: 0; */
+button.display-faq span.material-symbols-outlined, button.hide-faq span.material-symbols-outlined, button.edit-faq span.material-symbols-outlined, button.save-faq span.material-symbols-outlined, button.delete-faq span.material-symbols-outlined {
+  /* text-decoration: none; */
+  color: #606081;
   margin-top: 1rem;
   margin-right: 0.5rem;
   font-variation-settings:
@@ -777,8 +776,10 @@ button.display-faq span.material-symbols-outlined, button.hide-faq span.material
   'opsz' 48
 }
 
-button.delete-faq span.material-symbols-outlined {
-  margin-top: 0.5rem;
+button.delete-faq span.material-symbols-outlined:hover {
+  color:#ff0000;
+  cursor: pointer;
+  margin-top: 1rem;
   margin-right: 0.5rem;
   font-variation-settings:
   'FILL' 0,
@@ -786,6 +787,31 @@ button.delete-faq span.material-symbols-outlined {
   'GRAD' 0,
   'opsz' 48
 }
+
+button.save-faq span.material-symbols-outlined:hover {
+  color: #1f8036;
+  cursor: pointer;
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+button.edit-faq span.material-symbols-outlined:hover {
+  color:rgba(112, 78, 125, 0.562);
+  cursor: pointer;
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
 
 
 /* button.display-faq span.material-symbols-outlined {

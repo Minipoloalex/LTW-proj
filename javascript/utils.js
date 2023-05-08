@@ -13,7 +13,7 @@ function escapeHtml(string) {
 }
 
 function encodeForAjax(data) {
-    return Object.keys(data).map(function(k) {
+    return Object.keys(data).map(function (k) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
     }).join('&')
 }
@@ -32,11 +32,24 @@ function setCsrf(csrfValue) {
 
 const tx = document.getElementsByTagName("textarea");
 for (let i = 0; i < tx.length; i++) {
-  tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
-  tx[i].addEventListener("input", OnInput, false);
+    handleTextAreas(tx[i]);
+    //   tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+    //   tx[i].addEventListener("input", OnInput, false);
+    //   tx[i].addEventListener("input", function() {
+    //     this.value = this.value.replace(/(\r\n|\n|\r){2,}/gm, '$1');
+    //   });
 }
 
 function OnInput() {
-  this.style.height = 0;
-  this.style.height = (this.scrollHeight) + "px";
+    this.style.height = 0;
+    this.style.height = (this.scrollHeight) + "px";
+}
+
+
+function handleTextAreas(textarea) {
+    textarea.setAttribute("style", "height:" + (textarea.scrollHeight) + "px;overflow-y:hidden;");
+    textarea.addEventListener("input", OnInput, false);
+    textarea.addEventListener("input", function () {
+        this.value = this.value.replace(/(\r\n|\n|\r){2,}/gm, '$1');
+    });
 }

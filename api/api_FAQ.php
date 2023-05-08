@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         'displayed' => $faq->displayed,
         'type' => $type
     ));
-    exit();
+    exit(); /*após uma mensagem (sucesso ou failure) deve levar exit()*/
 
 }
 
