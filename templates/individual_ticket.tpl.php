@@ -103,7 +103,7 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
 <?php function output_message_form(int $ticketID) { ?>
     <form id="message-form">
         <label>Add a message:
-            <textarea data-id="<?=$ticketID?>" name="message" id="message-input"></textarea>
+            <textarea rows="1" data-id="<?=$ticketID?>" name="message" id="message-input"></textarea>
         </label>
         <button id="add-message" type="submit">Submit</button>
     </form>
@@ -184,4 +184,19 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
             <?php } ?>
         </ul>
     </div>
+<?php } ?>
+
+
+<?php function output_answer_with_faq_form(array $displayed_faqs) { ?>
+    <button id="answer-with-faq-button">Answer with FAQ</button>
+    <form id="answer-with-faq-form">
+        <label for="faq-search">Type the frequently asked question:</label>
+        <input autocomplete="off" type="text" name="faq" id="faq-search" value="" list="faq-datalist">
+        <datalist id="faq-datalist">
+            <?php foreach ($displayed_faqs as $faq) { ?>
+                <option value="<?= htmlentities($faq->question)?>">
+            <?php } ?>
+        </datalist>
+        <button id="faq-message" type="submit">Add message by FAQ</button>
+    </form>
 <?php } ?>

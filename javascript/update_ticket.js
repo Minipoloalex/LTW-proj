@@ -1,9 +1,3 @@
-// function encodeForAjax(data) {
-//     return Object.keys(data).map(function(k) {
-//         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-//     }).join('&')
-// }
-
 function postDataTicketInfo(data) {
     return fetch("../api/api_update_ticket.php", {
         method: "POST",
@@ -55,6 +49,13 @@ function updateTicketInformation(event) {
         }
         else if (json['success']) {
             console.log(json['success'])
+            ticketStatus = document.querySelector("#individual-ticket #ticket-status")
+            for (const status of ticketStatus.classList) {
+                ticketStatus.classList.remove(status)
+            }
+            ticketStatus.textContent = json['status'];
+            if (json['status'].toLowerCase() == 'in progress') ticketStatus.classList.add("in-progress")
+            else ticketStatus.classList.add(json['status'])
         }
     })
 }
@@ -90,6 +91,9 @@ function closeTicket(event) {
             console.log(json['success'])
 
             const status = document.querySelector("#individual-ticket #ticket-status")
+            for (st of status.classList) {
+                status.classList.remove(st)
+            }
             status.textContent = 'closed'
             status.classList.add("closed")
 

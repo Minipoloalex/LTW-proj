@@ -153,8 +153,9 @@ class Ticket implements JsonSerializable
       $this->assignedagent = $agentID != NULL ? Agent::getById($db, $agentID)->username : NULL;
 
       $this->priority = $priority;
-      $stmt = $db->prepare('UPDATE TICKET SET DepartmentID = ?, AssignedAgent = ?, Priority = ? WHERE TicketID = ?');
-      $stmt->execute(array($departmentID, $agentID, $priority, $this->ticketid));
+      $this->status = $this->assignedagent !== NULL ? 'in progress' : 'open';
+      $stmt = $db->prepare('UPDATE TICKET SET DepartmentID = ?, AssignedAgent = ?, Priority = ?, Status = ? WHERE TicketID = ?');
+      $stmt->execute(array($departmentID, $agentID, $priority, $this->status, $this->ticketid));
     }
     
     foreach ($hashtags_to_add as $hashtagID) {

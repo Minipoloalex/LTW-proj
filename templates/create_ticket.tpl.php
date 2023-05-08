@@ -56,12 +56,6 @@ require_once(__DIR__ . '/../templates/common.tpl.php');
             <?php } ?>
         </datalist>
         <button id="add-hashtag" type="submit">Add</button>
-        <?php /* foreach ($not_selected_hashtags as $hashtag)
-            $id = $hashtag->hashtagid; ?>
-            
-            <input id="<?=$id?>" type="checkbox" name="hashtags[]" value="<?= $id ?>">
-            <label for="<?=$id?>"><?= $hashtag->hashtagname ?></label>
-        <?php } */ ?>
         <section id="hashtag-items">
             <?php foreach ($selected_hashtags as $hashtag) {
                 $id = $hashtag->hashtagid;
