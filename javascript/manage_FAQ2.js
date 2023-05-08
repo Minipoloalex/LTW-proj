@@ -37,7 +37,7 @@ async function deleteFaqData(data) {
 async function patchFaqData(data) {
   console.log(data);
   const url = `../api/api_FAQ.php?id=${data.id}&${encodeForAjax({ displayed: data.displayed })}`;
-  
+
   return await fetch(url, {
     method: 'PATCH',
     headers: {
@@ -190,12 +190,15 @@ function handleAnswer(answerBtn) {
 
 function handleDisplay(displayBtn) {
   const faq = displayBtn.parentElement;
+  console.log(faq);
   const hideBtn = faq.querySelector('#hideBtn');
+  const answerBtn = faq.querySelector('#answerFaq');
+  if (answerBtn) { displayBtn.toggleAttribute('hidden'); }
 
-  displayBtn.addEventListener('click', () => {
+  displayBtn.addEventListener('click', async () => {
     displayBtn.toggleAttribute('hidden');
     hideBtn.toggleAttribute('hidden');
-    const res = patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '1' });
+    const res = await patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '1' });
     if (res.ok) {
       console.log("success");
     }
@@ -203,16 +206,16 @@ function handleDisplay(displayBtn) {
       console.error('Error: ' + res.status);
     }
   })
-  };
+};
 
 function handleHide(hideBtn) {
   const faq = hideBtn.parentElement;
   const displayBtn = faq.querySelector('#displayBtn');
 
-  hideBtn.addEventListener('click', () => {
+  hideBtn.addEventListener('click', async () => {
     hideBtn.toggleAttribute('hidden');
     displayBtn.toggleAttribute('hidden');
-    const res = patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '0' });
+    const res = await patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '0' });
     if (res.ok) {
       console.log("success");
     }
@@ -220,39 +223,31 @@ function handleHide(hideBtn) {
       console.error('Error: ' + res.status);
     }
   })
-  };
+};
 
 
 if (editFaqBtns) {
-
   editFaqBtns.forEach((editFaqBtn) => {
-
     handleEdit(editFaqBtn);
-    // deleteFaqBtn.addEventListener('click', async () => {
-    //   // !TODO: request to api to delete faq
-    //   const res = await deleteFaqData({ 'id': faq.getAttribute("data-id") });
-    //   if (res.ok) {
-    //     console.log("success");
-    //     // delete element
-    //     faq.remove();
-    //   } else {
-    //     console.error('Error: ' + res.status);
-    //   }
-    // })
   });
 
   deleteFaqBtns.forEach((deleteFaqBtn) => {
-    handleDelete(deleteFaqBtn);})
+    handleDelete(deleteFaqBtn);
+  });
 
   displayFaqBtns.forEach((displayFaqBtn) => {
-    handleDisplay(displayFaqBtn);})
+    handleDisplay(displayFaqBtn);
+  });
 
   hideFaqBtns.forEach((hideFaqBtn) => {
-    handleHide(hideFaqBtn);})
+    handleHide(hideFaqBtn);
+  });
 
-if (answerBtns) {
-  answerBtns.forEach((answerBtn) => {
-    handleAnswer(answerBtn);})}
+  if (answerBtns) {
+    answerBtns.forEach((answerBtn) => {
+      handleAnswer(answerBtn);
+    })
+  }
 
 }
 

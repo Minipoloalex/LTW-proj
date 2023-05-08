@@ -19,7 +19,7 @@ require_once(__DIR__ . '/../database/forum.class.php');
 			<button id="deleteFaqBtn" class="delete-faq"><span class="material-symbols-outlined">delete</span></button>
 		
 		<?php  if ($faq->displayed === 1) { ?>
-			<button id="hideBtn" class="hide-faq"></button><span class="material-symbols-outlined">visibility_off</span></button>
+			<button id="hideBtn" class="hide-faq"><span class="material-symbols-outlined">visibility_off</span></button>
 			<button id="displayBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility</span></button>
 			<?php } else {?>
 				<button id="hideBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility_off</span></button>
@@ -42,6 +42,7 @@ require_once(__DIR__ . '/../database/forum.class.php');
 	<section id='faqs'>
 		<?php
 		foreach ($faqs as $faq) {
+			if ($type !== 'Client' || ($type === 'Client' && $faq->displayed === 1))
 			output_single_faq($faq, $type);
 		}
 		?>

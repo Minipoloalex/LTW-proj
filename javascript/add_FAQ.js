@@ -85,7 +85,22 @@ if (form) {
                                 hideBtn.setAttribute('id', 'hideBtn');
                                 hideBtn.innerHTML = '<span class="material-symbols-outlined">visibility_off</span>';
                                 faq.appendChild(hideBtn);
+                                
+                                let displayBtn = document.createElement('button');
+                                displayBtn.setAttribute('class', 'hide-faq');
+                                displayBtn.setAttribute('id', 'displayBtn');
+                                displayBtn.setAttribute('hidden', '');
+                                displayBtn.innerHTML = '<span class="material-symbols-outlined">visibility</span>';
+                                faq.appendChild(displayBtn);
+                            
                             } else {
+                                let hideBtn = document.createElement('button');
+                                hideBtn.setAttribute('class', 'hide-faq');
+                                hideBtn.setAttribute('id', 'hideBtn');
+                                hideBtn.setAttribute('hidden', '');
+                                hideBtn.innerHTML = '<span class="material-symbols-outlined">visibility_off</span>';
+                                faq.appendChild(hideBtn);
+
                                 let displayBtn = document.createElement('button');
                                 displayBtn.setAttribute('class', 'hide-faq');
                                 displayBtn.setAttribute('id', 'displayBtn');
@@ -112,6 +127,8 @@ if (form) {
 
                             handleEdit(editBtn);
                             handleDelete(deleteBtn);
+                            handleDisplay(displayBtn);
+                            handleHide(hideBtn);
 
                         // }
                         
