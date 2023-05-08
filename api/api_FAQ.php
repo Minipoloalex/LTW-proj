@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         'displayed' => $faq->displayed,
         'type' => $type
     ));
+    exit();
 
 }
 
