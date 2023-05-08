@@ -742,12 +742,12 @@ div.faq-page form {
 
 .edit-faq, .save-faq {
   position: absolute;
-  top: 0;
+  top: 40px;
   right: 0;
 }
 .delete-faq {
   position: absolute;
-  top: 40px;
+  top: 0px;
   right: 0px;
 }
 .hide-faq {
@@ -760,7 +760,6 @@ div.faq-page form {
   top: 73px;
   right: 0;
 }
-
 
 
 /* faq icons for buttons */
@@ -779,7 +778,7 @@ button.display-faq span.material-symbols-outlined, button.hide-faq span.material
 
 button.edit-faq span.material-symbols-outlined, button.save-faq span.material-symbols-outlined{
   color: #606081;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   margin-right: 0.5rem;
   font-variation-settings:
   'FILL' 0,
@@ -790,7 +789,7 @@ button.edit-faq span.material-symbols-outlined, button.save-faq span.material-sy
 
 button.delete-faq span.material-symbols-outlined {
   color: #606081;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   margin-right: 0.5rem;
   font-variation-settings:
   'FILL' 0,
@@ -819,7 +818,7 @@ button.save-faq span.material-symbols-outlined:hover {
   'opsz' 48
 }
 
-button.edit-faq span.material-symbols-outlined:hover {
+button.edit-faq span.material-symbols-outlined:hover, button.display-faq span.material-symbols-outlined:hover, button.hide-faq span.material-symbols-outlined:hover {
   color:rgba(112, 78, 125, 0.562);
   cursor: pointer;
   font-variation-settings:
@@ -836,10 +835,8 @@ button.edit-faq span.material-symbols-outlined:hover {
 } */
 
 button.display-faq, button.hide-faq, button.edit-faq, button.save-faq, button.delete-faq{
-  /* padding: 0; */
   border: none; 
   background-color: transparent;
-  /* height: fit-content; */
 }
 
 article.faq {

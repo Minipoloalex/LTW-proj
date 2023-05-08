@@ -53,7 +53,7 @@ require_once(__DIR__ . '/../database/forum.class.php');
 { ?>
 	<div class="faq-page">
 		<h1>Frequently Asked Questions</h1>
-		<p>Use the form below to ask a question about our service. Our agents will answer your question as soon as possible.
+		<p>Browse our FAQs for quick answers to common questions! If you can't find what you're looking for, use the form below to ask a question about our service. Our agents will answer your question as soon as possible.
 		</p>
 		<p>Agents can also use the FAQ to answer tickets, so your question might be added to the FAQ if it's a common
 			question.</p>
