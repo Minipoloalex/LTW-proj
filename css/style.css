@@ -447,17 +447,25 @@ tr:hover {
   box-shadow: 0 5px 15px rgba(112, 78, 125, 0.562);
 }
 
+/* div.password-change {
+  display: flex;
+  flex-direction: row;
+} */
+
+div.password-change label#old-password {
+  margin-left: 1rem;
+} 
+div.password-change button#changepass  {
+  margin-right: 0;
+}
+
 h2#yourprofile {
   /*"Your profile"*/
   margin-bottom: 1rem;
   text-align: center;
   color: black;
-  /* change text color */
   font-size: 24px;
-  /* change font size */
   font-weight: bold;
-  /* change font weight */
-  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
   box-shadow: 0 5px 15px rgba(112, 78, 125, 0.562);
   background-color: #e8eafa;
   border-radius: 10px;
