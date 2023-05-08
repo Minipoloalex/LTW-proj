@@ -173,6 +173,12 @@ main {
   display: block;
 }
 
+.forbidden {
+  text-decoration: solid line-through var(--text-secondary) 1.5px;
+  /* display: none; */
+  pointer-events: none;
+}
+
 
 /* Small screens */
 /* @media only screen and (max-width: 600px) { */

@@ -24,8 +24,6 @@ require_once(__DIR__ . '/../utils/session.php');
     <script src="../javascript/update_ticket.js" defer></script>
     <script src="../javascript/manage_FAQ2.js" defer></script>
     <script src="../javascript/add_FAQ.js" defer></script>
-    <!-- <script src="../javascript/table_pagination.js" defer></script> -->
-    <!-- <script src="../javascript/manage_FAQ.js" defer></script> -->
     <script src="../javascript/hashtag_autocomplete.js" defer></script>
 
 
@@ -39,11 +37,11 @@ require_once(__DIR__ . '/../utils/session.php');
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <!-- -->
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
     <!-- -->
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
     <!--ticket-->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -51,8 +49,8 @@ require_once(__DIR__ . '/../utils/session.php');
       crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!---FAQ icons--->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <!-- <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
 </head>
 
 <body>
@@ -82,7 +80,7 @@ require_once(__DIR__ . '/../utils/session.php');
         </li>
         <li class="nav-item"><a href="../pages/departments_list.php" class="nav-link"><span
               class="material-symbols-outlined nav-icon">apartment</span><span class="link-text">Departments</span></a></li>
-        <li class="nav-item"><a href="../pages/users_list.php" class="nav-link"><span
+        <li class="nav-item forbidden"><a href="../pages/users_list.php" class="nav-link"><span
               class="material-symbols-outlined nav-icon">group</span><span class="link-text">Users</span></a></li>
         <li class="nav-item"><a href="../pages/FAQ.php" class="nav-link"><span
               class="material-symbols-outlined nav-icon">quiz</span><span class="link-text">FAQs</span></a></li>
