@@ -38,13 +38,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         exit();
     }
 
+    $type = Client::getType($db, $session->getId());
+
     echo json_encode(array(
         'id' => $faq->forumId,
         'question' => $faq->question,
         'answer' => $faq->answer,
         'displayed' => $faq->displayed,
-        'type' => Client::getType($db, $session->getId())
+        'type' => $type
     ));
+    exit();
 
 }
 
