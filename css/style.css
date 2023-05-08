@@ -507,13 +507,15 @@ h2#yourprofile {
 }
 
 .profile input {
-  border: none;
+  /* border: none;
   background-color: transparent;
   box-shadow: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ccc; */
+  font-family: 'Martel Sans', sans-serif;
+  font-size: 1rem;
   padding: 0.5rem;
   margin-bottom: 1rem;
-  width: 100%;
+  width: 98%;
 }
 
 
@@ -538,13 +540,14 @@ h2#yourprofile {
 .profile button {
   background-color: #846a8b;
   color: white;
-  font-size: 18px;
+  font-size: 0.9rem; /* or any other appropriate font size */
   border: none;
   border-radius: 5px;
-  padding: 10px;
+  padding: 0.5rem;
   cursor: pointer;
-  /* width: 100%; */
   transition: background-color 0.3s ease;
+  margin: 0 auto;
+  width: fit-content;
 }
 
 .profile button:hover {
@@ -696,7 +699,7 @@ div.faq-page form {
   font-size: 0.9rem; /* or any other appropriate font size */
   border: none;
   border-radius: 5px;
-  padding: 0.8rem;
+  padding: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin: 0.5rem auto 0;
@@ -907,7 +910,7 @@ article.faq {
 
 
 @media screen and (min-width: 768px) {
-  .faq-form button, button.answer-faq, button.save-answer {
+  .faq-form button, button.answer-faq, button.save-answer, .profile button {
     width: 15%;
   }
 }
@@ -994,6 +997,9 @@ article.faq {
   transition: background-color 0.2s ease-in-out;
 }
 
+.filter button:hover {
+  background-color: #a492a9;
+}
 
 /* ================ RESPONSIVENESS (web e mobile) ================== */
 
