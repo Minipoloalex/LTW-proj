@@ -15,6 +15,22 @@ class Forum
         $this->displayed = $displayed;
     }
 
+    static function getDisplayedFaqs(PDO $db): array {
+        $stmt = $db->prepare('SELECT * FROM FORUM WHERE Displayed = 1');
+        $stmt->execute();
+
+        $faqs = array();
+        while ($faq = $stmt->fetch()) {
+            $faqs[] = new Forum(
+                intval($faq['ForumID']),
+                $faq['Question'],
+                $faq['Answer'],
+                intval($faq['Displayed'])
+            );
+        }
+        return $faqs;
+    }
+
     static function getFaqs(PDO $db, int $count): array
     {
         $stmt = $db->prepare('SELECT * FROM FORUM LIMIT ? ');

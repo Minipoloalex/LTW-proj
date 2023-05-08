@@ -1,0 +1,58 @@
+/* ========================= HASHTAGS GRID ================================= */
+#hashtags {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(2, auto);
+    grid-template-areas:
+    "hashtags-label hashtag-search  add-hashtag-button"
+    "hashtag-items  hashtag-items   hashtag-items";
+}
+#hashtags label[for="hashtag-search"] {
+    grid-area: hashtags-label;
+    align-self: center;
+    font-size: 1.4rem;
+}
+#hashtags #hashtag-search {
+    grid-area: hashtag-search;
+    height: 50%;
+    align-self: center;
+}
+#hashtags button#add-hashtag {
+    grid-area: add-hashtag-button;
+}
+#hashtags section#hashtag-items {
+    grid-area: hashtag-items;
+}
+
+/* ========================== LABEL DEPARTMENT/AGENT =========================== */
+label#department, label#agent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+}
+
+/* ========================== HASHTAGS =========================== */
+#hashtags {
+    padding-left: 1em;
+}
+#hashtag-items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-left: 1em;
+}
+#hashtag-items article.hashtag {
+    padding: 0.5em;
+    margin: 0.5em;
+}
+#hashtags .hashtag a.remove-hashtag {
+    padding: 0.3rem 0.5rem;
+}
+/* ======================== ADD HASHTAG BUTTON ======================== */
+button#add-hashtag {
+    margin: 0.5em auto;
+    padding: 0.5rem 1rem;
+}

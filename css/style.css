@@ -1026,3 +1026,100 @@ article.faq {
     border-radius: 10px;
   }
 }
+/* ======================== FIELDSET STYLING ======================== */
+fieldset {
+  border: none;
+}
+fieldset legend {
+  align-self: center;
+  font-weight: bold;
+}
+fieldset#priority {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+fieldset#priority label.radio-button {
+  background-color: #53536e;
+  color: white;
+  border: 1px solid white;
+  font-size: 16px;
+  cursor: pointer;
+  padding-left: 1em;
+  padding-right: 1em;
+  flex-grow: 1;
+  text-align: center;
+}
+
+fieldset#priority label:hover {
+  opacity: 80%;
+}
+
+fieldset#priority input[type="radio"] {
+  display: none;
+}
+fieldset#priority input[type="radio"]:checked + label.radio-button {
+  background-color: black;  
+  color: white;
+}
+
+/* ======================== DROPDOWN SELECT ======================== */
+label select {
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  padding-right: 1em;
+  padding-left: 1em;
+
+  font-size: 16px;
+  border: 1px solid black;
+  border-radius: 20px;
+  font-family: 'Martel Sans', sans-serif;
+  
+  margin-top: 6px;
+  margin-bottom: 16px;
+  /* color: white; */
+  /* background-color: #23232e; */
+  cursor: pointer;
+}
+
+/* ======================= TICKET INFO BUTTONS ======================= */
+#ticket-info button {
+  margin: 0.5em auto;
+  border: none;
+  border-radius: 20px;
+  padding: 0.2em 1em;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* ============================= HASHTAGS =========================== */
+#hashtag-items article.hashtag {
+  border:rgba(0, 0, 0, 0.5) 1px solid;
+  border-radius: 10px;
+  background-color: #53536e;
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+}
+
+#hashtags .hashtag a.remove-hashtag {
+  text-decoration: none;
+  color: white;
+  border-left: white 1px solid;
+  padding: 0.3rem 0.5rem;
+  margin-left: 0.3rem;
+  cursor: pointer;
+}
+/* ============================ ADD HASHTAG BUTTON ============================ */
+button#add-hashtag {
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  background-color: rgb(35,35,46);    
+}
+/* ================================================================== */

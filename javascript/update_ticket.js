@@ -56,9 +56,6 @@ function updateTicketInformation(event) {
             ticketStatus.textContent = json['status'];
             if (json['status'].toLowerCase() == 'in progress') ticketStatus.classList.add("in-progress")
             else ticketStatus.classList.add(json['status'])
-            
-            console.log('Hello')
-            console.log(json['status'])
         }
     })
 }
