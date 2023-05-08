@@ -58,6 +58,7 @@ echo json_encode(array(
     'agent' => $ticket->assignedagent,
     'priority' => $ticket->priority,
     'hashtags' => array_map(fn($hashtag) => $hashtag->hashtagname, $ticket->hashtags),
+    'status' => $ticket->status,
     'csrf' => $session->getCsrf()
 ));
 

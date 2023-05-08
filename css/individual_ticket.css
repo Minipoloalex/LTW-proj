@@ -31,15 +31,12 @@
     border-radius: 10px;
     align-self: right;
 }
-#individual-ticket #ticket-status.open {
+#individual-ticket #ticket-status.open, #individual-ticket #ticket-status.in-progress {
     background-color: #23232E;
 }
 
 #individual-ticket #ticket-status.closed {
     background-color: var(--closed-red);
-}
-#individual-ticket #ticket-status.in-progress {
-    background-color: #4CAF50;
 }
 
 /* =========================== CONTAINER TICKET INFO ============================ */
