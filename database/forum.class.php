@@ -117,7 +117,7 @@ class Forum
     static function deleteFaq(PDO $db, string $forumID): bool
     {
         $stmt = $db->prepare('DELETE FROM FORUM WHERE ForumID = ?');
-        $id = intval($forumID);
+        // $id = intval($forumID);
         $stmt->execute(array($forumID));
 
         return true;
@@ -142,6 +142,14 @@ class Forum
             
         // }
         // return false;
+    }
+
+    static function updateDisplayed(PDO $db, string $displayed, string $forumID): bool
+    {
+        $stmt = $db->prepare('UPDATE FORUM SET Displayed = ? WHERE ForumID = ?');
+        $stmt->execute(array($displayed, $forumID));
+
+        return true;
     }
 }
 

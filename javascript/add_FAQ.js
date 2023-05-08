@@ -39,7 +39,6 @@ if (form) {
                         faq.setAttribute('class', 'faq');
                         faq.setAttribute('data-id', data.id);
 
-
                         let question = document.createElement('textarea');
                         question.setAttribute('class', 'question input-readonly');
                         question.setAttribute('name', 'question');
@@ -49,8 +48,7 @@ if (form) {
                         question.setAttribute('readonly', '');
                         question.textContent = data.question;
                         faq.appendChild(question);
-                        // handleTextAreas(question);
-
+                        
                         let answer = document.createElement('textarea');
                         answer.setAttribute('class', 'answer input-readonly');
                         answer.setAttribute('name', 'answer');
@@ -59,8 +57,7 @@ if (form) {
                         answer.setAttribute('readonly', '');
                         answer.textContent = data.answer ?? '';
                         faq.appendChild(answer);
-                        // handleTextAreas(answer);
-
+                        
                         //if (type !== 'Client') {
                             let editBtn = document.createElement('button');
                             editBtn.setAttribute('class', 'edit-faq');
@@ -117,9 +114,11 @@ if (form) {
                             handleDelete(deleteBtn);
 
                         // }
-
+                        
                         faqSection.appendChild(faq);
-
+                        handleTextAreas(question);
+                        handleTextAreas(answer);
+                        
                     }
                 });
                 // response.json().then(data => {

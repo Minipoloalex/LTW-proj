@@ -745,29 +745,52 @@ div.faq-page form {
   top: 0;
   right: 0;
 }
-.hide-faq {
-  position: absolute;
-  top: 0;
-  right: 40px;
-}
-.display-faq {
-  position: absolute;
-  top: 0;
-  right: 80px;
-}
 .delete-faq {
   position: absolute;
   top: 40px;
   right: 0px;
 }
+.hide-faq {
+  position: absolute;
+  top: 73px;
+  right: 0px;
+}
+.display-faq {
+  position: absolute;
+  top: 73px;
+  right: 0;
+}
+
 
 
 /* faq icons for buttons */
 
-button.display-faq span.material-symbols-outlined, button.hide-faq span.material-symbols-outlined, button.edit-faq span.material-symbols-outlined, button.save-faq span.material-symbols-outlined, button.delete-faq span.material-symbols-outlined {
+button.display-faq span.material-symbols-outlined, button.hide-faq span.material-symbols-outlined{ 
   /* text-decoration: none; */
   color: #606081;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+button.edit-faq span.material-symbols-outlined, button.save-faq span.material-symbols-outlined{
+  color: #606081;
   margin-top: 1rem;
+  margin-right: 0.5rem;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+button.delete-faq span.material-symbols-outlined {
+  color: #606081;
+  margin-top: 0.5rem;
   margin-right: 0.5rem;
   font-variation-settings:
   'FILL' 0,
@@ -779,8 +802,6 @@ button.display-faq span.material-symbols-outlined, button.hide-faq span.material
 button.delete-faq span.material-symbols-outlined:hover {
   color:#ff0000;
   cursor: pointer;
-  margin-top: 1rem;
-  margin-right: 0.5rem;
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
@@ -791,8 +812,6 @@ button.delete-faq span.material-symbols-outlined:hover {
 button.save-faq span.material-symbols-outlined:hover {
   color: #1f8036;
   cursor: pointer;
-  margin-top: 1rem;
-  margin-right: 0.5rem;
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
@@ -803,8 +822,6 @@ button.save-faq span.material-symbols-outlined:hover {
 button.edit-faq span.material-symbols-outlined:hover {
   color:rgba(112, 78, 125, 0.562);
   cursor: pointer;
-  margin-top: 1rem;
-  margin-right: 0.5rem;
   font-variation-settings:
   'FILL' 0,
   'wght' 400,

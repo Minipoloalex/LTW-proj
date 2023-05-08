@@ -152,6 +152,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     exit();
 }
 
-echo json_encode(array('error' => 'Invalid request method'));
+/*change display attribute*/
+if ($_SERVER['REQUEST_METHOD'] === 'PATCH'){
+    if (!$session->isLoggedIn()) {
+        http_response_code(401); // Unauthorized
+        echo json_encode(array('error' => 'User not logged in'));
+        exit();
+    }
 
+    if (Client::getType($db, $session->getId()) === 'Client') {
+        http_response_code(403); // Forbidden
+        echo json_encode(array('error' => 'User not authorized'));
+        exit();
+    }
+
+    // verify if all parameters are set
+    if (!isset($_GET['displayed'])) {
+        http_response_code(400); // Bad request
+        echo json_encode(array('error' => 'Missing parameters'));
+        exit();
+    }
+
+    // verify is displayed is valid (0 or 1)
+    if (!($_GET['displayed'] === '0' || $_GET['displayed'] === '1')) {
+        http_response_code(400); // Bad request
+        echo json_encode(array('error' => 'Invalid parameters'));
+        exit();
+    }
+    
+    $displayed = $_GET['displayed'];
+    $id = $_GET['id'];
+
+    if (!Forum::updateDisplayed($db, $displayed, $id)){
+        http_response_code(500); // Internal server error
+        echo json_encode(array('error' => 'Failed to update FAQ on database'));
+        exit();
+    }
+
+    echo json_encode(array('success' => 'FAQ updated successfully'));
+    exit();
+}
+
+echo json_encode(array('error' => 'Invalid request method'));
 ?>
+

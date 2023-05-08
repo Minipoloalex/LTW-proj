@@ -34,9 +34,24 @@ async function deleteFaqData(data) {
   })
 }
 
+async function patchFaqData(data) {
+  console.log(data);
+  const url = `../api/api_FAQ.php?id=${data.id}&${encodeForAjax({ displayed: data.displayed })}`;
+  
+  return await fetch(url, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: encodeForAjax(data)
+  })
+}
+
 const editFaqBtns = document.querySelectorAll('#editFaqBtn');
 const deleteFaqBtns = document.querySelectorAll('#deleteFaqBtn');
 const answerBtns = document.querySelectorAll('#answerFaq');
+const displayFaqBtns = document.querySelectorAll('#displayBtn');
+const hideFaqBtns = document.querySelectorAll('#hideBtn');
 
 
 // !XXX: Funtions to add listeners
@@ -145,8 +160,6 @@ function handleAnswer(answerBtn) {
     answer.classList.toggle("input-write");
   }
 
-
-
   answerBtn.addEventListener('click', () => {
     toggle();
 
@@ -175,7 +188,43 @@ function handleAnswer(answerBtn) {
 
 };
 
+function handleDisplay(displayBtn) {
+  const faq = displayBtn.parentElement;
+  const hideBtn = faq.querySelector('#hideBtn');
+
+  displayBtn.addEventListener('click', () => {
+    displayBtn.toggleAttribute('hidden');
+    hideBtn.toggleAttribute('hidden');
+    const res = patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '1' });
+    if (res.ok) {
+      console.log("success");
+    }
+    else {
+      console.error('Error: ' + res.status);
+    }
+  })
+  };
+
+function handleHide(hideBtn) {
+  const faq = hideBtn.parentElement;
+  const displayBtn = faq.querySelector('#displayBtn');
+
+  hideBtn.addEventListener('click', () => {
+    hideBtn.toggleAttribute('hidden');
+    displayBtn.toggleAttribute('hidden');
+    const res = patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '0' });
+    if (res.ok) {
+      console.log("success");
+    }
+    else {
+      console.error('Error: ' + res.status);
+    }
+  })
+  };
+
+
 if (editFaqBtns) {
+
   editFaqBtns.forEach((editFaqBtn) => {
 
     handleEdit(editFaqBtn);
@@ -193,19 +242,18 @@ if (editFaqBtns) {
   });
 
   deleteFaqBtns.forEach((deleteFaqBtn) => {
-    // deleteFaqBtn.toggleAttribute('hidden');
-    handleDelete(deleteFaqBtn);
-  }
-  )
+    handleDelete(deleteFaqBtn);})
 
-}
+  displayFaqBtns.forEach((displayFaqBtn) => {
+    handleDisplay(displayFaqBtn);})
+
+  hideFaqBtns.forEach((hideFaqBtn) => {
+    handleHide(hideFaqBtn);})
 
 if (answerBtns) {
   answerBtns.forEach((answerBtn) => {
+    handleAnswer(answerBtn);})}
 
-    handleAnswer(answerBtn);
-
-  })
 }
 
 

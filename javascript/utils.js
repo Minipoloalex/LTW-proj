@@ -40,13 +40,13 @@ for (let i = 0; i < tx.length; i++) {
     //   });
 }
 
-function OnInput() {
-    this.style.height = 0;
-    this.style.height = (this.scrollHeight) + "px";
-}
-
 
 function handleTextAreas(textarea) {
+    function OnInput() {
+        this.style.height = 0;
+        this.style.height = (this.scrollHeight) + "px";
+    }
+
     textarea.setAttribute("style", "height:" + (textarea.scrollHeight) + "px;overflow-y:hidden;");
     textarea.addEventListener("input", OnInput, false);
     textarea.addEventListener("input", function () {

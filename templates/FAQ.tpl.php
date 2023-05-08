@@ -17,12 +17,15 @@ require_once(__DIR__ . '/../database/forum.class.php');
 			<button id="editFaqBtn" class="edit-faq"><span class="material-symbols-outlined">edit</span></button>
 			<button id="saveFaqBtn" class="save-faq" hidden><span class="material-symbols-outlined">save</span></button>
 			<button id="deleteFaqBtn" class="delete-faq"><span class="material-symbols-outlined">delete</span></button>
-
-			<?php if ($faq->displayed === 1) { ?>
+		
+		<?php  if ($faq->displayed === 1) { ?>
+			<button id="hideBtn" class="hide-faq"></button><span class="material-symbols-outlined">visibility_off</span></button>
+			<button id="displayBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility</span></button>
+			<?php } else {?>
 				<button id="hideBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility_off</span></button>
-			<?php } else { ?>
-				<button id="displayBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility</span></button>
+				<button id="displayBtn" class="hide-faq"><span class="material-symbols-outlined">visibility</span></button>
 			<?php } ?>
+
 
 			<!-- // !FIXME: esta verificação tem que passar para js. Todos têm que ter este botão. -->
 			<?php if ($faq->answer === NULL) { ?>
