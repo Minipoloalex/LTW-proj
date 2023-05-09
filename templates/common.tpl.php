@@ -80,7 +80,7 @@ require_once(__DIR__ . '/../utils/session.php');
         </li>
         <li class="nav-item"><a href="../pages/departments_list.php" class="nav-link"><span
               class="material-symbols-outlined nav-icon">apartment</span><span class="link-text">Departments</span></a></li>
-        <li class="nav-item forbidden"><a href="../pages/users_list.php" class="nav-link"><span
+        <li class="nav-item"><a href="../pages/users_list.php" class="nav-link"><span
               class="material-symbols-outlined nav-icon">group</span><span class="link-text">Users</span></a></li>
         <li class="nav-item"><a href="../pages/FAQ.php" class="nav-link"><span
               class="material-symbols-outlined nav-icon">quiz</span><span class="link-text">FAQs</span></a></li>
