@@ -1,27 +1,6 @@
-// function editProfile() {
-//     // console.log("func");
-//     const savedForm = document.querySelector('.saved_profile');
-//     const editForm = document.querySelector('.edit_profile');
-//     const editBtn = document.getElementById('edit-btn');
-//     const saveBtn = document.getElementById('save-btn');
-//     // console.log(editBtn);
-//     if (editBtn) {
-//         editBtn.addEventListener('click', () => {
-//             console.log("edit");
-//             savedForm.style.display = "none";
-//             editForm.style.display = "block";
-//         })
-//     };
-//     if (saveBtn) {
-//         saveBtn.addEventListener('click', () => {
-//             // drawProfile();
-//             savedForm.style.display = "block";
-//             editForm.style.display = "none";
-//         })
-//     };
-// }
-
 const editBtn = document.getElementById('edit-btn');
+const saveBtn = document.getElementById('save-btn');
+const cancelBtn = document.getElementById('cancel-btn');
 const inputs = document.querySelectorAll('input:not(#type)');
 const toggleInps = document.querySelectorAll('#old-password, #type');
 const toggleLabs = document.querySelectorAll('label[for="old-password"], label[for="type"]');
@@ -36,10 +15,6 @@ const username = document.getElementById('username');
 const oldpass = document.getElementById('old-password');
 const csrf = document.getElementById('csrf');
 
-/*mensagens de erro*/
-const successM = document.getElementById('success-message');
-const errorM = document.getElementById('error-message');
-
 async function postProfileData(data) {
     console.log(data);
     console.log(encodeForAjax(data))
@@ -52,38 +27,7 @@ async function postProfileData(data) {
     })
 }
 
-if(editBtn){
-/*verificar se posso fazer toggle para 'edit' outra vez (apos dar save), apenas se os dados estiverem certos*/
-editBtn.addEventListener('click', async () => {
-    // mudar tipo do botão
-    // editBtn.setAttribute('type', editBtn.getAttribute('type') === 'button' ? 'submit' : 'button');
-
-    if (checkEditState()) {
-        const res = await postProfileData({ 'name': thename.value, 'email': email.value, 'username': username.value, 'oldpass': oldpass.value, 'newpass': newpassInp.value, 'editpass': checkChangeState(), 'csrf': csrf.value })
-            // .catch(() => console.log('Network Error'))
-            // .then(response => response.json())
-            // .catch(() => console.log('Error parsing JSON'))
-            // .then(json => {
-            //     console.log(json)
-            //     if (json['error']) {
-            //         console.error(json['error'])
-            //         return
-            //     }
-
-            // })
-
-            console.log(res);
-            const json = await res.json();
-            console.log(json);
-            if (!res.ok){
-                errorM.style.display = 'block';
-                return;}
-            else{
-                successM.style.display = 'block';
-            }
-            
-    }
-
+function toggleProfile() {
     for (var lab of toggleLabs)
         lab.toggleAttribute('hidden');
 
@@ -100,40 +44,65 @@ editBtn.addEventListener('click', async () => {
     }
 
     //mudar texto do botão
-    editBtn.textContent = (editBtn.textContent === 'Save') ? 'Edit' : 'Save';
+    // editBtn.textContent = (editBtn.textContent === 'Save') ? 'Edit' : 'Save';
+    editBtn.toggleAttribute('hidden');
+    saveBtn.toggleAttribute('hidden');
+    cancelBtn.toggleAttribute('hidden');
 
-       //aparecer botao de mudar password
-       changepass.toggleAttribute('hidden');
+    //aparecer botao de mudar password
+    changepass.toggleAttribute('hidden');
 
-       //apagar old password apos dar save
-        oldpass.value = '';
+    //apagar old password apos dar save
+    oldpass.value = '';
 
-        //apagar new password apos dar save
-        newpassInp.value = '';
-        newpassInp.setAttribute('hidden','hidden');
-        newpassLab.setAttribute('hidden','hidden');
-        changepass.textContent = 'Change password';
-
+    //apagar new password apos dar save
+    newpassInp.value = '';
+    newpassInp.setAttribute('hidden', 'hidden');
+    newpassLab.setAttribute('hidden', 'hidden');
+    changepass.textContent = 'Change password';
 }
-);
 
-changepass.addEventListener('click', () => {
-    newpassInp.toggleAttribute('hidden');
-    newpassLab.toggleAttribute('hidden');
-    changepass.textContent = (changepass.textContent === 'Change password') ? 'Cancel' : 'Change password';
+if (saveBtn) {
 
-    
-})
+    saveBtn.addEventListener('click', async () => {
+        
+        const res = await postProfileData({ 'name': thename.value, 'email': email.value, 'username': username.value, 'oldpass': oldpass.value, 'newpass': newpassInp.value, 'editpass': checkChangeState(), 'csrf': csrf.value });
+        console.log(res);
+        const json = await res.json();
+        console.log(json);
+        if (!res.ok) {
+            displayMessage(json['error']);
+            return; // why?
+        }
+        else {
+            displayMessage(json['success'], false);
+            toggleProfile();
+        }
+    }
+    );
 
-editBtn.addEventListener('click', function () {
-    successM.style.display = 'none';
-    errorM.style.display = 'none';
-});
-// editBtn.addEventListener('change', function () {
-//     successM.style.display = 'none';
-//     errorM.style.display = 'none';
-// });
+    changepass.addEventListener('click', () => {
+        newpassInp.toggleAttribute('hidden');
+        newpassLab.toggleAttribute('hidden');
+        changepass.textContent = (changepass.textContent === 'Change password') ? 'Cancel' : 'Change password';
+    });
+}
 
+if (cancelBtn) {
+    cancelBtn.addEventListener('click', function () {
+        toggleProfile();
+    });
+}
+
+if (editBtn) {
+    /*verificar se posso fazer toggle para 'edit' outra vez (apos dar save), apenas se os dados estiverem certos*/
+
+    editBtn.addEventListener('click', function () {
+        FeedbackMessage.classList.remove('error-message');
+        FeedbackMessage.classList.remove('success-message');
+        FeedbackMessage.textContent = '';
+        toggleProfile();
+    });
 }
 
 function checkChangeState() {
@@ -143,11 +112,11 @@ function checkChangeState() {
     return 'no';
 }
 
-function checkEditState() {
-    if (editBtn.textContent === 'Save') {
-        return true; //se o botao de cancelar mudar de password estiver visivel, retorna true
-    }
-    return false;
-}
+// function checkEditState() {
+//     if (editBtn.attributes.getNamedItem('hidden') === null) {
+//         return false; //se o botao de cancelar mudar de password estiver visivel, retorna true
+//     }
+//     return true;
+// }
 
 

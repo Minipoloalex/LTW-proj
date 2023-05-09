@@ -40,7 +40,7 @@ require_once(__DIR__ . '/../utils/session.php');
       <label for="password">Password</label>
       <input type="password" id="password" name="password">
       <input type="submit" value="Login">
-      <p>Don't have an account? <a href="../pages/register.php" class="register">Sign up</a></p>
+      <p> <span>Don't have an account?</span> <a href="../pages/register.php" class="register">Sign up</a></p>
     </form>
   </div>
 

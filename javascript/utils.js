@@ -53,3 +53,19 @@ function handleTextAreas(textarea) {
         this.value = this.value.replace(/(\r\n|\n|\r){2,}/gm, '$1');
     });
 }
+
+
+/*mensagens de erro*/
+const FeedbackMessage = document.getElementById('feedback-message');
+
+function displayMessage(message, error = true) {
+    FeedbackMessage.textContent = message;
+    if (error){
+        FeedbackMessage.classList.add('error-message');
+        FeedbackMessage.classList.remove('success-message');
+    }
+    else{
+        FeedbackMessage.classList.add('success-message');
+        FeedbackMessage.classList.remove('error-message');
+    }
+}

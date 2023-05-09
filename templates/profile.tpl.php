@@ -19,7 +19,10 @@ require_once(__DIR__ . '/../utils/session.php');
     <label for="email">Email:</label>
     <input id="email" type="text" name="email" value="<?=$client->email?>" readonly>
 
-    <label for="old-password" hidden >Current password:</label><button type=button id='changepass' hidden>Change password</button>
+    <div class="password-change">
+    <label id="oldpasswordlabel" for="old-password" hidden>Current password:</label>
+    <button type=button id='changepass' hidden>Change password</button>
+    </div>
     <input id="old-password" type="password" name="old_password" value="" readonly hidden>
 
     <label for="new-password" hidden>New password:</label>
@@ -31,10 +34,14 @@ require_once(__DIR__ . '/../utils/session.php');
     <input id='csrf' name="csrf" type="hidden" value="<?=$session->getCsrf()?>">
     <!-- <button type="submit" id="save-btn">Save</button> -->
     <button type="button" id="edit-btn">Edit</button>
+    <button type="button" id="save-btn" hidden>Save</button>
+    <button type="button" id="cancel-btn" hidden>Cancel</button>
 
-    <div class="success-message" id="success-message">Your profile was successfully edited.</div>
+    <!-- <div class="success-message" id="success-message">Your profile was successfully edited.</div>
 		<div class="error-message" id="error-message">There was an error editing your profile. Please try again.</div>
-	
+	 -->
+   <div id="feedback-message" class="feedback-message"></div>
+
   </form>
 <?php } ?>
 

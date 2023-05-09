@@ -5,20 +5,60 @@
   --button-green: #4CAF50;
   --closed-red: #f44336;
 } */
-/*
 
-- navbar e LOGOS
-- logo trouble solver
-- register -> label depaparece da caixa, tentar replicar LOGIN
-
-*/
 
 
 body {
+  margin: 0;
   font-family: 'Martel Sans', sans-serif;
   background-color: #dee2ff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+
+main {
+  flex: 1;
+}
+
+
+/* =================== messages (error or success) =================== */
+
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: block;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: block;
+}
+
+/* -------------------- damn footer --------------------- */
+
+footer {
+  bottom: 0;
+  padding: 0;
+  text-align: center;
+  background-color: transparent;
+  font-size: 0.8em;
+  border: none;
+  cursor: pointer;
+  color: #846a8b;
+  font-family: 'Martel Sans', sans-serif;
+  align-self: flex-end;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 
 /*================= LOGIN FORM DESIGN =================*/
 
@@ -99,6 +139,8 @@ body.landingbody {
 .login-form p {
   text-align: center;
   margin-top: 1em;
+  font-size: 0.9em;
+  margin-top: 1.5em;
 }
 
 .login-form a {
@@ -109,14 +151,14 @@ a.register {
   color: white;
   text-decoration: none;
   /* Remove underline */
-  width: 100%;
+  /* width: 100%; */
   padding: 0.5em;
   margin-top: 1em;
+  margin-left: 0.5em;
   border: none;
   border-radius: 5px;
   font-size: 1em;
   cursor: pointer;
-
   background-color: #b4bdfc;
 }
 
@@ -341,7 +383,8 @@ tr:hover {
   padding: 1rem;
   background-color: #f5f5f5;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(112, 78, 125, 0.562);
+  /* box-shadow: 0 5px 15px rgba(112, 78, 125, 0.562); */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   align-items: start; /* Add this line */
 }
 
@@ -444,7 +487,25 @@ tr:hover {
   /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
   max-width: 500px;
   margin: 0 auto;
-  box-shadow: 0 5px 15px rgba(112, 78, 125, 0.562);
+  box-shadow:rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+div.password-change {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+} 
+
+div.password-change label#oldpasswordlabel {
+  margin-left: 0;
+  width: 50%;
+} 
+div.password-change button#changepass  {
+  margin-right: 0;
+  width: fit-content;
+  margin-bottom: 0.5rem;
 }
 
 h2#yourprofile {
@@ -452,19 +513,14 @@ h2#yourprofile {
   margin-bottom: 1rem;
   text-align: center;
   color: black;
-  /* change text color */
-  font-size: 24px;
-  /* change font size */
+  font-size: 30px;
   font-weight: bold;
-  /* change font weight */
-  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
-  box-shadow: 0 5px 15px rgba(112, 78, 125, 0.562);
+  /* box-shadow: 0 5px 15px rgba(112, 78, 125, 0.562);
   background-color: #e8eafa;
-  border-radius: 10px;
+  border-radius: 10px; */
   width: fit-content;
   padding: 0.5rem;
   margin: auto;
-  margin-bottom: 1rem;
 }
 
 .profile label {
@@ -474,13 +530,15 @@ h2#yourprofile {
 }
 
 .profile input {
-  border: none;
+  /* border: none;
   background-color: transparent;
   box-shadow: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ccc; */
+  font-family: 'Martel Sans', sans-serif;
+  font-size: 1rem;
   padding: 0.5rem;
   margin-bottom: 1rem;
-  width: 100%;
+  width: 98%;
 }
 
 
@@ -505,61 +563,20 @@ h2#yourprofile {
 .profile button {
   background-color: #846a8b;
   color: white;
-  font-size: 18px;
+  font-size: 0.9rem; /* or any other appropriate font size */
   border: none;
   border-radius: 5px;
-  padding: 10px;
+  padding: 0.5rem;
   cursor: pointer;
-  /* width: 100%; */
   transition: background-color 0.3s ease;
+  margin: 0 auto;
+  width: fit-content;
 }
 
 .profile button:hover {
   background-color: #a492a9;
 }
 
-.profile .success-message {
-  background-color: #d4edda;
-  color: #155724;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 10px;
-  display: none;
-}
-
-.profile .error-message {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 10px;
-  display: none;
-}
-
-
-/* -------------------- damn footer --------------------- */
-
-footer {
-  bottom: 0;
-  /*CENTRAR FOOTER!! o right estava a dar problemas ao minimizar um pouco a pagina*/
-  /* right: 50vh; */
-  padding: 0;
-  text-align: center;
-  width: fit-content;
-  /* position: absolute; */
-  /* height: 2.5rem; */
-  background-color: transparent;
-  font-size: 0.8em;
-  border: none;
-  cursor: pointer;
-  color: #846a8b;
-  font-family: 'Martel Sans', sans-serif;
-}
-
-body,
-footer {
-  margin: 0;
-}
 
 /* --------- MAIN PAGE CONTENT ---------- */
 
@@ -632,11 +649,18 @@ div.faq-page {
   /* margin-left: 80px; */
 }
 
-div.faq-page h1 {
-  font-size: 36px;
-  font-weight: bold;
-  text-align: center;
+div.faq-page h2.faq-header {
   margin-top: 0;
+
+  margin-bottom: 1rem;
+  text-align: center;
+  color: black;
+  font-size: 30px;
+  font-weight: bold;
+  width: fit-content;
+  padding: 0.5rem;
+  margin: auto;
+  margin-bottom: 1rem;
 }
 
 div.faq-page h2 {
@@ -681,7 +705,7 @@ div.faq-page form {
   font-size: 0.9rem; /* or any other appropriate font size */
   border: none;
   border-radius: 5px;
-  padding: 0.8rem;
+  padding: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin: 0.5rem auto 0;
@@ -692,23 +716,6 @@ div.faq-page form {
   background-color: #a492a9;
 }
 
-.faq-page .success-message {
-  background-color: #d4edda;
-  color: #155724;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 10px;
-  display: none;
-}
-
-.faq-page .error-message {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 10px;
-  display: none;
-}
 
 /* individual faq -> question and answer */
 .faq {
@@ -742,12 +749,12 @@ div.faq-page form {
 
 .edit-faq, .save-faq {
   position: absolute;
-  top: 0;
+  top: 40px;
   right: 0;
 }
 .delete-faq {
   position: absolute;
-  top: 40px;
+  top: 0px;
   right: 0px;
 }
 .hide-faq {
@@ -762,7 +769,6 @@ div.faq-page form {
 }
 
 
-
 /* faq icons for buttons */
 
 button.display-faq span.material-symbols-outlined, button.hide-faq span.material-symbols-outlined{ 
@@ -770,6 +776,7 @@ button.display-faq span.material-symbols-outlined, button.hide-faq span.material
   color: #606081;
   margin-top: 0.5rem;
   margin-right: 0.5rem;
+  margin-bottom: 1rem;
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
@@ -779,7 +786,7 @@ button.display-faq span.material-symbols-outlined, button.hide-faq span.material
 
 button.edit-faq span.material-symbols-outlined, button.save-faq span.material-symbols-outlined{
   color: #606081;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   margin-right: 0.5rem;
   font-variation-settings:
   'FILL' 0,
@@ -790,7 +797,7 @@ button.edit-faq span.material-symbols-outlined, button.save-faq span.material-sy
 
 button.delete-faq span.material-symbols-outlined {
   color: #606081;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   margin-right: 0.5rem;
   font-variation-settings:
   'FILL' 0,
@@ -819,7 +826,7 @@ button.save-faq span.material-symbols-outlined:hover {
   'opsz' 48
 }
 
-button.edit-faq span.material-symbols-outlined:hover {
+button.edit-faq span.material-symbols-outlined:hover, button.display-faq span.material-symbols-outlined:hover, button.hide-faq span.material-symbols-outlined:hover {
   color:rgba(112, 78, 125, 0.562);
   cursor: pointer;
   font-variation-settings:
@@ -836,10 +843,8 @@ button.edit-faq span.material-symbols-outlined:hover {
 } */
 
 button.display-faq, button.hide-faq, button.edit-faq, button.save-faq, button.delete-faq{
-  /* padding: 0; */
   border: none; 
   background-color: transparent;
-  /* height: fit-content; */
 }
 
 article.faq {
@@ -895,7 +900,7 @@ article.faq {
 
 
 @media screen and (min-width: 768px) {
-  .faq-form button, button.answer-faq, button.save-answer {
+  .faq-form button, button.answer-faq, button.save-answer, .profile button {
     width: 15%;
   }
 }
@@ -982,11 +987,14 @@ article.faq {
   transition: background-color 0.2s ease-in-out;
 }
 
+.filter button:hover {
+  background-color: #a492a9;
+}
 
 /* ================ RESPONSIVENESS (web e mobile) ================== */
 
 /* For mobile devices -> ATÉ 600 */
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
 
   body main {
     margin-bottom: 5rem;
@@ -1013,14 +1021,12 @@ article.faq {
   .mainpage p1, .mainpage p2 {
     padding: 1em;
   }
-}
+} */
 
 /* For tablet devices -> 600 A 961*/
 @media only screen and (max-width: 961px) {
   body main {
     margin-bottom: 5rem;
-    /* margin-left: 10rem;
-    margin-right: 2rem; */
   }
 
   .login-form, .registerform {

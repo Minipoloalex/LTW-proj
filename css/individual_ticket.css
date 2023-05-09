@@ -226,7 +226,8 @@
     color: white;
 }
 .message.original-poster header {
-    background-color: var(--button-green);
+    background-color: #846a8b;
+    color: white;
 }
 .message.other header {
     background-color: #53536E;
