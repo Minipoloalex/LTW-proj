@@ -17,12 +17,15 @@ require_once(__DIR__ . '/../database/forum.class.php');
 			<button id="editFaqBtn" class="edit-faq"><span class="material-symbols-outlined">edit</span></button>
 			<button id="saveFaqBtn" class="save-faq" hidden><span class="material-symbols-outlined">save</span></button>
 			<button id="deleteFaqBtn" class="delete-faq"><span class="material-symbols-outlined">delete</span></button>
-
-			<?php if ($faq->displayed === 1) { ?>
+		
+		<?php  if ($faq->displayed === 1) { ?>
+			<button id="hideBtn" class="hide-faq"><span class="material-symbols-outlined">visibility_off</span></button>
+			<button id="displayBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility</span></button>
+			<?php } else {?>
 				<button id="hideBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility_off</span></button>
-			<?php } else { ?>
-				<button id="displayBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility</span></button>
+				<button id="displayBtn" class="hide-faq"><span class="material-symbols-outlined">visibility</span></button>
 			<?php } ?>
+
 
 			<!-- // !FIXME: esta verificação tem que passar para js. Todos têm que ter este botão. -->
 			<?php if ($faq->answer === NULL) { ?>
@@ -39,6 +42,7 @@ require_once(__DIR__ . '/../database/forum.class.php');
 	<section id='faqs'>
 		<?php
 		foreach ($faqs as $faq) {
+			if ($type !== 'Client' || ($type === 'Client' && $faq->displayed === 1))
 			output_single_faq($faq, $type);
 		}
 		?>
@@ -48,8 +52,8 @@ require_once(__DIR__ . '/../database/forum.class.php');
 <?php function output_faq_form(Forum $faq = null)
 { ?>
 	<div class="faq-page">
-		<h1>Frequently Asked Questions</h1>
-		<p>Use the form below to ask a question about our service. Our agents will answer your question as soon as possible.
+		<h2 class="faq-header">Frequently Asked Questions</h2>
+		<p>Browse our FAQs for quick answers to common questions! If you can't find what you're looking for, use the form below to ask a question about our service. Our agents will answer your question as soon as possible.
 		</p>
 		<p>Agents can also use the FAQ to answer tickets, so your question might be added to the FAQ if it's a common
 			question.</p>

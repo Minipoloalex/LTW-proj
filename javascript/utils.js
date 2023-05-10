@@ -13,9 +13,25 @@ function escapeHtml(string) {
 }
 
 function encodeForAjax(data) {
-    return Object.keys(data).map(function(k) {
+    return Object.keys(data).map(function (k) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
     }).join('&')
+}
+
+async function postData(path, data) {
+    data['csrf'] = getCsrf()
+    const response = await fetch(path, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: encodeForAjax(data)
+        }
+    );
+    const json = await response.json()
+    
+    setCsrf(json['csrf'])
+    return json;
 }
 
 function getCsrf() {
@@ -33,27 +49,39 @@ function setCsrf(csrfValue) {
 
 const tx = document.getElementsByTagName("textarea");
 for (let i = 0; i < tx.length; i++) {
-  tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
-  tx[i].addEventListener("input", OnInput, false);
+    handleTextAreas(tx[i]);
+    //   tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+    //   tx[i].addEventListener("input", OnInput, false);
+    //   tx[i].addEventListener("input", function() {
+    //     this.value = this.value.replace(/(\r\n|\n|\r){2,}/gm, '$1');
+    //   });
 }
 
-function OnInput() {
-  this.style.height = 0;
-  this.style.height = (this.scrollHeight) + "px";
+function handleTextAreas(textarea) {
+    function OnInput() {
+        this.style.height = 0;
+        this.style.height = (this.scrollHeight) + "px";
+    }
+
+    textarea.setAttribute("style", "height:" + (textarea.scrollHeight) + "px;overflow-y:hidden;");
+    textarea.addEventListener("input", OnInput, false);
+    textarea.addEventListener("input", function () {
+        this.value = this.value.replace(/(\r\n|\n|\r){2,}/gm, '$1');
+    });
 }
 
-async function postData(path, data) {
-    data['csrf'] = getCsrf()
-    const response = await fetch(path, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: encodeForAjax(data)
-        }
-    );
-    const json = await response.json()
-    
-    setCsrf(json['csrf'])
-    return json;
+
+/*mensagens de erro*/
+const FeedbackMessage = document.getElementById('feedback-message');
+
+function displayMessage(message, error = true) {
+    FeedbackMessage.textContent = message;
+    if (error){
+        FeedbackMessage.classList.add('error-message');
+        FeedbackMessage.classList.remove('success-message');
+    }
+    else{
+        FeedbackMessage.classList.add('success-message');
+        FeedbackMessage.classList.remove('error-message');
+    }
 }
