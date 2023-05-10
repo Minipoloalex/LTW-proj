@@ -101,12 +101,15 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
 <?php } ?>
 
 <?php function output_message_form(int $ticketID) { ?>
+    <?php output_textarea_form("message-form", "Add a message:", "message", "Submit", strval($ticketID)) ?>
+    <?php /*
     <form id="message-form">
         <label>Add a message:
             <textarea rows="1" data-id="<?=$ticketID?>" name="message" id="message-input"></textarea>
         </label>
         <button id="add-message" type="submit">Submit</button>
     </form>
+    */ ?>
 <?php } ?>
 
 <?php function output_change_ticket_info_form(Ticket $ticket, array $agents, array $departments, array $hashtags) { ?>

@@ -2,7 +2,7 @@ async function submitNewMessage(event) {
     event.preventDefault()
     
     const messagesList = document.querySelector('#messages-list')
-    const messageInput = document.querySelector('#message-input')
+    const messageInput = document.querySelector('#message-form textarea')
     
     const messageText = messageInput.value
     const ticketID = messageInput.getAttribute("data-id")
@@ -46,7 +46,7 @@ async function submitNewMessage(event) {
     messagesList.appendChild(newMessage)
 }
 
-const messageButton = document.querySelector("button#add-message")
+const messageButton = document.querySelector("#message-form button")
 if (messageButton) {
     messageButton.addEventListener('click', submitNewMessage)
 }

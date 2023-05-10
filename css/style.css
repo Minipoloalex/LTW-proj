@@ -640,7 +640,7 @@ div.features {
 
 /* FAQ form */
 
-div.faq-page {
+header.faq-page {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto auto;
@@ -649,7 +649,7 @@ div.faq-page {
   /* margin-left: 80px; */
 }
 
-div.faq-page h2.faq-header {
+header.faq-page h2.faq-header {
   margin-top: 0;
 
   margin-bottom: 1rem;
@@ -663,31 +663,31 @@ div.faq-page h2.faq-header {
   margin-bottom: 1rem;
 }
 
-div.faq-page h2 {
+header.faq-page h2 {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 0;
 }
 
-div.faq-page p {
+header.faq-page p {
   font-size: 16px;
   margin-top: 0;
   text-align: center;
 }
 
-div.faq-page form {
+header.faq-page form {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto auto;
   gap: 10px;
 }
 
-.faq-form label {
+.textarea-form label {
   font-size: 18px;
   font-weight: bold;
 }
 
-.faq-form textarea {
+.textarea-form textarea {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -699,7 +699,7 @@ div.faq-page form {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 /*ask button e answer button (propriedades iguais)*/
-.faq-form button, .faq button.answer-faq, .faq button.save-answer {
+.textarea-form button, .faq button.answer-faq, .faq button.save-answer {
   background-color: #846a8b;
   color: white;
   font-size: 0.9rem; /* or any other appropriate font size */
@@ -712,7 +712,7 @@ div.faq-page form {
   width: fit-content;
 }
 
-.faq-form button:hover {
+.textarea-form button:hover {
   background-color: #a492a9;
 }
 
@@ -894,13 +894,13 @@ article.faq {
   resize: vertical;
 }
 
-.faq-form button:hover, .faq button.answer-faq:hover, .faq button.save-answer:hover {
+.textarea-form button:hover, .faq button.answer-faq:hover, .faq button.save-answer:hover {
   background-color: #a492a9;
 }
 
 
 @media screen and (min-width: 768px) {
-  .faq-form button, button.answer-faq, button.save-answer, .profile button {
+  .textarea-form button, button.answer-faq, button.save-answer, .profile button {
     width: 15%;
   }
 }
