@@ -1,4 +1,4 @@
-const messageButton = document.querySelector("#message-form button")
+const messageButton = document.querySelector("#message-form button[type='submit']")
 if (messageButton) {
     messageButton.addEventListener('click', submitNewMessage)
 }

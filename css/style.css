@@ -695,16 +695,7 @@ header.faq-page form {
 }
 /*ask button e answer button (propriedades iguais)*/
 .textarea-form button, .faq button.answer-faq, .faq button.save-answer {
-  background-color: #846a8b;
-  color: white;
-  font-size: 0.9rem; /* or any other appropriate font size */
-  border: none;
-  border-radius: 5px;
-  padding: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin: 0.5rem auto 0;
-  width: fit-content;
+  margin-top: 0.5rem;
 }
 
 
@@ -1111,7 +1102,7 @@ label select {
   font-family: 'Martel Sans', sans-serif;
   
   margin-top: 6px;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
   /* color: white; */
   /* background-color: #23232e; */
   cursor: pointer;
@@ -1120,12 +1111,7 @@ label select {
 /* ======================= TICKET INFO BUTTONS ======================= */
 #ticket-info button {
   margin: 0.5em auto;
-  border: none;
-  border-radius: 20px;
   padding: 0.2em 1em;
-  color: white;
-  cursor: pointer;
-  font-size: 1rem;
 }
 
 /* ============================= HASHTAGS =========================== */
@@ -1146,13 +1132,5 @@ label select {
   margin-left: 0.3rem;
   cursor: pointer;
 }
-/* ============================ ADD HASHTAG BUTTON ============================ */
-button#add-hashtag {
-  border: none;
-  border-radius: 20px;
-  color: white;
-  cursor: pointer;
-  font-size: 1rem;
-  background-color: rgb(35,35,46);    
-}
+
 /* ================================================================== */

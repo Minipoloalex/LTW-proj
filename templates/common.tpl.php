@@ -32,7 +32,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <link rel="stylesheet" href="../css/cards.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/general_button.css">
+    <link rel="stylesheet" href="../css/buttons.css">
 
     <!---navbar icons--->
   <link rel="stylesheet"
@@ -133,10 +133,14 @@ require_once(__DIR__ . '/../utils/session.php');
   <input type="hidden" name="csrf" value="<?=$token?>">
 <?php } ?>
 
-<?php function output_textarea_form(string $id, string $html_inside_label, string $input_name, string $button_text, string $data_id="") { ?>
+<?php function output_textarea_form(string $id, string $html_inside_label, string $input_name, array $buttons_html, string $data_id="") { ?>
 	<form id='<?=$id?>' class="textarea-form">
 		<label for="question-form"><?=$html_inside_label?></label>
 		<textarea id="question-form" data-id="<?=$data_id?>" name="<?=$input_name?>" maxlength="100" rows="1" required></textarea>
-		<button type="submit"><?=$button_text?></button>
+		<div id="textarea-buttons" class="buttons center">
+      <?php foreach ($buttons_html as $button_html) {
+        echo($button_html);
+      } ?>
+    </div>
 	</form>
 <?php }	?>

@@ -58,7 +58,10 @@ require_once(__DIR__ . '/common.tpl.php');
 		</p>
 		<p>Agents can also use the FAQ to answer tickets, so your question might be added to the FAQ if it's a common
 			question.</p>
-		<?php output_textarea_form("faq-form", "Your question <small>(max 100 chars)</small>:", "question-form", "Ask") ?>
+		<?php output_textarea_form("faq-form", "Your question <small>(max 100 chars)</small>:", 
+		"question-form", array(
+			"<button type='submit'>Ask</button>",
+		)); ?>
 		<div class="success-message" id="success-message">Your question has been sent successfully. We'll answer you as soon
 			as possible.</div>
 		<div class="error-message" id="error-message">There was an error sending your question. Please try again.</div>

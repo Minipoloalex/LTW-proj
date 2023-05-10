@@ -100,9 +100,13 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
     
 <?php } ?>
 
-<?php function output_message_form(int $ticketID) { ?>
-    <?php output_textarea_form("message-form", "Add a message:", "message", "Submit", strval($ticketID)) ?>
-<?php } ?>
+<?php function output_message_form(bool $isAgentView, int $ticketID) {    
+    $submit_button = "<button type='submit'>Submit</button>";
+    $faq_button = "<button class='toggle-faq-answer'>Answer with FAQ</button>";
+    $array_buttons = $isAgentView ? array($submit_button, $faq_button) : array($submit_button);
+
+    output_textarea_form("message-form", "Add a message:", "message", $array_buttons, strval($ticketID));
+} ?>
 
 <?php function output_change_ticket_info_form(Ticket $ticket, array $agents, array $departments, array $hashtags) { ?>
         <?php
@@ -191,8 +195,10 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
                 <option value="<?=$faq->forumId?>"><?=htmlentities($faq->question)?></option>
                 <?php } ?>
             </select>
-            <button id="faq-message" type="submit">Add message by FAQ</button>
+            <div class="buttons left">
+                <button id="faq-message" type="submit">Add message by FAQ</button>
+                <button class="toggle-faq-answer">Answer with Message</button>
+            </div>
         </label>
     </form>
-    <button id="toggle-faq-answer">Answer with FAQ</button>
 <?php } ?>

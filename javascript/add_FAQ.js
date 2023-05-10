@@ -4,14 +4,11 @@ const errorMessage = document.getElementById('error-message');
 const faqSection = document.getElementById('faqs');
 if (form) {
     form.addEventListener('submit', function (e) {
-
+        e.preventDefault();
         const question = document.getElementById('question-form').value;
         console.log(question);
         console.log(form);
 
-        e.preventDefault();
-        // const data = new URLSearchParams();
-        // data.append('question', question);
         const data = { 'question': question };
 
         // Here you can send the question to your backend for processing/storage

@@ -1,8 +1,9 @@
-const toggleAnswer = document.querySelector("button#toggle-faq-answer")
-if (toggleAnswer) {
+const toggleAnswerArray = document.querySelectorAll("button.toggle-faq-answer")
+if (toggleAnswerArray.length > 0) {
+    for (const toggleAnswer of toggleAnswerArray) {
+        toggleAnswer.addEventListener("click", toggleAnswerFaq)
+    }
     const submitFaq = document.querySelector("button#faq-message")
-    
-    toggleAnswer.addEventListener("click", toggleAnswerFaq)
     submitFaq.addEventListener("click", addMessageByFaq)
 }
 
@@ -34,10 +35,6 @@ async function addMessageByFaq(event) {
 }
 
 function toggleAnswerFaq() {
-    const faqText = "Answer with FAQ"
-    const messageText = "Answer with message"
-    toggleAnswer.textContent = toggleAnswer.textContent === faqText 
-    ? messageText : faqText
     const messageForm = document.querySelector("#message-form")
     const faqForm = document.querySelector("#faq-form")
 
