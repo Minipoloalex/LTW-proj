@@ -8,9 +8,11 @@ if ($session->isLoggedIn()) {
     exit(header('Location: main_page.php'));
 }
 
-drawShape();
-/*body*/
+
+
 drawLandingPageHeader();
+/*body*/
+drawShape();
 drawLoginForm($session);
 drawLogo();
 /*body end*/

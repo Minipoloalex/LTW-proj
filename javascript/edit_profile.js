@@ -13,7 +13,6 @@ const thename = document.getElementById('name');
 const email = document.getElementById('email');
 const username = document.getElementById('username');
 const oldpass = document.getElementById('old-password');
-const csrf = document.getElementById('csrf');
 
 async function postProfileData(data) {
     console.log(data);
@@ -28,16 +27,17 @@ async function postProfileData(data) {
 }
 
 function toggleProfile() {
-    for (var lab of toggleLabs)
+    for (const lab of toggleLabs)
         lab.toggleAttribute('hidden');
 
     //esconder password
-    for (var inp of toggleInps)
+    for (const inp of toggleInps)
         inp.toggleAttribute('hidden');
 
     //colocar readonly
     for (var input of inputs) {
         input.toggleAttribute('readonly'); //toggle passa sempre para o oposto do atual (interruptor)
+        // !TODO: change this classes and do this in css instead
         input.style.border = (input.style.border === '1px solid rgb(51, 51, 51)') ? 'none' : '1px solid rgb(51, 51, 51)';
         input.style.borderRadius = (input.style.borderRadius === '5px') ? '0px' : '5px';
         input.style.backgroundColor = (input.style.backgroundColor === 'white') ? 'transparent' : 'white';
@@ -57,16 +57,23 @@ function toggleProfile() {
 
     //apagar new password apos dar save
     newpassInp.value = '';
-    newpassInp.setAttribute('hidden', 'hidden');
-    newpassLab.setAttribute('hidden', 'hidden');
+    newpassInp.setAttribute('hidden','hidden');
+    newpassLab.setAttribute('hidden','hidden');
     changepass.textContent = 'Change password';
+
 }
-
 if (saveBtn) {
-
     saveBtn.addEventListener('click', async () => {
         
-        const res = await postProfileData({ 'name': thename.value, 'email': email.value, 'username': username.value, 'oldpass': oldpass.value, 'newpass': newpassInp.value, 'editpass': checkChangeState(), 'csrf': csrf.value });
+        const res = await postProfileData({
+            'name': thename.value,
+            'email': email.value,
+            'username': username.value,
+            'oldpass': oldpass.value,
+            'newpass': newpassInp.value,
+            'editpass': checkChangeState(),
+            'csrf': getCsrf()
+        });
         console.log(res);
         const json = await res.json();
         console.log(json);
@@ -78,9 +85,7 @@ if (saveBtn) {
             displayMessage(json['success'], false);
             toggleProfile();
         }
-    }
-    );
-
+    });
     changepass.addEventListener('click', () => {
         newpassInp.toggleAttribute('hidden');
         newpassLab.toggleAttribute('hidden');
@@ -89,11 +94,10 @@ if (saveBtn) {
 }
 
 if (cancelBtn) {
-    cancelBtn.addEventListener('click', function () {
+    cancelBtn.addEventListener('click', () => {
         toggleProfile();
     });
 }
-
 if (editBtn) {
     /*verificar se posso fazer toggle para 'edit' outra vez (apos dar save), apenas se os dados estiverem certos*/
 
@@ -105,6 +109,7 @@ if (editBtn) {
     });
 }
 
+
 function checkChangeState() {
     if (changepass.textContent === 'Cancel') {
         return 'yes'; //se o botao de cancelar mudar de password estiver visivel, retorna true
@@ -113,10 +118,8 @@ function checkChangeState() {
 }
 
 // function checkEditState() {
-//     if (editBtn.attributes.getNamedItem('hidden') === null) {
-//         return false; //se o botao de cancelar mudar de password estiver visivel, retorna true
+//     if (editBtn.textContent === 'Save') {
+//         return true; //se o botao de cancelar mudar de password estiver visivel, retorna true
 //     }
-//     return true;
+//     return false;
 // }
-
-

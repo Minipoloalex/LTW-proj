@@ -74,7 +74,7 @@ require_once(__DIR__ . '/../utils/session.php');
 
 <?php function drawLandingPageHeader()
 { ?>
-  <DOCTYPE html>
+  <!DOCTYPE html>
     <html lang="en-US">
 
     <head>

@@ -25,7 +25,7 @@ if (!$user) {
 }
 $type = Client::getType($db, $user->id);
 
-output_header();
+output_header($session);
 // drawProfile($user, $type);
 drawProfileForm($user, $session, $type);
 output_footer();

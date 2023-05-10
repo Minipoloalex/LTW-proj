@@ -7,7 +7,7 @@ if (!$session->isLoggedIn()) {
 require_once(__DIR__ . '/../templates/tickets.tpl.php');
 
 
-output_header();
+output_header($session);
 
 output_footer();
 

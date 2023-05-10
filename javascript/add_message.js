@@ -1,69 +1,65 @@
-async function postDataMessage(data) {
-    console.log(data)
-    console.log(encodeForAjax(data))
-    return fetch('../api/api_add_message.php', {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: encodeForAjax(data)
-    })
+const messageButton = document.querySelector("#message-form button[type='submit']")
+if (messageButton) {
+    messageButton.addEventListener('click', submitNewMessage)
 }
-
-function submitNewMessage(event) {
+async function postNewMessage(messageText, ticketID) {
+    const json = await postData('../api/api_add_message.php', {
+        'message': messageText,
+        'ticketID': ticketID,
+    })
+    return json
+}
+async function submitNewMessage(event) {
     event.preventDefault()
     
-    const messagesList = document.querySelector('#messages-list')
-    const messageInput = document.querySelector('#message-input')
+    const messagesList = getIndividualTicketMessagesList()
+    const messageInput = document.querySelector('#message-form textarea')
     
     const messageText = messageInput.value
-    const ticketID = messageInput.getAttribute("data-id")
+    const ticketID = getIndividualTicketID()
     console.log(messageText)
     messageInput.value = ""
 
-    const csrf = getCsrf()
-    
-    postDataMessage({'message': messageText, 'ticketID': ticketID, 'csrf': csrf})
-    .catch(() => console.error('Network Error'))
-    .then(response => response.json())
-    .catch(() => console.error('Error parsing JSON'))
-    .then(json => {
-        console.log(json)
-        setCsrf(json['csrf'] ?? [])
-        if (json['error']) {
-            console.error(json['error'])
-            return
-        }
-        const newMessage = document.createElement("article")
-        newMessage.classList.add("message")
-        newMessage.classList.add("self")    // Note: current user can only add messages from himself
-        
-        const header = document.createElement("header")
-        
-        const user = document.createElement("span")
-        user.classList.add("user")
-        user.textContent = json['username']
-        header.appendChild(user)
-        
-        const date = document.createElement("span")
-        date.classList.add("date")
-        date.textContent = json['date']
-        header.appendChild(date)
-
-        const text = document.createElement("p")
-        text.classList.add("text")
-        
-        text.textContent = json['text']
-
-
-        newMessage.appendChild(header)
-        newMessage.appendChild(text)
-
-        messagesList.appendChild(newMessage)
-    })
+    const json = await postNewMessage(messageText, ticketID)
+    console.log(json)
+    if (json['error']) {
+        console.error(json['error'])
+    }
+    else if (json['success']) {    
+        addMessageToDOM(messagesList, json['text'], json['username'], json['date'])
+    }
 }
 
-const messageButton = document.querySelector("button#add-message")
-if (messageButton) {
-    messageButton.addEventListener('click', submitNewMessage)
+function addMessageToDOM(messagesList, messageText, username, dateText) {
+    const newMessage = document.createElement("article")
+    newMessage.classList.add("message")
+    newMessage.classList.add("self")    // Note: current user can only add messages from himself
+    
+    const header = document.createElement("header")
+    
+    const user = document.createElement("span")
+    user.classList.add("user")
+    user.textContent = username
+    header.appendChild(user)
+    
+    const date = document.createElement("span")
+    date.classList.add("date")
+    date.textContent = dateText
+    header.appendChild(date)
+
+    const text = document.createElement("p")
+    text.classList.add("text")
+    text.textContent = messageText
+
+    newMessage.appendChild(header)
+    newMessage.appendChild(text)
+    
+    messagesList.appendChild(newMessage)
+}
+
+function getIndividualTicketID() {
+    return document.querySelector('article#individual-ticket').getAttribute("data-id")
+}
+function getIndividualTicketMessagesList() {
+    return document.querySelector("#messages-list")
 }

@@ -118,7 +118,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 }
 
 /*delete faq*/
-// verify if DELETE
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     // TODO: receive id
     // verify if user is logged in
@@ -194,6 +193,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH'){
     exit();
 }
 
+/* get a specific faq by id, must be displayed/accessible to clients */
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (!$session->isLoggedIn()) {
+        http_response_code(401); // Unauthorized
+        echo json_encode(array('error' => 'User not logged in'));
+        exit();
+    }
+    if (!$session->verifyCsrf($_GET['csrf'])) {
+        http_response_code(403); // Forbidden
+        echo json_encode(array('error' => 'CSRF token invalid'));
+        exit();
+    }
+    if (!is_valid_faq_id($db, $_GET['id'])) {
+        http_response_code(400); // Bad request
+        echo json_encode(array('error' => 'Invalid faq parameter'));
+        exit();
+    }
+    $id = intval($_GET['id']);
+    $faq = Forum::getById($db, $id);
+    if (!$faq) {
+        http_response_code(500); // Internal server error
+        echo json_encode(array('error' => 'Failed to get FAQ from database'));
+        exit();
+    }
+    if ($faq->displayed == 0) {
+        http_response_code(401); // Unauthorized
+        echo json_encode(array('error' => 'FAQ requested is not displayed'));
+        exit();
+    }
+
+    echo json_encode(array(
+        'success' => 'FAQ retrieved successfully',
+        'question' => $faq->question,
+        'answer' => $faq->answer,
+        'csrf' => $session->getCsrf()
+    ));
+    exit();
+}
 echo json_encode(array('error' => 'Invalid request method'));
 ?>
 

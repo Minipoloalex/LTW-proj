@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 require_once(__DIR__ . '/../database/forum.class.php');
+require_once(__DIR__ . '/common.tpl.php');
 ?>
 
 <?php function output_single_faq(Forum $faq, string $type)
@@ -54,12 +55,13 @@ require_once(__DIR__ . '/../database/forum.class.php');
 
 <?php function output_faq_form(Forum $faq = null)
 { ?>
-	<div class="faq-page">
+	<header class="faq-page">
 		<h2 class="faq-header">Frequently Asked Questions</h2>
 		<p>Browse our FAQs for quick answers to common questions! If you can't find what you're looking for, use the form below to ask a question about our service. Our agents will answer your question as soon as possible.
 		</p>
 		<p>Agents can also use the FAQ to answer tickets, so your question might be added to the FAQ if it's a common
 			question.</p>
+<<<<<<< HEAD
 		<form id='faq-form' class="faq-form">
 			<label for="question-form">Your question <small>(max 100 chars)</small>:</label>
 			<textarea id="question-form" name="question-form" maxlength="100" rows="1" required></textarea>
@@ -75,3 +77,14 @@ require_once(__DIR__ . '/../database/forum.class.php');
 	</div>
 
 <?php } ?>
+=======
+		<?php output_textarea_form("faq-form", "Your question <small>(max 100 chars)</small>:", 
+		"question-form", array(
+			"<button type='submit'>Ask</button>",
+		)); ?>
+		<div class="success-message" id="success-message">Your question has been sent successfully. We'll answer you as soon
+			as possible.</div>
+		<div class="error-message" id="error-message">There was an error sending your question. Please try again.</div>
+	</header>
+<?php } ?>
+>>>>>>> 2e9d170aff0c00916b3b76bd4e775ddcfd95d915

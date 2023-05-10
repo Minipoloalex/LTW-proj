@@ -17,7 +17,7 @@ if (!$user) {
 $filters = Ticket::getFilters($db);
 $tickets = Ticket::getByUser($db, $user->id);
 
-output_header();
+output_header($session);
 drawFilterMenu($filters);
 drawTicketsTable($tickets, 'My Tickets');
 drawCardContainer();

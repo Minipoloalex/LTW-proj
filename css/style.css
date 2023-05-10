@@ -6,7 +6,10 @@
   --closed-red: #f44336;
 } */
 
-
+:root {
+  --button-color: #846a8b;
+  --button-hover: #a492a9;
+}
 
 body {
   margin: 0;
@@ -282,10 +285,6 @@ body.landingbody {
   color: #fff;
 }
 
-.registerform .registerbuttons button:hover {
-  background-color: #a492a9;
-}
-
 
 /*--------------------- SVG waves ----------------------------*/
 
@@ -414,6 +413,7 @@ tr:hover {
 .createticket select,
 .createticket textarea {
   padding: 0.5rem;
+  color: black;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -450,13 +450,6 @@ tr:hover {
   grid-column: 1;
 }
 
-.createticket select {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  color: black;
-}
 
 .createticket option {
   background-color: #f5f5f5;
@@ -464,13 +457,7 @@ tr:hover {
 }
 
 .createticket input[type="text"],
-.createticket textarea {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  color:black;
-}
+
 
 /* .createticket button[type='submit'] {
   color: black;
@@ -593,6 +580,7 @@ h2#yourprofile {
   box-shadow: none;
 }
 
+
 /* .profile button {
   background-color: #846a8b;
   color: white;
@@ -673,7 +661,7 @@ div.features {
 
 /* FAQ form */
 
-div.faq-page {
+header.faq-page {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto auto;
@@ -682,7 +670,7 @@ div.faq-page {
   /* margin-left: 80px; */
 }
 
-div.faq-page h2.faq-header {
+header.faq-page h2.faq-header {
   margin-top: 0;
 
   margin-bottom: 1rem;
@@ -696,31 +684,31 @@ div.faq-page h2.faq-header {
   margin-bottom: 1rem;
 }
 
-div.faq-page h2 {
+header.faq-page h2 {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 0;
 }
 
-div.faq-page p {
+header.faq-page p {
   font-size: 16px;
   margin-top: 0;
   text-align: center;
 }
 
-div.faq-page form {
+header.faq-page form {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto auto;
   gap: 10px;
 }
 
-.faq-form label {
+.textarea-form label {
   font-size: 18px;
   font-weight: bold;
 }
 
-.faq-form textarea {
+.textarea-form textarea {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -732,22 +720,10 @@ div.faq-page form {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 /*ask button e answer button (propriedades iguais)*/
-.faq-form button, .faq button.answer-faq, .faq button.save-answer {
-  background-color: #846a8b;
-  color: white;
-  font-size: 0.9rem; /* or any other appropriate font size */
-  border: none;
-  border-radius: 5px;
-  padding: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin: 0.5rem auto 0;
-  width: fit-content;
+.textarea-form button, .faq button.answer-faq, .faq button.save-answer {
+  margin-top: 0.5rem;
 }
 
-.faq-form button:hover {
-  background-color: #a492a9;
-}
 
 
 /* individual faq -> question and answer */
@@ -927,13 +903,9 @@ article.faq {
   resize: vertical;
 }
 
-.faq-form button:hover, .faq button.answer-faq:hover, .faq button.save-answer:hover {
-  background-color: #a492a9;
-}
-
 
 @media screen and (min-width: 768px) {
-  .faq-form button, button.answer-faq, button.save-answer, .profile button {
+  .textarea-form button, button.answer-faq, button.save-answer, .profile button {
     width: 15%;
   }
 }
@@ -1165,7 +1137,7 @@ label select {
   font-family: 'Martel Sans', sans-serif;
   
   margin-top: 6px;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
   /* color: white; */
   /* background-color: #23232e; */
   cursor: pointer;
@@ -1174,12 +1146,7 @@ label select {
 /* ======================= TICKET INFO BUTTONS ======================= */
 #ticket-info button {
   margin: 0.5em auto;
-  border: none;
-  border-radius: 20px;
   padding: 0.2em 1em;
-  color: white;
-  cursor: pointer;
-  font-size: 1rem;
 }
 
 /* ============================= HASHTAGS =========================== */
@@ -1200,13 +1167,5 @@ label select {
   margin-left: 0.3rem;
   cursor: pointer;
 }
-/* ============================ ADD HASHTAG BUTTON ============================ */
-button#add-hashtag {
-  border: none;
-  border-radius: 20px;
-  color: white;
-  cursor: pointer;
-  font-size: 1rem;
-  background-color: rgb(35,35,46);    
-}
+
 /* ================================================================== */
