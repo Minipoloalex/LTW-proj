@@ -13,7 +13,6 @@ const thename = document.getElementById('name');
 const email = document.getElementById('email');
 const username = document.getElementById('username');
 const oldpass = document.getElementById('old-password');
-const csrf = getCsrf();
 
 async function postProfileData(data) {
     console.log(data);
@@ -66,7 +65,15 @@ function toggleProfile() {
 if (saveBtn) {
     saveBtn.addEventListener('click', async () => {
         
-        const res = await postProfileData({ 'name': thename.value, 'email': email.value, 'username': username.value, 'oldpass': oldpass.value, 'newpass': newpassInp.value, 'editpass': checkChangeState(), 'csrf': csrf.value });
+        const res = await postProfileData({
+            'name': thename.value,
+            'email': email.value,
+            'username': username.value,
+            'oldpass': oldpass.value,
+            'newpass': newpassInp.value,
+            'editpass': checkChangeState(),
+            'csrf': getCsrf()
+        });
         console.log(res);
         const json = await res.json();
         console.log(json);
