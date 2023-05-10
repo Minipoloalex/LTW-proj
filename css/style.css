@@ -6,7 +6,9 @@
   --closed-red: #f44336;
 } */
 
-
+:root {
+  --button-color: #846a8b;
+}
 
 body {
   margin: 0;

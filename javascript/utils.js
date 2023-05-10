@@ -34,11 +34,26 @@ async function postData(path, data) {
     return json;
 }
 
+async function getData(path, data) {
+    data['csrf'] = getCsrf()
+    const response = await fetch(path + "?" + encodeForAjax(data), {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+            },
+        }
+    )
+    const json = await response.json()
+    setCsrf(json['csrf'])
+    return json
+}
+
 function getCsrf() {
     return document.querySelector("body").getAttribute("data-csrf")
 }
 
 function setCsrf(csrfValue) {
+    if (!csrfValue) return
     const body = document.querySelector("body")
     if (body) body.setAttribute("data-csrf", csrfValue)
 

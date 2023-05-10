@@ -55,6 +55,7 @@ if (!$message) {
 
 http_response_code(200); // OK
 echo json_encode(array(
+    'success' => 'Message successfully added',
     'id' => $message->id,
     'text' => $message->text,
     'userID' => $message->userID,

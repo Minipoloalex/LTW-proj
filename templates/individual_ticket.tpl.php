@@ -33,7 +33,7 @@ function output_single_ticket_info(Ticket $ticket) { ?>
 <?php }
 function output_single_ticket(Ticket $ticket, array $messages, array $actions,
 array $all_hashtags, array $all_agents, array $all_departments, Session $session, bool $isAgentView) { ?>
-    <article id="individual-ticket">
+    <article data-id="<?=$ticket->ticketid?>" id="individual-ticket">
         <header><h1 id="ticket-title"><?=$ticket->title?></h1></header>
         <h3>Ticket description:</h3>
         <p id="ticket-description"><?=$ticket->description?></p>
@@ -102,14 +102,6 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
 
 <?php function output_message_form(int $ticketID) { ?>
     <?php output_textarea_form("message-form", "Add a message:", "message", "Submit", strval($ticketID)) ?>
-    <?php /*
-    <form id="message-form">
-        <label>Add a message:
-            <textarea rows="1" data-id="<?=$ticketID?>" name="message" id="message-input"></textarea>
-        </label>
-        <button id="add-message" type="submit">Submit</button>
-    </form>
-    */ ?>
 <?php } ?>
 
 <?php function output_change_ticket_info_form(Ticket $ticket, array $agents, array $departments, array $hashtags) { ?>
@@ -191,15 +183,16 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
 
 
 <?php function output_answer_with_faq_form(array $displayed_faqs) { ?>
-    <button id="answer-with-faq-button">Answer with FAQ</button>
-    <form id="answer-with-faq-form">
-        <label for="faq-search">Type the frequently asked question:</label>
-        <input autocomplete="off" type="text" name="faq" id="faq-search" value="" list="faq-datalist">
-        <datalist id="faq-datalist">
-            <?php foreach ($displayed_faqs as $faq) { ?>
-                <option value="<?= htmlentities($faq->question)?>">
-            <?php } ?>
-        </datalist>
-        <button id="faq-message" type="submit">Add message by FAQ</button>
+    <form id="faq-form" hidden>
+        <label>Select a FAQ to answer:
+            <select name="faq">
+                <option></option>
+                <?php foreach($displayed_faqs as $faq) { ?>
+                <option value="<?=$faq->forumId?>"><?=htmlentities($faq->question)?></option>
+                <?php } ?>
+            </select>
+            <button id="faq-message" type="submit">Add message by FAQ</button>
+        </label>
     </form>
+    <button id="toggle-faq-answer">Answer with FAQ</button>
 <?php } ?>

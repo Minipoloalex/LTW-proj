@@ -1,0 +1,13 @@
+button {
+    background-color: #846a8b;
+    color: white;
+    font-size: 0.9rem; /* or any other appropriate font size */
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 auto;
+    width: fit-content;
+  }
+  

@@ -30,6 +30,22 @@ class Forum
         }
         return $faqs;
     }
+    static function getById(PDO $db, int $forumID): ?Forum {
+        $stmt = $db->prepare('SELECT * FROM FORUM WHERE ForumID = ?');
+        $stmt->execute(array($forumID));
+
+        $faq = $stmt->fetch();
+        if (!$faq) {
+            return null;
+        }
+
+        return new Forum(
+            intval($faq['ForumID']),
+            $faq['Question'],
+            $faq['Answer'],
+            intval($faq['Displayed'])
+        );
+    }
 
     static function getFaqs(PDO $db, int $count): array
     {

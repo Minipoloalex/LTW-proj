@@ -133,7 +133,7 @@
 
 /* ======================== SAVE BUTTON ======================== */
 #ticket-info button#update-ticket {
-    background-color: var(--button-green);
+    background-color: var(--button-color);
 }
 /* ======================== CLOSE BUTTON ======================== */
 #ticket-info button#close-ticket {
