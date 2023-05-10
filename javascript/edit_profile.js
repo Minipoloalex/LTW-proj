@@ -37,7 +37,7 @@ function toggleProfile() {
     //colocar readonly
     for (var input of inputs) {
         input.toggleAttribute('readonly'); //toggle passa sempre para o oposto do atual (interruptor)
-        // !TODO: change this to just change a class
+        // !TODO: change this classes and do this in css instead
         input.style.border = (input.style.border === '1px solid rgb(51, 51, 51)') ? 'none' : '1px solid rgb(51, 51, 51)';
         input.style.borderRadius = (input.style.borderRadius === '5px') ? '0px' : '5px';
         input.style.backgroundColor = (input.style.backgroundColor === 'white') ? 'transparent' : 'white';
@@ -108,14 +108,6 @@ if (editBtn) {
         toggleProfile();
     });
 }
-
-changepass.addEventListener('click', () => {
-    newpassInp.toggleAttribute('hidden');
-    newpassLab.toggleAttribute('hidden');
-    changepass.textContent = (changepass.textContent === 'Change password') ? 'Cancel' : 'Change password';
-
-    
-})
 
 
 function checkChangeState() {
