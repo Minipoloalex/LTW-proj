@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if (!is_valid_string($_POST['question'])) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Missing question parameter'));
+        echo json_encode(array('error' => 'Missing question parameter.'));
         exit();
     }
 
@@ -27,26 +27,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if (Forum::alreadyExists($db, $question)) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Found similar FAQ on database'));
+        echo json_encode(array('error' => 'A similar FAQ was found.'));
         exit();
     }
     $faq = Forum::addFaq($db, $question);
 
     if (!$faq) {
         http_response_code(500); // Internal server error
-        echo json_encode(array('error' => 'Failed to add FAQ to database'));
+        echo json_encode(array('error' => 'Failed to add FAQ.'));
         exit();
     }
 
     $type = Client::getType($db, $session->getId());
 
     echo json_encode(array(
+        'success' => 'Your question was successfully sent.',
         'id' => $faq->forumId,
         'question' => $faq->question,
         'answer' => $faq->answer,
         'displayed' => $faq->displayed,
         'type' => $type
     ));
+
     exit(); /*após uma mensagem (sucesso ou failure) deve levar exit()*/
 
 }
@@ -55,32 +57,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     if (!$session->isLoggedIn()) {
         http_response_code(401); // Unauthorized
-        echo json_encode(array('error' => 'User not logged in'));
+        echo json_encode(array('error' => 'You are not logged in.'));
         exit();
     }
 
     if (Client::getType($db, $session->getId()) !== 'Admin') {
         http_response_code(403); // Forbidden
-        echo json_encode(array('error' => 'User not authorized'));
+        echo json_encode(array('error' => 'You are not authorized.'));
         exit();
     }
 
     // verify if all parameters are set
     if (!isset($_GET['question']) || !isset($_GET['answer'])) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Missing parameters'));
+        echo json_encode(array('error' => 'Missing parameters.'));
         exit();
     }
 
     // verify if parameters are valid
     if (!is_valid_string($_GET['question']) || !is_valid_string($_GET['answer'])) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Invalid parameters'));
+        echo json_encode(array('error' => 'Invalid parameters.'));
         exit();
     }
     if (!is_valid_id($_GET['id'])) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Invalid parameters'));
+        echo json_encode(array('error' => 'Invalid parameters.'));
         exit();
     }
 
@@ -111,14 +113,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
     $faq = Forum::updateFaq($db, $question, $answer, $id);
 
-    echo json_encode(array('success' => 'FAQ updated successfully', 'id' => $faq->forumId, 'question' => $faq->question, 'answer' => $faq->answer, 'displayed' => $faq->displayed));
+    echo json_encode(array('success' => 'FAQ was updated successfully.', 'id' => $faq->forumId, 'question' => $faq->question, 'answer' => $faq->answer, 'displayed' => $faq->displayed));
     exit();
 }
 
 /*delete faq*/
 // verify if DELETE
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-        print_r("am i here?");
     // TODO: receive id
     // verify if user is logged in
     if (!$session->isLoggedIn()) {
@@ -148,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     // delete FAQ
     $id = $_GET['id'];
     $faq = Forum::deleteFaq($db, $id);
-    echo json_encode(array('success' => 'FAQ deleted successfully'));
+    echo json_encode(array('success' => 'FAQ deleted successfully.'));
     exit();
 }
 
@@ -156,27 +157,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 if ($_SERVER['REQUEST_METHOD'] === 'PATCH'){
     if (!$session->isLoggedIn()) {
         http_response_code(401); // Unauthorized
-        echo json_encode(array('error' => 'User not logged in'));
+        echo json_encode(array('error' => 'You are not logged in.'));
         exit();
     }
 
     if (Client::getType($db, $session->getId()) === 'Client') {
         http_response_code(403); // Forbidden
-        echo json_encode(array('error' => 'User not authorized'));
+        echo json_encode(array('error' => 'You are not authorized.'));
         exit();
     }
 
     // verify if all parameters are set
     if (!isset($_GET['displayed'])) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Missing parameters'));
+        echo json_encode(array('error' => 'There are missing parameters.'));
         exit();
     }
 
     // verify is displayed is valid (0 or 1)
     if (!($_GET['displayed'] === '0' || $_GET['displayed'] === '1')) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Invalid parameters'));
+        echo json_encode(array('error' => 'Invalid parameters.'));
         exit();
     }
     
@@ -185,11 +186,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH'){
 
     if (!Forum::updateDisplayed($db, $displayed, $id)){
         http_response_code(500); // Internal server error
-        echo json_encode(array('error' => 'Failed to update FAQ on database'));
+        echo json_encode(array('error' => 'Failed to update FAQ.'));
         exit();
     }
 
-    echo json_encode(array('success' => 'FAQ updated successfully'));
+    echo json_encode(array('success' => 'FAQ updated successfully.'));
     exit();
 }
 

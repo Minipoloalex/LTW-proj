@@ -35,6 +35,9 @@ require_once(__DIR__ . '/../database/forum.class.php');
 
 		<?php } ?>
 	</article>
+
+	<!-- <div id="feedback-message-single-faq" class="feedback-message">m</div> -->
+
 <?php } ?>
 <!-- !TODO: criar sections para faqs displayed/not displayed e para faqs not ansered -->
 <?php function output_all_faqs(array $faqs, string $type)
@@ -64,9 +67,11 @@ require_once(__DIR__ . '/../database/forum.class.php');
 			<!-- <input type="text" id="username" name="username" required> -->
 			<button type="submit">Ask</button>
 		</form>
-		<div class="success-message" id="success-message">Your question has been sent successfully. We'll answer you as soon
+		<!-- <div class="success-message" id="success-message">Your question has been sent successfully. We'll answer you as soon
 			as possible.</div>
-		<div class="error-message" id="error-message">There was an error sending your question. Please try again.</div>
+		<div class="error-message" id="error-message">There was an error sending your question. Please try again.</div> -->
+		<div id="feedback-message" class="feedback-message"></div>
+
 	</div>
 
 <?php } ?>

@@ -1,6 +1,7 @@
 const form = document.getElementById('faq-form');
-const successMessage = document.getElementById('success-message');
-const errorMessage = document.getElementById('error-message');
+// const successMessage = document.getElementById('success-message');
+// const errorMessage = document.getElementById('error-message');
+// const feedbackMessage = document.getElementById('feedback-message');
 const faqSection = document.getElementById('faqs');
 if (form) {
     form.addEventListener('submit', function (e) {
@@ -27,17 +28,17 @@ if (form) {
             body: encodeForAjax(data)
 
         }).then(async function (response) {
+            const json = await response.json();
             if (response.ok) {
-                successMessage.style.display = 'block';
+                displayMessage(json['success'], false);
                 form.reset();
-                response.json().then(data => {
-                    console.log(data);
-                    const type = data.type; //user type;
+                
+                    const type = json['type']; //user type;
 
                     if (type !== 'Client') {
                         let faq = document.createElement('article');
                         faq.setAttribute('class', 'faq');
-                        faq.setAttribute('data-id', data.id);
+                        faq.setAttribute('data-id', json['id']);
 
                         let question = document.createElement('textarea');
                         question.setAttribute('class', 'question input-readonly');
@@ -46,7 +47,7 @@ if (form) {
                         question.setAttribute('maxlength', '100');
                         question.setAttribute('rows', '1');
                         question.setAttribute('readonly', '');
-                        question.textContent = data.question;
+                        question.textContent = json['question'];
                         faq.appendChild(question);
 
                         let answer = document.createElement('textarea');
@@ -55,7 +56,7 @@ if (form) {
                         answer.setAttribute('id', 'answer');
                         answer.setAttribute('rows', '1');
                         answer.setAttribute('readonly', '');
-                        answer.textContent = data.answer ?? '';
+                        answer.textContent = json['answer'] ?? '';
                         faq.appendChild(answer);
 
                         //if (type !== 'Client') {
@@ -82,7 +83,7 @@ if (form) {
                         let hideBtn = document.createElement('button');
                         let displayBtn = document.createElement('button');
 
-                        if (data.displayed === 1) {
+                        if (json['displayed'] === 1) {
                             // let hideBtn = document.createElement('button');
                             hideBtn.setAttribute('class', 'hide-faq');
                             hideBtn.setAttribute('id', 'hideBtn');
@@ -111,7 +112,7 @@ if (form) {
                             faq.appendChild(displayBtn);
                         }
 
-                        if (data.answer === null) {
+                        if (json['answer'] === null) {
                             let answerFaqBtn = document.createElement('button');
                             answerFaqBtn.setAttribute('class', 'answer-faq');
                             answerFaqBtn.setAttribute('id', 'answerFaq');
@@ -140,69 +141,32 @@ if (form) {
                         handleTextAreas(answer);
 
                     }
-                });
-                // response.json().then(data => {
-                //     // faq. type.~
-                //     console.log(data);
-                //     const type = data.type;
-
-                //     // new faq:
-                //     let html = `
-                //         <article class="faq" data-id="${data.id}">
-                //         <textarea id="question" name="question" class="question input-readonly"
-                //         value="${data.question}" maxlength="100" rows="1" readonly>${data.question}</textarea>
-
-                //         <textarea id="answer" name="answer" class="answer input-readonly"
-                //         value="${data.answer ?? ''}" rows="1" readonly>${data.answer ?? ''}</textarea>
-                //         `;
-
-                //     if (type !== 'Client') {
-                //         html += `
-                //         <button id="editFaqBtn" class="edit-faq"><span class="material-symbols-outlined">edit</span></button>
-                //         <button id="saveFaqBtn" class="save-faq" hidden><span class="material-symbols-outlined">save</span></button>
-                //         <button id="deleteFaqBtn" class="delete-faq"><span class="material-symbols-outlined">delete</span></button>
-                //         `;
-
-                //         if (data.displayed === 1) {
-                //             html += `
-                //             <button id="hideBtn" class="hide-faq"><span class="material-symbols-outlined">visibility_off</span></button>
-                //             `;
-                //         } else {
-                //             html += `
-                //             <button id="displayBtn" class="hide-faq"><span class="material-symbols-outlined">visibility</span></button>
-                //             `;
-                //         }
-
-                //         if (data.answer === null) {
-                //             html += `
-                //             <button id="answerFaq" class="answer-faq">Answer question</button>
-                //             <button id="saveAnswerBtn" class="save-answer" hidden>Save answer</button>
-                //             `;
-                //         }
-                //     }
-
-                //     html += '</article>';
-                //     faqSection.innerHTML += html;
-                // });
             } else {
+                displayMessage(json['error']);
                 throw new Error('Network response was not ok');
             }
 
         }).catch(function (error) {
             console.error('There was a problem with the fetch operation:', error);
-            errorMessage.style.display = 'block';
+            // displayMessage(json['error']);
         });
 
-        // successMessage.style.display = 'block';
         form.reset();
     });
 
     form.addEventListener('focusin', function () {
-        successMessage.style.display = 'none';
-        errorMessage.style.display = 'none';
+        // successMessage.style.display = 'none';
+        // errorMessage.style.display = 'none';
+        FeedbackMessage.classList.remove('error-message');
+        FeedbackMessage.classList.remove('success-message');
+        FeedbackMessage.textContent = '';
     });
     form.addEventListener('change', function () {
-        successMessage.style.display = 'none';
-        errorMessage.style.display = 'none';
+        // successMessage.style.display = 'none';
+        // errorMessage.style.display = 'none';
+        FeedbackMessage.classList.remove('error-message');
+        FeedbackMessage.classList.remove('success-message');
+        FeedbackMessage.textContent = '';
+        
     });
 }
