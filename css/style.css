@@ -8,6 +8,7 @@
 
 :root {
   --button-color: #846a8b;
+  --button-hover: #a492a9;
 }
 
 body {
@@ -264,10 +265,6 @@ body.landingbody {
   cursor: pointer;
   font-family: 'Martel Sans', sans-serif;
   color: #fff;
-}
-
-.registerform .registerbuttons button:hover {
-  background-color: #a492a9;
 }
 
 
@@ -575,10 +572,6 @@ h2#yourprofile {
   width: fit-content;
 }
 
-.profile button:hover {
-  background-color: #a492a9;
-}
-
 
 /* --------- MAIN PAGE CONTENT ---------- */
 
@@ -714,9 +707,6 @@ header.faq-page form {
   width: fit-content;
 }
 
-.textarea-form button:hover {
-  background-color: #a492a9;
-}
 
 
 /* individual faq -> question and answer */
@@ -896,10 +886,6 @@ article.faq {
   resize: vertical;
 }
 
-.textarea-form button:hover, .faq button.answer-faq:hover, .faq button.save-answer:hover {
-  background-color: #a492a9;
-}
-
 
 @media screen and (min-width: 768px) {
   .textarea-form button, button.answer-faq, button.save-answer, .profile button {
@@ -987,10 +973,6 @@ article.faq {
   font-size: 14px;
   padding: 8px 16px;
   transition: background-color 0.2s ease-in-out;
-}
-
-.filter button:hover {
-  background-color: #a492a9;
 }
 
 /* ================ RESPONSIVENESS (web e mobile) ================== */

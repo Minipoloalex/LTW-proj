@@ -10,4 +10,7 @@ button {
     margin: 0 auto;
     width: fit-content;
   }
+  button:hover {
+    background-color: #a492a9;
+  }
   
