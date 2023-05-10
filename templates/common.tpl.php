@@ -4,7 +4,7 @@ declare(strict_types=1);
 require_once(__DIR__ . '/../utils/session.php');
 ?>
 
-<?php function output_header()
+<?php function output_header(Session $session)
 { ?>
 
   <!DOCTYPE html>
@@ -55,7 +55,7 @@ require_once(__DIR__ . '/../utils/session.php');
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
-<body>
+<body data-csrf="<?=$session->getCsrf()?>">
 
   <!-- <header>
         <h1><a href="main_page.php">Trouble Solver</a></h1>

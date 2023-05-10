@@ -34,7 +34,6 @@ const thename = document.getElementById('name');
 const email = document.getElementById('email');
 const username = document.getElementById('username');
 const oldpass = document.getElementById('old-password');
-const csrf = document.getElementById('csrf');
 
 /*mensagens de erro*/
 const successM = document.getElementById('success-message');
@@ -59,28 +58,26 @@ editBtn.addEventListener('click', async () => {
     // editBtn.setAttribute('type', editBtn.getAttribute('type') === 'button' ? 'submit' : 'button');
 
     if (checkEditState()) {
-        const res = await postProfileData({ 'name': thename.value, 'email': email.value, 'username': username.value, 'oldpass': oldpass.value, 'newpass': newpassInp.value, 'editpass': checkChangeState(), 'csrf': csrf.value })
-            // .catch(() => console.log('Network Error'))
-            // .then(response => response.json())
-            // .catch(() => console.log('Error parsing JSON'))
-            // .then(json => {
-            //     console.log(json)
-            //     if (json['error']) {
-            //         console.error(json['error'])
-            //         return
-            //     }
+        const res = await postProfileData({
+            'name': thename.value,
+            'email': email.value,
+            'username': username.value,
+            'oldpass': oldpass.value,
+            'newpass': newpassInp.value,
+            'editpass': checkChangeState(),
+            'csrf': getCsrf()
+        })
 
-            // })
-
-            console.log(res);
-            const json = await res.json();
-            console.log(json);
-            if (!res.ok){
-                errorM.style.display = 'block';
-                return;}
-            else{
-                successM.style.display = 'block';
-            }
+        console.log(res);
+        const json = await res.json();
+        console.log(json);
+        if (!res.ok){
+            errorM.style.display = 'block';
+            return;}
+        else {
+            setCsrf(json['csrf']);
+            successM.style.display = 'block';
+        }
             
     }
 
@@ -114,26 +111,20 @@ editBtn.addEventListener('click', async () => {
         newpassLab.setAttribute('hidden','hidden');
         changepass.textContent = 'Change password';
 
-}
-);
+    });
 
-changepass.addEventListener('click', () => {
-    newpassInp.toggleAttribute('hidden');
-    newpassLab.toggleAttribute('hidden');
-    changepass.textContent = (changepass.textContent === 'Change password') ? 'Cancel' : 'Change password';
+    changepass.addEventListener('click', () => {
+        newpassInp.toggleAttribute('hidden');
+        newpassLab.toggleAttribute('hidden');
+        changepass.textContent = (changepass.textContent === 'Change password') ? 'Cancel' : 'Change password';
 
-    
-})
+        
+    })
 
-editBtn.addEventListener('click', function () {
-    successM.style.display = 'none';
-    errorM.style.display = 'none';
-});
-// editBtn.addEventListener('change', function () {
-//     successM.style.display = 'none';
-//     errorM.style.display = 'none';
-// });
-
+    editBtn.addEventListener('click', function () {
+        successM.style.display = 'none';
+        errorM.style.display = 'none';
+    });
 }
 
 function checkChangeState() {
@@ -149,5 +140,3 @@ function checkEditState() {
     }
     return false;
 }
-
-

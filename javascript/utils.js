@@ -19,14 +19,15 @@ function encodeForAjax(data) {
 }
 
 function getCsrf() {
-    return document.querySelector("input[name='csrf']").getAttribute("value")
+    return document.querySelector("body").getAttribute("data-csrf")
 }
 
 function setCsrf(csrfValue) {
-    const csrf = document.querySelectorAll("input[name='csrf']")
-    for (const input of csrf) {
-        input.setAttribute("value", csrfValue)
-    }
+    const body = document.querySelector("body")
+    if (body) body.setAttribute("data-csrf", csrfValue)
+
+    const csrfInputs = document.querySelectorAll("input[name='csrf']")
+    for (const input of csrfInputs) input.setAttribute("value", csrfValue)
 }
 
 
@@ -39,4 +40,20 @@ for (let i = 0; i < tx.length; i++) {
 function OnInput() {
   this.style.height = 0;
   this.style.height = (this.scrollHeight) + "px";
+}
+
+async function postData(path, data) {
+    data['csrf'] = getCsrf()
+    const response = await fetch(path, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: encodeForAjax(data)
+        }
+    );
+    const json = await response.json()
+    
+    setCsrf(json['csrf'])
+    return json;
 }

@@ -23,7 +23,7 @@ if (!$user) {
 $filters = Ticket::getFilters($db);
 $tickets = Ticket::getByAgent($db, $user->id);
 
-output_header();
+output_header($session);
 drawFilterMenu($filters);
 drawTicketsTable($tickets, 'Assigned Tickets');
 drawCardContainer();

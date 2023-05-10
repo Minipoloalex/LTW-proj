@@ -18,7 +18,7 @@ $db = getDatabaseConnection();
 $faqs = Forum::getFaqs($db, 10);
 $type = Client::getType($db, $session->getId());
 
-output_header();
+output_header($session);
 output_faq_form();
 output_all_faqs($faqs, $type);
 output_footer();

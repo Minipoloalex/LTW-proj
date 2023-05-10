@@ -20,7 +20,7 @@ require_once(__DIR__ . '/../templates/departments.tpl.php');
 
 $departments = Department::getDepartments($db);
 
-output_header();
+output_header($session);
 drawDepartmentsTable($departments, $db);
 output_footer();
 

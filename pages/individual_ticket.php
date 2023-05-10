@@ -43,7 +43,7 @@ $departments = Department::getDepartments($db);
 $isAgentView = !($session->getName() === $ticket->username);
 
 
-output_header();
+output_header($session);
 output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments, $session, $isAgentView);
 if (!$ticket->isClosed()) {
     output_message_form($ticket->ticketid);
