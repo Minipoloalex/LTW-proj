@@ -104,9 +104,8 @@ body.landingbody {
   height: fit-content;
   padding: 2em;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
   backdrop-filter: blur(5px);
-
   position: absolute;
   top: 50%;
   left: 50%;
@@ -115,10 +114,7 @@ body.landingbody {
   height: auto;
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.7);
-  /* semi-transparent white */
   backdrop-filter: blur(10px);
-  /*Gaussian blur effect*/
-
 }
 
 .login-form h2 {
@@ -128,7 +124,7 @@ body.landingbody {
 
 .login-form input[type="text"],
 .login-form input[type="password"] {
-  width: 100%;
+  width: 92%;
   padding: 0.8em;
   margin-bottom: 1em;
   border-radius: 5px;
@@ -167,15 +163,15 @@ body.landingbody {
   margin-top: 1.5em;
 }
 
-.login-form a {
+/* .login-form a {
   color: #846a8b;
-}
+} */
+
+
 
 a.register {
   color: white;
   text-decoration: none;
-  /* Remove underline */
-  /* width: 100%; */
   padding: 0.5em;
   margin-top: 1em;
   margin-left: 0.5em;
@@ -222,7 +218,7 @@ body.landingbody {
 .registerform input[type="text"],
 .registerform input[type="email"],
 .registerform input[type="password"] {
-  width: 100%;
+  width: 92%;
   padding: 0.8em;
   margin-bottom: 1em;
   border-radius: 5px;
@@ -239,21 +235,21 @@ body.landingbody {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-.registerform .create {
-  width: 100%;
-  padding: 0.8em;
+.registerform .registerbuttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   margin-top: 1em;
-  background-color: #846a8b;
-  /* color: #fff; */
-  border: none;
-  border-radius: 5px;
-  font-size: 1em;
-  cursor: pointer;
+  gap: 1em;
 }
 
 .registerform .create:hover {
   background-color: #a492a9;
 }
+
+/* .registerform button.create {
+  align-items: ;
+} */
 
 .registerform p {
   text-align: center;
@@ -271,22 +267,6 @@ body.landingbody {
   text-decoration: underline;
 }
 
-.registerform .registerbuttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1em;
-}
-
-.registerform .registerbuttons button {
-  width: 30%;
-  padding: 0.8em;
-  border: none;
-  border-radius: 5px;
-  font-size: 1em;
-  cursor: pointer;
-  font-family: 'Martel Sans', sans-serif;
-  color: #fff;
-}
 
 
 /*--------------------- SVG waves ----------------------------*/
@@ -403,9 +383,8 @@ tr:hover {
   padding: 1rem;
   background-color: #f5f5f5;
   border-radius: 10px;
-  /* box-shadow: 0 5px 15px rgba(112, 78, 125, 0.562); */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  align-items: start; /* Add this line */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
+  align-items: start; 
 }
 
 .createticket label {
@@ -419,7 +398,7 @@ tr:hover {
   color: black;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow:  0 5px 15px rgba(0, 0, 0, 0.3); 
   font-size: 1rem;
   font-family: 'Martel Sans', sans-serif;
 }
@@ -434,16 +413,6 @@ tr:hover {
   resize: vertical;
 }
 
-/* .createticket button[type='submit'] {
-  justify-self: center;
-  margin-top: 1rem;
-  font-size: 1.2em;
-  background-color: #f7f7f7;
-  border-radius: 10px;
-  padding: 0.5em;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  border: none;
-} */
 
 .createticket label,
 .createticket input[type="text"],
@@ -492,11 +461,9 @@ tr:hover {
   padding: 1rem;
   background-color: #f7f7f7;
   border-radius: 10px;
-  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); */
   max-width: 500px;
   margin: 0 auto;
-  box-shadow:rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
 }
 
 div.password-change {
@@ -523,9 +490,6 @@ h2#yourprofile {
   color: black;
   font-size: 30px;
   font-weight: bold;
-  /* box-shadow: 0 5px 15px rgba(112, 78, 125, 0.562);
-  background-color: #e8eafa;
-  border-radius: 10px; */
   width: fit-content;
   padding: 0.5rem;
   margin: auto;
@@ -538,15 +502,14 @@ h2#yourprofile {
 }
 
 .profile input {
-  /* border: none;
-  background-color: transparent;
   box-shadow: none;
-  border-bottom: 1px solid #ccc; */
   font-family: 'Martel Sans', sans-serif;
   font-size: 1rem;
   padding: 0.5rem;
   margin-bottom: 1rem;
   width: 98%;
+  border: none;
+  background-color: transparent;
 }
 
 .profile div {
@@ -576,12 +539,6 @@ h2#yourprofile {
   outline: none;
 }
 
-.profile input {
-  border: none;
-  background-color: transparent;
-  /* background-color: #f7f7f7; */
-  box-shadow: none;
-}
 
 
 /* .profile button {
@@ -720,7 +677,7 @@ header.faq-page form {
   resize: vertical;
   font-family: 'Martel Sans', sans-serif;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
 }
 /*ask button e answer button (propriedades iguais)*/
 .textarea-form button, .faq button.answer-faq, .faq button.save-answer {
@@ -736,7 +693,7 @@ header.faq-page form {
   margin-top: 20px;
   position: relative;
   border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
 }
 
 .faq .question {
@@ -933,10 +890,9 @@ article.faq {
 .filter {
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
   padding: 15px 20px 20px 25px;
-  box-shadow: 0 5px 15px rgba(112, 78, 125, 0.562);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /*0 5px 15px rgba(112, 78, 125, 0.562);*/
 }
 
 .filter-header {
@@ -965,7 +921,7 @@ article.faq {
 
 .filter-options label {
   background-color: #f1f1f1;
-  border-radius: 20px;
+  border-radius: 10px;
   color: #555;
   cursor: pointer;
   font-size: 0.9rem;
@@ -1035,7 +991,7 @@ article.faq {
 @media only screen and (max-width: 961px) {
 
   main{
-    font-size: calc(12px + 5vw);
+    font-size: calc(10px + 1vw);
   }
 
   body main {
