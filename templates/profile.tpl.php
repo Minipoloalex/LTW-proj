@@ -34,8 +34,11 @@ require_once(__DIR__ . '/../utils/session.php');
     <input id='csrf' name="csrf" type="hidden" value="<?=$session->getCsrf()?>">
     <!-- <button type="submit" id="save-btn">Save</button> -->
     <button type="button" id="edit-btn">Edit</button>
+
+    <div>
     <button type="button" id="save-btn" hidden>Save</button>
     <button type="reset" id="cancel-btn" hidden>Cancel</button>
+    </div>
 
     <!-- <div class="success-message" id="success-message">Your profile was successfully edited.</div>
 		<div class="error-message" id="error-message">There was an error editing your profile. Please try again.</div>

@@ -77,9 +77,15 @@ function is_valid_priority(?string $priority): bool {
     return isset($priority) && !empty($priority) &&
     ($priority == "high" || $priority == "medium" || $priority == "low");
 }
-function is_valid_ticket_id($db, ?String $ticketID): bool {
+function is_valid_ticket_id($db, ?string $ticketID): bool {
     if (!is_valid_id($ticketID)) return false;
     $ticket = Ticket::getById($db, intval($ticketID));
     return $ticket != null;
 }
+function is_valid_faq_id(PDO $db, ?string $forum_id): bool {
+    if (!is_valid_id($forum_id)) return false;
+    $faq = Forum::getById($db, intval($forum_id));
+    return $faq != null;
+}
+
 ?>

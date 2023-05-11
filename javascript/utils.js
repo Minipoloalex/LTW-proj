@@ -18,15 +18,47 @@ function encodeForAjax(data) {
     }).join('&')
 }
 
+async function postData(path, data) {
+    data['csrf'] = getCsrf()
+    const response = await fetch(path, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: encodeForAjax(data)
+        }
+    );
+    const json = await response.json()
+    
+    setCsrf(json['csrf'])
+    return json;
+}
+
+async function getData(path, data) {
+    data['csrf'] = getCsrf()
+    const response = await fetch(path + "?" + encodeForAjax(data), {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+            },
+        }
+    )
+    const json = await response.json()
+    setCsrf(json['csrf'])
+    return json
+}
+
 function getCsrf() {
-    return document.querySelector("input[name='csrf']").getAttribute("value")
+    return document.querySelector("body").getAttribute("data-csrf")
 }
 
 function setCsrf(csrfValue) {
-    const csrf = document.querySelectorAll("input[name='csrf']")
-    for (const input of csrf) {
-        input.setAttribute("value", csrfValue)
-    }
+    if (!csrfValue) return
+    const body = document.querySelector("body")
+    if (body) body.setAttribute("data-csrf", csrfValue)
+
+    const csrfInputs = document.querySelectorAll("input[name='csrf']")
+    for (const input of csrfInputs) input.setAttribute("value", csrfValue)
 }
 
 
@@ -39,7 +71,6 @@ for (let i = 0; i < tx.length; i++) {
     //     this.value = this.value.replace(/(\r\n|\n|\r){2,}/gm, '$1');
     //   });
 }
-
 
 function handleTextAreas(textarea) {
     function OnInput() {

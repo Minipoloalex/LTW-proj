@@ -1,0 +1,28 @@
+button {
+  background-color: #846a8b;
+  color: white;
+  font-size: 0.9rem; /* or any other appropriate font size */
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: fit-content;
+}
+button:hover {
+  background-color: #a492a9;
+}
+
+div.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+}
+
+div.buttons.center { /* use this for centered buttons */
+  justify-content: center;
+}
+div.buttons.left { /* use this for left-aligned buttons */
+  justify-content: flex-start;
+}

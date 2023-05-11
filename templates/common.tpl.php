@@ -4,7 +4,7 @@ declare(strict_types=1);
 require_once(__DIR__ . '/../utils/session.php');
 ?>
 
-<?php function output_header()
+<?php function output_header(Session $session)
 { ?>
 
   <!DOCTYPE html>
@@ -22,16 +22,17 @@ require_once(__DIR__ . '/../utils/session.php');
     <script src="../javascript/filter.js" defer></script>
     <script src="../javascript/edit_profile.js" defer></script>
     <script src="../javascript/update_ticket.js" defer></script>
-    <script src="../javascript/manage_FAQ2.js" defer></script>
+    <script src="../javascript/manage_FAQ.js" defer></script>
     <script src="../javascript/add_FAQ.js" defer></script>
     <script src="../javascript/hashtag_autocomplete.js" defer></script>
-
+    <script src="../javascript/answer_with_faq.js" defer></script>
 
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/individual_ticket.css">
     <link rel="stylesheet" href="../css/cards.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/buttons.css">
 
     <!---navbar icons--->
   <link rel="stylesheet"
@@ -53,7 +54,7 @@ require_once(__DIR__ . '/../utils/session.php');
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
 </head>
 
-<body>
+<body data-csrf="<?=$session->getCsrf()?>">
 
   <!-- <header>
         <h1><a href="main_page.php">Trouble Solver</a></h1>
@@ -131,3 +132,15 @@ require_once(__DIR__ . '/../utils/session.php');
   ?>
   <input type="hidden" name="csrf" value="<?=$token?>">
 <?php } ?>
+
+<?php function output_textarea_form(string $id, string $html_inside_label, string $input_name, array $buttons_html, string $data_id="") { ?>
+	<form id='<?=$id?>' class="textarea-form">
+		<label for="question-form"><?=$html_inside_label?></label>
+		<textarea id="question-form" data-id="<?=$data_id?>" name="<?=$input_name?>" maxlength="100" rows="1" required></textarea>
+		<div id="textarea-buttons" class="buttons center">
+      <?php foreach ($buttons_html as $button_html) {
+        echo($button_html);
+      } ?>
+    </div>
+	</form>
+<?php }	?>

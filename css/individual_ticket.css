@@ -101,10 +101,6 @@
     grid-area: created;
 }
 
-#ticket-info button#close-ticket.close-client:hover {
-    opacity: 80%;
-}
-
 /* ========================= TICKET INFO HEADER ========================= */
 #ticket-info header {
     display: flex;
@@ -131,13 +127,8 @@
     padding-left: 1em;
 }
 
-/* ======================== SAVE BUTTON ======================== */
-#ticket-info button#update-ticket {
-    background-color: var(--button-green);
-}
 /* ======================== CLOSE BUTTON ======================== */
 #ticket-info button#close-ticket {
-    background-color: rgb(35,35,46);
     padding: 0.5em 1em;
 }
 
@@ -153,12 +144,13 @@
     color: black;
     font-weight: bold;
 }
-#ticket-info #ticket-user:before {
+#ticket-info #ticket-user:before, #ticket-info #ticket-date:before {
     opacity: 60%;
+}
+#ticket-info #ticket-user:before {
     content: "Created by: ";
 }
 #ticket-info #ticket-date:before {
-    opacity: 60%;
     content: "at ";
 }
 /* ======================== MARGINS FOR TICKET INFO ======================== */
@@ -169,12 +161,7 @@
 /* ======================== REOPEN TICKET FORM/BUTTON ======================== */
 
 #ticket-info #reopen-ticket-form button#reopen-ticket {
-    background-color: rgb(35,35,46);
     padding: 0.5em 1em;
-}
-
-#reopen-ticket-form button#reopen-ticket:hover {
-   opacity: 80%;
 }
 
 /* ======================== TICKET MESSAGE LIST ======================== */

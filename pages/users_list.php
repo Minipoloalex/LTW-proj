@@ -20,7 +20,7 @@ $count = 100; /* limite de users na lista */
 $users = Client::getClients($db, $count);
 $all_departments = Department::getDepartments($db);
 
-output_header();
+output_header($session);
 drawUsersTable($users, $db, $all_departments);
 output_footer();
 

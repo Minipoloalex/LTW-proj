@@ -16,7 +16,7 @@ if (!$user) {
 }
 $type = Client::getType($db, $user->id);
 
-output_header();
+output_header($session);
 drawMainPage($user, $type);
 output_footer();
 

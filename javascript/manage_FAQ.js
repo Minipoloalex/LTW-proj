@@ -1,15 +1,3 @@
-// async function putFaqData(data) {
-//   console.log(data);
-//   return await fetch('../api/api_edit_FAQ.php', {
-//     method: 'PUT',
-//     headers: {
-//       'Content-Type': 'application/x-www-form-urlencoded'
-//     },
-//     body: encodeForAjax(data)
-//   })
-// }
-
-
 async function putFaqData(data) {
   console.log(data);
   // const url = `../api/api_edit_FAQ.php?id=${data.id}&question=${encodeURIComponent(data.question)}&answer=${encodeURIComponent(data.answer)}`;
@@ -58,15 +46,13 @@ const hideFaqBtns = document.querySelectorAll('#hideBtn');
 
 function handleEdit(editFaqBtn) {
   const faq = editFaqBtn.parentElement;
+  // const message = faq.nextElementSibling;
 
   const question = faq.querySelector('#question');
   const answer = faq.querySelector('#answer');
   const saveFaqBtn = faq.querySelector('#saveFaqBtn');
   const answerBtn = faq.querySelector('#answerFaq');
   if (answerBtn) { editFaqBtn.toggleAttribute('hidden'); }
-  // const deleteFaqBtn = faq.querySelector('#deleteFaqBtn');
-  console.log(question.value);
-  console.log(answer.value);
 
   const toggle = () => {
     editFaqBtn.toggleAttribute('hidden');
@@ -92,14 +78,14 @@ function handleEdit(editFaqBtn) {
     console.log(answer.value);
 
     const res = await putFaqData({ 'id': faq.getAttribute("data-id"), 'question': question.value, 'answer': answer.value });
-
+    const json = await res.json();
     if (res.ok) {
-      const a = await res.json();
-      console.log(a);
       console.log("success");
+      displayMessage(json['success'], false);
       toggle();
     } else {
       console.error('Error: ' + res.status);
+      displayMessage(json['error']);
     }
 
   });
@@ -114,12 +100,16 @@ function handleDelete(deleteFaqBtn) {
 
   deleteFaqBtn.addEventListener('click', async () => {
     const res = await deleteFaqData({ 'id': faq.getAttribute("data-id") });
+    const json = await res.json();
     if (res.ok) {
       console.log("success");
       // delete element
       faq.remove();
+      displayMessage(json['success'], false);
     } else {
       console.error('Error: ' + res.status);
+      displayMessage(json['error']);
+
     }
   })
 };
@@ -170,10 +160,9 @@ function handleAnswer(answerBtn) {
     console.log(answer.value);
 
     const res = await putFaqData({ 'id': faq.getAttribute("data-id"), 'question': question.value, 'answer': answer.value });
-
+    const json = await res.json();
     if (res.ok) {
-      const a = await res.json();
-      console.log(a);
+      displayMessage(json['success'], false);
       console.log("success");
       appear();
       answerBtn.remove();
@@ -182,6 +171,7 @@ function handleAnswer(answerBtn) {
     } else {
       console.log(res);
       console.error('Error: ' + res.status);
+      displayMessage(json['error']);
     }
 
   });
@@ -199,11 +189,14 @@ function handleDisplay(displayBtn) {
     displayBtn.toggleAttribute('hidden');
     hideBtn.toggleAttribute('hidden');
     const res = await patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '1' });
+    const json = await res.json();
     if (res.ok) {
+      displayMessage(json['success'], false);
       console.log("success");
     }
     else {
       console.error('Error: ' + res.status);
+      displayMessage(json['error']);
     }
   })
 };
@@ -216,11 +209,15 @@ function handleHide(hideBtn) {
     hideBtn.toggleAttribute('hidden');
     displayBtn.toggleAttribute('hidden');
     const res = await patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '0' });
+    const json = await res.json();
     if (res.ok) {
       console.log("success");
+      displayMessage(json['success'], false);
     }
     else {
       console.error('Error: ' + res.status);
+      displayMessage(json['error']);
+
     }
   })
 };

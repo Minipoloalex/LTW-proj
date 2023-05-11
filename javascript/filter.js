@@ -31,7 +31,7 @@ async function getFilterValues() {
   if (res.ok) {
     // const resData = await res.json();
     // updateTicketTable(resData);
-
+  
     const tickets = await res.json();
 
     // const cardContainer = document.getElementById("card-container");
@@ -87,7 +87,7 @@ function updateTicketTable(tickets) {
     console.log(tableData);
     tableData.innerHTML = '';
 
-    for (const ticket of tickets) {
+    for (const ticket of tickets) { // !TODO: check for XSS (test special chars)
       tableData.innerHTML += `
         <tr>
           <td>${ticket.title}</td>

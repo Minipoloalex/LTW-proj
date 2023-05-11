@@ -9,15 +9,15 @@ require_once(__DIR__ . '/../utils/session.php');
 <?php function drawMainPage(Client $client, string $type) { ?>
 
 <div class="mainpage">
-    <h1>Hello, <?=$client->name?>!</h1>
+  <h1>Hello, <?=$client->name?>!</h1>
   <h2>Welcome to our trouble ticket website</h2>
 
   <?php if ($type === 'Client') { ?>
     <p1>Our website is designed to help you efficiently manage and resolve any issues or problems you may encounter. You can create a ticket to report an issue, view all your tickets and also access our knowledge base for frequently asked questions.</p1>
     <p2>You can also manage your account and update your personal information in the Profile section. If you have any questions or need further assistance, please don't hesitate to contact us.</p2>
   <?php } else { ?>
-  <p1>Our website is designed to help clients efficiently manage and resolve any issues or problems they may encounter. They can create a ticket to report an issue, view all their tickets and also access our knowledge base for frequently asked questions.</p1>
-  <p2>They can also manage their account and update their personal information in the Profile section. On the list below you can see what you're able to do! </p2>
+    <p1>Our website is designed to help clients efficiently manage and resolve any issues or problems they may encounter. They can create a ticket to report an issue, view all their tickets and also access our knowledge base for frequently asked questions.</p1>
+    <p2>They can also manage their account and update their personal information in the Profile section. On the list below you can see what you're able to do! </p2>
   <?php } ?>
 
   <div class="features">
@@ -34,7 +34,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <?php } else if ($type === 'Agent') { ?>
         <p3>As an <?=$type?>, you can:</p3>
     <ul>
-    <li>Create tickets</li>
+      <li>Create tickets</li>
       <li>View your tickets and all tickets from you department</li>
       <li>Send ticket messages to clients</li>
       <li>Change the status of a ticket</li>
@@ -42,13 +42,12 @@ require_once(__DIR__ . '/../utils/session.php');
       <li>List all changes done to a ticket (e.g., status changes, assignments, edits).</li>
       <li>Edit your profile</li>
       <li>Answer to FAQs and create new ones</li>
-      
     </ul>
 
     <?php } else if ($type === 'Admin') { ?>
         <p3>As an <?=$type?>, you can:</p3>
     <ul>
-    <li>Create tickets</li>
+      <li>Create tickets</li>
       <li>View your tickets and all tickets</li>
       <li>Send ticket messages to clients</li>
       <li>Change the status of a ticket</li>
@@ -60,9 +59,8 @@ require_once(__DIR__ . '/../utils/session.php');
       <li>Assign agents to departments.</li>
       <li>Control the whole system.</li>
     </ul>
+  <?php } ?>
   </div>
 </div>
-
-<?php } ?>
 
 <?php } ?>
