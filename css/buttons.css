@@ -1,14 +1,20 @@
+/*================= BUTTONS - GENERAL =================*/
+
 button {
   background-color: #846a8b;
   color: white;
   font-size: 0.9rem; /* or any other appropriate font size */
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: fit-content;
   margin: 0 auto;
+}
+
+button:hover {
+  background-color: #a492a9;
 }
 
 div.buttons {

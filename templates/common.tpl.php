@@ -29,12 +29,16 @@ require_once(__DIR__ . '/../utils/session.php');
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../javascript/charts.js" defer></script>
 
+    <link rel="stylesheet" href="../css/buttons.css">
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/individual_ticket.css">
     <link rel="stylesheet" href="../css/cards.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/landing_page.css">
+    <link rel="stylesheet" href="../css/faqs.css">
+    <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/buttons.css">
+
 
     <!---navbar icons--->
   <link rel="stylesheet"
