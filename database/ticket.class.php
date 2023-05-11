@@ -363,5 +363,31 @@ if(!empty($departments)){
   function isClosed() {
     return strtolower($this->status) === 'closed';
   }
+
+  static function getClosedTicketsLast7Days(PDO $db) {
+    $stmt = $db->prepare(
+      "SELECT COUNT(t.TicketID) as count, date_range.date as date
+      FROM (
+              SELECT strftime('%Y-%m-%d', 'now', 'localtime', '-' || (n - 1) || ' days') AS date
+              FROM (SELECT row_number() OVER () AS n FROM (SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7))
+              ORDER BY date DESC
+          ) date_range
+          LEFT JOIN(
+          TICKET as t JOIN (
+              SELECT A.TicketID, max(A.TimeStamp) AS actionDate
+              FROM Action A
+              GROUP BY TicketID
+          ) as act ON t.TicketID = act.TicketID
+      ) ON date_range.date = strftime('%Y-%m-%d', act.actionDate, 'unixepoch') and t.status = 'closed'
+      GROUP BY date_range.date
+      ORDER BY date_range.date ASC;"
+    );
+    $stmt->execute();
+    $counts = [];
+    while ($count = $stmt->fetch()) { // last line will have date = today
+      $counts[] = $count['count'];
+    }
+    return $counts;
+  }
 }
 ?>

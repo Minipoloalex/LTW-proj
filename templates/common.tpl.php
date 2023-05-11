@@ -26,6 +26,8 @@ require_once(__DIR__ . '/../utils/session.php');
     <script src="../javascript/hashtag_autocomplete.js" defer></script>
     <script src="../javascript/answer_with_faq.js" defer></script>
     <script src="../javascript/messages_actions.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../javascript/charts.js" defer></script>
 
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/individual_ticket.css">

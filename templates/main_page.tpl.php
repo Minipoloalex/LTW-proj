@@ -64,3 +64,10 @@ require_once(__DIR__ . '/../utils/session.php');
 </div>
 
 <?php } ?>
+
+
+<?php function output_admin_chart() { ?>
+  <div>
+    <canvas id = "admin-chart"></canvas>
+  </div>
+<?php } ?>
