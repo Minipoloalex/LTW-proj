@@ -34,11 +34,11 @@ function addActionToDOM(username, date, text) {
     action.appendChild(header)
     action.appendChild(actionText)
 
-    actions.appendChild(action)
+    actions.prepend(action)
 }
 
 
-function updateTicketInformation(event) {
+async function updateTicketInformation(event) {
     event.preventDefault()
 
     const form = "#ticket-info"
@@ -51,7 +51,7 @@ function updateTicketInformation(event) {
     for (const hashtag of ticketHashtags) {
         ticketHashtagIDs.push(hashtag.getAttribute("value"))
     }
-    const json = postData("../api/api_update_ticket.php",{
+    const json = await postData("../api/api_update_ticket.php",{
         'ticketID': ticketID,
         'ticketID': ticketID,
         'department': ticketDepartment,
@@ -59,6 +59,7 @@ function updateTicketInformation(event) {
         'priority': ticketPriority,
         'hashtags': ticketHashtagIDs,
     })
+    console.log(json)
     if (json['error']) {
         console.error(json['error'])
     }
@@ -98,8 +99,9 @@ async function closeTicket(event) {
         status.classList.add("closed")
 
         // Remove the forms
-        const messageForm = document.querySelector("#message-form")
-        messageForm.remove()
+        const answerForms = document.querySelector("#answer-forms")
+        if (answerForms) answerForms.remove()
+        
         const priority = document.querySelector("#priority")
         if (priority) priority.remove()
         const department = document.querySelector("#department")

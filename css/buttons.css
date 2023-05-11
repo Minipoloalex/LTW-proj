@@ -10,9 +10,6 @@ button {
   width: fit-content;
   margin: 0 auto;
 }
-.text-button:hover {
-  background-color: #a492a9;
-}
 
 div.buttons {
   display: flex;
@@ -27,7 +24,10 @@ div.buttons.center { /* use this for centered buttons */
 div.buttons.left { /* use this for left-aligned buttons */
   justify-content: flex-start;
 }
-
+div.buttons button {
+  margin-left: 0;
+  margin-right: 0;
+}
 button.inactive {
   opacity: 50%;
 }

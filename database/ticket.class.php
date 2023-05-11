@@ -173,12 +173,13 @@ class Ticket implements JsonSerializable
     $new_agent = $this->assignedagent;
 
     if ($old_agent === $new_agent) {
-      return Action::addEditAction($db, $userID, $this->ticketid, 'edit', idate('U'), null);
+      return Action::addEditAction($db, $userID, $this->ticketid, 'edit', time(), null);
     }
     if ($new_agent === NULL) {
-      return Action::addEditAction($db, $userID, $this->ticketid, 'unassign', idate('U'), null);
+      $old_agent_id = Agent::getByUsername($db, $old_agent)->id;
+      return Action::addEditAction($db, $userID, $this->ticketid, 'unassign', time(), $old_agent_id);
     }
-    return Action::addEditAction($db, $userID, $this->ticketid, 'assign', idate('U'), $agentID);
+    return Action::addEditAction($db, $userID, $this->ticketid, 'assign', time(), $agentID);
   }
 
   static function reopenTicket(PDO $db, int $ticketID, int $userID): Action {

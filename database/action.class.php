@@ -15,7 +15,7 @@ class Action {
         $this->date = $date;
     }
     static function getByTicket(PDO $db, int $ticketID) : array {
-        $stmt = $db->prepare('SELECT * FROM ACTION JOIN CLIENT USING(UserID) WHERE TicketID = ? ORDER BY TimeStamp ASC');
+        $stmt = $db->prepare('SELECT * FROM ACTION JOIN CLIENT USING(UserID) WHERE TicketID = ? ORDER BY TimeStamp DESC');
         $stmt->execute(array($ticketID));
         $actions = [];
         while ($action = $stmt->fetch()) {
@@ -56,10 +56,12 @@ class Action {
     static function addEditAction(PDO $db, int $userID, int $ticketID, string $type, int $date, ?int $agentID): Action {
         $client = Client::getByID($db, $userID);
         $actionMessage = '';
+        $agent = '';
         if ($agentID) $agent = Agent::getById($db, $agentID);
         switch ($type) {
             case 'edit':
                 $actionMessage = htmlentities($client->username) . ' edited this ticket\'s information';
+                break;
             case 'assign':
                 $actionMessage = htmlentities($client->username) . ' edited this ticket\'s information and assigned the ticket to ' . htmlentities($agent->username);
                 break;
