@@ -91,7 +91,7 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
     else if ($createdBy === $message->username) $class = 'original-poster';
     else $class = 'other';
     ?>
-    <article class="message <?=$class?>">
+    <article title="<?=$class?>" class="message <?=$class?>">
         <header>
             <span class="user"><?=$message->username?></span>
             <span class="date"><?=date('F j', $message->date)?></span>

@@ -32,6 +32,9 @@ require_once(__DIR__ . '/../utils/session.php');
     <link rel="stylesheet" href="../css/individual_ticket.css">
     <link rel="stylesheet" href="../css/cards.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/landing_page.css">
+    <link rel="stylesheet" href="../css/faqs.css">
+    <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/layout.css">
 
 
