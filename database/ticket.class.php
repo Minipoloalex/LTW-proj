@@ -178,57 +178,120 @@ class Ticket implements JsonSerializable
   static function filter(PDO $db, array $status, array $priorities, array $hashtags, array $agents, array $departments): array
   {
   
-    $query = 'SELECT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, H.HashtagID, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T JOIN HASHTAG_TICKET H USING(TicketID)';
+    $query = 'SELECT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, H.HashtagID, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T JOIN HASHTAG_TICKET H USING(TicketID) WHERE TRUE';
     $statusF = '';
     $prioritiesF = '';
     $hashtagsF = '';
     $agentsF = '';
     $departmentsF = '';
+    $params = array();
     
     if(!empty($status)){
+      $statusF = ' and ';
       for ($i = 0; $i<count($status); $i++) {
-        if ($i == 0) {$statusF = $statusF.sprintf('(T.Status = %s', $status[$i]);} 
-        else {$statusF = $statusF.sprintf(' or T.Status = %s', $status[$i]);}
+        if ($i == 0) {
+          $statusF = $statusF.sprintf('(T.Status = ?');
+          $params[] = $status[$i];
+        } 
+        else {
+          $statusF = $statusF.sprintf(' or T.Status = ?');
+          $params[] = $status[$i];
+        }
       }
       $statusF = $statusF.')';
+      // for ($i = 0; $i<count($status); $i++) {
+      //   if ($i == 0) {$statusF = $statusF.sprintf('(T.Status = %s', $status[$i]);} 
+      //   else {$statusF = $statusF.sprintf(' or T.Status = %s', $status[$i]);}
+      // }
+      // $statusF = $statusF.')';
   }
   
   if(!empty($priorities)){
-    if ($statusF != '') {$prioritiesF = ' and ';}
+    $prioritiesF = ' and ';
+    // if ($statusF != '') {$prioritiesF = ' and ';}
     for ($i = 0; $i<count($priorities); $i++) {
-      if ($i == 0) {$prioritiesF = $prioritiesF.sprintf('(T.Priority = %s', $priorities[$i]);} 
-      else {$prioritiesF = $prioritiesF.sprintf(' or T.Priority = %s', $priorities[$i]);}
-    }
+      if ($i == 0) {
+        $prioritiesF = $prioritiesF.sprintf('(T.Priority = ?');
+        $params[] = $priorities[$i];
+      } 
+      else {
+        $prioritiesF = $prioritiesF.sprintf(' or T.Priority = ?');
+        $params[] = $priorities[$i];
+      }
     $prioritiesF = $prioritiesF.')';
+
+    }
+    // for ($i = 0; $i<count($priorities); $i++) {
+    //   if ($i == 0) {$prioritiesF = $prioritiesF.sprintf('(T.Priority = %s', $priorities[$i]);} 
+    //   else {$prioritiesF = $prioritiesF.sprintf(' or T.Priority = %s', $priorities[$i]);}
+    // }
+    // $prioritiesF = $prioritiesF.')';
 }
 
 if(!empty($hashtags)){
-  if ($statusF != '' || $prioritiesF != '') {$hashtagsF = ' and ';}
+  $hashtagsF = ' and ';
+  // if ($statusF != '' || $prioritiesF != '') {$hashtagsF = ' and ';}
   for ($i = 0; $i<count($hashtags); $i++) {
-    if ($i == 0) {$hashtagsF = $hashtagsF.sprintf('(H.HashtagID = %s', $hashtags[$i]);} 
-    else {$hashtagsF = $hashtagsF.sprintf(' or H.HashtagID = %s', $hashtags[$i]);}
+    if ($i == 0) {
+      $hashtagsF = $hashtagsF.sprintf('(H.HashtagID = ?');
+      $params[] = $hashtags[$i];
+    } 
+    else {
+      $hashtagsF = $hashtagsF.sprintf(' or H.HashtagID = ?');
+      $params[] = $hashtags[$i];
+    }
   }
   $hashtagsF = $hashtagsF.')';
+  // for ($i = 0; $i<count($hashtags); $i++) {
+  //   if ($i == 0) {$hashtagsF = $hashtagsF.sprintf('(H.HashtagID = %s', $hashtags[$i]);} 
+  //   else {$hashtagsF = $hashtagsF.sprintf(' or H.HashtagID = %s', $hashtags[$i]);}
+  // }
+  // $hashtagsF = $hashtagsF.')';
 }
 
 if(!empty($agents)){
-  if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '') {$agentsF = ' and ';}
+  $agentsF = ' and ';
+  // if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '') {$agentsF = ' and ';}
   for ($i = 0; $i<count($agents); $i++) {
-    if ($i == 0) {$agentsF = $agentsF.sprintf('(T.AssignedAgent = %s', $agents[$i]);} 
-    else {$agentsF = $agentsF.sprintf(' or T.AssignedAgent = %s', $agents[$i]);}
+    if ($i == 0) {
+      $agentsF = $agentsF.sprintf('(T.AssignedAgent = ?');
+      $params = $agents[$i];
+    } 
+    else {
+      $agentsF = $agentsF.sprintf(' or T.AssignedAgent = ?');
+      $params = $agents[$i];
+    }
   }
   $agentsF = $agentsF.')';
+  // for ($i = 0; $i<count($agents); $i++) {
+  //   if ($i == 0) {$agentsF = $agentsF.sprintf('(T.AssignedAgent = %s', $agents[$i]);} 
+  //   else {$agentsF = $agentsF.sprintf(' or T.AssignedAgent = %s', $agents[$i]);}
+  // }
+  // $agentsF = $agentsF.')';
 }
 
 if(!empty($departments)){
-  if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '' || $agentsF != '') {$departmentsF = ' and ';}
+  $departmentsF = ' and ';
+  // if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '' || $agentsF != '') {$departmentsF = ' and ';}
   for ($i = 0; $i<count($departments); $i++) {
-    if ($i == 0) {$departmentsF = $departmentsF.sprintf('(T.DepartmentID = %s', $departments[$i]);} 
-    else {$departmentsF = $departmentsF.sprintf(' or T.DepartmentID= %s', $departments[$i]);}
+    if ($i == 0) {
+      $departmentsF = $departmentsF.sprintf('(T.DepartmentID = ?');
+      $params[] = $departments[$i];
+    } 
+    else {
+      $departmentsF = $departmentsF.sprintf(' or T.DepartmentID = ?');
+      $params[] = $departments[$i];
+    }
   }
   $departmentsF = $departmentsF.')';
+  // for ($i = 0; $i<count($departments); $i++) {
+  //   if ($i == 0) {$departmentsF = $departmentsF.sprintf('(T.DepartmentID = %s', $departments[$i]);} 
+  //   else {$departmentsF = $departmentsF.sprintf(' or T.DepartmentID= %s', $departments[$i]);}
+  // }
+  // $departmentsF = $departmentsF.')';
 }   
-    $stmt = $db->prepare($query.' WHERE '.$statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF.';');
+    $stmt = $db->prepare($query.$statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF.';');
+    // $stmt = $db->prepare($query.' WHERE '.$statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF.';');
     $stmt->execute();
 
     $tickets = [];
