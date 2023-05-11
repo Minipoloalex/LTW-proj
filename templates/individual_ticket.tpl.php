@@ -62,14 +62,18 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
                 ?>
             </section>
         </div>
-        <section id="messages-list">
+        <div class="buttons">
+            <button id="enable-messages">Messages</button>
+            <button id="enable-actions" class="inactive">Actions</button>
+        </div>
+        <section id="messages-list" class="column-list">
             <?php
             foreach($messages as $message) {
                 output_message($message, $session->getId(), $ticket->username);
             }
             ?>
         </section>
-        <section id="actions-list">
+        <section id="actions-list" class="column-list d-none">
             <?php
             foreach($actions as $action) {
                 output_action($action);
@@ -97,7 +101,13 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
 <?php }?>
 
 <?php function output_action(Action $action) { ?>
-    
+    <article class="action message">
+        <header>
+            <span class="user"><?=$action->username?></span>
+            <span class="date"><?=date('F j', $action->date)?></span>
+        </header>
+        <p class="text"><?=$action->type?></p>
+    </article>
 <?php } ?>
 
 <?php function output_message_form(bool $isAgentView, int $ticketID) {    
@@ -201,4 +211,13 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
             </div>
         </label>
     </form>
+<?php } ?>
+
+<?php function output_answer_forms(bool $isAgentView, int $ticketID, array $displayed_faqs) { ?>
+    <section id="answer-forms">
+        <?php
+        output_message_form($isAgentView, $ticketID);
+        output_answer_with_faq_form($displayed_faqs);
+        ?>
+    </section>
 <?php } ?>

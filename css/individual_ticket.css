@@ -165,7 +165,7 @@
 }
 
 /* ======================== TICKET MESSAGE LIST ======================== */
-#messages-list {
+.column-list {
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -216,7 +216,7 @@
     background-color: #846a8b;
     color: white;
 }
-.message.other header {
+.message.other header, .message.action header {
     background-color: #53536E;
     color: white;
 }

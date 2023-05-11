@@ -46,8 +46,7 @@ $isAgentView = !($session->getName() === $ticket->username);
 output_header($session);
 output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments, $session, $isAgentView);
 if (!$ticket->isClosed()) {
-    output_message_form($isAgentView, $ticket->ticketid);
-    output_answer_with_faq_form($displayed_faqs);
+    output_answer_forms($isAgentView, $ticket->ticketid, $displayed_faqs);
 }
 
 output_footer();

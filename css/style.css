@@ -11,6 +11,10 @@
   --button-hover: #a492a9;
 }
 
+.d-none {
+  display: none;
+}
+
 body {
   margin: 0;
   font-family: 'Martel Sans', sans-serif;
@@ -36,7 +40,6 @@ button {
   padding: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin: 0 auto;
   width: fit-content;
 }
 

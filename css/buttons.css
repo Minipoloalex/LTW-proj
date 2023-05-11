@@ -26,3 +26,7 @@ div.buttons.center { /* use this for centered buttons */
 div.buttons.left { /* use this for left-aligned buttons */
   justify-content: flex-start;
 }
+
+button.inactive {
+  opacity: 50%;
+}
