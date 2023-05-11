@@ -1,5 +1,7 @@
 <?php
 declare(strict_types = 1);
+$name_regex = '/^[A-Za-zÀ-ÖØ-öø-ÿ ]+$/';
+$username_regex = '/^[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-. ]+$/';
 function is_valid_id(?String $id): bool {
     return isset($id) && is_numeric($id) && intval($id) >= 0;
 }
@@ -21,13 +23,12 @@ function is_valid_email(?String $email): bool {
     return isset($email) && !empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 function is_valid_name(?String $name): bool {
-    return isset($name) && !empty($name) && preg_match('/^[a-zA-Z ]+$/', $name);
+    return isset($name) && !empty($name) && preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ\- ]+$/', $name);
 }
 function is_valid_username(?String $username): bool {
-    return isset($username) && !empty($username);
+    return isset($username) && !empty($username) && preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-. ]+$/', $username);
 }
 function check_valid_data(string $name, string $username, string $email, string $password, string $confirm_password) {
-    // TODO: do not allow special characters in name/username. only letters, spaces and numbers: slide 24/63 web security
     if (!is_valid_name($name) || !is_valid_username($username) || !is_valid_email($email) || !is_valid_string($password) || !is_valid_string($confirm_password)) {
         return array(false, "Username, password, name and email are required");
     }

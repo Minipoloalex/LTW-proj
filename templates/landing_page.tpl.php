@@ -50,8 +50,8 @@ require_once(__DIR__ . '/../utils/session.php');
 <?php function drawRegisterForm(Session $session)
 {
   $email_regex = "^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
-  $name_regex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
-  $username_regex = "^[a-zA-Z0-9]+(([',. -][a-zA-Z0-9 ])?[a-zA-Z0-9]*)*$";
+  $name_regex = "^[A-Za-zÀ-ÖØ-öø-ÿ\- ]+$";
+  $username_regex = "^[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-. ]+$";
   ?>
 <div class="landing-register">
   <form action="../actions/action_create_account.php" method="post" class="registerform">
