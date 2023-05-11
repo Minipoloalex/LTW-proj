@@ -8,8 +8,9 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: fit-content;
+  margin: 0 auto;
 }
-button:hover {
+.text-button:hover {
   background-color: #a492a9;
 }
 

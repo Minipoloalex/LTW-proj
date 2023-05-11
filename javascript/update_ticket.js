@@ -1,21 +1,40 @@
-// function postDataTicketInfo(data) {
-//     return fetch("../api/api_update_ticket.php", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/x-www-form-urlencoded"
-//         },
-//         body: encodeForAjax(data)
-//     })
-// }
+const changeTicketInfoButton = document.querySelector("button#update-ticket")
 
-function postClosedTicket(data) {    
-    return fetch("../api/api_close_ticket.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: encodeForAjax(data)
-    })
+if (changeTicketInfoButton) {
+    changeTicketInfoButton.addEventListener("click", updateTicketInformation)
+}
+
+const closeTicketButton = document.querySelector("button#close-ticket")
+if (closeTicketButton) {
+    closeTicketButton.addEventListener("click", closeTicket)
+}
+
+function addActionToDOM(username, date, text) {
+    const actions = document.querySelector("#actions-list")
+    const action = document.createElement("article")
+    action.classList.add("action")
+    action.classList.add("message")
+
+    const header = document.createElement("header")
+    
+    const actionUsername = document.createElement("span")
+    actionUsername.classList.add("user")
+    actionUsername.textContent = username
+    header.appendChild(actionUsername)
+
+    const actionDate = document.createElement("span")
+    actionDate.classList.add("date")
+    actionDate.textContent = date
+    header.appendChild(actionDate)
+
+    const actionText = document.createElement("p")
+    actionText.classList.add("text")
+    actionText.textContent = text
+
+    action.appendChild(header)
+    action.appendChild(actionText)
+
+    actions.appendChild(action)
 }
 
 
@@ -40,45 +59,21 @@ function updateTicketInformation(event) {
         'priority': ticketPriority,
         'hashtags': ticketHashtagIDs,
     })
-
-    // postDataTicketInfo({
-    //     'ticketID': ticketID,
-    //     'department': ticketDepartment,
-    //     'agent': ticketAgent,
-    //     'priority': ticketPriority,
-    //     'hashtags': ticketHashtagIDs,
-    //     'csrf': getCsrf()
-    // })
-    // .catch(() => console.error("Network Error"))
-    // .then(response => response.json())
-    // .catch(() => console.error("Error parsing JSON"))
-    // .then(json => {
-
-        if (json['error']) {
-            console.error(json['error'])
+    if (json['error']) {
+        console.error(json['error'])
+    }
+    else if (json['success']) {
+        console.log(json['success'])
+        ticketStatus = document.querySelector("#individual-ticket #ticket-status")
+        for (const status of ticketStatus.classList) {
+            ticketStatus.classList.remove(status)
         }
-        else if (json['success']) {
-            console.log(json['success'])
-            ticketStatus = document.querySelector("#individual-ticket #ticket-status")
-            for (const status of ticketStatus.classList) {
-                ticketStatus.classList.remove(status)
-            }
-            ticketStatus.textContent = json['status'];
-            if (json['status'].toLowerCase() == 'in progress') ticketStatus.classList.add("in-progress")
-            else ticketStatus.classList.add(json['status'])
-        }
-    // })
-}
+        ticketStatus.textContent = json['status']
+        if (json['status'].toLowerCase() == 'in progress') ticketStatus.classList.add("in-progress")
+        else ticketStatus.classList.add(json['status'])
 
-const changeTicketInfoButton = document.querySelector("button#update-ticket")
-
-if (changeTicketInfoButton) {
-    changeTicketInfoButton.addEventListener("click", updateTicketInformation)
-}
-
-const closeTicketButton = document.querySelector("button#close-ticket")
-if (closeTicketButton) {
-    closeTicketButton.addEventListener("click", closeTicket)
+        addActionToDOM(json['action_username'], json['action_date'], json['action_text'])
+    }
 }
 
 async function closeTicket(event) {
@@ -176,6 +171,7 @@ async function closeTicket(event) {
         ticketInfoSection.appendChild(departmentSpan)
         ticketInfoSection.appendChild(agentSpan)
         ticketInfoSection.appendChild(reopenTicketForm)
+
+        addActionToDOM(json['action_username'], json['action_date'], json['action_text'])
     }
-    // })
 }

@@ -40,7 +40,6 @@ require_once(__DIR__ . '/common.tpl.php');
 	<!-- <div id="feedback-message-single-faq" class="feedback-message">m</div> -->
 
 <?php } ?>
-<!-- !TODO: criar sections para faqs displayed/not displayed e para faqs not ansered -->
 <?php function output_all_faqs(array $faqs, string $type)
 { ?>
 	<section id='faqs'>
@@ -62,32 +61,19 @@ require_once(__DIR__ . '/common.tpl.php');
 		</p>
 		<p>Agents can also use the FAQ to answer tickets, so your question might be added to the FAQ if it's a common
 			question.</p>
-		<form id='faq-form' class="faq-form">
-			<label for="question-form">Your question <small>(max 100 chars)</small>:</label>
-			<textarea id="question-form" name="question-form" maxlength="100" rows="1" required></textarea>
-			<!-- <label for="username">Your username:</label> -->
-			<!-- <input type="text" id="username" name="username" required> -->
-			<button type="submit">Ask</button>
-		</form>
-		<!-- <div class="success-message" id="success-message">Your question has been sent successfully. We'll answer you as soon
-			as possible.</div>
-		<div class="error-message" id="error-message">There was an error sending your question. Please try again.</div> -->
+			<?php
+			output_textarea_form(
+				"faq-form",
+				"Your question <small>(max 100 chars)</small>:",
+				"question-form",
+			array("<button type='submit'>Ask</button>"));
+			?>
 		<div id="feedback-message" class="feedback-message"></div>
 
 		</div>
-
-	<?php } ?>
-
-	<?php output_textarea_form(
-		"faq-form",
-		"Your question <small>(max 100 chars)</small>:",
-		"question-form",
-		array(
-			"<button type='submit'>Ask</button>",
-		)
-	); { ?>
+<!-- 
 		<div class="success-message" id="success-message">Your question has been sent successfully. We'll answer you as soon
 			as possible.</div>
-		<div class="error-message" id="error-message">There was an error sending your question. Please try again.</div>
+		<div class="error-message" id="error-message">There was an error sending your question. Please try again.</div> -->
 	</header>
 <?php } ?>

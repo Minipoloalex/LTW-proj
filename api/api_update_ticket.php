@@ -49,7 +49,7 @@ $agentID = empty($_POST['agent']) ? NULL : intval($_POST['agent']);
 $priority = $_POST['priority'];
 
 $ticket = Ticket::getById($db, $ticketID);
-$ticket->updateTicket($db, $departmentID, $agentID, $priority, $hashtagIDs);
+$action = $ticket->updateTicket($db, $departmentID, $agentID, $priority, $hashtagIDs, $session->getId());
 
 http_response_code(200); // OK
 echo json_encode(array(
@@ -59,6 +59,9 @@ echo json_encode(array(
     'priority' => $ticket->priority,
     'hashtags' => array_map(fn($hashtag) => $hashtag->hashtagname, $ticket->hashtags),
     'status' => $ticket->status,
+    'action_username' => $action->username,
+    'action_text' => $action->type,
+    'action_date' => date('F j', $action->date),
     'csrf' => $session->getCsrf()
 ));
 

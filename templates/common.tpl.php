@@ -6,7 +6,6 @@ require_once(__DIR__ . '/../utils/session.php');
 
 <?php function output_header(Session $session)
 { ?>
-
   <!DOCTYPE html>
   <html lang="en-US">
 

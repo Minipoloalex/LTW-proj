@@ -4,6 +4,7 @@ require_once(__DIR__ . '/department.class.php');
 require_once(__DIR__ . '/hashtag.class.php');
 require_once(__DIR__ . '/agent.class.php');
 require_once(__DIR__ . '/client.class.php');
+require_once(__DIR__ . '/action.class.php');
 class Ticket implements JsonSerializable
 {
   public int $ticketid;
@@ -138,13 +139,14 @@ class Ticket implements JsonSerializable
       Hashtag::addHashtagToTicket($db, $ticketID, $hashtagID);
     }
 
+    Action::addUserAction($db, $userID, $ticketID, 'create', $submitdate);
     return $ticketID;
   }
-  function updateTicket(PDO $db, ?int $departmentID, ?int $agentID, string $priority, array $hashtags) {
+  function updateTicket(PDO $db, ?int $departmentID, ?int $agentID, string $priority, array $hashtags, int $userID): Action {
     $ticketHashtags = array_map(function($hashtag) {
       return $hashtag->hashtagid;
     }, $this->hashtags);
-
+    $old_agent = $this->assignedagent;
     $hashtags_to_add = array_diff($hashtags, $ticketHashtags);
     $hashtags_to_remove = array_diff($ticketHashtags, $hashtags);
 
@@ -167,8 +169,26 @@ class Ticket implements JsonSerializable
     if (!empty($hashtags_to_add) || !empty($hashtags_to_remove)) {
       $this->hashtags = Hashtag::getByTicketId($db, $this->ticketid);
     }
+    
+    $new_agent = $this->assignedagent;
+
+    if ($old_agent === $new_agent) {
+      return Action::addEditAction($db, $userID, $this->ticketid, 'edit', idate('U'), null);
+    }
+    if ($new_agent === NULL) {
+      return Action::addEditAction($db, $userID, $this->ticketid, 'unassign', idate('U'), null);
+    }
+    return Action::addEditAction($db, $userID, $this->ticketid, 'assign', idate('U'), $agentID);
   }
 
+  static function reopenTicket(PDO $db, int $ticketID, int $userID): Action {
+    Ticket::updateStatus($db, $ticketID, 'open');
+    return Action::addUserAction($db, $userID, $ticketID, 'reopen', time());
+  }
+  static function closeTicket(PDO $db, int $ticketID, int $userID): Action {
+    Ticket::updateStatus($db, $ticketID, 'closed');
+    return Action::addUserAction($db, $userID, $ticketID, 'close', time());
+  }
   static function updateStatus(PDO $db, int $ticketID, string $status) {
     $stmt = $db->prepare('UPDATE TICKET SET Status = ? WHERE TicketID = ?');
     $stmt->execute(array($status, $ticketID));

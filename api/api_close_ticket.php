@@ -10,7 +10,7 @@ if (!$session->isLoggedIn()) {
     http_response_code(401); // Unauthorized
     echo json_encode(array('error' => 'User not logged in'));
 }
-if (!$session->verifyCsrf($_POST['csrf'] ?? '')) {
+if (!$session->verifyCsrf($_POST['csrf'])) {
     http_response_code(403); // Forbidden
     echo json_encode(array('error' => 'CSRF token invalid'));
     exit();
@@ -38,7 +38,14 @@ if (!Client::hasAcessToTicket($db, $userID, $ticketID)) {
     exit();
 }
 
-Ticket::updateStatus($db, $ticketID, $status);
+if ($status !== 'closed') {
+    http_response_code(400); // Bad request
+    echo json_encode(array('error' => 'Invalid status'));
+    exit();
+}
+
+$action = Ticket::closeTicket($db, $ticketID, $userID);
+
 $ticket = Ticket::getById($db, $ticketID);
 if (!$ticket) {
     http_response_code(500); // Internal server error
@@ -55,6 +62,9 @@ echo json_encode(array(
     'agent' => $ticket->assignedagent,
     'priority' => $ticket->priority,
     'hashtags' => array_column($ticket->hashtags, 'hashtagname'),
+    'action_username' => $action->username,
+    'action_text' => $action->type,
+    'action_date' => date('F j', $action->date),
     'csrf' => $session->getCsrf()
 ));
 
