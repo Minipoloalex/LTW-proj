@@ -27,12 +27,13 @@ require_once(__DIR__ . '/../utils/session.php');
     <script src="../javascript/answer_with_faq.js" defer></script>
     <script src="../javascript/messages_actions.js" defer></script>
 
+    <link rel="stylesheet" href="../css/buttons.css">
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/individual_ticket.css">
     <link rel="stylesheet" href="../css/cards.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/buttons.css">
+
 
     <!---navbar icons--->
   <link rel="stylesheet"
