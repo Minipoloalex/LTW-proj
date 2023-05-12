@@ -98,11 +98,16 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
             <span class="user"><?=$message->username?></span>
             <span class="date"><?=date('F j', $message->date)?></span>
         </header>
-        <p class="text"><?=htmlentities($message->text)?></p>
-        <?php if ($message->imageID !== null) { ?>
-            <img src="../actions/action_view_image.php?messageID=<?=$message->id?>" alt="Image attached to message">
-            <a href="">Attached Image</a>
-        <?php } ?>
+        <div class="message-body">
+            <p class="text"><?=htmlentities($message->text)?></p>
+            <?php if ($message->imageID !== null) { ?>
+                <button class="view-image">View attached image</button>
+                <div class="image-container d-none">
+                    <button class="close-image">Close</button>
+                    <img src="../actions/action_view_image.php?messageID=<?=$message->id?>" alt="Attached image">
+                </div>
+            <?php } ?>
+        </div>
     </article>
 <?php }?>
 
@@ -121,19 +126,26 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
     </article>
 <?php } ?>
 
+
+
 <?php function output_message_form(bool $isAgentView, int $ticketID) {    
     $submit_button = "<button type='submit'>Submit</button>";
     $faq_button = "<button class='toggle-faq-answer'>Answer with FAQ</button>";
     $array_buttons = $isAgentView ? array($submit_button, $faq_button) : array($submit_button);
-    
-    output_textarea_form("message-form", "Add a message:", "message", $array_buttons, 500, strval($ticketID));
     ?>
-    <div id="file-input">
-        <button id="upload-image-btn"><label for="upload-image">Upload image</label></button>
-        <button id="remove-image-btn" class="d-none">Clear image</button>
-        <input id="upload-image" hidden type="file" accept=".jpg, .png, .gif" name="image">
-        <span class="file-name">No file selected</span>
-    </div>
+    <form id='message-form' class='textarea-form'>
+        <?php output_textarea('Add a message:', 'message', 500, strval($ticketID)); ?>
+        <?php output_centered_buttons('textarea-buttons', $array_buttons); ?>
+        <div id="file-input-wrapper">
+            <button id="upload-image-btn"><label for="upload-image">Upload image</label></button>
+            <button id="remove-image-btn" class="d-none">Clear image</button>
+            <input id="upload-image" hidden type="file" accept=".jpg, .png, .gif" name="image">
+            <span class="file-name">No file selected</span>
+        </div>
+    </form>
+    <?php
+    ?>
+    
 <?php } ?>
 
 <?php function output_change_ticket_info_form(Ticket $ticket, array $agents, array $departments, array $hashtags) { ?>

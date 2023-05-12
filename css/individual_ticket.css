@@ -288,18 +288,24 @@ label select {
     flex-direction: row;
     justify-content: space-between;
 }
-.message .text {
+.message .message-body {
     grid-area: text;
-    white-space: pre-wrap;
 }
-
+.message p.text {
+    margin: 0;
+    white-space: pre-wrap;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
 .message .date {
     text-align: right;
     grid-area: date;
 }
-.message .user, .message .date, .message .text {
+.message .user, .message .date, .message p.text{
     padding-left: 1em;
     padding-right: 1em;
+}
+.message .user, .message .date {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
 }
@@ -320,16 +326,71 @@ label select {
     color: white;
 }
 
-.message p.text{
+.message .message-body {
     background-color: #F5F6FF;
     margin: 0;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
+}
+.message.has-image .message-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.message.has-image .message-body button.view-image {
+    margin: 0 auto 0.3rem;
+    align-self: flex-end;
+}
+
+.message.has-image .image-container:not(.d-none) {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80vw;
+    max-height: 80vh;
+}
+.message.has-image .image-container img {
+    object-fit: contain;
+}
+.message.has-image .image-container button {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
 }
 
 /* ======================== MESSAGE FORM ======================== */
-/* Similar to FAQs form */
-
+/* Similar to FAQs form but has file input */
+#message-form[hidden] {
+    display: none;
+}
+#message-form {
+    display: grid;
+    grid-template-columns: 8fr 3fr;
+    grid-template-rows: repeat(4, auto);
+    grid-template-areas:
+    ".          file-input"
+    "label      file-input"
+    "textarea   textarea"
+    "buttons    buttons"
+}
+#message-form > label {
+    grid-area: label;
+}
+#message-form #file-input-wrapper {
+    grid-area: file-input;
+}
+#message-form #file-input-wrapper button {
+    width: fit-content;
+    margin-bottom: 0.2rem;
+    margin-right: 0.2rem;
+}
+#message-form textarea{
+    grid-area: textarea;
+}
+#message-form div.buttons {
+    grid-area: buttons;
+}
 
 /* ======================== RESPONSIVENESS ======================== */
 

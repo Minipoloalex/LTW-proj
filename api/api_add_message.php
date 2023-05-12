@@ -66,7 +66,7 @@ if (isset($_FILES['image'])) {
     $message = Message::addMessage($db, $userID, $ticketID, $messageText, $image->id);
 
     $fileNameID = "../images/$image->id.jpg";
-    imagejpeg($original, $fileNameID);    
+    imagejpeg($original, $fileNameID);
 }
 else {
     $message = Message::addMessage($db, $userID, $ticketID, $messageText);
