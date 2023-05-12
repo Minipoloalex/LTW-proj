@@ -2,13 +2,21 @@ const messageButton = document.querySelector("#message-form button[type='submit'
 if (messageButton) {
     messageButton.addEventListener('click', submitNewMessage)
 }
+
 async function postNewMessage(messageText, ticketID, fileInput) {
     if (fileInput.files.length > 0) {
-        const json = await postData('../api/api_add_message.php', {
-            'message': messageText,
-            'ticketID': ticketID,
-            'image': fileInput.files[0]
+        const file = fileInput.files[0]
+        const formData = new FormData()
+        formData.append('message', messageText)
+        formData.append('ticketID', ticketID)
+        formData.append('image', file)
+        formData.append('csrf', getCsrf())
+        const response = await fetch('../api/api_add_message.php', {
+            method: 'POST',
+            body: formData
         })
+        const json = await response.json()
+        setCsrf(json['csrf'])
         return json
     }
     const json = await postData('../api/api_add_message.php', {

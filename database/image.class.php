@@ -2,28 +2,25 @@
 declare(strict_types=1);
 class Image {
     public int $id;
-    public string $title;
-    public function __construct(int $id, string $title) {
+    public function __construct(int $id) {
         $this->id = $id;
-        $this->title = $title;
     }
-    static function getImageInfo(PDO $db, int $imageID) : ?Image {
+    static function getImage(PDO $db, int $imageID) : ?Image {
+        /* this is used to check it the image should exist in our folders */
         $stmt = $db->prepare('SELECT * FROM IMAGE WHERE ImageID = ?');
         $stmt->execute(array($imageID));
         $image = $stmt->fetch();
         if (!$image) return null;
         return new Image(
             intval($image['ImageID']),
-            $image['Title'],
         );
     }
 
-    static function addImage(PDO $db, string $title) : Image {
-        $stmt = $db->prepare('INSERT INTO IMAGE (Title) VALUES (?)');
-        $stmt->execute(array($title));
+    static function addImage(PDO $db) : Image {
+        $stmt = $db->prepare('INSERT INTO IMAGE (ImageID) VALUES(NULL)');
+        $stmt->execute();
         return new Image(
             intval($db->lastInsertId()),
-            $title,
         );
     }
 }

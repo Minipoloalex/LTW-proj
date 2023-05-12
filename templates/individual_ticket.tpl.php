@@ -76,7 +76,7 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
         <section id="actions-list" class="column-list d-none">
             <?php
             foreach($actions as $action) {
-                output_action($action);
+                output_action($action, $session->getName(), $ticket->username);
             }
             ?>
         </section>
@@ -90,22 +90,27 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
     if ($sessionID === $message->userID) $class = 'self';
     else if ($createdBy === $message->username) $class = 'original-poster';
     else $class = 'other';
+    $has_image = $message->imageID !== null ? 'has-image' : '';
     ?>
-    <article title="<?=$class?>" class="message <?=$class?>">
+    
+    <article title="<?=$class?>" class="message <?=$class?> <?=$has_image?>">
         <header>
             <span class="user"><?=$message->username?></span>
             <span class="date"><?=date('F j', $message->date)?></span>
         </header>
         <p class="text"><?=htmlentities($message->text)?></p>
+        <?php if ($message->imageID !== null) { ?>
+            <img src="../actions/action_view_image.php?messageID=<?=$message->id?>" alt="Image attached to message">
+            <a href="">Attached Image</a>
+        <?php } ?>
     </article>
 <?php }?>
 
-<?php function output_action(Action $action) { ?>
+<?php function output_action(Action $action, string $sessionUsername, string $createdBy) { ?>
     <?php
-    // if ($sessionID === $action->userID) $class = 'self';
-    // else if ($createdBy === $action->username) $class = 'original-poster';
-    // else 
-    $class = 'other';
+    if ($sessionUsername === $action->username) $class = 'self';
+    else if ($createdBy === $action->username) $class = 'original-poster';
+    else $class = 'other';
     ?>
     <article title="<?=$class?>" class="action message">
         <header>
@@ -126,7 +131,7 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
     <div id="file-input">
         <button id="upload-image-btn"><label for="upload-image">Upload image</label></button>
         <button id="remove-image-btn" class="d-none">Clear image</button>
-        <input id="upload-image" hidden type="file" name="image">
+        <input id="upload-image" hidden type="file" accept=".jpg, .png, .gif" name="image">
         <span class="file-name">No file selected</span>
     </div>
 <?php } ?>

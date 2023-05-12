@@ -6,6 +6,7 @@ require_once(__DIR__ . '/../utils/validate.php');
 require_once(__DIR__ . '/../database/connection.db.php');
 require_once(__DIR__ . '/../database/message.class.php');
 require_once(__DIR__ . '/../database/ticket.class.php');
+require_ONCE(__DIR__ . '/../database/image.class.php');
 
 $session = new Session();
 if (!$session->isLoggedIn()) {
@@ -22,12 +23,12 @@ $db = getDatabaseConnection();
 
 if (!is_valid_string($_POST['message'])) {
     http_response_code(400); // Bad request
-    echo json_encode(array('error' => 'Missing message parameter'));
+    echo json_encode(array('error' => 'Missing message parameter. Message text is required'));
     exit();
 }
 if (!is_valid_ticket_id($db, $_POST['ticketID'])) {
     http_response_code(400); // Bad request
-    echo json_encode(array('error' => 'Missing ticketID parameter'));
+    echo json_encode(array('error' => 'Invalid ticketID parameter'));
     exit();
 }
 
@@ -47,9 +48,9 @@ if ($ticket->isClosed()) {
     exit();
 }
 
-if ($_POST['image']) {
+if (isset($_FILES['image'])) {
     if (!is_dir('../images')) mkdir('../images');
-    $image = $_POST['image'];
+
     $tempFileName = $_FILES['image']['tmp_name'];
 
     $original = @imagecreatefromjpeg($tempFileName);
@@ -61,7 +62,7 @@ if ($_POST['image']) {
         exit();
     }
 
-    $image = Image::addImage($db, $tempFileName);
+    $image = Image::addImage($db);
     $message = Message::addMessage($db, $userID, $ticketID, $messageText, $image->id);
 
     $fileNameID = "../images/$image->id.jpg";
