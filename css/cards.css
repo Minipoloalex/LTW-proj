@@ -16,6 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: rgba(255, 255, 255, 0.7); /*nao funciona*/
 }
 .card:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -71,3 +72,60 @@
 .lowP {
   background-color: #00b300;
 } 
+
+
+/* ================ INDIVIDUAL CARD ======================== */
+
+
+.card {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  height: 300px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  margin: 0.5rem;
+  width: 13rem;
+}
+
+.card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+}
+
+ /*info*/
+
+.card article {
+  font-size: 14px;
+  height: 300px;
+}
+
+.card article div {
+  margin-top: 1rem;
+}
+
+.card article div span {
+  align-self: center;
+  margin: 5px;
+}
+
+.card article header{
+  display: flex;
+  flex-direction: row;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #846a8b;
+  color: white;  
+  width: 13rem;
+}
+
+.card article header span {
+  margin: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  padding-left: 1rem;
+}
+
+.card article label {
+  font-weight: bold;
+  padding-left: 1rem;
+}
+
+

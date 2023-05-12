@@ -101,7 +101,13 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
 <?php }?>
 
 <?php function output_action(Action $action) { ?>
-    <article class="action message">
+    <?php
+    // if ($sessionID === $action->userID) $class = 'self';
+    // else if ($createdBy === $action->username) $class = 'original-poster';
+    // else 
+    $class = 'other';
+    ?>
+    <article title="<?=$class?>" class="action message">
         <header>
             <span class="user"><?=$action->username?></span>
             <span class="date"><?=date('F j', $action->date)?></span>
