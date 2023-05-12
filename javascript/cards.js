@@ -45,10 +45,8 @@ if (cardContainer) {
         <div>
         <label>Status:</label>
         <span class="card-info">${curr.status}</span><br>
-        <label>Description:</label>
-        <span class="card-info card-description">${curr.description}</span><br>
         <label>Hashtags:</label>
-        ${curr.hashtags.map(hashtag => `<span class="card-info card-hashtags">${hashtag.hashtagname}</span>`).join('')}<br>
+        ${curr.hashtags.map(hashtag => `<span class="card-info card-hashtags">${hashtag.hashtagname}</span>`).join('<br>')}<br>
         <label>Assigned agent:</label>
         <span class="card-info">${curr.assignedagent}</span><br>
         <label>Department:</label>

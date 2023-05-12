@@ -64,7 +64,8 @@
     
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
     background-color: rgba(255, 255, 255, 0.7);
-    margin: 0.5em;
+    /* margin: 0.5em; */
+    width: 100%;
 }
 
 #ticket-info header {
@@ -110,6 +111,8 @@
     border-top-right-radius: 20px;
     background-color: #846a8b;
     color: white;  
+    /* width: 30rem; */
+    width: 100%;
 }
 #ticket-info header h3 {
     margin: 1rem 0 1rem 1rem;
@@ -130,6 +133,102 @@
     padding: 0.5em 1em;
 }
 
+/* fieldset#priority.create-ticket label.radio-button {} */
+
+/* ======================== FIELDSET STYLING - create ticket ======================== */
+fieldset {
+    border: none;
+  }
+  fieldset legend {
+    align-self: center;
+  }
+  fieldset#priority {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  
+  fieldset#priority label.radio-button {
+    background-color: #53536e;
+    color: white;
+    border: 1px solid white;
+    font-size: 1rem;
+    cursor: pointer;
+    padding-left: 1em;
+    padding-right: 1em;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  fieldset#priority label:hover {
+    opacity: 80%;
+  }
+  
+  fieldset#priority input[type="radio"] {
+    display: none;
+  }
+  fieldset#priority input[type="radio"]:checked + label[for=high].radio-button {
+    background-color: #a82431;  
+    color: white;
+  }
+  fieldset#priority input[type="radio"]:checked + label[for=medium].radio-button {
+    background-color: rgb(164, 143, 23);  
+    color: white;
+  }
+  fieldset#priority input[type="radio"]:checked + label[for=low].radio-button {
+    background-color: #155724;;  
+    color: white;
+  }
+ 
+  
+/* ======================== DROPDOWN SELECT ======================== */
+label select {
+    padding-top: 0.2em;
+    padding-right: 1em;
+    padding-left: 1em;
+  
+    font-size: 0.8rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-family: 'Martel Sans', sans-serif;
+    
+    margin-top: 6px;
+    margin-bottom: 1rem;
+    /* color: white; */
+    /* background-color: #23232e; */
+    cursor: pointer;
+
+    height: 2rem;
+    justify-content: center;
+  }
+  
+  
+  /* ============================= HASHTAGS =========================== */
+  #hashtag-items article.hashtag {
+    border:rgba(0, 0, 0, 0.5) 1px solid;
+    border-radius: 5px;
+    background-color: #53536e;
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  #hashtags .hashtag a.remove-hashtag {
+    text-decoration: none;
+    color: white;
+    border-left: white 1px solid;
+    padding: 0.3rem 0.5rem;
+    margin-left: 0.3rem;
+    cursor: pointer;
+  }
+  
+/* ======================= TICKET INFO BUTTONS ======================= */
+#ticket-info button {
+    margin: 0.5em auto;
+    /* padding: 0.2em 1em; */
+  }
+  
 /* ======================== TICKET CREATED (USER AND DATE) ======================== */
 #ticket-info #ticket-created {
     display: flex;
@@ -240,6 +339,9 @@
     #container-ticket-info {
         max-width: 90vw;
     }
+    /* #ticket-info header {
+        width: 90vw;
+    } */
   }
   
   /* For tablet devices -> 600 A 961*/
