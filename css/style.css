@@ -226,10 +226,16 @@ tr:hover {
 
 /* ========= MAIN PAGE CONTENT ========= */
 
+canvas{
+  margin-bottom: 2rem;
+  background-color: #F5F6FF;
+  padding: 1rem;
+  border-radius: 10px;
+}
 .mainpage {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 0.1fr 0.1fr 1fr 1fr;
+  grid-template-rows: 0.1fr 0.1fr 0.5fr 1fr;
   gap: 10px 0px;
   grid-template-areas:
     "h1 h1"
@@ -255,11 +261,19 @@ tr:hover {
   text-align: center;
 }
 
+.mainpage p {
+  grid-area: p;
+  display: flex;
+  align-items: center;
+  padding: 2em;
+  text-align: center;
+}
+
 .mainpage p1 {
   grid-area: p1;
   display: flex;
   align-items: center;
-  padding: 2.5em;
+  padding: 2em;
   text-align: center;
 }
 
@@ -267,7 +281,7 @@ tr:hover {
   grid-area: p2;
   display: flex;
   align-items: center;
-  padding: 2.5em;
+  padding: 2em;
   text-align: center;
 }
 
@@ -275,6 +289,9 @@ div.features {
   grid-area: p3;
   align-items: center;
   justify-self: center;
+  padding: 2.5em;
+  background-color: #F5F6FF;
+  border-radius: 10px;
 }
 
 
