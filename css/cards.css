@@ -1,26 +1,13 @@
 /* ================ TICKET CARDS ======================== */
 :root {
-  --nr-cards: 2;
+  --nr-cards: 4;
 }
 
 #card-container {
   display: flex;
   flex-wrap: wrap;
 }
-.card {
-  height: 55vh;
-  width: calc((100% / var(--nr-cards)) - 16px);
-  margin: 8px;
-  border-radius: 3px;
-  transition: all 200ms ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(255, 255, 255, 0.7); /*nao funciona*/
-}
-.card:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
+
 .card-actions {
   margin: 8px;
   padding: 16px 0;
@@ -31,15 +18,21 @@
 
 #loader {
   display: flex;
+  /* flex-flow: column wrap; */
+  flex-wrap: nowrap;
+  overflow: hidden;
 }
 .skeleton-card {
-  height: 55vh;
-  width: calc((100% / var(--nr-cards)) - 16px);
-  margin: 8px;
-  border-radius: 3px;
+  /* width: calc((100% / var(--nr-cards)) - 16px); */
   transition: all 200ms ease-in-out;
   position: relative;
-  background-color: #eaeaea;
+
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  height: 18.75rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  margin: 0.5rem;
+  width: 13rem;
 }
 .skeleton-card::after {
   content: "";
@@ -78,12 +71,19 @@
 
 
 .card {
+  transition: all 200ms ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
-  height: 300px;
+  height: 18.75rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   margin: 0.5rem;
   width: 13rem;
+  /* width: calc((100% / var(--nr-cards)) - 16px); */
+  position: relative;
 }
 
 .card:hover {
@@ -94,11 +94,15 @@
 
 .card article {
   font-size: 14px;
-  height: 300px;
+  height: 18.75rem;
+  /* width: 13rem; */
+  width: 100%;
 }
 
 .card article div {
   margin-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 0.5rem;
 }
 
 .card article div span {
@@ -113,7 +117,8 @@
   border-top-right-radius: 10px;
   background-color: #846a8b;
   color: white;  
-  width: 13rem;
+  /* width: 13rem; */
+  width: 100%;
 }
 
 .card article header span {
@@ -125,7 +130,6 @@
 
 .card article label {
   font-weight: bold;
-  padding-left: 1rem;
 }
 
 
