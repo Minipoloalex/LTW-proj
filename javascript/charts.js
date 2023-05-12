@@ -34,6 +34,7 @@ async function createAdminChart() {
                 bar: {
                     backgroundColor: 'rgba(153, 102, 255, 0.2)', // TODO change color
                     borderColor: 'rgba(153, 102, 255, 1)',
+                    // borderColor: '#333',
                     borderWidth: 1,
                 }
             }
