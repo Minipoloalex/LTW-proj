@@ -110,6 +110,12 @@
   margin: 5px;
 }
 
+.card article div span.card-hashtags{
+  background-color: #ddd;
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+
 .card article header{
   display: flex;
   flex-direction: row;
@@ -132,4 +138,8 @@
   font-weight: bold;
 }
 
+.card a {
+  text-decoration: none;
+  color: black;
+}
 
