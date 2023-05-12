@@ -9,12 +9,14 @@ class Message {
     public int $userID;
     public string $username;
     public int $date;
-    public function __construct(int $messageID, string $text, int $userID, string $username, int $date) {
+    public ?int $imageID;
+    public function __construct(int $messageID, string $text, int $userID, string $username, int $date, ?int $imageID = null) {
         $this->id = $messageID;
         $this->text = $text;
         $this->userID = $userID;
         $this->username = $username;
         $this->date = $date;
+        $this->imageID = $imageID;
     }
     static function getByTicket(PDO $db, int $ticketID) : array {
         $stmt = $db->prepare('SELECT * FROM MESSAGE JOIN CLIENT USING(UserID) WHERE TicketID = ? ORDER BY TimeStamp ASC');
@@ -27,20 +29,22 @@ class Message {
                 intval($message["UserID"]),
                 $message["Username"],
                 intval($message["TimeStamp"]),
+                $message['ImageID'] != null ? intval($message["ImageID"]) : null,
             );
         }
         return $messages;
     }
-    static function addMessage(PDO $db, int $userID, int $ticketID, string $messageText) : Message {
+    static function addMessage(PDO $db, int $userID, int $ticketID, string $messageText, ?int $imageID = null) : Message {
         $date = time();
-        $stmt = $db->prepare('INSERT INTO MESSAGE (TicketID, UserID, MessageText, TimeStamp) VALUES (?, ?, ?, ?)');
-        $stmt->execute(array($ticketID, $userID, $messageText, $date));
+        $stmt = $db->prepare('INSERT INTO MESSAGE (TicketID, UserID, MessageText, TimeStamp, ImageID) VALUES (?, ?, ?, ?, ?)');
+        $stmt->execute(array($ticketID, $userID, $messageText, $date, $imageID));
         return new Message(
             intval($db->lastInsertId()),
             $messageText,
             $userID,
             Client::getById($db, $userID)->username,
             $date,
+            $imageID,
         );
     }
 }

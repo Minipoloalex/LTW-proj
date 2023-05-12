@@ -114,9 +114,16 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
     $submit_button = "<button type='submit'>Submit</button>";
     $faq_button = "<button class='toggle-faq-answer'>Answer with FAQ</button>";
     $array_buttons = $isAgentView ? array($submit_button, $faq_button) : array($submit_button);
-
-    output_textarea_form("message-form", "Add a message:", "message", $array_buttons, strval($ticketID));
-} ?>
+    
+    output_textarea_form("message-form", "Add a message:", "message", $array_buttons, 500, strval($ticketID));
+    ?>
+    <div id="file-input">
+        <button id="upload-image-btn"><label for="upload-image">Upload image</label></button>
+        <button id="remove-image-btn" class="d-none">Clear image</button>
+        <input id="upload-image" hidden type="file" name="image">
+        <span class="file-name">No file selected</span>
+    </div>
+<?php } ?>
 
 <?php function output_change_ticket_info_form(Ticket $ticket, array $agents, array $departments, array $hashtags) { ?>
         <?php

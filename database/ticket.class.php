@@ -363,7 +363,6 @@ if(!empty($departments)){
   function isClosed() {
     return strtolower($this->status) === 'closed';
   }
-
   static function getClosedTicketsLast7Days(PDO $db) {
     $stmt = $db->prepare(
       "SELECT COUNT(t.TicketID) as count, date_range.date as date

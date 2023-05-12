@@ -30,7 +30,8 @@ if (!is_valid_ticket_id($db, $_POST['ticketID'])) {
     echo json_encode(array('error' => 'Missing ticketID parameter'));
     exit();
 }
-$message = $_POST['message'];
+
+$messageText = $_POST['message'];
 $ticketID = intval($_POST['ticketID']);
 $userID = $session->getId();
 
@@ -45,12 +46,29 @@ if ($ticket->isClosed()) {
     echo json_encode(array('error' => 'Ticket is closed'));
     exit();
 }
-$message = Message::addMessage($db, $userID, $ticketID, $message);
 
-if (!$message) {
-    http_response_code(500); // Internal server error
-    echo json_encode(array('error' => 'Failed to add message to database'));
-    exit();
+if ($_POST['image']) {
+    if (!is_dir('../images')) mkdir('../images');
+    $image = $_POST['image'];
+    $tempFileName = $_FILES['image']['tmp_name'];
+
+    $original = @imagecreatefromjpeg($tempFileName);
+    if (!$original) $original = @imagecreatefrompng($tempFileName);
+    if (!$original) $original = @imagecreatefromgif($tempFileName);
+    if (!$original) {
+        http_response_code(400); // Bad request
+        echo json_encode(array('error' => 'Unknown image format! Only recognize .jpeg .png and .gif'));
+        exit();
+    }
+
+    $image = Image::addImage($db, $tempFileName);
+    $message = Message::addMessage($db, $userID, $ticketID, $messageText, $image->id);
+
+    $fileNameID = "../images/$image->id.jpg";
+    imagejpeg($original, $fileNameID);    
+}
+else {
+    $message = Message::addMessage($db, $userID, $ticketID, $messageText);
 }
 
 http_response_code(200); // OK
@@ -61,6 +79,6 @@ echo json_encode(array(
     'userID' => $message->userID,
     'username' => $message->username,
     'date' => date('F j', $message->date),
-    'csrf' => $session->getCsrf()
+    'csrf' => $session->getCsrf(),
 ));
 ?>

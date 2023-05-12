@@ -28,6 +28,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <script src="../javascript/messages_actions.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../javascript/charts.js" defer></script>
+    <script src="../javascript/file_input.js" defer></script>
 
     <link rel="stylesheet" href="../css/buttons.css">
     <link rel="stylesheet" href="../css/nav.css">
@@ -139,10 +140,10 @@ require_once(__DIR__ . '/../utils/session.php');
   <input type="hidden" name="csrf" value="<?=$token?>">
 <?php } ?>
 
-<?php function output_textarea_form(string $id, string $html_inside_label, string $input_name, array $buttons_html, string $data_id="") { ?>
+<?php function output_textarea_form(string $id, string $html_inside_label, string $input_name, array $buttons_html, int $maxLength, string $data_id="") { ?>
 	<form id='<?=$id?>' class="textarea-form">
 		<label for="question-form"><?=$html_inside_label?></label>
-		<textarea id="question-form" data-id="<?=$data_id?>" name="<?=$input_name?>" maxlength="100" rows="1" required></textarea>
+		<textarea id="question-form" data-id="<?=$data_id?>" name="<?=$input_name?>" maxlength="<?=$maxLength?>" rows="1" required></textarea>
 		<div id="textarea-buttons" class="buttons center">
       <?php foreach ($buttons_html as $button_html) {
         echo($button_html);
