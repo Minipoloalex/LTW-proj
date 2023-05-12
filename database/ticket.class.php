@@ -315,7 +315,7 @@ if(!empty($departments)){
 }   
     // filters
     $query .= $statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF;
-    $query .= " LIMIT 10 OFFSET " . ($page - 1) * 10 . ";";
+    $query .= " LIMIT 12 OFFSET " . ($page - 1) * 12 . ";";
     $stmt = $db->prepare($query);
     // $stmt = $db->prepare($query.' WHERE '.$statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF.';');
     $stmt->execute($params);
