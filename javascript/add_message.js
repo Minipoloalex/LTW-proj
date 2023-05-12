@@ -43,16 +43,93 @@ async function submitNewMessage(event) {
     if (json['error']) {
         console.error(json['error'])
     }
-    else if (json['success']) {    
-        addMessageToDOM(messagesList, json['text'], json['username'], json['date'])
+    else if (json['success']) {
+        if (fileInput.files.length > 0) {
+            addMessageWithFileToDOM(messagesList, json['text'], json['username'], json['date'], json['id'])
+        }
+        else addMessageToDOM(messagesList, json['text'], json['username'], json['date'])
     }
 }
 
+function addMessageWithFileToDOM(messagesList, messageText, username, dateText, messageID) {
+    const newMessage = getPlainNewMessage()
+    newMessage.classList.add("has-image")
+    
+    const header = getHeader(username, dateText)
+    const messageBody = getPlainMessageBody(messageText)
+
+    const viewImageButton = getViewImageButton()
+    messageBody.appendChild(viewImageButton)
+
+    const imageContainer = getImageContainer()
+    const closeImageButton = getCloseImageButton()
+    const image = document.createElement("img")
+    image.setAttribute("src", "../actions/action_view_image.php?messageID=" + messageID)
+    image.setAttribute("alt", "Attached image")
+
+    imageContainer.appendChild(closeImageButton)
+    imageContainer.appendChild(image)
+
+    messageBody.appendChild(imageContainer)
+
+    newMessage.appendChild(header)
+    newMessage.appendChild(messageBody)
+
+    messagesList.appendChild(newMessage)
+}
+
 function addMessageToDOM(messagesList, messageText, username, dateText) {
+    const newMessage = getPlainNewMessage()
+    const header = getHeader(username, dateText)
+    const messageBody = getPlainMessageBody(messageText)
+
+    newMessage.appendChild(header)
+    newMessage.appendChild(messageBody)
+
+    messagesList.appendChild(newMessage)
+}
+
+
+function getImageContainer() {
+    const imageContainer = document.createElement("div")
+    imageContainer.classList.add("image-container")
+    imageContainer.classList.add("d-none")
+    return imageContainer
+}
+function getCloseImageButton() {
+    const closeImageButton = document.createElement("button")
+    closeImageButton.classList.add("close-image")
+    closeImageButton.textContent = "Close"
+    closeImageButton.addEventListener("click", clickOnCloseImageButton)
+    return closeImageButton
+}
+
+function getViewImageButton() {
+    const viewImageButton = document.createElement("button")
+    viewImageButton.classList.add("view-image")
+    viewImageButton.textContent = "View attached image"
+    viewImageButton.addEventListener("click", clickOnViewImageButton)
+    return viewImageButton
+}
+
+function getPlainMessageBody(messageText) {
+    const messageBody = document.createElement("div")
+    messageBody.classList.add("message-body")
+
+    const text = document.createElement("p")
+    text.classList.add("text")
+    text.textContent = messageText
+    messageBody.appendChild(text)
+    return messageBody
+}
+function getPlainNewMessage () {
     const newMessage = document.createElement("article")
     newMessage.classList.add("message")
-    newMessage.classList.add("self")    // Note: current user can only add messages from himself
-    
+    newMessage.classList.add("self")
+    newMessage.setAttribute("title", "self")
+    return newMessage
+}
+function getHeader(username, dateText) {
     const header = document.createElement("header")
     
     const user = document.createElement("span")
@@ -64,15 +141,7 @@ function addMessageToDOM(messagesList, messageText, username, dateText) {
     date.classList.add("date")
     date.textContent = dateText
     header.appendChild(date)
-
-    const text = document.createElement("p")
-    text.classList.add("text")
-    text.textContent = messageText
-
-    newMessage.appendChild(header)
-    newMessage.appendChild(text)
-    
-    messagesList.appendChild(newMessage)
+    return header
 }
 
 function getIndividualTicketID() {
