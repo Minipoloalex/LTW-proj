@@ -196,10 +196,12 @@ class Ticket implements JsonSerializable
   }
 
   // adicionar filtros por data
-  static function filter(PDO $db, array $status, array $priorities, array $hashtags, array $agents, array $departments): array
+  // static function filter(PDO $db, array $status, array $priorities, array $hashtags, array $agents, array $departments, int $page = 1): array
+  static function filter(PDO $db, array $status = [], array $priorities = [], array $hashtags = [] , array $agents = [], array $departments = [], int $page = 1): array
   {
   
-    $query = 'SELECT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, H.HashtagID, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T JOIN HASHTAG_TICKET H USING(TicketID) WHERE TRUE';
+    $query = 'SELECT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T LEFT JOIN HASHTAG_TICKET H USING(TicketID) WHERE TRUE';
+    // $query = 'SELECT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, H.HashtagID, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T LEFT JOIN HASHTAG_TICKET H USING(TicketID) WHERE TRUE';
     $statusF = '';
     $prioritiesF = '';
     $hashtagsF = '';
@@ -311,9 +313,12 @@ if(!empty($departments)){
   // }
   // $departmentsF = $departmentsF.')';
 }   
-    $stmt = $db->prepare($query.$statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF.';');
+    // filters
+    $query .= $statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF;
+    $query .= " LIMIT 10 OFFSET " . ($page - 1) * 10 . ";";
+    $stmt = $db->prepare($query);
     // $stmt = $db->prepare($query.' WHERE '.$statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF.';');
-    $stmt->execute();
+    $stmt->execute($params);
 
     $tickets = [];
 

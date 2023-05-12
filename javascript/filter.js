@@ -40,6 +40,7 @@ async function getFilterValues() {
     getCards(tickets);
     
     
+    
     // const tableData = document.querySelector('#tableData');
     // console.log(tableData);
     // tableData.innerHTML = '';

@@ -36,6 +36,7 @@ if (cardContainer) {
     const createCard = (index) => {
       const card = document.createElement("div");
       const curr = data[index - 1];
+      console.log(curr);
       card.className = "card";
       card.innerHTML = `
       <article>

@@ -16,21 +16,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $priorities = $filterValues['priorities'];
   $status = $filterValues['status'];
 
-  if (empty($agents) && empty($departments) && empty($hashtags) && empty($priorities) && empty($status)) {
-    // Get all tickets if no filters are selected
-    $tickets = Ticket::getTickets($db);
-    http_response_code(200); // OK
-    echo json_encode($tickets);
-  } else {
+  // if (empty($agents) && empty($departments) && empty($hashtags) && empty($priorities) && empty($status)) {
+  //   // Get all tickets if no filters are selected
+  //   $tickets = Ticket::getTickets($db);
+  //   http_response_code(200); // OK
+  //   echo json_encode($tickets);
+  // } else {
     // Get filtered tickets
     $tickets = Ticket::filter($db, $status, $priorities, $hashtags, $agents, $departments);
     http_response_code(200); // OK
     echo json_encode($tickets);
-  }
+  // }
 }
 else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   // Handle AJAX request
-  $tickets = Ticket::getTickets($db);
+  $tickets = Ticket::filter($db);
   http_response_code(200); // OK
   echo json_encode($tickets);
 }

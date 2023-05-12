@@ -18,7 +18,8 @@ if (Client::getType($db, $session->getId()) !== 'Admin') {
 $filters = Ticket::getFilters($db);
 output_header($session);
 drawFilterMenu($filters);
-$tickets = Ticket::getTickets($db);
+// $tickets = Ticket::getTickets($db);
+$tickets = Ticket::filter($db);
 drawTicketsTable($tickets, 'All Tickets');
 drawCardContainer();
 output_footer();
