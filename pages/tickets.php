@@ -20,7 +20,8 @@ output_header($session);
 drawFilterMenu($filters);
 // $tickets = Ticket::getTickets($db);
 $tickets = Ticket::filter($db);
-drawTicketsTable($tickets, 'All Tickets');
+// drawTicketsTable($tickets, 'All Tickets');
+
 drawCardContainer();
 output_footer();
 ?>

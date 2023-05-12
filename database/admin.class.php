@@ -7,7 +7,15 @@ class Admin extends Agent {
     {
         parent::__construct($id, $name, $username, $password, $email, $departmentid);
     }
-    
+    static function getFollowingTickets(PDO $db, int $agentID) {
+        $stmt = $db->prepare('SELECT * FROM FOLLOWING WHERE AgentID = ?');
+        $stmt->execute(array($agentID));
+        $tickets = array();
+        while ($row = $stmt->fetch()) {
+            $tickets[] = Ticket::getByID($db, intval($row['TicketID']));
+        }
+        return $tickets;
+    }
 }
 
 ?>

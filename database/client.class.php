@@ -139,7 +139,7 @@
             $stmt->execute(array($userID));
             return $stmt->fetch() != NULL;
         }
-          static function hasAcessToTicket(PDO $db, int $userID, $ticketID) {
+          static function hasAcessToTicket(PDO $db, int $userID, int $ticketID) {
             if (Client::isAdmin($db, $userID)) return true;
 
             $ticket = Ticket::getById($db, $ticketID);

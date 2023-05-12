@@ -40,23 +40,37 @@ if (cardContainer) {
       card.className = "card";
       card.innerHTML = `
       <article>
+        <header>
         <span class="card-title">${curr. title }</span><br>
+        </header>
+        <div>
+        <label>Status:</label>
         <span class="card-info">${curr.status}</span><br>
-        <span class="card-info card-description">${curr.description}</span><br>
-        ${curr.hashtags.map(hashtag => `<span class="card-info card-hashtags">${hashtag.hashtagname}</span>`).join('')}<br>
+        <label>Hashtags:</label>
+        ${curr.hashtags.map(hashtag => `<span class="card-info card-hashtags">${hashtag.hashtagname}</span>`).join('<br>')}<br>
+        <label>Assigned agent:</label>
         <span class="card-info">${curr.assignedagent}</span><br>
+        <label>Department:</label>
         <span class="card-info">${curr.departmentName}</span><br>
+        </div>
       </article>
       `
+
+      // card.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
+      // card.style.borderRadius = '10px';
+      // card.style.height = '300px';
+      // card.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3);';
+      // card.style.padding = '10px';
+      // card.style.margin = '10px';
+      // card.style.width = '300px';
+      cardContainer.appendChild(card);
+
+
       //index; //card inside elements
       // card.innerHTML += data[index-1].description;
       // card.innerHTML += data[index-1].date;
       // card.innerHTML += data[index-1].status;
       // card.innerHTML += data[index-1].priority;
-
-      card.style.backgroundColor = 'white';
-      // card.style.backgroundColor = getRandomColor();
-      cardContainer.appendChild(card);
     };
 
     const addCards = (pageIndex) => {

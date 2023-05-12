@@ -10,12 +10,14 @@
 #hashtags label[for="hashtag-search"] {
     grid-area: hashtags-label;
     align-self: center;
-    font-size: 1.4rem;
 }
 #hashtags #hashtag-search {
     grid-area: hashtag-search;
     height: 50%;
     align-self: center;
+    margin: 0 0.2rem;
+    border-radius: 5px;
+    border: 1px solid black;
 }
 #hashtags button#add-hashtag {
     grid-area: add-hashtag-button;

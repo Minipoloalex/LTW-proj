@@ -66,7 +66,7 @@ require_once(__DIR__ . '/common.tpl.php');
 				"faq-form",
 				"Your question <small>(max 100 chars)</small>:",
 				"question-form",
-			array("<button type='submit'>Ask</button>"));
+			array("<button type='submit'>Ask</button>"), 100);
 			?>
 		<div id="feedback-message" class="feedback-message"></div>
 

@@ -8,6 +8,8 @@
       <!-- <div class="skeleton-card"></div> -->
       <div class="skeleton-card"></div>
       <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
     </div>
     <div class="card-actions">
       <span>Showing

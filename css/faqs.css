@@ -1,0 +1,263 @@
+
+/*========= FAQ PAGE =========*/
+
+#faqs {
+    margin: 2rem;
+  }
+  
+  /* FAQ form */
+  
+  header.faq-page {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 20px;
+    padding: 20px;
+    /* margin-left: 80px; */
+  }
+  
+  header.faq-page h2.faq-header {
+    margin-top: 0;
+  
+    margin-bottom: 1rem;
+    text-align: center;
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
+    width: fit-content;
+    padding: 0.5rem;
+    margin: auto;
+    margin-bottom: 1rem;
+  }
+  
+  header.faq-page h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+  
+  header.faq-page p {
+    font-size: 16px;
+    margin-top: 0;
+    text-align: center;
+  }
+  
+  header.faq-page form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 10px;
+  }
+  
+  .textarea-form label {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .textarea-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    resize: vertical;
+    font-family: 'Martel Sans', sans-serif;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
+  }
+  /*ask button e answer button (propriedades iguais)*/
+  .textarea-form button, .faq button.answer-faq, .faq button.save-answer {
+    margin-top: 0.5rem;
+  }
+  
+  
+  
+  /* individual faq -> question and answer */
+  .faq {
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-top: 20px;
+    position: relative;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
+  }
+  
+  .faq .question {
+    width: 90%;
+    /* resize: vertical; */
+    font-weight: bold;
+    font-size: 0.9rem; 
+    color: #333;
+    display: block;
+    font-family: 'Martel Sans', sans-serif;
+  }
+  
+  .faq .answer {
+    width: 90%;
+    /* resize: none; */
+    margin-top: 10px;
+    font-size: 0.9rem; 
+    color: #666;
+    display: block;
+    font-family: 'Martel Sans', sans-serif;
+  }
+  
+  .edit-faq, .save-faq {
+    position: absolute;
+    top: 40px;
+    right: 0;
+  }
+  .delete-faq {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+  .hide-faq {
+    position: absolute;
+    top: 73px;
+    right: 0px;
+  }
+  .display-faq {
+    position: absolute;
+    top: 73px;
+    right: 0;
+  }
+  
+  
+  /* faq icons for buttons */
+  
+  button.display-faq span.material-symbols-outlined, button.hide-faq span.material-symbols-outlined{ 
+    /* text-decoration: none; */
+    color: #606081;
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 1rem;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
+  
+  button.edit-faq span.material-symbols-outlined, button.save-faq span.material-symbols-outlined{
+    color: #606081;
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
+  
+  button.delete-faq span.material-symbols-outlined {
+    color: #606081;
+    margin-top: 1rem;
+    margin-right: 0.5rem;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
+  
+  button.delete-faq span.material-symbols-outlined:hover {
+    border: none; 
+    background-color: transparent;
+    color:#ff0000;
+    cursor: pointer;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
+  
+  button.save-faq span.material-symbols-outlined:hover {
+    border: none; 
+    background-color: transparent;
+    color: #1f8036;
+    cursor: pointer;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
+  
+  button.edit-faq span.material-symbols-outlined:hover, button.display-faq span.material-symbols-outlined:hover, button.hide-faq span.material-symbols-outlined:hover {
+    border: none; 
+    background-color: transparent;
+    color:rgba(112, 78, 125, 0.562);
+    cursor: pointer;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
+  
+  
+  
+  /* button.display-faq span.material-symbols-outlined {
+    padding: 0;
+  } */
+  
+  button.display-faq, button.hide-faq, button.edit-faq, button.save-faq, button.delete-faq{
+    border: none; 
+    background-color: transparent;
+  }
+  
+  article.faq {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .faq input.answer {
+    display: block;
+  }
+  
+  .faq input.question {
+    margin-right: 5.2rem;
+  }
+  
+  /* individual faq buttons for javascript */
+  .faq input[readonly] {
+    user-select: none;
+    cursor: default;
+  }
+  
+  .faq input[readonly]:focus {
+    outline: none;
+  }
+
+  /* !WARNING: comentei isto por causa das classes sequintes para os inputs nas faqs*/
+
+/* .faq input {
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+} */
+
+.input-readonly {
+    border: none;
+    border-radius: 0px;
+    background-color: transparent;
+    resize: none;
+    outline: none;
+  }
+  
+  .input-write {
+    border: 1px solid rgba(51, 51, 51);
+    border-radius: 5px;
+    background-color: white;
+    resize: vertical;
+  }
+  
+  
+  @media screen and (min-width: 768px) {
+    .textarea-form button, button.answer-faq, button.save-answer, .profile button {
+      width: 15%;
+    }
+  }
+  

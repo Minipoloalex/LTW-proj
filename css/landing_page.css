@@ -1,0 +1,207 @@
+
+/*================= LOGIN FORM  =================*/
+
+body.landingbody {
+  background-image: url('../css/images/fundo.jpg');
+  background-size: cover;
+  background-position: center center;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-form {
+  width: 350px;
+  height: fit-content;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
+  backdrop-filter: blur(5px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  width: 92%;
+  padding: 0.8em;
+  margin-bottom: 1em;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  font-family: 'Martel Sans', sans-serif;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.login-form input[type="submit"] {
+  width: 100%;
+  padding: 0.8em;
+  margin-top: 1em;
+  background-color: #846a8b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.login-form input[type="submit"]:hover {
+  background-color: #a492a9;
+}
+
+.login-form p {
+  text-align: center;
+  margin-top: 1em;
+  font-size: 0.9em;
+  margin-top: 1.5em;
+}
+
+/* .login-form a {
+  color: #846a8b;
+} */
+
+
+
+a.register {
+  color: white;
+  text-decoration: none;
+  padding: 0.5em;
+  margin-top: 1em;
+  margin-left: 0.5em;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #b4bdfc;
+}
+
+a.register:hover {
+  background-color: #c8cefa;
+}
+
+
+/*================= REGISTER FORM  =================*/
+
+body.landingbody {
+  background-image: url('../css/images/fundo.jpg');
+  background-size: cover;
+  background-position: center center;
+}
+
+.registerform {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  padding: 2em;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  width: 400px;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.registerform h2 {
+  text-align: center;
+  margin-bottom: 1em;
+  font-family: 'Martel Sans', sans-serif;
+}
+
+.registerform input[type="text"],
+.registerform input[type="email"],
+.registerform input[type="password"] {
+  width: 92%;
+  padding: 0.8em;
+  margin-bottom: 1em;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  font-family: 'Martel Sans', sans-serif;
+}
+
+.registerform input[type="text"]:focus,
+.registerform input[type="email"]:focus,
+.registerform input[type="password"]:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.registerform .registerbuttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 1em;
+  gap: 1em;
+}
+
+.registerform .create:hover {
+  background-color: #a492a9;
+}
+
+/* .registerform button.create {
+  align-items: ;
+} */
+
+.registerform p {
+  text-align: center;
+  margin-top: 1em;
+  font-family: 'Martel Sans', sans-serif;
+}
+
+.registerform a {
+  color: #846a8b;
+  font-family: 'Martel Sans', sans-serif;
+  text-decoration: none;
+}
+
+.registerform a:hover {
+  text-decoration: underline;
+}
+
+/*================= SVG WAVES =================*/
+
+.custom-shape-divider-top-1681308841 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1681308841 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 150px;
+}
+
+.custom-shape-divider-top-1681308841 .shape-fill {
+  fill: #846a8b;
+}
+
+

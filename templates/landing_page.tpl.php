@@ -50,8 +50,8 @@ require_once(__DIR__ . '/../utils/session.php');
 <?php function drawRegisterForm(Session $session)
 {
   $email_regex = "^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
-  $name_regex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
-  $username_regex = "^[a-zA-Z0-9]+(([',. -][a-zA-Z0-9 ])?[a-zA-Z0-9]*)*$";
+  $name_regex = "^[A-Za-zÀ-ÖØ-öø-ÿ\- ]+$";
+  $username_regex = "^[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-. ]+$";
   ?>
 <div class="landing-register">
   <form action="../actions/action_create_account.php" method="post" class="registerform">
@@ -81,7 +81,9 @@ require_once(__DIR__ . '/../utils/session.php');
       <title>Trouble Solver</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="../css/landing_page.css">
       <link rel="stylesheet" href="../css/style.css">
+      <link rel="stylesheet" href="../css/buttons.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />

@@ -18,6 +18,7 @@ $type = Client::getType($db, $user->id);
 
 output_header($session);
 drawMainPage($user, $type);
+if ($type === 'Admin') output_admin_chart();
 output_footer();
 
 ?>

@@ -2,7 +2,23 @@ const messageButton = document.querySelector("#message-form button[type='submit'
 if (messageButton) {
     messageButton.addEventListener('click', submitNewMessage)
 }
-async function postNewMessage(messageText, ticketID) {
+
+async function postNewMessage(messageText, ticketID, fileInput) {
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0]
+        const formData = new FormData()
+        formData.append('message', messageText)
+        formData.append('ticketID', ticketID)
+        formData.append('image', file)
+        formData.append('csrf', getCsrf())
+        const response = await fetch('../api/api_add_message.php', {
+            method: 'POST',
+            body: formData
+        })
+        const json = await response.json()
+        setCsrf(json['csrf'])
+        return json
+    }
     const json = await postData('../api/api_add_message.php', {
         'message': messageText,
         'ticketID': ticketID,
@@ -15,12 +31,14 @@ async function submitNewMessage(event) {
     const messagesList = getIndividualTicketMessagesList()
     const messageInput = document.querySelector('#message-form textarea')
     
+    const fileInput = document.getElementById('upload-image');
+
     const messageText = messageInput.value
     const ticketID = getIndividualTicketID()
     console.log(messageText)
     messageInput.value = ""
 
-    const json = await postNewMessage(messageText, ticketID)
+    const json = await postNewMessage(messageText, ticketID, fileInput)
     console.log(json)
     if (json['error']) {
         console.error(json['error'])
