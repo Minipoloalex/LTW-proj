@@ -94,11 +94,33 @@ function handleEdit(editFaqBtn) {
 function handleDelete(deleteFaqBtn) {
   const faq = deleteFaqBtn.parentElement;
 
+  var modal = faq.querySelector(".modal");
+  var x = modal.querySelector(".close");
+  var confirm = modal.querySelector(".confirm-del");
+
   const answerBtn = faq.querySelector('#aswerFaq');
   // if (answerBtn.hasAttribute('hidden')) {deleteFaqBtn.toggleAttribute('hidden');}
 
 
   deleteFaqBtn.addEventListener('click', async () => {
+    modal.style.display = "block";
+  })
+
+  x.addEventListener("click", () => {
+    hideModal();
+  });
+  
+  function hideModal() {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      hideModal();
+    }
+  }
+/*DELETE confirmation POPUP*/
+  confirm.addEventListener("click", async () => {
     const res = await deleteFaqData({ 'id': faq.getAttribute("data-id") });
     const json = await res.json();
     if (res.ok) {
@@ -111,7 +133,8 @@ function handleDelete(deleteFaqBtn) {
       displayMessage(json['error']);
 
     }
-  })
+  });
+
 };
 
 function handleAnswer(answerBtn) {
@@ -248,10 +271,24 @@ if (editFaqBtns) {
 
 }
 
+/*DELETE confirmation POPUP*/
 
+// var modal = document.querySelector(".modal");
+// var btn = document.querySelector(".openModal");
+// var span = document.querySelector(".close");
 
-// !TODO: answer faq
+// btn.addEventListener("click", () => {
+//   modal.style.display = "block";
+// });
 
-// !TODO: delete faq
-
-// !TODO: hide/show faq
+// span.addEventListener("click", () => {
+//   hideModal();
+// });
+// function hideModal() {
+//   modal.style.display = "none";
+// }
+// window.onclick = function (event) {
+//   if (event.target == modal) {
+//     hideModal();
+//   }
+// };

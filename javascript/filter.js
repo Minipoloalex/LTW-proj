@@ -109,6 +109,19 @@ function updateTicketTable(tickets) {
     }
 }
 
+/*dropdown */
+const filterToggle = document.querySelector(".filter-toggle");
+if (filterToggle) {
+
+const caretIcon = filterToggle.querySelector("i");
+
+filterToggle.addEventListener("click", function() {
+  filterToggle.classList.toggle("clicked");
+  caretIcon.classList.toggle("fa-caret-right");
+    caretIcon.classList.toggle("fa-caret-down");
+});
+}
+
 
 
 

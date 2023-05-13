@@ -8,14 +8,15 @@
 }
 #individual-ticket #ticket-description {
     margin: 0 auto;       
-    background: rgba(255, 255, 255, 0.5);
+    background: #F5F5F5;
     margin-bottom: 2rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /*0 0 5px rgba(0, 0, 0, 0.5); */
     border-radius: 10px;
 
-    padding-top: 1em;
+    /* padding-top: 1em;
     padding-bottom: 1em;
-    padding-left: 1em;
+    padding-left: 1em; */
+    padding: 1em;
 }
 
 #individual-ticket h3 {
@@ -64,7 +65,7 @@
     border-radius: 20px;
     
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: #f5f5f5;
     /* margin: 0.5em; */
     width: 100%;
 }
@@ -185,10 +186,8 @@ fieldset {
   
 /* ======================== DROPDOWN SELECT ======================== */
 label select {
-    padding-top: 0.2em;
-    padding-right: 1em;
-    padding-left: 1em;
-  
+    padding: 0.2em 1em 0 1em;
+    color: black;
     font-size: 0.8rem;
     border: 1px solid black;
     border-radius: 5px;
@@ -328,7 +327,7 @@ label select {
 }
 
 .message .message-body {
-    background-color: #F5F6FF;
+    background-color: #F5F5F5;
     margin: 0;
 }
 .message.has-image .message-body {
@@ -418,4 +417,102 @@ label select {
 }
   /* For desktop devices -> A PARTIR DE 961*/
 @media only screen and (min-width: 961px) {
+}
+
+
+/* ======================== CREATE TICKET FORM ======================== */
+
+
+.createticket {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
+    align-items: start; 
+  }
+  
+  .createticket label {
+    /* font-weight: bold; */
+    align-self: center ;
+  }
+  
+  .createticket input[type="text"],
+  .createticket select,
+  .createticket textarea {
+    /* padding: 0.5rem; */
+    padding: 0.2em 1em 0 1em;
+    color: black;
+    font-size: 0.8rem;
+    /* border: 1px solid #ccc;
+    border-radius: 5px; */
+    border: 1px solid black;
+    border-radius: 5px;
+    /* box-shadow:  0 5px 15px rgba(0, 0, 0, 0.3);  */
+    font-family: 'Martel Sans', sans-serif;
+    /* margin-top: 6px; */
+    /* margin-bottom: 1rem; */
+  }
+  
+  /* .createticket input[type="text"],
+  .createticket select {
+    width: 95%;
+  } */
+  
+  .createticket textarea {
+    width: 95%;
+    resize: vertical;
+  }
+  
+  
+  .createticket label,
+  .createticket input[type="text"],
+  .createticket select,
+  .createticket textarea,
+  .createticket button[type='submit'] {
+    grid-column: 1;
+  }
+  
+  
+  .createticket option {
+    background-color: #f5f5f5;
+    color:black;
+  }
+  
+  .createticket input[type="text"],
+  
+  
+  .createticket button.submit-ticket {
+    /* background-color: #53536e;   */
+    /* color: white; */
+    border-radius: 5px;
+    padding: 0.5em;
+  }
+  
+  
+  .createticket ::placeholder {
+    color: #aaa;
+  }
+  
+  .createticket fieldset#hashtags .create-ticket {
+    padding: 0;
+  }
+  
+  /* ========================== LABEL DEPARTMENT/AGENT =========================== */
+label#department, label#agent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+}
+
+/* ========================== specifics on create ticket form (different from individual ticket) =========================== */
+
+form.createticket fieldset#priority, form.createticket fieldset#hashtags.create-ticket, form.createticket label#department{
+    padding: 0;
+    margin-top: 0.7em;
 }

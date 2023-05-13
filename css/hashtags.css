@@ -26,14 +26,6 @@
     grid-area: hashtag-items;
 }
 
-/* ========================== LABEL DEPARTMENT/AGENT =========================== */
-label#department, label#agent {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1em;
-}
-
 /* ========================== HASHTAGS =========================== */
 #hashtags {
     padding-left: 1em;
@@ -61,6 +53,6 @@ label#department, label#agent {
 }
 /* ======================== ADD HASHTAG BUTTON ======================== */
 button#add-hashtag {
-    margin: 0.5em auto;
+    /* margin: 0.5em auto; */
     padding: 0.5rem 1rem;
 }
