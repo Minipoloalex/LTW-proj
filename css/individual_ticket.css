@@ -8,14 +8,15 @@
 }
 #individual-ticket #ticket-description {
     margin: 0 auto;       
-    background: rgba(255, 255, 255, 0.5);
+    background: #F5F5F5;
     margin-bottom: 2rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /*0 0 5px rgba(0, 0, 0, 0.5); */
     border-radius: 10px;
 
-    padding-top: 1em;
+    /* padding-top: 1em;
     padding-bottom: 1em;
-    padding-left: 1em;
+    padding-left: 1em; */
+    padding: 1em;
 }
 
 #individual-ticket h3 {
@@ -64,7 +65,7 @@
     border-radius: 20px;
     
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: #f5f5f5;
     /* margin: 0.5em; */
     width: 100%;
 }
@@ -326,7 +327,7 @@ label select {
 }
 
 .message .message-body {
-    background-color: #F5F6FF;
+    background-color: #F5F5F5;
     margin: 0;
 }
 .message.has-image .message-body {

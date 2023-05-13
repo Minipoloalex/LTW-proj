@@ -27,12 +27,6 @@ if (cardContainer) {
       cardContainer.after(loader);
     }
 
-    // not needed
-    // const getRandomColor = () => {
-    //   const h = Math.floor(Math.random() * 360);
-    //   return `hsl(${h}deg, 90%, 85%)`;
-    // };
-
     const createCard = (index) => {
       const card = document.createElement("div");
       const curr = data[index - 1];

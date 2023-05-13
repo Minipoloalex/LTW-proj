@@ -59,8 +59,14 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 
 <?php function drawFilterMenu(array $filterValues)
 { ?>
-    <section class="filter">
-        <h3 class="filter-header">Filters</h3>
+
+<div class="filter-toggle">
+  <h2>Filters  <i class="fa fa-caret-right"></i></h2>
+</div>
+
+<section id="filter-section" class="filter hidden">
+    
+        <!-- <h3 class="filter-header">Filters</h3> -->
         <div class="filter-options">
         <legend>Status</legend>
         <?php
