@@ -117,12 +117,14 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
     else if ($createdBy === $action->username) $class = 'original-poster';
     else $class = 'other';
     ?>
-    <article title="<?=$class?>" class="action message">
+    <article title="<?=$class?>" class="action message <?=$class?>">
         <header>
             <span class="user"><?=$action->username?></span>
             <span class="date"><?=date('F j', $action->date)?></span>
         </header>
-        <p class="text"><?=$action->type?></p>
+        <div class="message-body">
+            <p class="text"><?=htmlentities($action->type)?></p>
+        </div>
     </article>
 <?php } ?>
 

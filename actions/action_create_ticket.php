@@ -27,7 +27,9 @@ if (!is_valid_array_hashtag_ids($db, $hashtags)) {
     $session->addMessage('error', "There was an invalid hashtag");
     die(header('Location: ../pages/create_ticket.php'));
 }
-$hashtags = array_map('intval', $hashtags);
+
+$hashtags = array_map('intval', array_unique($hashtags));
+
 
 if (isset($_POST['department']) && !is_valid_departmentId($db, $_POST['department'])) {
     // can be null

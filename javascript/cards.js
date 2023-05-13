@@ -40,8 +40,9 @@ if (cardContainer) {
       card.className = "card";
       card.innerHTML = `
       <article>
+      <a href="../pages/individual_ticket.php?id=${curr.ticketid}">
         <header>
-        <span class="card-title">${curr. title }</span><br>
+        <span class="card-title">${curr.title}</span><br>
         </header>
         <div>
         <label>Status:</label>
@@ -53,6 +54,7 @@ if (cardContainer) {
         <label>Department:</label>
         <span class="card-info">${curr.departmentName}</span><br>
         </div>
+        </a>
       </article>
       `
 

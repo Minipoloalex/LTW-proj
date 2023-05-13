@@ -11,28 +11,14 @@ if (closeTicketButton) {
 
 function addActionToDOM(username, date, text) {
     const actions = document.querySelector("#actions-list")
-    const action = document.createElement("article")
+    const action = getPlainNewMessage()
     action.classList.add("action")
-    action.classList.add("message")
 
-    const header = document.createElement("header")
-    
-    const actionUsername = document.createElement("span")
-    actionUsername.classList.add("user")
-    actionUsername.textContent = username
-    header.appendChild(actionUsername)
-
-    const actionDate = document.createElement("span")
-    actionDate.classList.add("date")
-    actionDate.textContent = date
-    header.appendChild(actionDate)
-
-    const actionText = document.createElement("p")
-    actionText.classList.add("text")
-    actionText.textContent = text
+    const header = getHeader(username, date)
+    const messageBody = getPlainMessageBody(text)
 
     action.appendChild(header)
-    action.appendChild(actionText)
+    action.appendChild(messageBody)
 
     actions.prepend(action)
 }

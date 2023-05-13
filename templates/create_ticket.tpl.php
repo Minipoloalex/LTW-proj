@@ -13,18 +13,18 @@ require_once(__DIR__ . '/../templates/common.tpl.php');
     $departments = Department::getDepartments($db);
     ?>
     <form class="createticket">
+
         <?php output_csrf_input($session); ?>
-        <label>
-            Ticket title*
-        </label>
+
+        <label>Ticket title*</label>
         <input type='text' name='title'>
+
+        <label>Ticket description*</label>
+        <textarea name="description"></textarea>
 
         <?php output_priority_form(); ?>
         <?php output_hashtag_form($hashtags, array()); ?>
 
-        <label>Ticket description*
-        </label>
-        <textarea name="description"></textarea>
         <?php output_department_form($departments, NULL); ?>
         <button formaction="../actions/action_create_ticket.php" formmethod="post" type="submit" class="submit-ticket">
             Create ticket

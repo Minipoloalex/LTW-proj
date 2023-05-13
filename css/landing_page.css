@@ -40,7 +40,7 @@ body.landingbody {
 .login-form input[type="text"],
 .login-form input[type="password"] {
   width: 92%;
-  padding: 0.8em;
+  padding: 0.8em 4%;
   margin-bottom: 1em;
   border-radius: 5px;
   border: none;
@@ -134,7 +134,7 @@ body.landingbody {
 .registerform input[type="email"],
 .registerform input[type="password"] {
   width: 92%;
-  padding: 0.8em;
+  padding: 0.8em 4%;
   margin-bottom: 1em;
   border-radius: 5px;
   border: none;

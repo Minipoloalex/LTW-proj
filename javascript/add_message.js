@@ -122,7 +122,7 @@ function getPlainMessageBody(messageText) {
     messageBody.appendChild(text)
     return messageBody
 }
-function getPlainNewMessage () {
+function getPlainNewMessage() {
     const newMessage = document.createElement("article")
     newMessage.classList.add("message")
     newMessage.classList.add("self")
