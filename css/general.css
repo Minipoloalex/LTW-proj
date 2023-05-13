@@ -165,11 +165,30 @@ tr:hover {
 
 /* ========= MAIN PAGE CONTENT ========= */
 
-canvas{
+#charts {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+}
+#charts canvas {
   margin-bottom: 2rem;
   background-color: #F5F6FF;
   padding: 1rem;
   border-radius: 10px;
+  max-width: 35vw;
+  max-height: 60vh;
+  min-width: 35vw;
+  min-height: 35vh;
+}
+@media only screen and (max-width: 600px) {
+  #charts {
+    flex-direction: column;
+  }
+  #charts canvas {
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
 .mainpage {
   display: grid;
@@ -199,29 +218,21 @@ canvas{
   align-items: end;
   text-align: center;
 }
-
-.mainpage p {
-  grid-area: p;
+.mainpage p, .mainpage p1, .mainpage p2 {
   display: flex;
   align-items: center;
   padding: 2em;
   text-align: center;
 }
-
+.mainpage p {
+  grid-area: p;
+}
 .mainpage p1 {
   grid-area: p1;
-  display: flex;
-  align-items: center;
-  padding: 2em;
-  text-align: center;
 }
 
 .mainpage p2 {
   grid-area: p2;
-  display: flex;
-  align-items: center;
-  padding: 2em;
-  text-align: center;
 }
 
 div.features {

@@ -123,7 +123,7 @@ class Ticket implements JsonSerializable
     $stmt = $db->prepare('SELECT * FROM TICKET WHERE Title = ? AND UserID = ?');
     $stmt->execute(array($title, $userID));
     $ticket = $stmt->fetch();
-    return intval($ticket['TicketID']) ?? NULL;
+    return $ticket['TicketID'] != NULL ? intval($ticket['TicketID']) : NULL;
   }
 
   static function createTicket(PDO $db, string $title, int $userID, ?string $priority, array $hashtags, string $description, ?int $departmentID) : int {
@@ -363,7 +363,7 @@ if(!empty($departments)){
   function isClosed() {
     return strtolower($this->status) === 'closed';
   }
-  static function getClosedTicketsLast7Days(PDO $db) {
+  static function getClosedTicketsLast7Days(PDO $db): array {
     $stmt = $db->prepare(
       "SELECT COUNT(t.TicketID) as count, date_range.date as date
       FROM (
@@ -387,6 +387,31 @@ if(!empty($departments)){
       $counts[] = $count['count'];
     }
     return $counts;
+  }
+  static function getCreatedTicketsLast7Days(PDO $db) : array {
+    $stmt = $db->prepare(
+      "SELECT COUNT(t.TicketID) as count, date_range.date as date
+      FROM (
+              SELECT strftime('%Y-%m-%d', 'now', 'localtime', '-' || (n - 1) || ' days') AS date
+              FROM (SELECT row_number() OVER () AS n FROM (SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7))
+              ORDER BY date DESC
+          ) date_range
+          LEFT JOIN(
+          TICKET as t JOIN (
+              SELECT A.TicketID, min(A.TimeStamp) AS actionDate
+              FROM Action A
+              GROUP BY TicketID
+          ) as act ON t.TicketID = act.TicketID
+      ) ON date_range.date = strftime('%Y-%m-%d', act.actionDate, 'unixepoch') and t.status != 'closed'
+      GROUP BY date_range.date
+      ORDER BY date_range.date ASC;"
+      );
+      $stmt->execute();
+      $counts = [];
+      while ($count = $stmt->fetch()) { // last line will have date = today
+        $counts[] = $count['count'];
+      }
+      return $counts;
   }
 }
 ?>

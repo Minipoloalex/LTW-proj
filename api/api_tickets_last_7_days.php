@@ -17,5 +17,19 @@ function handle_closed_tickets_last_7_days(PDO $db, Session $session) {
         'csrf' => $session->getCsrf()
     ));
 }
+function handle_open_tickets_last_7_days(PDO $db, Session $session) {
+    if (Client::getType($db, $session->getId()) !== 'Admin') {
+        http_response_code(403); // Forbidden
+        echo json_encode(array('error' => 'You are not an admin.'));
+        exit();
+    }
+    $tickets = Ticket::getCreatedTicketsLast7Days($db);
+
+    echo json_encode(array(
+        'success' => 'Tickets retrieved successfully.',
+        'tickets' => $tickets,
+        'csrf' => $session->getCsrf()
+    ));
+}
 
 ?>

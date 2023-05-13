@@ -68,7 +68,8 @@ require_once(__DIR__ . '/../utils/session.php');
 
 
 <?php function output_admin_chart() { ?>
-  <div>
-    <canvas id = "admin-chart"></canvas>
-  </div>
+  <section id="charts">
+    <canvas id = "open-tickets-chart"></canvas>  
+    <canvas id = "closed-tickets-chart"></canvas>
+  </section>
 <?php } ?>
