@@ -321,7 +321,7 @@ label select {
     background-color: #846a8b;
     color: white;
 }
-.message.other header, .message.action header {
+.message.other header {
     background-color: #53536E;
     color: white;
 }
@@ -344,14 +344,15 @@ label select {
 
 .message.has-image .image-container:not(.d-none) {
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 50vh;
+    left: 50vw;
     transform: translate(-50%, -50%);
     max-width: 80vw;
     max-height: 80vh;
+    overflow: auto;
 }
 .message.has-image .image-container img {
-    object-fit: contain;
+    max-width: 100%;
 }
 .message.has-image .image-container button {
     position: absolute;
@@ -400,9 +401,14 @@ label select {
     #container-ticket-info {
         max-width: 90vw;
     }
-    /* #ticket-info header {
-        width: 90vw;
-    } */
+    .message.has-image .image-container:not(.d-none) {
+        max-width: 95vw;
+        max-height: 95vh;
+        width: 100%;
+    }
+    .message.has-image .image-container button {
+        display: none;
+    }
   }
   
   /* For tablet devices -> 600 A 961*/
