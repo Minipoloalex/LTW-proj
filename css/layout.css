@@ -47,11 +47,17 @@ label#department, label#agent {
     padding-left: 1em;
 }
 #hashtag-items article.hashtag {
-    padding: 0.5em;
+    padding: 0.3em;
+    font-size: 0.8rem;
     margin: 0.5em;
+    border: none;
 }
 #hashtags .hashtag a.remove-hashtag {
-    padding: 0.3rem 0.5rem;
+    padding: 0rem 0.2rem 0 0.35rem;
+}
+
+#hashtag-items article.hashtag label {
+    padding-left: 0.2rem;
 }
 /* ======================== ADD HASHTAG BUTTON ======================== */
 button#add-hashtag {

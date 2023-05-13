@@ -32,7 +32,8 @@
     align-self: right;
 }
 #individual-ticket #ticket-status.open, #individual-ticket #ticket-status.in-progress {
-    background-color: #23232E;
+    background-color: rgba(255, 255, 255, 0.138);
+    border: 2px solid white;
 }
 
 #individual-ticket #ticket-status.closed {
