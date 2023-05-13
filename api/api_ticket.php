@@ -8,7 +8,7 @@ require_once(__DIR__ . '/../database/connection.db.php');
 require_once(__DIR__ . '/../database/client.class.php');
 require_once(__DIR__ . '/../database/ticket.class.php');
 
-require_once(__DIR__ . '/api_closed_tickets_last_7_days.php');
+require_once(__DIR__ . '/api_tickets_last_7_days.php');
 
 $session = new Session();
 $db = getDatabaseConnection();
@@ -26,6 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
     if ($_GET['request'] === 'closedTicketsLast7Days') {
         handle_closed_tickets_last_7_days($db, $session);
+        exit();
+    }
+    else if ($_GET['request'] === 'openTicketsLast7Days') {
+        handle_open_tickets_last_7_days($db, $session);
         exit();
     }
 }
