@@ -30,7 +30,7 @@ function is_valid_username(?String $username): bool {
 }
 
 function is_valid_password(?String $password): bool {
-    return isset($password) && !empty($password) && preg_match('/^(?=.[0-9])(?=.[!@#$%^&])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&]{6,}$/', $password);
+    return isset($password) && !empty($password) && preg_match('/^(?=.*[0-9])(?=.*[!@#$%^&])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&]{6,}$/', $password);
 }
 function check_valid_data(string $name, string $username, string $email, string $password, string $confirm_password) {
     if (!is_valid_name($name) || !is_valid_username($username) || !is_valid_email($email) || !is_valid_string($password) || !is_valid_string($confirm_password)) {

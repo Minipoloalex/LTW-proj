@@ -15,8 +15,12 @@ require_once(__DIR__ . '/../utils/validate.php');
 
 $db = getDatabaseConnection();
 
-if (!is_valid_email($_POST['email']) || !is_valid_string($_POST['password'])) {
-  $session->addMessage('error', 'Invalid email or password!');
+if (!is_valid_email($_POST['email'])) {
+  $session->addMessage('error', 'Invalid email!');
+  die(header('Location: ../pages/landing_page.php'));
+}
+if (!is_valid_string($_POST['password'])) {
+  $session->addMessage('error', 'Empty password! Please fill in your password');
   die(header('Location: ../pages/landing_page.php'));
 }
 

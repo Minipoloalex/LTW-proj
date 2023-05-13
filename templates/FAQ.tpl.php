@@ -37,8 +37,6 @@ require_once(__DIR__ . '/common.tpl.php');
 		<?php } ?>
 	</article>
 
-	<!-- <div id="feedback-message-single-faq" class="feedback-message">m</div> -->
-
 <?php } ?>
 <?php function output_all_faqs(array $faqs, string $type)
 { ?>
@@ -61,16 +59,17 @@ require_once(__DIR__ . '/common.tpl.php');
 		</p>
 		<p>Agents can also use the FAQ to answer tickets, so your question might be added to the FAQ if it's a common
 			question.</p>
-			<?php
-			output_textarea_form(
-				"faq-form",
-				"Your question <small>(max 100 chars)</small>:",
-				"question-form",
-			array("<button type='submit'>Ask</button>"), 100);
-			?>
-		<div id="feedback-message" class="feedback-message"></div>
+		<?php
+		output_textarea_form(
+			"faq-form",
+			"Your question <small>(max 100 chars)</small>:",
+			"question-form",
+		array("<button type='submit'>Ask</button>"), 100);
 
-		</div>
+		output_empty_feedback_message();
+		?>
+		
+
 <!-- 
 		<div class="success-message" id="success-message">Your question has been sent successfully. We'll answer you as soon
 			as possible.</div>

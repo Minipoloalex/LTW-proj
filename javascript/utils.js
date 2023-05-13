@@ -100,3 +100,7 @@ function displayMessage(message, error = true) {
         FeedbackMessage.classList.remove('error-message');
     }
 }
+
+function getPasswordRegex() {
+    return '/^(?=.*[0-9])(?=.*[!@#$%^&])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&]{6,}$/';
+}

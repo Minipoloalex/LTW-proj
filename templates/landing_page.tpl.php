@@ -34,7 +34,12 @@ require_once(__DIR__ . '/../utils/session.php');
   <div class="login-container">
     <form class="login-form" action="../actions/action_login.php" method="post">
       <h2>Login</h2>
-      <?php output_csrf_input($session) ?>
+      <?php
+      foreach ($session->getMessages() as $message) {
+        output_feedback_message($message['text'], $message['type']);
+      }
+      output_csrf_input($session);
+      ?>
       <label for="email">Email</label>
       <input type="text" id="email" name="email" pattern=<?=$email_regex?>>
       <label for="password">Password</label>
@@ -52,12 +57,15 @@ require_once(__DIR__ . '/../utils/session.php');
   $email_regex = "^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
   $name_regex = "^[A-Za-zÀ-ÖØ-öø-ÿ\- ]+$";
   $username_regex = "^[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-. ]+$";
-  $password_regex =  "^(?=.[0-9])(?=.[!@#$%^&])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&]{6,}$";
+  $password_regex =  "^(?=.*[0-9])(?=.*[!@#$%^&])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&]{6,}$";
   ?>
 <div class="landing-register">
   <form action="../actions/action_create_account.php" method="post" class="registerform">
     <h2>Register</h2>
-    <?php output_csrf_input($session) ?>
+    <?php
+    output_feedback_messages($session->getMessages());
+    output_csrf_input($session);
+    ?>
     <input type="text" name="name" placeholder="Name" pattern="<?=$name_regex?>">
     <input type="text" name="username" placeholder="Username" pattern="<?=$username_regex?>">
     <input type="email" name="email" placeholder="Email" pattern="<?=$email_regex?>">
@@ -88,6 +96,8 @@ require_once(__DIR__ . '/../utils/session.php');
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <script src="../javascript/utils.js" defer></script>
+      <script src="../javascript/register_feedback_password.js" defer></script>
     </head>
 
     <body class='landingbody'>
