@@ -28,6 +28,10 @@ function is_valid_name(?String $name): bool {
 function is_valid_username(?String $username): bool {
     return isset($username) && !empty($username) && preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-. ]+$/', $username);
 }
+
+function is_valid_password(?String $password): bool {
+    return isset($password) && !empty($password) && preg_match('/^(?=.[0-9])(?=.[!@#$%^&])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&]{6,}$/', $password);
+}
 function check_valid_data(string $name, string $username, string $email, string $password, string $confirm_password) {
     if (!is_valid_name($name) || !is_valid_username($username) || !is_valid_email($email) || !is_valid_string($password) || !is_valid_string($confirm_password)) {
         return array(false, "Username, password, name and email are required");
@@ -35,8 +39,8 @@ function check_valid_data(string $name, string $username, string $email, string 
     if ($password != $confirm_password) {
         return array(false, "Passwords do not match");
     }
-    if (strlen($password) < 6) {
-        return array(false, "Password must have at least 6 characters");
+    if (!is_valid_password($password)) {
+        return array(false, "Password must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character");
     }
     return array(true, "");
 }

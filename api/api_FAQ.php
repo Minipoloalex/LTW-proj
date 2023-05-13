@@ -189,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH'){
         exit();
     }
 
-    echo json_encode(array('success' => 'FAQ updated successfully.'));
+    echo json_encode(array('success' => 'FAQ was updated successfully.'));
     exit();
 }
 
