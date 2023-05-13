@@ -63,7 +63,7 @@
 
 /*dropdown*/
 
-.hidden {
+section#filter-section.hidden {
   display: none;
 }
 
@@ -76,6 +76,6 @@
 }
 
 /* show filter section when user clicks on filter header */
-.filter-toggle.clicked + .filter {
+.filter-toggle.clicked + section#filter-section.filter {
   display: block;
 }

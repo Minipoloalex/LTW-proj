@@ -17,7 +17,7 @@ require_once(__DIR__ . '/common.tpl.php');
 		<?php if ($type !== 'Client') { ?>
 			<button id="editFaqBtn" class="edit-faq"><span class="material-symbols-outlined">edit</span></button>
 			<button id="saveFaqBtn" class="save-faq" hidden><span class="material-symbols-outlined">save</span></button>
-			<button id="deleteFaqBtn" class="delete-faq"><span class="material-symbols-outlined">delete</span></button>
+			<button id="deleteFaqBtn" class="delete-faq openModal"><span class="material-symbols-outlined">delete</span></button>
 
 			<?php if ($faq->displayed === 1) { ?>
 				<button id="hideBtn" class="hide-faq"><span class="material-symbols-outlined">visibility_off</span></button>
@@ -27,6 +27,15 @@ require_once(__DIR__ . '/common.tpl.php');
 				<button id="displayBtn" class="hide-faq"><span class="material-symbols-outlined">visibility</span></button>
 			<?php } ?>
 
+			<!-- confirm delete -->
+			<div class="modal">
+				<div class="modalContent">
+					<span class="close">×</span>
+					<p>Are you sure you want to delete your account</p>
+					<button class="confirm-del">Delete</button>
+					<!-- <button class="cancel" onclick="hideModal()">Cancel</button> -->
+				</div>
+			</div>
 
 			<!-- // !FIXME: esta verificação tem que passar para js. Todos têm que ter este botão. -->
 			<?php if ($faq->answer === NULL) { ?>
@@ -61,17 +70,19 @@ require_once(__DIR__ . '/common.tpl.php');
 		</p>
 		<p>Agents can also use the FAQ to answer tickets, so your question might be added to the FAQ if it's a common
 			question.</p>
-			<?php
-			output_textarea_form(
-				"faq-form",
-				"Your question <small>(max 100 chars)</small>:",
-				"question-form",
-			array("<button type='submit'>Ask</button>"), 100);
-			?>
+		<?php
+		output_textarea_form(
+			"faq-form",
+			"Your question <small>(max 100 chars)</small>:",
+			"question-form",
+			array("<button type='submit'>Ask</button>"),
+			100
+		);
+		?>
 		<div id="feedback-message" class="feedback-message"></div>
 
 		</div>
-<!-- 
+		<!-- 
 		<div class="success-message" id="success-message">Your question has been sent successfully. We'll answer you as soon
 			as possible.</div>
 		<div class="error-message" id="error-message">There was an error sending your question. Please try again.</div> -->
