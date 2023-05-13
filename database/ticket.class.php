@@ -200,7 +200,7 @@ class Ticket implements JsonSerializable
   static function filter(PDO $db, array $status = [], array $priorities = [], array $hashtags = [] , array $agents = [], array $departments = [], int $page = 1): array
   {
   
-    $query = 'SELECT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T LEFT JOIN HASHTAG_TICKET H USING(TicketID) WHERE TRUE';
+    $query = 'SELECT DISTINCT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T LEFT JOIN HASHTAG_TICKET H USING(TicketID) WHERE TRUE';
     // $query = 'SELECT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, H.HashtagID, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T LEFT JOIN HASHTAG_TICKET H USING(TicketID) WHERE TRUE';
     $statusF = '';
     $prioritiesF = '';
