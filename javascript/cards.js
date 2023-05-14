@@ -31,6 +31,7 @@ function createCard(index) {
   const curr = data.tickets[index - 1];
   card.className = "card";
   card.innerHTML = `
+  <article>
   <a href="../pages/individual_ticket.php?id=${curr.ticketid}">
     <header>
       <span class="card-title">${curr.title}</span>
