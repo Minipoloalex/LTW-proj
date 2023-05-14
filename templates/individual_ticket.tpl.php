@@ -136,7 +136,7 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
     $array_buttons = $isAgentView ? array($submit_button, $faq_button) : array($submit_button);
     ?>
     <form id='message-form' class='textarea-form'>
-        <?php output_textarea('Add a message:', 'message', 500, strval($ticketID)); ?>
+        <?php output_textarea('question-form', 'Add a message:', 'message', 500, strval($ticketID)); ?>
         <?php output_centered_buttons('textarea-buttons', $array_buttons); ?>
         <div id="file-input-wrapper">
             <button id="upload-image-btn"><label for="upload-image">Upload image</label></button>
