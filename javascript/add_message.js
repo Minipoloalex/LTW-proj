@@ -23,6 +23,10 @@ async function postNewMessage(messageText, ticketID, fileInput) {
         'message': messageText,
         'ticketID': ticketID,
     })
+    if (json['error']) {
+        displayMessage(json['error'], 'error')
+    }
+    else displayMessage(json['success'], 'success')
     return json
 }
 async function submitNewMessage(event) {

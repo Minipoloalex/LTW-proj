@@ -250,6 +250,7 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
         <?php
         output_message_form($isAgentView, $ticketID);
         output_answer_with_faq_form($displayed_faqs);
+        output_empty_feedback_message();
         ?>
     </section>
 <?php } ?>
