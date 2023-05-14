@@ -1,19 +1,22 @@
 // !WARNING: WIP, trying to write it like prof wanted
 
-// const filterBtn = document.getElementById('filter-values');
-// const clearFilterBtn = document.getElementById('clear-filters');
-
-// if (filterBtn) {
-//   const type = filterBtn.parentElement().getAttribute('data-type');
-//   filterBtn.addEventListener('click', 
-//   );
-// }
-
-// if (clearFilterBtn) {
-//   clearFilterBtn.addEventListener('click', );
+const filterBtn = document.getElementById('filter-values');
+const clearFilterBtn = document.getElementById('clear-filters');
+console.log(filterBtn);
+console.log(clearFilterBtn);
+let checkedValues = {};
 
 
-// }
+
+if (filterBtn) {
+  const type = filterBtn.parentElement.getAttribute('data-type');
+  filterBtn.addEventListener('click', () => getFilterValues(type));
+}
+
+if (clearFilterBtn) {
+  const type = filterBtn.parentElement.getAttribute('data-type');
+  clearFilterBtn.addEventListener('click', () => clearFilters(type));
+}
 
 
 
@@ -22,15 +25,13 @@
 
 async function getFilterValues(type) {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  const checkedValues = {};
+  checkedValues = {};
   console.log(type);
   checkboxes.forEach(checkbox => {
     if (checkbox.checked) {
       if (checkedValues[checkbox.name]) {
-        // checkedValues[checkbox.name].push(`"${checkbox.value}"`);
         checkedValues[checkbox.name].push(checkbox.value);
       } else {
-        // checkedValues[checkbox.name] = [`"${checkbox.value}"`];
         checkedValues[checkbox.name] = [checkbox.value];
       }
     } else {
@@ -49,7 +50,7 @@ async function getFilterValues(type) {
       json = await getTickets2(checkedValues);
       break;
     }
-    default: {  
+    default: {
       console.error('Error: invalid type');
     }
   }
@@ -59,7 +60,7 @@ async function getFilterValues(type) {
   }
   console.log(json);
   const data = json;
-  console.log(data);
+  console.log(data.tickets);
   // cardContainer.innerHTML = '';
 
   getCards(data);
@@ -80,11 +81,8 @@ async function getFilterValues(type) {
 }
 
 async function getTickets2(checkedValues, page = 0) {
-  
-  console.log(typeof checkedValues);
   const data = {...checkedValues, page: page};
   // data['page'] = page;
-  console.log(data);
   const path = '../api/api_filter_tickets.php';
   return json = await getData(path, data);
 }
