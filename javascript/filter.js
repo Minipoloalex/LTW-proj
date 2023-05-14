@@ -26,7 +26,6 @@ if (clearFilterBtn) {
 async function getFilterValues(type) {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   checkedValues = {};
-  console.log(type);
   checkboxes.forEach(checkbox => {
     if (checkbox.checked) {
       if (checkedValues[checkbox.name]) {
