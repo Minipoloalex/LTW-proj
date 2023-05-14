@@ -1,13 +1,37 @@
-async function getFilterValues() {
+// !WARNING: WIP, trying to write it like prof wanted
+
+// const filterBtn = document.getElementById('filter-values');
+// const clearFilterBtn = document.getElementById('clear-filters');
+
+// if (filterBtn) {
+//   const type = filterBtn.parentElement().getAttribute('data-type');
+//   filterBtn.addEventListener('click', 
+//   );
+// }
+
+// if (clearFilterBtn) {
+//   clearFilterBtn.addEventListener('click', );
+
+
+// }
+
+
+
+/*================================================================================*/
+// !NOTE: Old way. Works
+
+async function getFilterValues(type) {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   const checkedValues = {};
-
+  console.log(type);
   checkboxes.forEach(checkbox => {
     if (checkbox.checked) {
       if (checkedValues[checkbox.name]) {
-        checkedValues[checkbox.name].push(`"${checkbox.value}"`);
+        // checkedValues[checkbox.name].push(`"${checkbox.value}"`);
+        checkedValues[checkbox.name].push(checkbox.value);
       } else {
-        checkedValues[checkbox.name] = [`"${checkbox.value}"`];
+        // checkedValues[checkbox.name] = [`"${checkbox.value}"`];
+        checkedValues[checkbox.name] = [checkbox.value];
       }
     } else {
       if (!checkedValues[checkbox.name]) {
@@ -17,97 +41,62 @@ async function getFilterValues() {
   });
   console.log(checkedValues);
 
-  const json = JSON.stringify(checkedValues);
 
   // Fetch API
-  const res = await fetch('../api/api_filter_tickets.php', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: json
-  })
+  let json;
+  switch (type) {
+    case 'ticket': {
+      json = await getTickets2(checkedValues);
+      break;
+    }
+    default: {  
+      console.error('Error: invalid type');
+    }
+  }
+  if (json['error']) {
+    console.error(json['error']);
+    return;
+  }
+  console.log(json);
+  const data = json;
+  console.log(data);
+  // cardContainer.innerHTML = '';
+
+  getCards(data);
+
+  /*
   console.log(res);
   if (res.ok) {
-    // const resData = await res.json();
-    // updateTicketTable(resData);
   
-    const tickets = await res.json();
+    const data = await res.json();
 
-    // const cardContainer = document.getElementById("card-container");
     // cardContainer.innerHTML = '';
-    console.log(tickets);
-    getCards(tickets);
-    
-    
-    // const tableData = document.querySelector('#tableData');
-    // console.log(tableData);
-    // tableData.innerHTML = '';
-
-    // for (const ticket of tickets) {   // TODO: test special chars
-    //   tableData.innerHTML += `
-    //     <tr>
-    //       <td>${ticket.title}</td>
-    //       <td>${ticket.id}</td>
-    //       <td>${ticket.username}</td>
-    //       <td>${ticket.status}</td>
-    //       <td>${ticket.submitdate}</td>
-    //       <td>${ticket.priority}</td>
-    //       <td>
-    //         <ul>
-    //         ${ticket.hashtags.map(hashtag => `<li>${hashtag.hashtagname}</li>`).join('')}
-    //         </ul>
-    //       </td>
-    //       <td>${ticket.description}</td>
-    //       <td>${ticket.assignedagent}</td>
-    //       <td>${ticket.departmentName}</td>
-    //     </tr>
-    //   `;
-    // }
-
-
+    console.log(data);
+    getCards(data);
   } else {
     console.error('Error: ' + res.status);
   }
-
+  */
 }
 
-function clearFilters() {
+async function getTickets2(checkedValues, page = 0) {
+  
+  console.log(typeof checkedValues);
+  const data = {...checkedValues, page: page};
+  // data['page'] = page;
+  console.log(data);
+  const path = '../api/api_filter_tickets.php';
+  return json = await getData(path, data);
+}
+
+function clearFilters(type) {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   checkboxes.forEach(checkbox => {
     checkbox.checked = false;
   });
-  getFilterValues();
+  getFilterValues(type);
 }
 
-
-function updateTicketTable(tickets) {
-  
-    const tableData = document.querySelector('#tableData');
-    console.log(tableData);
-    tableData.innerHTML = '';
-
-    for (const ticket of tickets) { // !TODO: check for XSS (test special chars)
-      tableData.innerHTML += `
-        <tr>
-          <td>${ticket.title}</td>
-          <td>${ticket.id}</td>
-          <td>${ticket.username}</td>
-          <td>${ticket.status}</td>
-          <td>${ticket.submitdate}</td>
-          <td>${ticket.priority}</td>
-          <td>
-            <ul>
-            ${ticket.hashtags.map(hashtag => `<li>${hashtag.hashtagname}</li>`).join('')}
-            </ul>
-          </td>
-          <td>${ticket.description}</td>
-          <td>${ticket.assignedagent}</td>
-          <td>${ticket.departmentName}</td>
-        </tr>
-      `;
-    }
-}
 
 /*dropdown */
 const filterToggle = document.querySelector(".filter-toggle");
@@ -121,121 +110,3 @@ filterToggle.addEventListener("click", function() {
     caretIcon.classList.toggle("fa-caret-down");
 });
 }
-
-
-
-
-// const clearFiltersBtn = document.getElementById('clear-filters');
-// const getFilterValuesBtn = document.getElementById('filter-values');
-// console.log(getFilterValuesBtn);
-// if (getFilterValuesBtn && clearFiltersBtn) {
-
-//   async function filter () {
-//     // event.preventDefault();
-//     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-//     const checkedValues = {};
-  
-//     checkboxes.forEach(checkbox => {
-//       if (checkbox.checked) {
-//         if (checkedValues[checkbox.name]) {
-//           checkedValues[checkbox.name].push(`"${checkbox.value}"`);
-//         } else {
-//           checkedValues[checkbox.name] = [`"${checkbox.value}"`];
-//         }
-//       } else {
-//         if (!checkedValues[checkbox.name]) {
-//           checkedValues[checkbox.name] = [];
-//         }
-//       }
-//     });
-//     console.log(checkedValues);
-  
-//     const json = JSON.stringify(checkedValues);
-  
-//     // Fetch API
-//     const res = await fetch('../api/api_filter_tickets.php', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: json
-//     })
-//     console.log(res);
-//     if (res.ok) {
-//       // const resData = await res.json();
-//       // updateTicketTable(resData);
-  
-//       const tickets = await res.json();
-  
-//       const tableData = document.querySelector('#tableData');
-//       console.log(tableData);
-//       tableData.innerHTML = '';
-  
-//       for (const ticket of tickets) {
-//         tableData.innerHTML += `
-//         <tr>
-//           <td>${ticket.title}</td>
-//           <td>${ticket.id}</td>
-//           <td>${ticket.username}</td>
-//           <td>${ticket.status}</td>
-//           <td>${ticket.submitdate}</td>
-//           <td>${ticket.priority}</td>
-//           <td>
-//             <ul>
-//             ${ticket.hashtags.map(hashtag => `<li>${hashtag.hashtagname}</li>`).join('')}
-//             </ul>
-//           </td>
-//           <td>${ticket.description}</td>
-//           <td>${ticket.assignedagent}</td>
-//           <td>${ticket.departmentName}</td>
-//         </tr>
-//       `;
-//       }
-  
-//     } else {
-//       console.error('Error: ' + res.status);
-//     }
-//   }
-  
-//   getFilterValuesBtn.addEventListener('click', filter());
-
-//   clearFiltersBtn.addEventListener('click', function () {
-//     // event.preventDefault();
-//     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-//     checkboxes.forEach(checkbox => {
-//       checkbox.checked = false;
-//     });
-//     filter();
-//   });
-
-// }
-
-
-
-// function updateTicketTable(tickets) {
-
-//   const tableData = document.querySelector('#tableData');
-//   console.log(tableData);
-//   tableData.innerHTML = '';
-
-//   for (const ticket of tickets) {
-//     tableData.innerHTML += `
-//         <tr>
-//           <td>${ticket.title}</td>
-//           <td>${ticket.id}</td>
-//           <td>${ticket.username}</td>
-//           <td>${ticket.status}</td>
-//           <td>${ticket.submitdate}</td>
-//           <td>${ticket.priority}</td>
-//           <td>
-//             <ul>
-//             ${ticket.hashtags.map(hashtag => `<li>${hashtag.hashtagname}</li>`).join('')}
-//             </ul>
-//           </td>
-//           <td>${ticket.description}</td>
-//           <td>${ticket.assignedagent}</td>
-//           <td>${ticket.departmentName}</td>
-//         </tr>
-//       `;
-//   }
-// }

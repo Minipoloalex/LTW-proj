@@ -196,10 +196,12 @@ class Ticket implements JsonSerializable
   }
 
   // adicionar filtros por data
-  static function filter(PDO $db, array $status, array $priorities, array $hashtags, array $agents, array $departments): array
+  // static function filter(PDO $db, array $status, array $priorities, array $hashtags, array $agents, array $departments, int $page = 1): array
+  static function filter(PDO $db, array $status = [], array $priorities = [], array $hashtags = [] , array $agents = [], array $departments = [], int $page = 1): array
   {
   
-    $query = 'SELECT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, H.HashtagID, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T JOIN HASHTAG_TICKET H USING(TicketID) WHERE TRUE';
+    $query = 'SELECT DISTINCT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T LEFT JOIN HASHTAG_TICKET H USING(TicketID) WHERE TRUE';
+    // $query = 'SELECT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, H.HashtagID, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T LEFT JOIN HASHTAG_TICKET H USING(TicketID) WHERE TRUE';
     $statusF = '';
     $prioritiesF = '';
     $hashtagsF = '';
@@ -276,11 +278,11 @@ if(!empty($agents)){
   for ($i = 0; $i<count($agents); $i++) {
     if ($i == 0) {
       $agentsF = $agentsF.sprintf('(T.AssignedAgent = ?');
-      $params = $agents[$i];
+      $params[] = $agents[$i];
     } 
     else {
       $agentsF = $agentsF.sprintf(' or T.AssignedAgent = ?');
-      $params = $agents[$i];
+      $params[] = $agents[$i];
     }
   }
   $agentsF = $agentsF.')';
@@ -310,17 +312,26 @@ if(!empty($departments)){
   //   else {$departmentsF = $departmentsF.sprintf(' or T.DepartmentID= %s', $departments[$i]);}
   // }
   // $departmentsF = $departmentsF.')';
-}   
-    $stmt = $db->prepare($query.$statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF.';');
-    // $stmt = $db->prepare($query.' WHERE '.$statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF.';');
-    $stmt->execute();
+}  
+    // filters
+    $query .= $statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF;
+    $stmt1 = $db->prepare('SELECT COUNT(DISTINCT TicketID) as c FROM ('.$query.');');
+    $stmt1->execute($params);
+    $count = $stmt1->fetch(); 
+
+    $query .= " LIMIT 12 OFFSET " . ($page - 1) * 12 . ";";
+    $stmt2 = $db->prepare($query);
+    $stmt2->execute($params);
 
     $tickets = [];
 
-    while ($ticket = $stmt->fetch()) {
+    while ($ticket = $stmt2->fetch()) {
       $tickets[] = Ticket::convertToTicket($db, $ticket);
     }
-    return $tickets;
+
+    $result['tickets'] = $tickets;
+    $result['count'] = $count['c'];
+    return $result;
   }
 
   // TODO

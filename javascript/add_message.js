@@ -4,7 +4,7 @@ if (messageButton) {
 }
 
 async function postNewMessage(messageText, ticketID, fileInput) {
-    if (fileInput.files.length > 0) {
+    if (fileInput && fileInput.files.length > 0) {
         const file = fileInput.files[0]
         const formData = new FormData()
         formData.append('message', messageText)
@@ -17,12 +17,14 @@ async function postNewMessage(messageText, ticketID, fileInput) {
         })
         const json = await response.json()
         setCsrf(json['csrf'])
+        displayFeedback(json)
         return json
     }
     const json = await postData('../api/api_add_message.php', {
         'message': messageText,
         'ticketID': ticketID,
     })
+    displayFeedback(json)
     return json
 }
 async function submitNewMessage(event) {
@@ -40,10 +42,7 @@ async function submitNewMessage(event) {
 
     const json = await postNewMessage(messageText, ticketID, fileInput)
     console.log(json)
-    if (json['error']) {
-        console.error(json['error'])
-    }
-    else if (json['success']) {
+    if (json['success']) {
         if (fileInput.files.length > 0) {
             addMessageWithFileToDOM(messagesList, json['text'], json['username'], json['date'], json['id'])
         }
