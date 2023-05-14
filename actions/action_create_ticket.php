@@ -17,8 +17,12 @@ $db = getDatabaseConnection();
 $title = $_POST['title'];
 $description = $_POST['description'];
 
-if (!is_valid_string($title) || !is_valid_string($description)) {
-    $session->addMessage('error', "Invalid title or description");
+if (!is_valid_title($title)) {
+    $session->addMessage('error', "Invalid title. Title must be between 1 and 50 characters long");
+    die(header('Location: ../pages/create_ticket.php'));
+}
+if (!is_valid_string($description)) {
+    $session->addMessage('error', "Invalid description. A description is required.");
     die(header('Location: ../pages/create_ticket.php'));
 }
 
@@ -50,13 +54,13 @@ $username = $session->getName();  /* session username */
 
 
 if (Ticket::existsTicket($db, $title, $userID)) {
-    $session->addMessage('error', "Ticket with the same title already exists");
+    $session->addMessage('error', "You already have a ticket with the same title");
     die(header('Location: ../pages/create_ticket.php'));
 }
 
 /* status is "open", submit date is now, agent always null: defined inside createTicket */
 $id = Ticket::createTicket($db, $title, $userID, $priority, $hashtags, $description, $departmentID);
-// $session->addMessage('success', "Ticket created successfully");
+$session->addMessage('success', "Ticket created successfully");
 
 header('Location: ../pages/individual_ticket.php?id=' . $id);
 

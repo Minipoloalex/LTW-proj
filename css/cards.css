@@ -57,15 +57,18 @@
 /* ================ Priorities ======================== */
 
 .highP {
-  background-color: #ff4d4d;
+  background-color: #a82431;
+  color: white;
 }
 
 .mediumP {
-  background-color: #ffad33;
+  background-color: rgb(208, 179, 14);
+  color: white; 
 }
 
 .lowP {
-  background-color: #00b300;
+  background-color:  #155724; 
+  color: white;
 } 
 
 
@@ -117,6 +120,23 @@
   background-color: #ddd;
   padding: 1px 6px;
   border-radius: 5px;
+}
+
+/*color for priority*/
+/* background-color: #155724; 
+background-color: rgb(164, 143, 23);
+background-color: #155724;  */
+
+.card article div span.card-priority{
+  padding: 1px 6px;
+  border-radius: 5px;
+  opacity: 0.8;
+}
+
+.card article div span.card-priority.noneP{
+  padding: 0;
+  color: black;
+  opacity: 1;
 }
 
 .card article header{

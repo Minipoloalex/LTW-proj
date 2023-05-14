@@ -15,9 +15,9 @@ async function addMessageByFaq(event) {
         'id': faqID,
     })
     console.log(jsonFAQ)
+
     if (jsonFAQ['error']) {
-        console.error(jsonFAQ['error'])
-        return
+        displayMessage(jsonFAQ['error'], true)
     }
     else if (jsonFAQ['success']) {
         const messageText = jsonFAQ['question'] + "\n" + jsonFAQ['answer']
@@ -34,7 +34,8 @@ async function addMessageByFaq(event) {
     }
 }
 
-function toggleAnswerFaq() {
+function toggleAnswerFaq(event) {
+    event.preventDefault()
     const messageForm = document.querySelector("#message-form")
     const faqForm = document.querySelector("#faq-form")
 

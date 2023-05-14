@@ -17,10 +17,11 @@ require_once(__DIR__ . '/../templates/common.tpl.php');
         <?php output_csrf_input($session); ?>
 
         <label>Ticket title*</label>
-        <input type='text' name='title'>
+        <input type='text' name='title' required>
 
-        <label>Ticket description*</label>
-        <textarea name="description"></textarea>
+        <?php
+        output_textarea("description", "Ticket description", "description", 500, "")
+        ?>
 
         <?php output_priority_form(); ?>
         <?php output_hashtag_form($hashtags, array()); ?>
@@ -29,6 +30,7 @@ require_once(__DIR__ . '/../templates/common.tpl.php');
         <button formaction="../actions/action_create_ticket.php" formmethod="post" type="submit" class="submit-ticket">
             Create ticket
         </button>
+        <?php output_feedback_messages($session->getMessages()) ?>
     </form>
 <?php } ?>
 

@@ -2,10 +2,18 @@
 /*================= LOGIN FORM  =================*/
 
 body.landingbody {
+/* body { */
   background-image: url('../css/images/fundo.jpg');
   background-size: cover;
   background-position: center center;
 }
+
+/*TRYING BACKGROUND IMG*/
+/* body{
+  background-image: url('../css/images/fundo2.png'); */
+  /* background-size: cover; */
+  /* background-position: center center; */
+/* } */
 
 .login-container {
   display: flex;
@@ -103,12 +111,6 @@ a.register:hover {
 
 
 /*================= REGISTER FORM  =================*/
-
-body.landingbody {
-  background-image: url('../css/images/fundo.jpg');
-  background-size: cover;
-  background-position: center center;
-}
 
 .registerform {
   background-color: rgba(255, 255, 255, 0.7);

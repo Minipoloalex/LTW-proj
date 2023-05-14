@@ -15,23 +15,23 @@ require_once(__DIR__ . '/common.tpl.php');
 			rows="1" readonly><?= htmlentities($faq->answer ?? '') ?></textarea>
 
 		<?php if ($type !== 'Client') { ?>
-			<button id="editFaqBtn" class="edit-faq"><span class="material-symbols-outlined">edit</span></button>
-			<button id="saveFaqBtn" class="save-faq" hidden><span class="material-symbols-outlined">save</span></button>
-			<button id="deleteFaqBtn" class="delete-faq openModal"><span class="material-symbols-outlined">delete</span></button>
+			<button id="editFaqBtn" class="edit-faq" title="Edit"><span class="material-symbols-outlined">edit</span></button>
+			<button id="saveFaqBtn" class="save-faq" title="Save" hidden><span class="material-symbols-outlined">save</span></button>
+			<button id="deleteFaqBtn" class="delete-faq openModal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
 
 			<?php if ($faq->displayed === 1) { ?>
-				<button id="hideBtn" class="hide-faq"><span class="material-symbols-outlined">visibility_off</span></button>
+				<button title="Hide" id="hideBtn" class="hide-faq"><span class="material-symbols-outlined">visibility_off</span></button>
 				<button id="displayBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility</span></button>
 			<?php } else { ?>
 				<button id="hideBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility_off</span></button>
-				<button id="displayBtn" class="hide-faq"><span class="material-symbols-outlined">visibility</span></button>
+				<button title="Display" id="displayBtn" class="hide-faq"><span class="material-symbols-outlined">visibility</span></button>
 			<?php } ?>
 
 			<!-- confirm delete -->
 			<div class="modal">
 				<div class="modalContent">
 					<span class="close">×</span>
-					<p>Are you sure you want to delete your account</p>
+				<p>Are you sure you want to delete your account?</p>
 					<button class="confirm-del">Delete</button>
 					<!-- <button class="cancel" onclick="hideModal()">Cancel</button> -->
 				</div>

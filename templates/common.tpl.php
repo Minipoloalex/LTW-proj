@@ -149,13 +149,13 @@ require_once(__DIR__ . '/../utils/session.php');
   </div>
 <?php } ?>
 
-<?php function output_textarea(string $html_inside_label, string $input_name, int $max_length, string $data_id) { ?>
-  <label for="question-form"><?=$html_inside_label?></label>
-	<textarea id="question-form" data-id="<?=$data_id?>" name="<?=$input_name?>" maxlength="<?=$max_length?>" rows="1" required></textarea>
+<?php function output_textarea(string $textarea_id, string $html_inside_label, string $input_name, int $max_length, string $data_id) { ?>
+  <label for="<?=$textarea_id?>"><?=$html_inside_label?></label>
+	<textarea id="<?=$textarea_id?>" data-id="<?=$data_id?>" name="<?=$input_name?>" maxlength="<?=$max_length?>" rows="1" required></textarea>
 <?php } ?>
 <?php function output_textarea_form(string $id, string $html_inside_label, string $input_name, array $buttons_html, int $max_length, string $data_id="") { ?>
-	<form id='<?=$id?>' class="textarea-form">
-	  <?php output_textarea($html_inside_label, $input_name, $max_length, $data_id); ?>
+	<form id="<?=$id?>" class="textarea-form">
+	  <?php output_textarea("question-form", $html_inside_label, $input_name, $max_length, $data_id); ?>
     <?php output_centered_buttons("textarea-buttons", $buttons_html); ?>
 	</form>
 <?php }	?>

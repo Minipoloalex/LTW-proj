@@ -70,7 +70,6 @@ function is_valid_status(string $status) {
 function is_valid_array_hashtag_ids(PDO $db, array $hashtagIds): bool {
     if (!is_valid_array_ids($hashtagIds)) return false;    
     foreach ($hashtagIds as $id) {
-        // check if id exists in DB
         if (!Hashtag::isValidId($db, intval($id))) return false;
     }
     return true;
@@ -91,6 +90,9 @@ function is_valid_faq_id(PDO $db, ?string $forum_id): bool {
     if (!is_valid_id($forum_id)) return false;
     $faq = Forum::getById($db, intval($forum_id));
     return $faq != null;
+}
+function is_valid_title(string $title) {
+    return is_valid_string($title) && strlen($title) <= 50;
 }
 
 ?>

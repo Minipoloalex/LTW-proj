@@ -87,8 +87,6 @@ const removeInfiniteScroll = () => {
   window.removeEventListener("scroll", handleInfiniteScroll);
 };
 
-
-
 if (cardContainer) {
   window.onload = async function () {
     const tickets = await getTickets();
@@ -122,7 +120,7 @@ async function getTickets() {
   }
 }
 
-function checkLoader(){
+function checkLoader() {
   const loader = document.getElementById("loader");
   if (loader) return true;
   else return false;
