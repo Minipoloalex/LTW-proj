@@ -246,14 +246,19 @@ label select {
 }
 #ticket-info #ticket-user:before {
     content: "Created by: ";
+    opacity: 100%;
+    font-weight: normal;
 }
 #ticket-info #ticket-date:before {
     content: "at ";
+    opacity: 100%;
+    font-weight: normal;
 }
 /* ======================== MARGINS FOR TICKET INFO ======================== */
 #ticket-info #hashtags, #ticket-info #priority, #ticket-info #department, #ticket-info #agent, #ticket-info #ticket-created{
     margin-top: 0.5em;
     margin-bottom: 0.5em;
+    margin-left: inherit;
 }
 /* ======================== REOPEN TICKET FORM/BUTTON ======================== */
 

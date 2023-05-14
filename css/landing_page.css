@@ -8,6 +8,13 @@ body.landingbody {
   background-position: center center;
 }
 
+/*TRYING BACKGROUND IMG*/
+/* body{
+  background-image: url('../css/images/fundo2.png'); */
+  /* background-size: cover; */
+  /* background-position: center center; */
+/* } */
+
 .login-container {
   display: flex;
   justify-content: center;
