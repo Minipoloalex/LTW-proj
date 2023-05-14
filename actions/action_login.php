@@ -35,6 +35,10 @@ if ($client) {
   die(header('Location: ../pages/landing_page.php'));
 }
 
-header('Location: ../pages/main_page.php');
-  
+$type = Client::getType($db, $client->id);
+
+if ($type === 'Client')
+  header('Location: ../pages/my_tickets.php');
+else 
+  header('Location: ../pages/main_page.php');
 ?>

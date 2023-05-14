@@ -40,10 +40,8 @@ require_once(__DIR__ . '/../utils/session.php');
       }
       output_csrf_input($session);
       ?>
-      <label for="email">Email</label>
-      <input type="text" id="email" name="email" pattern=<?=$email_regex?>>
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password">
+      <input type="text" id="email" name="email" placeholder="Email" pattern=<?=$email_regex?>>
+      <input type="password" id="password" name="password" placeholder="Password">
       <input type="submit" value="Login">
       <p> <span>Don't have an account?</span> <a href="../pages/register.php" class="register">Sign up</a></p>
     </form>

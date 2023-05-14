@@ -11,7 +11,7 @@ if (!$session->isLoggedIn()) die(header('Location: landing_page.php'));
 $db = getDatabaseConnection();
 
 $type = Client::getType($db, $session->getId());
-if ($type === 'client') {
+if ($type === 'Client') {
     die(header('Location: main_page.php'));
 }
 

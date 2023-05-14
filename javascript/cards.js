@@ -31,7 +31,6 @@ function createCard(index) {
   const curr = data.tickets[index - 1];
   card.className = "card";
   card.innerHTML = `
-  <article>
   <a href="../pages/individual_ticket.php?id=${curr.ticketid}">
     <header>
       <span class="card-title">${curr.title}</span>
@@ -55,7 +54,6 @@ function createCard(index) {
   </a>
 </article>
   `
-
   // Add class to set background color based on priority value
   if (curr.priority === 'high') {
     card.querySelector('.card-priority').classList.add('highP');
