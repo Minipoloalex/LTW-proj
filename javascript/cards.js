@@ -5,6 +5,32 @@ const loader = document.getElementById("loader");
 let flag;
 let data;
 let throttleTimer = false;
+let cardLimit;
+let cardIncrease;
+let currentPage;
+let pageCount;
+
+const addCards = (pageIndex) => {
+  // window.removeEventListener("scroll", handleInfiniteScroll);
+  // console.log("Removing event listener - START OF addCards");
+  window.removeEventListener("scroll", handleInfiniteScroll);
+  console.log("Removing event listener - START OF addCards");
+  currentPage = pageIndex;
+  const startRange = (pageIndex - 1) * cardIncrease;
+  const endRange = currentPage == pageCount ? cardLimit : pageIndex * cardIncrease;
+
+  queryMore(endRange);
+
+  cardCountElem.innerHTML = endRange;
+
+  for (let i = startRange + 1; i <= endRange; i++) {
+    createCard(i);
+  }
+  console.log(data.tickets);
+  window.addEventListener("scroll", handleInfiniteScroll);
+  // window.addEventListener("scroll", window.panelHandleInfScroll);
+  console.log("New scroll listener added - END OF addCards");
+};
 
 function createCard(index) {
   const card = document.createElement("div");
@@ -49,7 +75,7 @@ function throttle(callback, time) {
   }, time);
 }
 
-const handleInfiniteScroll = (currentPage, pageCount) => {
+const handleInfiniteScroll = () => {
   throttle(() => {
     const endOfPage =
       window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
@@ -72,27 +98,39 @@ const removeInfiniteScroll = () => {
   console.log("Removing event listener - END OF removeInfiniteScroll");
 };
 
+
+
 if (cardContainer) {
   window.onload = async function () {
     console.log("onload");
     const tickets = await getTickets();
     getCards(tickets);
   }
-
+}
   function getCards(content) {
     data = content;
+    // cardContainer.innerHTML = '';
+    // console.log("data at the beggining of the function", data.tickets);
+    // const cardLimit = data.count;
+    // cardTotalElem.innerHTML = cardLimit;
+    // const cardIncrease = 4;
+    // const pageCount = Math.ceil(cardLimit / cardIncrease);
+    // let currentPage = 1;
+    // if (!checkLoader() && currentPage < pageCount) { 
+    //   cardContainer.after(loader);
+    // }
     cardContainer.innerHTML = '';
     console.log("data at the beggining of the function", data.tickets);
-    const cardLimit = data.count;
+    cardLimit = data.count;
     cardTotalElem.innerHTML = cardLimit;
-    const cardIncrease = 4;
-    const pageCount = Math.ceil(cardLimit / cardIncrease);
-    let currentPage = 1;
+    cardIncrease = 4;
+    pageCount = Math.ceil(cardLimit / cardIncrease);
+    currentPage = 1;
     if (!checkLoader() && currentPage < pageCount) { 
       cardContainer.after(loader);
     }
-
-    const addCards = (pageIndex) => { // pageIndex, cardIncrease, pageCount, cardLimit
+    /*
+    const addCards = (pageIndex) => {
       // window.removeEventListener("scroll", handleInfiniteScroll);
       // console.log("Removing event listener - START OF addCards");
       window.removeEventListener("scroll", window.panelHandleInfScroll);
@@ -113,10 +151,12 @@ if (cardContainer) {
       window.addEventListener("scroll", window.panelHandleInfScroll);
       console.log("New scroll listener added - END OF addCards");
     };
+    */
 
 
-
+    
     /*infinite scroll*/
+    /*
     const removeInfiniteScroll = () => {
       loader.remove();
       // loader.toggleAttribute("hidden");
@@ -125,7 +165,9 @@ if (cardContainer) {
       window.removeEventListener("scroll", window.panelHandleInfScroll);
       console.log("Removing event listener - END OF removeInfiniteScroll");
     };
+    */
 
+    /*
     // const handleInfiniteScroll = () => {
     //   throttle(() => {
     //     const endOfPage =
@@ -151,7 +193,8 @@ if (cardContainer) {
          }
         
       }, 1000);
-    };
+    }; 
+    */
 
     // getEventListeners(window);
     // console.log("Removing event listener - END OF getCards");
@@ -163,7 +206,7 @@ if (cardContainer) {
     // window.addEventListener("scroll", handleInfiniteScroll);
     // console.log("New scroll listener added - END OF getCards");
   }
-}
+
 
 // function buildCard(obj) {
 //   <div class="card">
