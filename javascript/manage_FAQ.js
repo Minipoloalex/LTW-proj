@@ -94,31 +94,44 @@ function handleEdit(editFaqBtn) {
 function handleDelete(deleteFaqBtn) {
   const faq = deleteFaqBtn.parentElement;
 
-  var modal = faq.querySelector(".modal");
-  var x = modal.querySelector(".close");
-  var confirm = modal.querySelector(".confirm-del");
+  const modal = faq.querySelector(".modal");
+  const modalContent = modal.querySelector(".modalContent");
+  const x = modal.querySelector(".close");
+  const confirm = modal.querySelector(".confirm-del");
 
-  const answerBtn = faq.querySelector('#aswerFaq');
+  // const answerBtn = faq.querySelector('#aswerFaq');
   // if (answerBtn.hasAttribute('hidden')) {deleteFaqBtn.toggleAttribute('hidden');}
 
 
-  deleteFaqBtn.addEventListener('click', async () => {
-    modal.style.display = "block";
+  deleteFaqBtn.addEventListener('click', async (event) => {
+    toggleModal();
+    event.preventDefault()
+    event.stopPropagation()
+    document.addEventListener('click', clickOnDocument)
   })
 
   x.addEventListener("click", () => {
-    hideModal();
+    toggleModal();
+    document.removeEventListener('click', clickOnDocument)
   });
   
-  function hideModal() {
-    modal.style.display = "none";
+  function toggleModal() {
+    modal.classList.toggle("d-none");
   }
 
-  window.onclick = function (event) {
-    if (event.target == modal) {
-      hideModal();
-    }
-  }
+  function clickOnDocument(event) {
+    if (modalContent.contains(event.target)) return
+    event.preventDefault()
+    event.stopPropagation()
+    toggleModal()
+    document.removeEventListener('click', clickOnDocument)
+}
+
+  // window.onclick = function (event) {
+  //   if (event.target == modal) {
+  //     hideModal();
+  //   }
+  // }
 /*DELETE confirmation POPUP*/
   confirm.addEventListener("click", async () => {
     const res = await deleteFaqData({ 'id': faq.getAttribute("data-id") });
@@ -270,25 +283,3 @@ if (editFaqBtns) {
   }
 
 }
-
-/*DELETE confirmation POPUP*/
-
-// var modal = document.querySelector(".modal");
-// var btn = document.querySelector(".openModal");
-// var span = document.querySelector(".close");
-
-// btn.addEventListener("click", () => {
-//   modal.style.display = "block";
-// });
-
-// span.addEventListener("click", () => {
-//   hideModal();
-// });
-// function hideModal() {
-//   modal.style.display = "none";
-// }
-// window.onclick = function (event) {
-//   if (event.target == modal) {
-//     hideModal();
-//   }
-// };

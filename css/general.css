@@ -19,10 +19,6 @@
   --transition-speed: 600ms;
 }
 
-.d-none {
-  display: none;
-}
-
 body {
   margin: 0;
   font-family: 'Martel Sans', sans-serif;
@@ -339,7 +335,7 @@ div.features {
 
 .modal {
   text-align: center;
-  display: none;
+  /* display: none; */
   position: fixed;
   z-index: 1;
   padding-top: 100px;
@@ -383,4 +379,8 @@ div.features {
 }
 .cancel:hover {
   background-color: rgb(167, 167, 167);
+}
+
+.d-none {
+  display: none;
 }

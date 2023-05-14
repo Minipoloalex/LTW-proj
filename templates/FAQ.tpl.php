@@ -28,10 +28,10 @@ require_once(__DIR__ . '/common.tpl.php');
 			<?php } ?>
 
 			<!-- confirm delete -->
-			<div class="modal">
+			<div class="modal d-none">
 				<div class="modalContent">
 					<span class="close">×</span>
-				<p>Are you sure you want to delete your account?</p>
+				<p>Are you sure you want to delete?</p>
 					<button class="confirm-del">Delete</button>
 					<!-- <button class="cancel" onclick="hideModal()">Cancel</button> -->
 				</div>

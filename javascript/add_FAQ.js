@@ -34,11 +34,12 @@ if (form) {
 
                 if (type !== 'Client') {
                     let faq = document.createElement('article');
-                    faq.setAttribute('class', 'faq');
+                    faq.classList.add('faq');
                     faq.setAttribute('data-id', json['id']);
 
                     let question = document.createElement('textarea');
-                    question.setAttribute('class', 'question input-readonly');
+                    question.classList.add('question');
+                    question.classList.add('input-readonly');
                     question.setAttribute('name', 'question');
                     question.setAttribute('id', 'question');
                     question.setAttribute('maxlength', '100');
@@ -48,7 +49,8 @@ if (form) {
                     faq.appendChild(question);
 
                     let answer = document.createElement('textarea');
-                    answer.setAttribute('class', 'answer input-readonly');
+                    answer.classList.add('answer');
+                    answer.classList.add('input-readonly');
                     answer.setAttribute('name', 'answer');
                     answer.setAttribute('id', 'answer');
                     answer.setAttribute('rows', '1');
@@ -58,20 +60,20 @@ if (form) {
 
                     //if (type !== 'Client') {
                     let editBtn = document.createElement('button');
-                    editBtn.setAttribute('class', 'edit-faq');
+                    editBtn.classList.add('edit-faq');
                     editBtn.setAttribute('id', 'editFaqBtn');
                     editBtn.innerHTML = '<span class="material-symbols-outlined">edit</span>';
                     faq.appendChild(editBtn);
 
                     let saveBtn = document.createElement('button');
-                    saveBtn.setAttribute('class', 'save-faq');
+                    saveBtn.classList.add('save-faq');
                     saveBtn.setAttribute('id', 'saveFaqBtn');
                     saveBtn.setAttribute('hidden', '');
                     saveBtn.innerHTML = '<span class="material-symbols-outlined">save</span>';
                     faq.appendChild(saveBtn);
 
                     let deleteBtn = document.createElement('button');
-                    deleteBtn.setAttribute('class', 'delete-faq');
+                    deleteBtn.classList.add('delete-faq');
                     deleteBtn.setAttribute('id', 'deleteFaqBtn');
                     deleteBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
                     faq.appendChild(deleteBtn);
@@ -81,13 +83,13 @@ if (form) {
 
                     if (json['displayed'] === 1) {
                         // let hideBtn = document.createElement('button');
-                        hideBtn.setAttribute('class', 'hide-faq');
+                        hideBtn.classList.add('hide-faq');
                         hideBtn.setAttribute('id', 'hideBtn');
                         hideBtn.innerHTML = '<span class="material-symbols-outlined">visibility_off</span>';
                         faq.appendChild(hideBtn);
 
                         // let displayBtn = document.createElement('button');
-                        displayBtn.setAttribute('class', 'hide-faq');
+                        displayBtn.classList.add('hide-faq');
                         displayBtn.setAttribute('id', 'displayBtn');
                         displayBtn.setAttribute('hidden', '');
                         displayBtn.innerHTML = '<span class="material-symbols-outlined">visibility</span>';
@@ -95,14 +97,14 @@ if (form) {
 
                     } else {
                         // let hideBtn = document.createElement('button');
-                        hideBtn.setAttribute('class', 'hide-faq');
+                        hideBtn.classList.add('hide-faq');
                         hideBtn.setAttribute('id', 'hideBtn');
                         hideBtn.setAttribute('hidden', '');
                         hideBtn.innerHTML = '<span class="material-symbols-outlined">visibility_off</span>';
                         faq.appendChild(hideBtn);
 
                         // let displayBtn = document.createElement('button');
-                        displayBtn.setAttribute('class', 'hide-faq');
+                        displayBtn.classList.add('hide-faq');
                         displayBtn.setAttribute('id', 'displayBtn');
                         displayBtn.innerHTML = '<span class="material-symbols-outlined">visibility</span>';
                         faq.appendChild(displayBtn);
@@ -120,26 +122,27 @@ if (form) {
 
                     // Create the modal container element
                     let modal = document.createElement('div');
-                    modal.setAttribute('class', 'modal');
+                    modal.classList.add('modal');
+                    modal.classList.add('d-none');
 
                     // Create the modal content element
                     let modalContent = document.createElement('div');
-                    modalContent.setAttribute('class', 'modalContent');
+                    modalContent.classList.add('modalContent');
 
                     // Create the close button
                     let closeButton = document.createElement('span');
-                    closeButton.setAttribute('class', 'close');
+                    closeButton.classList.add('close');
                     closeButton.innerHTML = '×';
                     modalContent.appendChild(closeButton);
 
                     // Create the message
                     let message = document.createElement('p');
-                    message.innerHTML = 'Are you sure you want to delete your account?';
+                    message.innerHTML = 'Are you sure you want to delete?';
                     modalContent.appendChild(message);
 
                     // Create the delete button
                     let deleteButton = document.createElement('button');
-                    deleteButton.setAttribute('class', 'confirm-del');
+                    deleteButton.classList.add('confirm-del');
                     deleteButton.innerHTML = 'Delete';
                     modalContent.appendChild(deleteButton);
 
@@ -152,13 +155,13 @@ if (form) {
 
                     if (json['answer'] === null) {
                         let answerFaqBtn = document.createElement('button');
-                        answerFaqBtn.setAttribute('class', 'answer-faq');
+                        answerFaqBtn.classList.add('answer-faq');
                         answerFaqBtn.setAttribute('id', 'answerFaq');
                         answerFaqBtn.textContent = 'Answer question';
                         faq.appendChild(answerFaqBtn);
 
                         let saveAnswerBtn = document.createElement('button');
-                        saveAnswerBtn.setAttribute('class', 'save-answer');
+                        saveAnswerBtn.classList.add('save-answer');
                         saveAnswerBtn.setAttribute('id', 'saveAnswerBtn');
                         saveAnswerBtn.setAttribute('hidden', '');
                         saveAnswerBtn.textContent = 'Save answer';

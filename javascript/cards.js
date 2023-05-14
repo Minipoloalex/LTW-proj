@@ -35,7 +35,7 @@ if (cardContainer) {
       <article>
   <a href="../pages/individual_ticket.php?id=${curr.ticketid}">
     <header>
-      <span class="card-title">${curr.title}</span><br>
+      <span class="card-title">${curr.title}</span>
     </header>
     <div>
       <label>Status:</label>
