@@ -278,11 +278,11 @@ if(!empty($agents)){
   for ($i = 0; $i<count($agents); $i++) {
     if ($i == 0) {
       $agentsF = $agentsF.sprintf('(T.AssignedAgent = ?');
-      $params = $agents[$i];
+      $params[] = $agents[$i];
     } 
     else {
       $agentsF = $agentsF.sprintf(' or T.AssignedAgent = ?');
-      $params = $agents[$i];
+      $params[] = $agents[$i];
     }
   }
   $agentsF = $agentsF.')';
@@ -312,20 +312,26 @@ if(!empty($departments)){
   //   else {$departmentsF = $departmentsF.sprintf(' or T.DepartmentID= %s', $departments[$i]);}
   // }
   // $departmentsF = $departmentsF.')';
-}   
+}  
     // filters
     $query .= $statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF;
+    $stmt1 = $db->prepare('SELECT COUNT(DISTINCT TicketID) as c FROM ('.$query.');');
+    $stmt1->execute($params);
+    $count = $stmt1->fetch(); 
+
     $query .= " LIMIT 12 OFFSET " . ($page - 1) * 12 . ";";
-    $stmt = $db->prepare($query);
-    // $stmt = $db->prepare($query.' WHERE '.$statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF.';');
-    $stmt->execute($params);
+    $stmt2 = $db->prepare($query);
+    $stmt2->execute($params);
 
     $tickets = [];
 
-    while ($ticket = $stmt->fetch()) {
+    while ($ticket = $stmt2->fetch()) {
       $tickets[] = Ticket::convertToTicket($db, $ticket);
     }
-    return $tickets;
+
+    $result['tickets'] = $tickets;
+    $result['count'] = $count['c'];
+    return $result;
   }
 
   // TODO

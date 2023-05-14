@@ -15,9 +15,8 @@ if (cardContainer) {
   function getCards(data) {
     console.log(flag);
     cardContainer.innerHTML = '';
-    console.log(data);
     
-    const cardLimit = data.length; //99;
+    const cardLimit = data.count; //99;
     cardTotalElem.innerHTML = cardLimit;
     const cardIncrease = 4;
     const pageCount = Math.ceil(cardLimit / cardIncrease);
@@ -29,7 +28,7 @@ if (cardContainer) {
 
     const createCard = (index) => {
       const card = document.createElement("div");
-      const curr = data[index - 1];
+      const curr = data.tickets[index - 1];
       console.log(curr);
       card.className = "card";
       card.innerHTML = `
@@ -51,27 +50,12 @@ if (cardContainer) {
         </a>
       </article>
       `
-
-      // card.style.backgroundColor = 'rgba(255, 255, 255, 0.7)';
-      // card.style.borderRadius = '10px';
-      // card.style.height = '300px';
-      // card.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3);';
-      // card.style.padding = '10px';
-      // card.style.margin = '10px';
-      // card.style.width = '300px';
       cardContainer.appendChild(card);
-
-
-      //index; //card inside elements
-      // card.innerHTML += data[index-1].description;
-      // card.innerHTML += data[index-1].date;
-      // card.innerHTML += data[index-1].status;
-      // card.innerHTML += data[index-1].priority;
     };
 
     const addCards = (pageIndex) => {
       currentPage = pageIndex;
-
+      console.log(currentPage);
       const startRange = (pageIndex - 1) * cardIncrease;
       const endRange = currentPage == pageCount ? cardLimit : pageIndex * cardIncrease;
 
@@ -147,6 +131,7 @@ async function getTickets() {
   const response = await fetch("../api/api_filter_tickets.php");
   if (response.ok) {
     const data = await response.json();
+    console.log(data);
     return data;
   } else {
     console.error('Error: ' + res.status);

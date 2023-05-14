@@ -58,13 +58,15 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 <?php } ?>
 
 <?php function drawFilterMenu(array $filterValues)
-{ ?>
+{ 
+    $type = 'ticket';
+    ?>
 
 <div class="filter-toggle">
   <h2>Filters  <i class="fa fa-caret-right"></i></h2>
 </div>
 
-<section id="filter-section" class="filter hidden">
+<section id="filter-section" class="filter hidden" data-type="<?php echo $type?>">
     
         <!-- <h3 class="filter-header">Filters</h3> -->
         <div class="filter-options">
@@ -99,8 +101,16 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
             <label for="<?php echo $fv['DepartmentName'] ?>"><?php echo $fv['DepartmentName'] ?></label><br />
         <?php } ?>
         </div>
-        <button type="button" id="clear-filters" onclick=clearFilters()>Clear Filters</button>
-        <button type="submit" id="filter-values" onclick=getFilterValues()>Filter</button>
+
+        <!-- !WARNING: WIP, see filter.js -->
+        <!-- <button type="button" id="clear-filters">Clear Filters</button>
+        <button type="submit" id="filter-values">Filter</button> -->
+
+        <!-- =========================================================================================== -->
+        
+        <!-- !NOTE: Old way -->
+        <button type="button" id="clear-filters" onclick="clearFilters('<?php echo $type?>')">Clear Filters</button>
+        <button type="submit" id="filter-values" onclick="getFilterValues('<?php echo $type?>')">Filter</button>
         
     </section>
 <?php } ?>
