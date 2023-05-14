@@ -103,14 +103,16 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
         </div>
 
         <!-- !WARNING: WIP, see filter.js -->
-        <!-- <button type="button" id="clear-filters">Clear Filters</button>
-        <button type="submit" id="filter-values">Filter</button> -->
+        <button type="button" id="clear-filters">Clear Filters</button>
+        <button type="submit" id="filter-values">Filter</button>
 
         <!-- =========================================================================================== -->
-        
+
         <!-- !NOTE: Old way -->
-        <button type="button" id="clear-filters" onclick="clearFilters('<?php echo $type?>')">Clear Filters</button>
-        <button type="submit" id="filter-values" onclick="getFilterValues('<?php echo $type?>')">Filter</button>
-        
+        <?php
+        /*<button type="button" id="clear-filters" onclick="clearFilters('<?php echo $type?>')">Clear Filters</button>
+        <button type="submit" id="filter-values" onclick="getFilterValues('<?php echo $type?>')">Filter</button> -->
+        */
+        ?>
     </section>
 <?php } ?>
