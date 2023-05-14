@@ -159,3 +159,24 @@ require_once(__DIR__ . '/../utils/session.php');
     <?php output_centered_buttons("textarea-buttons", $buttons_html); ?>
 	</form>
 <?php }	?>
+
+<?php function output_feedback_message(string $messageText, string $type) {
+  if ($type === 'success') $class = 'success-message';
+  else if ($type === 'error') $class = 'error-message';
+  else $class = '';
+  ?>
+  <div id="feedback-message" class="feedback-message <?=$class?>"><?=$messageText?></div>
+<?php } ?>
+
+<?php function output_empty_feedback_message() { ?>
+  <div id="feedback-message" class="feedback-message"></div>
+<?php } ?>
+<?php function output_feedback_messages(array $session_messages) {
+  if (empty($session_messages)) {
+    output_empty_feedback_message();
+  }
+  foreach ($session_messages as $message) {
+    output_feedback_message($message['text'], $message['type']);
+  }
+  ?>
+<?php } ?>

@@ -204,4 +204,6 @@ body.landingbody {
   fill: #846a8b;
 }
 
-
+.landing-register #feedback-message, .login-container #feedback-message {
+  margin-bottom: 0.6rem;
+}

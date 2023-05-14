@@ -76,7 +76,6 @@ if (form) {
                         deleteBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
                         faq.appendChild(deleteBtn);
 
-                        
                         let hideBtn = document.createElement('button');
                         let displayBtn = document.createElement('button');
 
@@ -108,6 +107,16 @@ if (form) {
                             displayBtn.innerHTML = '<span class="material-symbols-outlined">visibility</span>';
                             faq.appendChild(displayBtn);
                         }
+
+                        /*  CRIAR ISTO
+                        <div class="modal">
+				<div class="modalContent">
+					<span class="close">×</span>
+					<p>Are you sure you want to delete your account</p>
+					<button class="confirm-del">Delete</button>
+					<!-- <button class="cancel" onclick="hideModal()">Cancel</button> -->
+				</div>
+			</div>*/
 
                         if (json['answer'] === null) {
                             let answerFaqBtn = document.createElement('button');

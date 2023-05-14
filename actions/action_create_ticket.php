@@ -31,13 +31,13 @@ if (!is_valid_array_hashtag_ids($db, $hashtags)) {
 $hashtags = array_map('intval', array_unique($hashtags));
 
 
-if (isset($_POST['department']) && !is_valid_departmentId($db, $_POST['department'])) {
+if (is_valid_string($departmentID) && !is_valid_departmentId($db, $_POST['department'])) {
     // can be null
     // but if it's not null, then must be valid
     $session->addMessage('error', "Invalid department");
     die(header('Location: ../pages/create_ticket.php'));
 }
-$departmentID = isset($_POST['department']) ? intval($_POST['department']) : NULL; /* Department can be null */
+$departmentID = empty($_POST['department']) ? NULL : intval($_POST['department']); /* Department can be null */
 
 if (!is_valid_priority($_POST['priority'])) {
     $session->addMessage('error', "Invalid priority");

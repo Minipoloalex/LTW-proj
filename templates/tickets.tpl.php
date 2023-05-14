@@ -63,7 +63,7 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
     ?>
 
 <div class="filter-toggle">
-  <h2>Filters  <i class="fa fa-caret-right"></i></h2>
+  <h2>Filters <i class="fa fa-caret-right"></i></h2>
 </div>
 
 <section id="filter-section" class="filter hidden" data-type="<?php echo $type?>">
