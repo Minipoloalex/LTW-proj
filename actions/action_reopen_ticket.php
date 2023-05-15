@@ -21,6 +21,7 @@ if (!Client::hasAcessToTicket($db, $session->getId(), $ticketID)) die(header('Lo
 
 $status = $ticket->assignedagent !== NULL ? 'in progress' : 'open';
 $action = Ticket::reopenTicket($db, $ticketID, $session->getId());
+$session->addMessage('success', 'The ticket was successfully reopened');
 
 header('Location: ../pages/individual_ticket.php?id=' . $ticketID)
 ?>

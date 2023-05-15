@@ -9,9 +9,9 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 
 require_once(__DIR__ . '/create_ticket.tpl.php');
 ?>
-<?php function output_single_ticket_agent_view(Ticket $ticket, Session $session, array $all_hashtags, array $all_agents, array $all_departments) { 
+<?php function output_single_ticket_agent_view(Ticket $ticket, Session $session, array $all_hashtags, array $agents, array $all_departments) { 
     if (!$ticket->isClosed()) {
-        output_change_ticket_info_form($ticket, $all_agents, $all_departments, $all_hashtags);
+        output_change_ticket_info_form($ticket, $agents, $all_departments, $all_hashtags);
         output_close_ticket_button("agent");
     }
     else {
@@ -32,7 +32,7 @@ function output_single_ticket_info(Ticket $ticket) { ?>
     <?php output_hashtag_list($ticket->hashtags); ?>
 <?php }
 function output_single_ticket(Ticket $ticket, array $messages, array $actions,
-array $all_hashtags, array $all_agents, array $all_departments, Session $session, bool $isAgentView) { ?>
+array $all_hashtags, array $agents, array $all_departments, Session $session, bool $isAgentView) { ?>
     <article data-id="<?=$ticket->ticketid?>" id="individual-ticket">
         <header><h1 id="ticket-title"><?=$ticket->title?></h1></header>
         <h3>Ticket description:</h3>
@@ -54,11 +54,12 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
                 </div>
                 <?php
                 if ($isAgentView) {
-                    output_single_ticket_agent_view($ticket, $session, $all_hashtags, $all_agents, $all_departments);
+                    output_single_ticket_agent_view($ticket, $session, $all_hashtags, $agents, $all_departments);
                 }
                 else {
                     output_single_ticket_client_view($ticket, $session);
                 }
+                output_session_message($session, "ticket-info-feedback");
                 ?>
             </section>
         </div>
@@ -250,7 +251,7 @@ array $all_hashtags, array $all_agents, array $all_departments, Session $session
         <?php
         output_message_form($isAgentView, $ticketID);
         output_answer_with_faq_form($displayed_faqs);
-        output_empty_feedback_message();
+        output_empty_feedback_message("add-message-feedback");
         ?>
     </section>
 <?php } ?>
