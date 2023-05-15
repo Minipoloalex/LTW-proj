@@ -9,13 +9,13 @@ let checkedValues = {};
 
 
 if (filterBtn) {
-  const type = filterBtn.parentElement.getAttribute('data-type');
-  filterBtn.addEventListener('click', () => getFilterValues(type));
+  const cardType = filterBtn.parentElement.getAttribute('data-type');
+  filterBtn.addEventListener('click', () => getFilterValues(cardType));
 }
 
 if (clearFilterBtn) {
-  const type = filterBtn.parentElement.getAttribute('data-type');
-  clearFilterBtn.addEventListener('click', () => clearFilters(type));
+  const cardType = filterBtn.parentElement.getAttribute('data-type');
+  clearFilterBtn.addEventListener('click', () => clearFilters(cardType));
 }
 
 
@@ -23,7 +23,7 @@ if (clearFilterBtn) {
 /*================================================================================*/
 // !NOTE: Old way. Works
 
-async function getFilterValues(type) {
+async function getFilterValues(cardType) {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   checkedValues = {};
   checkboxes.forEach(checkbox => {
@@ -44,7 +44,7 @@ async function getFilterValues(type) {
 
   // Fetch API
   let json;
-  switch (type) {
+  switch (cardType) {
     case 'ticket': {
       json = await getTickets2(checkedValues);
       break;
@@ -61,8 +61,8 @@ async function getFilterValues(type) {
   const data = json;
   console.log(data.tickets);
   // cardContainer.innerHTML = '';
-
-  getCards(data);
+  console.log("Filter: ", cardType);
+  getCards(data, cardType);
 
   /*
   console.log(res);
@@ -86,12 +86,12 @@ async function getTickets2(checkedValues, page = 0) {
   return json = await getData(path, data);
 }
 
-function clearFilters(type) {
+function clearFilters(cardType) {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   checkboxes.forEach(checkbox => {
     checkbox.checked = false;
   });
-  getFilterValues(type);
+  getFilterValues(cardType);
 }
 
 

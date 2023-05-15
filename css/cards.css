@@ -101,7 +101,6 @@
 .card article {
   font-size: 14px;
   height: 18.75rem;
-  /* width: 13rem; */
   width: 100%;
 }
 
@@ -113,7 +112,7 @@
 
 .card article div span {
   align-self: center;
-  margin: 5px;
+  /* margin: 5px; */
 }
 
 .card article div span.card-hashtags{
@@ -121,11 +120,6 @@
   padding: 1px 6px;
   border-radius: 5px;
 }
-
-/*color for priority*/
-/* background-color: #155724; 
-background-color: rgb(164, 143, 23);
-background-color: #155724;  */
 
 .card article div span.card-priority{
   padding: 1px 6px;
@@ -166,3 +160,17 @@ background-color: #155724;  */
   color: black;
 }
 
+.card div.hashtags-container {
+  /* display: inline-block; */
+  /* height: 1.9rem; */
+  height: 2rem;
+  overflow-y: auto;
+  white-space: normal;
+  margin: 0 0 0.3rem 0;
+  padding: 0.1rem 0 0 0;
+}
+
+.card div.hashtags-container span.card-hashtags {
+  display: inline-block;
+  margin-bottom: 0.2rem;
+}
