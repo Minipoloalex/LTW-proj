@@ -39,7 +39,11 @@ require_once(__DIR__ . '/../utils/session.php');
         output_csrf_input($session);
       ?>
       <input type="text" id="email" name="email" placeholder="Email" pattern=<?=$email_regex?>>
+      <div class="password-container">
       <input type="password" id="password" name="password" placeholder="Password">
+      <button type="button" id="hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
+			<button type="button" id="showpass" class="showpass"><span class="material-symbols-outlined showpass">visibility</span></button>
+      </div>
       <input type="submit" value="Login">
       <p> <span>Don't have an account?</span> <a href="../pages/register.php" class="register">Sign up</a></p>
     </form>
@@ -92,8 +96,10 @@ require_once(__DIR__ . '/../utils/session.php');
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
       <script src="../javascript/utils.js" defer></script>
       <script src="../javascript/register_feedback_password.js" defer></script>
+      <script src="../javascript/login.js" defer></script>
     </head>
 
     <body class='landingbody'>

@@ -303,6 +303,9 @@ div.features {
   .mainpage p1, .mainpage p2 {
     padding: 1em;
   }
+  .password-container button span.material-symbols-outlined {
+    font-size: 17px;
+  }
 }
 
 /* For desktop devices -> A PARTIR DE 961*/

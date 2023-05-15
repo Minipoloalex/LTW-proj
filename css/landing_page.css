@@ -1,3 +1,42 @@
+.password-container {
+  display: flex;
+  align-items: center;
+}
+
+.password-container input[type="password"] {
+  flex: 1;
+}
+
+.password-container button {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  padding: 0.5rem;
+  margin-left: auto;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  right: 10%;
+  margin-bottom: 0.6rem;
+}
+
+.password-container button span.material-symbols-outlined {
+  color: #606081;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
+  font-size: 20px;
+}
+
+
+
+.password-container button:hover {
+  background-color: transparent;
+  color: #a492a9;
+}
 
 /*================= LOGIN FORM  =================*/
 
