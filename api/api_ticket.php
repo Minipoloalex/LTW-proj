@@ -19,11 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         echo json_encode(array('error' => 'User not logged in.'));
         exit();
     }
-    if (!$session->verifyCsrf($_GET['csrf'])) {
-        http_response_code(403); // Forbidden
-        echo json_encode(array('error' => 'Invalid CSRF token.'));
-        exit();
-    }
     if ($_GET['request'] === 'closedTicketsLast7Days') {
         handle_closed_tickets_last_7_days($db, $session);
         exit();

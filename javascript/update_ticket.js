@@ -46,8 +46,10 @@ async function updateTicketInformation(event) {
         'hashtags': ticketHashtagIDs,
     })
     console.log(json)
+    // displayMessage (feedback message)
     if (json['error']) {
         console.error(json['error'])
+        
     }
     else if (json['success']) {
         console.log(json['success'])
@@ -60,6 +62,40 @@ async function updateTicketInformation(event) {
         else ticketStatus.classList.add(json['status'])
 
         addActionToDOM(json['action_username'], json['action_date'], json['action_text'])
+    }
+}
+
+const dptSelect = document.querySelector("#ticket-info select[name='department']")
+if (dptSelect) {
+    dptSelect.addEventListener("change", handleDepartmentSelect)
+}
+function getAgentOption(agentId, agentUsername) {
+    const agentOption = document.createElement("option")
+    agentOption.setAttribute("value", agentId)
+    agentOption.textContent = agentUsername
+    return agentOption
+}
+
+async function handleDepartmentSelect(event) {
+    event.preventDefault()
+    const departmentID = event.currentTarget.value
+    const agentSelect = document.querySelector("#ticket-info select[name='agent']")
+    const json = await getData("../api/api_agent.php", {'departmentID': departmentID})
+    console.log(json)
+    // TODO: display success/error message
+    if (json['error']) {
+        console.error(json['error'])
+    }
+    if (json['success']) {
+        agentSelect.innerHTML = ""
+        
+        const blankAgentOption = getAgentOption("", "")
+        agentSelect.appendChild(blankAgentOption)
+
+        for (const agent of json['agents']) {
+            const agentOption = getAgentOption(agent['id'], agent['username'])
+            agentSelect.appendChild(agentOption)
+        }
     }
 }
 

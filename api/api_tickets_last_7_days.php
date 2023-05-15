@@ -14,7 +14,6 @@ function handle_closed_tickets_last_7_days(PDO $db, Session $session) {
     echo json_encode(array(
         'success' => 'Tickets retrieved successfully.',
         'tickets' => $tickets,
-        'csrf' => $session->getCsrf()
     ));
 }
 function handle_open_tickets_last_7_days(PDO $db, Session $session) {
@@ -28,7 +27,6 @@ function handle_open_tickets_last_7_days(PDO $db, Session $session) {
     echo json_encode(array(
         'success' => 'Tickets retrieved successfully.',
         'tickets' => $tickets,
-        'csrf' => $session->getCsrf()
     ));
 }
 

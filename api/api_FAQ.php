@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         echo json_encode(array('error' => 'User not logged in'));
         exit();
     }
+    // TODO: CSRF
 
     if (!is_valid_string($_POST['question'])) {
         http_response_code(400); // Bad request
@@ -55,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 /*edit faq and answer faq*/
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+    // TODO: CSRF
     if (!$session->isLoggedIn()) {
         http_response_code(401); // Unauthorized
         echo json_encode(array('error' => 'You are not logged in.'));
@@ -126,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         echo json_encode(array('error' => 'User not logged in'));
         exit();
     }
-
+    // TODO: CSRF
     // verify if user is admin
     if (Client::getType($db, $session->getId()) === "Client") {
         http_response_code(403); // Forbidden
@@ -159,6 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH'){
         echo json_encode(array('error' => 'You are not logged in.'));
         exit();
     }
+    // TODO: CSRF
 
     if (Client::getType($db, $session->getId()) === 'Client') {
         http_response_code(403); // Forbidden
@@ -200,11 +203,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         echo json_encode(array('error' => 'User not logged in'));
         exit();
     }
-    if (!$session->verifyCsrf($_GET['csrf'])) {
-        http_response_code(403); // Forbidden
-        echo json_encode(array('error' => 'CSRF token invalid'));
-        exit();
-    }
     if (!is_valid_faq_id($db, $_GET['id'])) {
         http_response_code(400); // Bad request
         echo json_encode(array('error' => 'Invalid faq parameter'));
@@ -227,7 +225,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         'success' => 'FAQ retrieved successfully',
         'question' => $faq->question,
         'answer' => $faq->answer,
-        'csrf' => $session->getCsrf()
     ));
     exit();
 }

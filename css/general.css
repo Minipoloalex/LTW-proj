@@ -20,7 +20,6 @@
 }
 
 body {
-  margin: 0;
   font-family: 'Martel Sans', sans-serif;
   background-color: #dee2ff;
   display: flex;
@@ -28,7 +27,6 @@ body {
   min-height: 100vh;
 
   color: black;
-  /* background-color: white; */
   margin: 0;
   padding: 0;
 }

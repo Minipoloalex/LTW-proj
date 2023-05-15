@@ -35,17 +35,14 @@ async function postData(path, data) {
 }
 
 async function getData(path, data) {
-    data['csrf'] = getCsrf()
     const response = await fetch(path + "?" + encodeForAjax(data), {
         method: 'GET',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
             },
         }
-    )
-    const json = await response.json()
-    setCsrf(json['csrf'])
-    return json
+    )    
+    return await response.json()
 }
 
 function getCsrf() {
