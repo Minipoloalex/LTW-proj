@@ -141,7 +141,7 @@
         }
           static function hasAcessToTicket(PDO $db, int $userID, int $ticketID) {
             if (Client::isAdmin($db, $userID)) return true;
-
+            if (Agent::isValidId($db, $userID)) return true;
             $ticket = Ticket::getById($db, $ticketID);
             $user = Client::getById($db, $userID);
             // no assigned agent can be a plain client, so no need to check if it's an agent
@@ -149,13 +149,21 @@
             return $ticket->assignedagent == $user->username;
           }
           static function canChangeTicketInfo(PDO $db, int $userID, $ticketID) {
-            $stmt = $db->prepare('Select * from ADMIN where UserID = ?');
-            $stmt->execute(array($userID));
-            if ($stmt->fetch()) return true;
-
             $ticket = Ticket::getById($db, $ticketID);
             $user = Client::getById($db, $userID);
-            return $ticket->assignedagent == $user->username;
+            $type = Client::getType($db, $userID);
+            if ($ticket->username === $user->username) return false;
+            if ($type === 'Admin') return true;
+            if ($type !== 'Agent') return false;
+
+            // agents can change their department's tickets and null department tickets
+            // if agent has null department, he can change every ticket
+            if ($ticket->departmentName === NULL) return true;
+            
+            $agent = Agent::getById($db, $userID);
+            $department = Department::getById($db, $agent->departmentid);
+            if ($agent->departmentid === NULL) return true;
+            return $department->departmentName === $ticket->departmentName;
           }
           static function filter(PDO $db, array $types, array $departments, string $search) : array {
             $query = 'SELECT UserID, Name, Username, Password, Email FROM CLIENT';
