@@ -69,8 +69,19 @@ require_once(__DIR__ . '/../utils/session.php');
     <input type="text" name="name" placeholder="Name" pattern="<?=$name_regex?>">
     <input type="text" name="username" placeholder="Username" pattern="<?=$username_regex?>">
     <input type="email" name="email" placeholder="Email" pattern="<?=$email_regex?>">
-    <input type="password" name="password" placeholder="Password" pattern="<?=$password_regex?>">
-    <input type="password" name="confirm_password" placeholder="Confirm password" pattern="<?=$password_regex?>">
+
+    <div class="password-container">
+    <input id="password" type="password" name="password" placeholder="Password" pattern="<?=$password_regex?>">
+    <button type="button" id="hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
+		<button type="button" id="showpass" class="showpass"><span class="material-symbols-outlined showpass">visibility</span></button>
+    </div>
+
+    <div class="password-container">
+    <input id="confirm-password" type="password" name="confirm_password" placeholder="Confirm password" pattern="<?=$password_regex?>">
+    <button type="button" id="confirm-hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
+		<button type="button" id="confirm-showpass" class="showpass"><span class="material-symbols-outlined showpass">visibility</span></button>
+    </div>
+
     <div class="registerbuttons">
     <p class="loginback">Already have an account? <a href="../pages/landing_page.php">Login</a></p>
     <button type="submit" class="create">Create Account</button>
