@@ -42,5 +42,17 @@ class Department {
         $department = $stmt->fetch();
         return $department != NULL;
     }
+    static function getByName(PDO $db, ?string $departmentName) : ? Department {
+        if (!isset($departmentName) || empty($departmentName)) return NULL;
+
+        $stmt = $db->prepare('SELECT * FROM DEPARTMENT WHERE DepartmentName = ?');
+        $stmt->execute(array($departmentName));
+        $department = $stmt->fetch();
+        if ($department == NULL) return NULL;
+        return new Department(
+            intval($department['DepartmentID']),
+            $department['DepartmentName']
+        );
+    }
 }
 ?>

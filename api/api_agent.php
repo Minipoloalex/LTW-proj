@@ -37,7 +37,7 @@ function handleAgentFilterByDepartment(Session $session, PDO $db, string $depart
         $agents = Agent::getAgents($db);
     }
     else {
-        if (!is_valid_departmentId($db, $departmentID)) {
+        if (!is_valid_department_id($db, $departmentID)) {
             http_response_code(400); // Bad Request
             echo json_encode(array('error' => 'Invalid department'));
             exit();

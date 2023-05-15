@@ -55,7 +55,7 @@ if (!$ticket) {
 
 http_response_code(200); // OK
 echo json_encode(array(
-    'success' => 'Ticket status updated',
+    'success' => 'The ticket was successfully closed',
     'ticketID' => $ticket->ticketid,
     'department' => $ticket->departmentName,
     'status' => $ticket->status,
