@@ -31,25 +31,28 @@ function createCard(index) {
   const curr = data.tickets[index - 1];
   card.className = "card";
   card.innerHTML = `
-  <article>
+  <article href="../pages/individual_ticket.php?id=${curr.ticketid}">
   <a href="../pages/individual_ticket.php?id=${curr.ticketid}">
     <header>
       <span class="card-title">${curr.title}</span>
     </header>
     <div>
-      <label>Status:</label>
-      <span class="card-info">${curr.status ? curr.status : "None"}</span><br>
-      
-      <label>Hashtags:</label>
+      <label class="status">Status:</label>
+      <span class="card-info card-status">${curr.status ? curr.status : "None"}</span><br>
+
+
+      <label class="hashtags">Hashtags:</label><br>
+    <div class="hashtags-container">
       ${curr.hashtags.length > 0 ?
       curr.hashtags.map(hashtag => `<span class="card-info card-hashtags">${hashtag.hashtagname}</span>`).join('<br>') :
       '<span class="card-info">None</span>'}
-      <br>
-      <label>Assigned agent:</label>
-      <span class="card-info">${curr.assignedagent ? curr.assignedagent : "None"}</span><br>
-      <label>Department:</label>
-      <span class="card-info">${curr.departmentName ? curr.departmentName : "Not defined"}</span><br>
-      <label>Priority:</label>
+    </div>
+
+      <label class="agent">Assigned agent:</label><br>
+      <span class="card-info card-agent">${curr.assignedagent ? curr.assignedagent : "None"}</span><br>
+      <label class="deparment">Department:</label>
+      <span class="card-info card-department">${curr.departmentName ? curr.departmentName : "Not defined"}</span><br>
+      <label class=priority">Priority:</label>
       <span class="card-info card-priority">${curr.priority ? curr.priority : "Not defined"}</span><br>
     </div>
   </a>
