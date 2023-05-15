@@ -24,9 +24,9 @@ $db = getDatabaseConnection();
 
 $hashtags = $_POST['hashtags'] != NULL ? explode(',', $_POST['hashtags']) : array();
 
-if (!is_valid_id($_POST['ticketID'])) {
+if (!is_valid_ticket_id($db, $_POST['ticketID'])) {
     http_response_code(400); // Bad request
-    echo json_encode(array('error' => 'Missing ticketID parameter'));
+    echo json_encode(array('error' => 'Invalid ticketID parameter'));
     exit();
 }
 $ticketID = intval($_POST['ticketID']);
@@ -37,23 +37,47 @@ if (!Client::canChangeTicketInfo($db, $session->getId(), $ticketID)) {
     exit();
 }
 
-if (!is_valid_array_ids($hashtags)) {
+if (!is_valid_array_hashtag_ids($db, $hashtags)) {
     http_response_code(400); // Bad request
     echo json_encode(array('error' => 'Hashtags are not valid'));
     exit();
 }
 $hashtagIDs = array_map('intval', $hashtags);
 
+if (isset($_POST['department']) && !is_valid_department_id($db, $_POST['department']  ?? '')) {
+    http_response_code(400); // Bad request
+    echo json_encode(array('error' => 'Invalid department parameter'));
+    exit();
+}
 $departmentID = empty($_POST['department']) ? NULL : intval($_POST['department']);
+
+if (isset($_POST['agent']) && !is_valid_agent_id($db, $_POST['agent'] ?? '')) {
+    http_response_code(400); // Bad request
+    echo json_encode(array('error' => 'Invalid agent parameter'));
+    exit();
+}
 $agentID = empty($_POST['agent']) ? NULL : intval($_POST['agent']);
+
+if (!is_valid_priority($_POST['priority'])) {
+    http_response_code(400); // Bad request
+    echo json_encode(array('error' => 'Missing priority parameter'));
+    exit();
+}
 $priority = $_POST['priority'];
+
+$agent = Agent::getById($db, $agentID);
+if ($agent->departmentid !== NULL && $agent->departmentid !== $departmentID) {
+    http_response_code(400); // Bad request
+    echo json_encode(array('error' => 'Agent belongs to another department'));
+    exit();
+}
 
 $ticket = Ticket::getById($db, $ticketID);
 $action = $ticket->updateTicket($db, $departmentID, $agentID, $priority, $hashtagIDs, $session->getId());
 
 http_response_code(200); // OK
 echo json_encode(array(
-    'success' => 'Ticket updated',
+    'success' => 'The ticket was successfully updated',
     'department' => $ticket->departmentName,
     'agent' => $ticket->assignedagent,
     'priority' => $ticket->priority,

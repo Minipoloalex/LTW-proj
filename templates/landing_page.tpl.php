@@ -35,10 +35,8 @@ require_once(__DIR__ . '/../utils/session.php');
     <form class="login-form" action="../actions/action_login.php" method="post">
       <h2>Login</h2>
       <?php
-      foreach ($session->getMessages() as $message) {
-        output_feedback_message($message['text'], $message['type']);
-      }
-      output_csrf_input($session);
+        output_session_message($session, "feedback-message");
+        output_csrf_input($session);
       ?>
       <input type="text" id="email" name="email" placeholder="Email" pattern=<?=$email_regex?>>
       <input type="password" id="password" name="password" placeholder="Password">
@@ -61,7 +59,7 @@ require_once(__DIR__ . '/../utils/session.php');
   <form action="../actions/action_create_account.php" method="post" class="registerform">
     <h2>Register</h2>
     <?php
-    output_feedback_messages($session->getMessages());
+    output_session_message($session, "feedback-message");
     output_csrf_input($session);
     ?>
     <input type="text" name="name" placeholder="Name" pattern="<?=$name_regex?>">
