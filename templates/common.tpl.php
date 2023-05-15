@@ -160,23 +160,20 @@ require_once(__DIR__ . '/../utils/session.php');
 	</form>
 <?php }	?>
 
-<?php function output_feedback_message(string $messageText, string $type) {
-  if ($type === 'success') $class = 'success-message';
-  else if ($type === 'error') $class = 'error-message';
-  else $class = '';
+<?php function output_feedback_message(string $id, string $messageText, string $type) {
+  if ($type === 'success') $class = 'feedback-message success-message';
+  else if ($type === 'error') $class = 'feedback-message error-message';
+  else $class = 'feedback-message'
   ?>
-  <div id="feedback-message" class="feedback-message <?=$class?>"><?=$messageText?></div>
-<?php } ?>
-
-<?php function output_empty_feedback_message() { ?>
-  <div id="feedback-message" class="feedback-message"></div>
-<?php } ?>
-<?php function output_feedback_messages(array $session_messages) {
-  if (empty($session_messages)) {
-    output_empty_feedback_message();
+  <div id="<?=$id?>" class="<?=$class?>"><?=$messageText?></div>
+<?php }
+function output_empty_feedback_message(string $id) {
+  output_feedback_message($id, "", "nothing");
+}
+function output_session_message(Session $session, string $id) {
+  $message = $session->getMessage();
+  if ($message == NULL) {
+    output_empty_feedback_message($id);
   }
-  foreach ($session_messages as $message) {
-    output_feedback_message($message['text'], $message['type']);
-  }
-  ?>
-<?php } ?>
+  else output_feedback_message($id, $message['text'], $message['type']);
+} ?>
