@@ -57,6 +57,12 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
     </table>
 <?php } ?>
 
+<?php function drawTitleTickets() { ?>
+    <section id="title" data-type="ticket">
+        <h2>Tickets</h2>
+    </section>
+<?php } ?>
+
 <?php function drawFilterMenu(array $filterValues)
 { 
     $type = 'ticket';

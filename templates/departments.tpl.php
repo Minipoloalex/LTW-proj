@@ -5,7 +5,11 @@ require_once(__DIR__ . '/../database/ticket.class.php');
 require_once(__DIR__ . '/../database/agent.class.php');
 
 ?>
-
+<?php function drawTitleDepartments() { ?>
+    <section id="title" data-type='department'>
+        <h2>Departments</h2>
+    </section>
+<?php } ?>
 
 <?php function drawDepartment(Department $department, PDO $db) { ?>
     <?php $nr_tickets = count(Ticket::getByDepartment($db, $department->departmentId))?>

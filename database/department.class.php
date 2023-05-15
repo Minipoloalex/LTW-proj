@@ -21,6 +21,31 @@ class Department {
         }
         return $departments;
     }
+
+    static public function filterDepartments(PDO $db, int $page = 1): array {
+        $query = 'SELECT DepartmentID, DepartmentName FROM DEPARTMENT ';
+
+        $params = array();
+        $stmt1 = $db->prepare('SELECT COUNT(DISTINCT DepartmentID) as c FROM ('.$query.');');
+        $stmt1->execute();
+        $count = intval($stmt1->fetch()['c']);
+        
+        $query .= " LIMIT 12 OFFSET ?;";
+        $params[] = ($page - 1) * 12;
+        $stmt2 = $db->prepare($query);
+        $stmt2->execute($params);
+        $departments = array();
+        while ($department = $stmt2->fetch()){
+            $departments[] = new Department(
+                intval($department['DepartmentID']),
+                $department['DepartmentName']
+            );
+        }
+        $result['departments'] = $departments;
+        $result['count'] = $count;
+        return $result;
+    }
+
     static public function getById(PDO $db, int $id): Department {
         $stmt = $db->prepare('SELECT DepartmentID, DepartmentName FROM DEPARTMENT WHERE DepartmentId = ?');
         $stmt->execute(array($id));

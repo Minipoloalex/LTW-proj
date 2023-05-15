@@ -3,14 +3,14 @@ const cardCountElem = document.getElementById("card-count");
 const cardTotalElem = document.getElementById("card-total");
 const loader = document.getElementById("loader");
 let flag;
-let data;
+let data = {};
 let throttleTimer = false;
 let cardLimit;
 let cardIncrease;
 let currentPage;
 let pageCount;
-let cardType; // = document.getElementById().getAttribute("data-type");
-
+const cardType = document.getElementById("title").getAttribute("data-type");
+console .log (cardType);
 const addCards = (pageIndex) => {
   window.removeEventListener("scroll", handleInfiniteScroll);
   currentPage = pageIndex;
@@ -29,138 +29,20 @@ const addCards = (pageIndex) => {
 
 function createCard(index) {
   const card = document.createElement("div");
-  const curr = data.tickets[index - 1];
   card.className = "card";
   console.log(cardType);
   switch (cardType) {
     case 'ticket': {
-      // const article = document.createElement('article');
-      // const link = document.createElement('a');
-      // link.href = `../pages/individual_ticket.php?id=${curr.ticketid}`;
-      // const header = document.createElement('header');
-      // const title = document.createElement('span');
-      // title.classList.add('card-title');
-      // title.textContent = curr.title;
-      // header.appendChild(title);
-      // link.appendChild(header);
-      // const div = document.createElement('div');
-      // const statusLabel = document.createElement('label');
-      // statusLabel.textContent = 'Status:';
-      // div.appendChild(statusLabel);
-      // const status = document.createElement('span');
-      // status.classList.add('card-info');
-      // status.textContent = curr.status ? curr.status : "None";
-      // div.appendChild(status);
-      // div.appendChild(document.createElement('br'));
-      // const hashtagsLabel = document.createElement('label');
-      // hashtagsLabel.textContent = 'Hashtags:';
-      // div.appendChild(hashtagsLabel);
-      // div.appendChild(document.createElement('br'));
-      // if (curr.hashtags.length > 0) {
-      //   const hashtags = curr.hashtags.map(hashtag => {
-      //     const span = document.createElement('span');
-      //     span.classList.add('card-info', 'card-hashtags');
-      //     span.textContent = hashtag.hashtagname;
-      //     return span;
-      //   });
-      //   hashtags.forEach(hashtag => {
-      //     div.appendChild(hashtag);
-      //     div.appendChild(document.createElement('br'));
-      //   });
-      // } else {
-      //   const noHashtags = document.createElement('span');
-      //   noHashtags.classList.add('card-info');
-      //   noHashtags.textContent = 'None';
-      //   div.appendChild(noHashtags);
-      // }
-      // const assignedAgentLabel = document.createElement('label');
-      // assignedAgentLabel.textContent = 'Assigned agent:';
-      // div.appendChild(assignedAgentLabel);
-      // div.appendChild(document.createElement('br'));
-      // const assignedAgent = document.createElement('span');
-      // assignedAgent.classList.add('card-info');
-      // assignedAgent.textContent = curr.assignedagent ? curr.assignedagent : "None";
-      // div.appendChild(assignedAgent);
-      // div.appendChild(document.createElement('br'));
-      // const departmentLabel = document.createElement('label');
-      // departmentLabel.textContent = 'Department:';
-      // div.appendChild(departmentLabel);
-      // const department = document.createElement('span');
-      // department.classList.add('card-info');
-      // department.textContent = curr.departmentName ? curr.departmentName : "Not defined";
-      // div.appendChild(department);
-      // div.appendChild(document.createElement('br'));
-      // const priorityLabel = document.createElement('label');
-      // priorityLabel.textContent = 'Priority:';
-      // div.appendChild(priorityLabel);
-      // const priority = document.createElement('span');
-      // priority.classList.add('card-info', 'card-priority');
-      // priority.textContent = curr.priority ? curr.priority : "Not defined";
-      // div.appendChild(priority);
-      // link.appendChild(div);
-      // article.appendChild(link);
-      // card.appendChild(article);
-      // console.log(card);
-
-      // // Add class to set background color based on priority value
-      // if (curr.priority === 'high') {
-      //   card.querySelector('.card-priority').classList.add('highP');
-      // } else if (curr.priority === 'medium') {
-      //   card.querySelector('.card-priority').classList.add('mediumP');
-      // } else if (curr.priority === 'low') {
-      //   card.querySelector('.card-priority').classList.add('lowP');
-      // }
-      // else if (curr.priority === null) {
-      //   card.querySelector('.card-priority').classList.add('noneP');
-      // }
-
-      card.innerHTML = `
-  <article href="../pages/individual_ticket.php?id=${curr.ticketid}">
-  <a href="../pages/individual_ticket.php?id=${curr.ticketid}">
-    <header>
-      <span class="card-title">${curr.title}</span>
-    </header>
-    <div>
-      <label class="status">Status:</label>
-      <span class="card-info card-status">${curr.status ? curr.status : "None"}</span><br>
-
-
-      <label class="hashtags">Hashtags:</label><br>
-    <div class="hashtags-container">
-      ${curr.hashtags.length > 0 ?
-          curr.hashtags.map(hashtag => `<span class="card-info card-hashtags">${hashtag.hashtagname}</span>`).join('<br>') :
-          '<span class="card-info">None</span>'}
-    </div>
-
-      <label class="agent">Assigned agent:</label><br>
-      <span class="card-info card-agent">${curr.assignedagent ? curr.assignedagent : "None"}</span><br>
-      <label class="deparment">Department:</label>
-      <span class="card-info card-department">${curr.departmentName ? curr.departmentName : "Not defined"}</span><br>
-      <label class=priority">Priority:</label>
-      <span class="card-info card-priority">${curr.priority ? curr.priority : "Not defined"}</span><br>
-    </div>
-  </a>
-</article>
-  `
-      // Add class to set background color based on priority value
-      if (curr.priority === 'high') {
-        card.querySelector('.card-priority').classList.add('highP');
-      } else if (curr.priority === 'medium') {
-        card.querySelector('.card-priority').classList.add('mediumP');
-      } else if (curr.priority === 'low') {
-        card.querySelector('.card-priority').classList.add('lowP');
-      }
-      else if (curr.priority === null) {
-        card.querySelector('.card-priority').classList.add('noneP');
-      }
-
-
+      const curr = data.tickets[index - 1];
+      drawTicketCard(card, curr);
       break;
     };
     case 'user': {
       break;
     };
     case 'department': {
+      const curr = data.departments[index - 1];
+      drawDepartmentCard(card, curr);
       break;
     };
     default: {
@@ -172,10 +54,27 @@ function createCard(index) {
 
 async function queryMore(endRange) {
   if (endRange % 12 == 0) {
-    const json = await getTickets2(checkedValues, (endRange / 12) + 1);
-    data.tickets = data.tickets.concat(json.tickets);
+
+    switch (cardType) {
+      case 'ticket': {
+        const json = await getTickets2(checkedValues, (endRange / 12) + 1);
+        data.tickets = data.tickets.concat(json.tickets);
+        break;
+      }
+      case 'user': {
+        break;
+      }
+      case 'department': {
+        const json = await getDepartments2(checkedValues, (endRange / 12) + 1);
+        data.departments = data.departments.concat(json.departments);
+        break;
+      }
+      default:
+        console.error('Error: invalid type');
+    }
   }
 }
+
 function throttle(callback, time) {
   if (throttleTimer) return;
   throttleTimer = true;
@@ -207,11 +106,11 @@ const removeInfiniteScroll = () => {
 
 if (cardContainer) {
   window.onload = async function () {
-    const type = 'ticket';
-    switch (type) {
+    // const type = 'ticket';
+    switch (cardType) {
       case 'ticket': {
         const tickets = await getAllTickets();
-        getCards(tickets, type);
+        getCards(tickets);
         break;
       }
       case 'user': {
@@ -220,14 +119,15 @@ if (cardContainer) {
       }
       case 'department': {
         const departments = await getAllDepartments();
+        getCards(departments);
         break;
       }
     }
   }
 }
-function getCards(content, type) {
+function getCards(content) {
   data = content;
-  cardType = type;
+  // cardType = type;
   cardContainer.innerHTML = '';
   cardLimit = data.count;
   cardTotalElem.innerHTML = cardLimit;
@@ -257,6 +157,7 @@ async function getAllDepartments() {
   const response = await fetch("../api/api_departments.php");
   if (response.ok) {
     const data = await response.json();
+    console.log(data);
     return data;
   } else {
     console.error('Error: ' + res.status);
@@ -266,6 +167,140 @@ async function getAllDepartments() {
 function checkLoader() {
   const loader = document.getElementById("loader");
   if (loader) return true;
+
   else return false;
 }
 
+function drawDepartmentCard(card, curr) {
+  console.log(curr);
+  card.innerHTML = `
+  <article>
+  <header>
+  <span class="card-title">${curr.departmentName}</span>
+  </header>
+  </article>
+  `
+}
+
+
+function drawTicketCard(card, curr) {
+  // const article = document.createElement('article');
+  // const link = document.createElement('a');
+  // link.href = `../pages/individual_ticket.php?id=${curr.ticketid}`;
+  // const header = document.createElement('header');
+  // const title = document.createElement('span');
+  // title.classList.add('card-title');
+  // title.textContent = curr.title;
+  // header.appendChild(title);
+  // link.appendChild(header);
+  // const div = document.createElement('div');
+  // const statusLabel = document.createElement('label');
+  // statusLabel.textContent = 'Status:';
+  // div.appendChild(statusLabel);
+  // const status = document.createElement('span');
+  // status.classList.add('card-info');
+  // status.textContent = curr.status ? curr.status : "None";
+  // div.appendChild(status);
+  // div.appendChild(document.createElement('br'));
+  // const hashtagsLabel = document.createElement('label');
+  // hashtagsLabel.textContent = 'Hashtags:';
+  // div.appendChild(hashtagsLabel);
+  // div.appendChild(document.createElement('br'));
+  // if (curr.hashtags.length > 0) {
+  //   const hashtags = curr.hashtags.map(hashtag => {
+  //     const span = document.createElement('span');
+  //     span.classList.add('card-info', 'card-hashtags');
+  //     span.textContent = hashtag.hashtagname;
+  //     return span;
+  //   });
+  //   hashtags.forEach(hashtag => {
+  //     div.appendChild(hashtag);
+  //     div.appendChild(document.createElement('br'));
+  //   });
+  // } else {
+  //   const noHashtags = document.createElement('span');
+  //   noHashtags.classList.add('card-info');
+  //   noHashtags.textContent = 'None';
+  //   div.appendChild(noHashtags);
+  // }
+  // const assignedAgentLabel = document.createElement('label');
+  // assignedAgentLabel.textContent = 'Assigned agent:';
+  // div.appendChild(assignedAgentLabel);
+  // div.appendChild(document.createElement('br'));
+  // const assignedAgent = document.createElement('span');
+  // assignedAgent.classList.add('card-info');
+  // assignedAgent.textContent = curr.assignedagent ? curr.assignedagent : "None";
+  // div.appendChild(assignedAgent);
+  // div.appendChild(document.createElement('br'));
+  // const departmentLabel = document.createElement('label');
+  // departmentLabel.textContent = 'Department:';
+  // div.appendChild(departmentLabel);
+  // const department = document.createElement('span');
+  // department.classList.add('card-info');
+  // department.textContent = curr.departmentName ? curr.departmentName : "Not defined";
+  // div.appendChild(department);
+  // div.appendChild(document.createElement('br'));
+  // const priorityLabel = document.createElement('label');
+  // priorityLabel.textContent = 'Priority:';
+  // div.appendChild(priorityLabel);
+  // const priority = document.createElement('span');
+  // priority.classList.add('card-info', 'card-priority');
+  // priority.textContent = curr.priority ? curr.priority : "Not defined";
+  // div.appendChild(priority);
+  // link.appendChild(div);
+  // article.appendChild(link);
+  // card.appendChild(article);
+  // console.log(card);
+
+  // // Add class to set background color based on priority value
+  // if (curr.priority === 'high') {
+  //   card.querySelector('.card-priority').classList.add('highP');
+  // } else if (curr.priority === 'medium') {
+  //   card.querySelector('.card-priority').classList.add('mediumP');
+  // } else if (curr.priority === 'low') {
+  //   card.querySelector('.card-priority').classList.add('lowP');
+  // }
+  // else if (curr.priority === null) {
+  //   card.querySelector('.card-priority').classList.add('noneP');
+  // }
+
+  card.innerHTML = `
+  <article>
+  <a href="../pages/individual_ticket.php?id=${curr.ticketid}">
+    <header>
+      <span class="card-title">${curr.title}</span>
+    </header>
+    <div>
+      <label class="status">Status:</label>
+      <span class="card-info card-status">${curr.status ? curr.status : "None"}</span><br>
+
+
+      <label class="hashtags">Hashtags:</label><br>
+    <div class="hashtags-container">
+      ${curr.hashtags.length > 0 ?
+      curr.hashtags.map(hashtag => `<span class="card-info card-hashtags">${hashtag.hashtagname}</span>`).join('<br>') :
+      '<span class="card-info">None</span>'}
+    </div>
+
+      <label class="agent">Assigned agent:</label><br>
+      <span class="card-info card-agent">${curr.assignedagent ? curr.assignedagent : "None"}</span><br>
+      <label class="deparment">Department:</label>
+      <span class="card-info card-department">${curr.departmentName ? curr.departmentName : "Not defined"}</span><br>
+      <label class=priority">Priority:</label>
+      <span class="card-info card-priority">${curr.priority ? curr.priority : "Not defined"}</span><br>
+    </div>
+  </a>
+</article>
+  `
+  // Add class to set background color based on priority value
+  if (curr.priority === 'high') {
+    card.querySelector('.card-priority').classList.add('highP');
+  } else if (curr.priority === 'medium') {
+    card.querySelector('.card-priority').classList.add('mediumP');
+  } else if (curr.priority === 'low') {
+    card.querySelector('.card-priority').classList.add('lowP');
+  }
+  else if (curr.priority === null) {
+    card.querySelector('.card-priority').classList.add('noneP');
+  }
+}
