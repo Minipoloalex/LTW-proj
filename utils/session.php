@@ -3,14 +3,14 @@
 class Session
 {
 
-    private ?array $message;
+    private array $messages;
     public function __construct()
     {
         session_set_cookie_params(0, '/', '', false, true);
         session_start();
 
-        $this->message = isset($_SESSION['message']) ? $_SESSION['message'] : NULL;
-        unset($_SESSION['message']);
+        $this->messages = isset($_SESSION['messages']) ? $_SESSION['messages'] : array();
+        unset($_SESSION['messages']);
         
         if (!isset($_SESSION['csrf'])) {
             $_SESSION['csrf'] = Session::generate_random_token();
@@ -55,12 +55,12 @@ class Session
     }
     public function addMessage(string $type, string $text)
     {
-        $_SESSION['message'] = array('type' => $type, 'text' => $text);
+        $_SESSION['messages'][] = array('type' => $type, 'text' => $text);
     }
 
-    public function getMessage() : ?array
+    public function getMessages()
     {
-        return $this->message;
+        return $this->messages;
     }
     private static function generate_random_token() {
         return bin2hex(openssl_random_pseudo_bytes(32));

@@ -30,7 +30,7 @@ require_once(__DIR__ . '/../templates/common.tpl.php');
         <button formaction="../actions/action_create_ticket.php" formmethod="post" type="submit" class="submit-ticket">
             Create ticket
         </button>
-        <?php output_session_message($session, "feedback-message"); ?>
+        <?php output_feedback_messages($session->getMessages()) ?>
     </form>
 <?php } ?>
 

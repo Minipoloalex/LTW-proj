@@ -83,40 +83,26 @@ function handleTextAreas(textarea) {
 }
 
 
-function displayMessage(id, message, error = true) {
-    const feedbackMessage = document.getElementById(id);
-    feedbackMessage.textContent = message;
+/*mensagens de erro*/
+const FeedbackMessage = document.getElementById('feedback-message');
+
+function displayMessage(message, error = true) {
+    FeedbackMessage.textContent = message;
     if (error){
-        feedbackMessage.classList.add('error-message');
-        feedbackMessage.classList.remove('success-message');
+        FeedbackMessage.classList.add('error-message');
+        FeedbackMessage.classList.remove('success-message');
     }
     else{
-        feedbackMessage.classList.add('success-message');
-        feedbackMessage.classList.remove('error-message');
+        FeedbackMessage.classList.add('success-message');
+        FeedbackMessage.classList.remove('error-message');
     }
 }
-function displayFeedback(id, json) {
+function displayFeedback(json) {
     if (json['error']) {
-        displayMessage(id, json['error'], true)
+        displayMessage(json['error'], true)
     }
-    else displayMessage(id, json['success'], false)
+    else displayMessage(json['success'], false)
 }
-function clearFeedbackMessage(message) {
-    message.textContent = '';
-    message.classList.remove('error-message');
-    message.classList.remove('success-message');
-}
-function clearDisplayFeedback(id) {
-    const feedbackMessage = document.getElementById(id);
-    clearFeedbackMessage(feedbackMessage);
-}
-function clearAllDisplayFeedback() {
-    const feedbackMessages = document.querySelectorAll('.feedback-message');
-    for (const feedbackMessage of feedbackMessages) {
-        clearFeedbackMessage(feedbackMessage);
-    }
-}
-
 
 
 function getPasswordRegex() {

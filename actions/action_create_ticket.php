@@ -35,7 +35,7 @@ if (!is_valid_array_hashtag_ids($db, $hashtags)) {
 $hashtags = array_map('intval', array_unique($hashtags));
 
 
-if (is_valid_string($departmentID) && !is_valid_department_id($db, $_POST['department'])) {
+if (is_valid_string($departmentID) && !is_valid_departmentId($db, $_POST['department'])) {
     // can be null
     // but if it's not null, then must be valid
     $session->addMessage('error', "Invalid department");

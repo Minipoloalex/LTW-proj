@@ -68,12 +68,7 @@ class Agent extends Client
         );
     }
 
-    static function isValidId(PDO $db, int $id): bool
-    {
-        $stmt = $db->prepare('SELECT * FROM Agent WHERE UserID = ?');
-        $stmt->execute(array($id));
-        return $stmt->fetch() !== false;
-    }
+
 
     static function getByDepartment(PDO $db, int $departmentID): array
     {

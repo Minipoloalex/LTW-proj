@@ -1,5 +1,7 @@
 const form = document.getElementById('faq-form');
-
+// const successMessage = document.getElementById('success-message');
+// const errorMessage = document.getElementById('error-message');
+// const feedbackMessage = document.getElementById('feedback-message');
 const faqSection = document.getElementById('faqs');
 if (form) {
     form.addEventListener('submit', function (e) {
@@ -196,11 +198,16 @@ if (form) {
     form.addEventListener('focusin', function () {
         // successMessage.style.display = 'none';
         // errorMessage.style.display = 'none';
-        clearAllDisplayFeedback();
+        FeedbackMessage.classList.remove('error-message');
+        FeedbackMessage.classList.remove('success-message');
+        FeedbackMessage.textContent = '';
     });
     form.addEventListener('change', function () {
         // successMessage.style.display = 'none';
         // errorMessage.style.display = 'none';
-        clearAllDisplayFeedback();
+        FeedbackMessage.classList.remove('error-message');
+        FeedbackMessage.classList.remove('success-message');
+        FeedbackMessage.textContent = '';
+
     });
 }

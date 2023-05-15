@@ -38,12 +38,9 @@ $displayed_faqs = Forum::getDisplayedFaqs($db);
 $messages = Message::getByTicket($db, $id);
 $actions = Action::getByTicket($db, $id);
 $hashtags = Hashtag::getHashtags($db);
+$agents = Agent::getAgents($db);
 $departments = Department::getDepartments($db);
 $isAgentView = !($session->getName() === $ticket->username);
-
-$ticketDepartment = Department::getByName($db, $ticket->departmentName);
-$agents = $ticketDepartment != null ? Agent::getByDepartment($db, $ticketDepartment->departmentId) 
-: Agent::getAgents($db);
 
 
 output_header($session);

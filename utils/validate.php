@@ -32,7 +32,7 @@ function is_valid_username(?String $username): bool {
 function is_valid_password(?String $password): bool {
     return isset($password) && !empty($password) && preg_match('/^(?=.*[0-9])(?=.*[!@#$%^&])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&]{6,}$/', $password);
 }
-function check_valid_data(string $name, string $username, string $email, string $password, string $confirm_password) : array {
+function check_valid_data(string $name, string $username, string $email, string $password, string $confirm_password) {
     if (!is_valid_name($name) || !is_valid_username($username) || !is_valid_email($email) || !is_valid_string($password) || !is_valid_string($confirm_password)) {
         return array(false, "Username, password, name and email are required");
     }
@@ -46,7 +46,7 @@ function check_valid_data(string $name, string $username, string $email, string 
 }
 
 
-function check_valid_password(string $pass) : array {
+function check_valid_password(string $pass){
     if (!is_valid_string($pass)) {
         return array(false, "Password is required");
     }
@@ -59,10 +59,10 @@ function check_valid_password(string $pass) : array {
 }
 
 
-function is_valid_type(string $userType) : bool {
+function is_valid_type(string $userType) {
     return $userType === 'Client' || $userType === 'Agent' || $userType === 'Admin';
 }
-function is_valid_status(string $status) : bool {
+function is_valid_status(string $status) {
     $status = strtolower($status);
     return $status === 'open' || $status === 'closed' || $status === 'in progress';
 }
@@ -74,7 +74,7 @@ function is_valid_array_hashtag_ids(PDO $db, array $hashtagIds): bool {
     }
     return true;
 }
-function is_valid_department_id(PDO $db, ?string $departmentID): bool{
+function is_valid_departmentId(PDO $db, ?string $departmentID): bool{
     return is_valid_id($departmentID) && Department::isValidId($db, intval($departmentID));
 }
 function is_valid_priority(?string $priority): bool {
@@ -91,10 +91,8 @@ function is_valid_faq_id(PDO $db, ?string $forum_id): bool {
     $faq = Forum::getById($db, intval($forum_id));
     return $faq != null;
 }
-function is_valid_title(string $title): bool {
+function is_valid_title(string $title) {
     return is_valid_string($title) && strlen($title) <= 50;
 }
-function is_valid_agent_id(PDO $db, string $agentID): bool {
-    return is_valid_id($agentID) && Agent::isValidId($db, intval($agentID));
-}
+
 ?>

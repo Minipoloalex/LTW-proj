@@ -24,8 +24,7 @@ async function postNewMessage(messageText, ticketID, fileInput) {
         'message': messageText,
         'ticketID': ticketID,
     })
-    // console.log(json)
-    displayFeedback("add-message-feedback", json)
+    displayFeedback(json)
     return json
 }
 async function submitNewMessage(event) {

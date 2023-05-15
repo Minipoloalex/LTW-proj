@@ -1,5 +1,4 @@
 const changeTicketInfoButton = document.querySelector("button#update-ticket")
-const ticketInfoFeedbackId = "ticket-info-feedback"
 
 if (changeTicketInfoButton) {
     changeTicketInfoButton.addEventListener("click", updateTicketInformation)
@@ -47,10 +46,10 @@ async function updateTicketInformation(event) {
         'hashtags': ticketHashtagIDs,
     })
     console.log(json)
-    displayFeedback("ticket-info-feedback", json)
     // displayMessage (feedback message)
     if (json['error']) {
         console.error(json['error'])
+        
     }
     else if (json['success']) {
         console.log(json['success'])
@@ -107,7 +106,7 @@ async function closeTicket(event) {
         'ticketID': ticketID,
         'status': 'closed',
     })
-    displayFeedback(ticketInfoFeedbackId, json)
+    
     if (json['error']) {
         console.error(json['error'])
     }
