@@ -169,7 +169,7 @@
             return $department->departmentName === $ticket->departmentName;
           }
 
-          static function filter(PDO $db, array $types = [], array $departments = [], int $page = 1) : array {
+          static function filter(PDO $db, array $departments = [], array $types = [], int $page = 1) : array {
             $query = '
                     SELECT
                       c.UserID,

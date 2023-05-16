@@ -65,8 +65,6 @@ async function getFilterValues(cardType) {
   }
   console.log(json);
   const data = json;
-  console.log(data.tickets);
-  // cardContainer.innerHTML = '';
   console.log("Filter: ", cardType);
   // getCards(data, cardType);
   getCards(data);
