@@ -10,6 +10,8 @@ require_once(__DIR__ . '/../utils/session.php');
 
 $db = getDatabaseConnection();
 $userID = $session->getId();
+$type = Client::getType($db, $userID);
+
 // Complete this
 // $followingTickets = Client::getFollowing($db, $userID);
 

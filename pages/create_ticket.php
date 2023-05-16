@@ -10,8 +10,9 @@ if (!$session->isLoggedIn()) {
     die(header('Location: ../pages/landing_page.php'));
 }
 $db = getDatabaseConnection();
+$type = Client::getType($db, $session->getId());
 
-output_header($session);
+output_header($session, $type);
 drawTitle("Create Ticket", "none");
 output_create_ticket_form($db, $session);
 output_footer();

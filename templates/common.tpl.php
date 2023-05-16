@@ -4,7 +4,7 @@ declare(strict_types=1);
 require_once(__DIR__ . '/../utils/session.php');
 ?>
 
-<?php function output_header(Session $session)
+<?php function output_header(Session $session, string $type)
 { ?>
   <!DOCTYPE html>
   <html lang="en-US">
@@ -63,61 +63,52 @@ require_once(__DIR__ . '/../utils/session.php');
 </head>
 
 <body data-csrf="<?=$session->getCsrf()?>">
-
-  <!-- <header>
-        <h1><a href="main_page.php">Trouble Solver</a></h1>
-      </header> -->
     <nav class="navbar">
       <ul class="navbar-nav">
-
-        <!-- <li class="logo">Trouble Solver</li> -->
         <li class="logo"><a href="../pages/main_page.php"><img src="../css/images/logo.png" alt="logo"></a></li>
-        <li class="nav-item"><a href="../pages/profile.php" class="nav-link"><span
-              class="material-symbols-outlined nav-icon">person</span><span class="link-text">Profile</span></a></li>
+        <?php
+        output_nav_menu_list_item("../pages/profile.php", "person", "Profile");
+        ?>
         <li class="nav-item"><span class="nav-submenu-wrapper" id="subWrapper"><span
               class="nav-submenu-header"><span class="material-symbols-outlined nav-icon">confirmation_number</span><span
                 class="link-text" id="subHeaderTitle">Tickets</span></span>
             <ul class="nav-submenu" id="subMenu">
-              <li class="nav-submenu-item"><a href="../pages/my_tickets.php" class="nav-link">My tickets</a></li>
-              <li class="nav-submenu-item"><a href="../pages/create_ticket.php" class="nav-link">Create ticket</a></li>
-              <li class="nav-submenu-item"><a href="../pages/assigned_tickets.php" class="nav-link">Assigned tickets</a>
-              </li>
-              <!--Same page: assigned and followed tickets (not assigned to them)-->
-              <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">All tickets</a></li>
+              <?php
+              output_my_tickets_li();
+              output_create_ticket_li();
+              if ($type !== 'Client') {
+                output_assigned_tickets_li();
+              }
+              if ($type === 'Admin') {
+                output_all_tickets_li();
+              } ?>
             </ul>
           </span>
         </li>
-        <li class="nav-item"><a href="../pages/departments_list.php" class="nav-link"><span
-              class="material-symbols-outlined nav-icon">apartment</span><span class="link-text">Departments</span></a></li>
-        <li class="nav-item"><a href="../pages/users_list.php" class="nav-link"><span
-              class="material-symbols-outlined nav-icon">group</span><span class="link-text">Users</span></a></li>
-        <li class="nav-item"><a href="../pages/FAQ.php" class="nav-link"><span
-              class="material-symbols-outlined nav-icon">quiz</span><span class="link-text">FAQs</span></a></li>
-        <li class="nav-item"><a href="../actions/action_logout.php" class="nav-link"><span
-              class="material-symbols-outlined nav-icon">logout</span><span class="link-text">Log Out</span></a></li>
-        <!-- <span class="nav-logout"><span formaction="../actions/action_logout"
-              class="material-symbols-outlined">logout</span><span class="link-text">Log Out</span></span></li> -->
-        <!-- <li class="nav-item"><span class="nav-logout"><a href="../actions/action_logout" class="material-symbols-outlined">logout</span><span class = "link-text">Log Out</span></span></li> -->
+        <?php if ($type === 'Admin') {
+          output_nav_menu_list_item("../pages/departments_list.php", "apartment", "Departments");
+          output_nav_menu_list_item("../pages/users_list.php", "group", "Users");
+        }
+        output_nav_menu_list_item("../pages/FAQ.php", "quiz", "FAQs");
+        output_nav_menu_list_item("../actions/action_logout.php", "logout", "Log Out");
+        ?>
       </ul>
-
     </nav>
-    <article></article>
     <div class="nav-popup" id="navPopup">
       <ul class="nav-popmenu" id="popMenu">
-        <li class="nav-submenu-item"><a href="../pages/my_tickets.php" class="nav-link">My tickets</a></li>
-        <li class="nav-submenu-item"><a href="../pages/create_ticket.php" class="nav-link">Create ticket</a></li>
-        <li class="nav-submenu-item"><a href="../pages/assigned_tickets.php" class="nav-link">Assigned tickets</a></li>
-        <!--Same page: assigned and followed tickets (not assigned to them)-->
-        <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">All tickets</a></li>
+        <?php
+        output_my_tickets_li();
+        output_create_ticket_li();
+        if ($type !== 'Client') {
+          output_assigned_tickets_li();
+        }
+        if ($type === 'Admin') {
+          output_all_tickets_li();
+        }
+        ?>
       </ul>
     </div>
-    <!--
-    <section id="session-messages">
-        <article>
-        </article>
-      </section>
-    -->
-    <!-- <main id="page-container"> -->
+
     <main>
     <?php } ?>
 
@@ -186,3 +177,25 @@ function output_session_message(Session $session, string $id) {
         <h2><?=$title?></h2>
     </section>
 <?php } ?>
+
+<?php function output_nav_menu_list_item(string $href, string $icon_name, string $text) { ?>
+  <li class="nav-item"><a href="<?=$href?>" class="nav-link"><span
+              class="material-symbols-outlined nav-icon"><?=$icon_name?></span><span class="link-text"><?=$text?></span></a></li>
+<?php } ?>
+<?php function output_nav_submenu_list_item(string $href, string $text) { ?>
+  <li class="nav-submenu-item"><a href="<?=$href?>" class="nav-link"><?=$text?></a></li>
+<?php } ?>
+
+<?php function output_my_tickets_li() {
+  output_nav_submenu_list_item("../pages/my_tickets.php", "My tickets");
+} ?>
+<?php function output_assigned_tickets_li() {
+  output_nav_submenu_list_item("../pages/assigned_tickets.php", "Assigned tickets");
+} ?>
+<?php function output_all_tickets_li() {
+  output_nav_submenu_list_item("../pages/tickets.php", "All tickets");
+} ?>
+<?php function output_create_ticket_li() {
+  output_nav_submenu_list_item("../pages/create_ticket.php", "Create ticket");
+} ?>
+

@@ -14,29 +14,30 @@ require_once(__DIR__ . '/../database/connection.db.php');
 require_once(__DIR__ . '/../database/forum.class.php');
 
 $session = new Session();
-if (!$session->isLoggedIn()) die(header('Location: landing_page.php'));
+if (!$session->isLoggedIn()) {
+    die(header('Location: landing_page.php'));
+}
 
 $db = getDatabaseConnection();
-
 
 if (!is_valid_ticket_id($db, $_GET['id'])) {
     die(header('Location: main_page.php'));
 }
-$id = intval($_GET['id']);
+$ticketID = intval($_GET['id']);
 
 
-if (!Client::hasAcessToTicket($db, $session->getId(), $id)) {
+if (!Client::hasAcessToTicket($db, $session->getId(), $ticketID)) {
     die(header('Location: main_page.php'));
 }
 
-$ticket = Ticket::getById($db, $id);
-if (!$ticket) {
+$ticket = Ticket::getById($db, $ticketID);
+if ($ticket == null) {
     die(header('Location: main_page.php'));
 }
 
 $displayed_faqs = Forum::getDisplayedFaqs($db);
-$messages = Message::getByTicket($db, $id);
-$actions = Action::getByTicket($db, $id);
+$messages = Message::getByTicket($db, $ticketID);
+$actions = Action::getByTicket($db, $ticketID);
 $hashtags = Hashtag::getHashtags($db);
 $departments = Department::getDepartments($db);
 $isAgentView = !($session->getName() === $ticket->username);
@@ -46,7 +47,7 @@ $agents = $ticketDepartment != null ? Agent::getByDepartment($db, $ticketDepartm
 : Agent::getAgents($db);
 
 
-output_header($session);
+output_header($session, $type);
 output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments, $session, $isAgentView);
 if (!$ticket->isClosed()) {
     output_answer_forms($isAgentView, $ticket->ticketid, $displayed_faqs);

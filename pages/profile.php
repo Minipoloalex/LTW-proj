@@ -6,18 +6,10 @@ require_once(__DIR__ . '/../templates/common.tpl.php');
 require_once(__DIR__ . '/../templates/profile.tpl.php');
 
 $session = new Session();
-if (!$session->isLoggedIn()) die(header('Location: landing_page.php'));
-
-// if (!isset($_GET['id'])) {
-//     die(header('Location: main_page.php'));
-// }
-
-// $id = intval($_GET['id']);
+if (!$session->isLoggedIn()) {
+    die(header('Location: landing_page.php'));
+}
 $db = getDatabaseConnection();
-
-// if ($id != $session->getId()) {
-//     die(header('Location: landing_page.php'));
-// }
 
 $user = Client::getById($db, $session->getId());
 if (!$user) {
@@ -25,8 +17,7 @@ if (!$user) {
 }
 $type = Client::getType($db, $user->id);
 
-output_header($session);
-// drawProfile($user, $type);
+output_header($session, $type);
 drawProfileForm($user, $session, $type);
 output_footer();
 

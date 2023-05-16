@@ -13,12 +13,11 @@ if (!$session->isLoggedIn()) {
     header('Location: landing_page.php');
     exit();
 }
-
 $db = getDatabaseConnection();
 $faqs = Forum::getFaqs($db, 10);
 $type = Client::getType($db, $session->getId());
 
-output_header($session);
+output_header($session, $type);
 drawTitle("Frequently Asked Questions", "none");
 output_faq_form();
 output_all_faqs($faqs, $type);

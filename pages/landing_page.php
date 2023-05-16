@@ -10,10 +10,8 @@ if ($session->isLoggedIn()) {
 }
 
 drawLandingPageHeader();
-/*body*/
 drawShape();
 drawLoginForm($session);
 drawLogo();
-/*body end*/
 output_footer();
 ?>

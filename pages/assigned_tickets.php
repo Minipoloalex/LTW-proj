@@ -9,7 +9,6 @@ require_once(__DIR__ . '/../database/client.class.php');
 $session = new Session();
 if (!$session->isLoggedIn()) die(header('Location: landing_page.php'));
 $db = getDatabaseConnection();
-
 $type = Client::getType($db, $session->getId());
 if ($type === 'Client') {
     die(header('Location: main_page.php'));
@@ -23,7 +22,7 @@ if (!$user) {
 $filters = Ticket::getFilters($db);
 $tickets = Ticket::getByAgent($db, $user->id);
 
-output_header($session);
+output_header($session, $type);
 drawTitle("Assigned Tickets", "ticket");
 drawFilterMenu($filters);
 // drawTicketsTable($tickets, 'Assigned Tickets');

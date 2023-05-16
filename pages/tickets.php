@@ -14,13 +14,13 @@ $db = getDatabaseConnection();
 if (Client::getType($db, $session->getId()) !== 'Admin') {
     die(header('Location: main_page.php'));
 }
-
 $filters = Ticket::getFilters($db);
-output_header($session);
+
+output_header($session, 'Admin');
 drawTitle("All Tickets", "ticket");
 drawFilterMenu($filters);
 // $tickets = Ticket::getTickets($db);
-$tickets = Ticket::filter($db);
+// $tickets = Ticket::filter($db);
 // drawTicketsTable($tickets, 'All Tickets');
 
 drawCardContainer();
