@@ -1,7 +1,17 @@
 <?php
 declare(strict_types = 1);
-$name_regex = '/^[A-Za-zÀ-ÖØ-öø-ÿ ]+$/';
-$username_regex = '/^[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-. ]+$/';
+function get_name_regex(): string {
+    return '^[A-Za-zÀ-ÖØ-öø-ÿ\- ]+$';
+}
+function get_username_regex(): string {
+    return '^[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-. ]+$';
+}
+function get_password_regex(): string {
+    return '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$';
+}
+function get_email_regex(): string {
+    return "^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
+}
 function is_valid_id(?String $id): bool {
     return isset($id) && is_numeric($id) && intval($id) >= 0;
 }
@@ -23,14 +33,13 @@ function is_valid_email(?String $email): bool {
     return isset($email) && !empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 function is_valid_name(?String $name): bool {
-    return isset($name) && !empty($name) && preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ\- ]+$/', $name);
+    return isset($name) && !empty($name) && preg_match('/' . get_name_regex() . '/', $name);
 }
 function is_valid_username(?String $username): bool {
-    return isset($username) && !empty($username) && preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-. ]+$/', $username);
+    return isset($username) && !empty($username) && preg_match('/' . get_username_regex() . '/', $username);
 }
-
 function is_valid_password(?String $password): bool {
-    return isset($password) && !empty($password) && preg_match('/^(?=.*[0-9])(?=.*[!@#$%^&])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&]{6,}$/', $password);
+    return isset($password) && !empty($password) && preg_match('/' . get_password_regex() . '/', $password);
 }
 function check_valid_data(string $name, string $username, string $email, string $password, string $confirm_password) : array {
     if (!is_valid_name($name) || !is_valid_username($username) || !is_valid_email($email) || !is_valid_string($password) || !is_valid_string($confirm_password)) {
@@ -40,7 +49,7 @@ function check_valid_data(string $name, string $username, string $email, string 
         return array(false, "Passwords do not match");
     }
     if (!is_valid_password($password)) {
-        return array(false, "Password must have at least 6 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character");
+        return array(false, "Password must have at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character");
     }
     return array(true, "");
 }
@@ -51,8 +60,8 @@ function check_valid_password(string $pass) : array {
         return array(false, "Password is required");
     }
 
-    if (strlen($pass) < 6) {
-        return array(false, "Password must have at least 6 characters");
+    if (strlen($pass) < 8) {
+        return array(false, "Password must have at least 8 characters");
     }
 
     return array(true, "");

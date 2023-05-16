@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . '/common.tpl.php');
 require_once(__DIR__ . '/../utils/session.php');
+require_once(__DIR__ . '/../utils/validate.php');
 ?>
 <?php function drawShape()
 { ?>
@@ -29,7 +30,6 @@ require_once(__DIR__ . '/../utils/session.php');
 
 <?php function drawLoginForm(Session $session)
 {
-  $email_regex = "^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
   ?>
   <div class="login-container">
     <form class="login-form" action="../actions/action_login.php" method="post">
@@ -38,7 +38,7 @@ require_once(__DIR__ . '/../utils/session.php');
         output_session_message($session, "feedback-message");
         output_csrf_input($session);
       ?>
-      <input type="text" id="email" name="email" placeholder="Email" pattern=<?=$email_regex?>>
+      <input type="text" id="email" name="email" placeholder="Email" pattern=<?=get_email_regex()?>>
       <div class="password-container">
       <input type="password" id="password" name="password" placeholder="Password">
       <button type="button" id="hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
@@ -54,10 +54,6 @@ require_once(__DIR__ . '/../utils/session.php');
 
 <?php function drawRegisterForm(Session $session)
 {
-  $email_regex = "^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
-  $name_regex = "^[A-Za-zÀ-ÖØ-öø-ÿ\- ]+$";
-  $username_regex = "^[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-. ]+$";
-  $password_regex =  "^(?=.*[0-9])(?=.*[!@#$%^&])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&]{6,}$";
   ?>
 <div class="landing-register">
   <form action="../actions/action_create_account.php" method="post" class="registerform">
@@ -66,18 +62,19 @@ require_once(__DIR__ . '/../utils/session.php');
     output_session_message($session, "feedback-message");
     output_csrf_input($session);
     ?>
-    <input type="text" name="name" placeholder="Name" pattern="<?=$name_regex?>">
-    <input type="text" name="username" placeholder="Username" pattern="<?=$username_regex?>">
-    <input type="email" name="email" placeholder="Email" pattern="<?=$email_regex?>">
+
+    <input type="text" name="name" placeholder="Name" pattern="<?=get_name_regex()?>">
+    <input type="text" name="username" placeholder="Username" pattern="<?=get_username_regex()?>">
+    <input type="email" name="email" placeholder="Email" pattern="<?=get_email_regex()?>">
 
     <div class="password-container">
-    <input id="password" type="password" name="password" placeholder="Password" pattern="<?=$password_regex?>">
+    <input id="password" type="password" name="password" placeholder="Password" pattern="<?=get_password_regex()?>">
     <button type="button" id="hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
 		<button type="button" id="showpass" class="showpass"><span class="material-symbols-outlined showpass">visibility</span></button>
     </div>
 
     <div class="password-container">
-    <input id="confirm-password" type="password" name="confirm_password" placeholder="Confirm password" pattern="<?=$password_regex?>">
+    <input id="confirm-password" type="password" name="confirm_password" placeholder="Confirm password" pattern="<?=get_password_regex()?>">
     <button type="button" id="confirm-hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
 		<button type="button" id="confirm-showpass" class="showpass"><span class="material-symbols-outlined showpass">visibility</span></button>
     </div>
