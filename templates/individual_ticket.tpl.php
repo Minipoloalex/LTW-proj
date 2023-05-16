@@ -6,7 +6,6 @@ require_once(__DIR__ . '/../database/message.class.php');
 require_once(__DIR__ . '/../database/agent.class.php');
 require_once(__DIR__ . '/../database/department.class.php');
 require_once(__DIR__ . '/../database/hashtag.class.php');
-
 require_once(__DIR__ . '/create_ticket.tpl.php');
 ?>
 <?php function output_single_ticket_agent_view(Ticket $ticket, Session $session, array $all_hashtags, array $agents, array $all_departments) { 

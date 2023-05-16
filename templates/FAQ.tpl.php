@@ -45,7 +45,9 @@ require_once(__DIR__ . '/common.tpl.php');
 
 		<?php } ?>
 	</article>
-
+	<?php
+	output_empty_feedback_message('');
+	?>
 <?php } ?>
 <?php function output_all_faqs(array $faqs, string $type)
 { ?>
@@ -62,7 +64,7 @@ require_once(__DIR__ . '/common.tpl.php');
 <?php function output_faq_form(Forum $faq = null)
 { ?>
 	<header class="faq-page">
-		<h2 class="faq-header">Frequently Asked Questions</h2>
+		<!-- <h2 class="faq-header">Frequently Asked Questions</h2> -->
 		<p>Browse our FAQs for quick answers to common questions! If you can't find what you're looking for, use the form
 			below to ask a question about our service. Our agents will answer your question as soon as possible.
 		</p>
@@ -77,7 +79,7 @@ require_once(__DIR__ . '/common.tpl.php');
 			100
 		);
 
-		output_empty_feedback_message();
+		output_empty_feedback_message('add-faq-feedback');
 		?>
 	</header>
 <?php } ?>

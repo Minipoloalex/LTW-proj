@@ -163,9 +163,12 @@ require_once(__DIR__ . '/../utils/session.php');
 <?php function output_feedback_message(string $id, string $messageText, string $type) {
   if ($type === 'success') $class = 'feedback-message success-message';
   else if ($type === 'error') $class = 'feedback-message error-message';
-  else $class = 'feedback-message'
-  ?>
-  <div id="<?=$id?>" class="<?=$class?>"><?=$messageText?></div>
+  else $class = 'feedback-message';
+  if (empty($id)) { ?>
+    <div class="<?=$class?>"><?=$messageText?></div>
+  <?php } else { ?>
+    <div id="<?=$id?>" class="<?=$class?>"><?=$messageText?></div>
+  <?php } ?>
 <?php }
 function output_empty_feedback_message(string $id) {
   output_feedback_message($id, "", "nothing");

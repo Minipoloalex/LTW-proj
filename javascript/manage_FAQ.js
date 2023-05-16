@@ -41,13 +41,12 @@ const answerBtns = document.querySelectorAll('#answerFaq');
 const displayFaqBtns = document.querySelectorAll('#displayBtn');
 const hideFaqBtns = document.querySelectorAll('#hideBtn');
 
-
 // !XXX: Funtions to add listeners
 
 function handleEdit(editFaqBtn) {
   const faq = editFaqBtn.parentElement;
   // const message = faq.nextElementSibling;
-
+  const feedback = faq.nextElementSibling;
   const question = faq.querySelector('#question');
   const answer = faq.querySelector('#answer');
   const saveFaqBtn = faq.querySelector('#saveFaqBtn');
@@ -81,11 +80,14 @@ function handleEdit(editFaqBtn) {
     const json = await res.json();
     if (res.ok) {
       console.log("success");
-      displayMessage(json['success'], false);
+      // !TODO: get faq and faq.querySelector(".feedbackMessage");
+      // displayMessage(json['success'], false);
+      displayFeedback(feedback,json);
       toggle();
     } else {
       console.error('Error: ' + res.status);
-      displayMessage(json['error']);
+      // displayMessage(json['error']);
+      displayFeedback(feedback,json);
     }
 
   });
@@ -93,7 +95,7 @@ function handleEdit(editFaqBtn) {
 
 function handleDelete(deleteFaqBtn) {
   const faq = deleteFaqBtn.parentElement;
-
+  const feedback = faq.nextElementSibling;
   const modal = faq.querySelector(".modal");
   const modalContent = modal.querySelector(".modalContent");
   const x = modal.querySelector(".close");
@@ -140,11 +142,14 @@ function handleDelete(deleteFaqBtn) {
       console.log("success");
       // delete element
       faq.remove();
-      displayMessage(json['success'], false);
+      // displayMessage(json['success'], false);
+      // displayFeedback("add-faq-feedback",json);
+      displayFeedback(feedback,json, true);
     } else {
       console.error('Error: ' + res.status);
-      displayMessage(json['error']);
-
+      // displayMessage(json['error']);
+      // displayFeedback("add-faq-feedback",json);
+      displayFeedback(feedback,json);
     }
   });
 
@@ -152,6 +157,7 @@ function handleDelete(deleteFaqBtn) {
 
 function handleAnswer(answerBtn) {
   const faq = answerBtn.parentElement;
+  const feedback = faq.nextElementSibling;
   const question = faq.querySelector('#question');
   const answer = faq.querySelector('#answer');
   const saveFaqBtn = faq.querySelector('#saveFaqBtn');
@@ -198,7 +204,9 @@ function handleAnswer(answerBtn) {
     const res = await putFaqData({ 'id': faq.getAttribute("data-id"), 'question': question.value, 'answer': answer.value });
     const json = await res.json();
     if (res.ok) {
-      displayMessage(json['success'], false);
+      displayFeedback(feedback,json);
+      // displayFeedback("add-faq-feedback",json);
+      // displayMessage(json['success'], false);
       console.log("success");
       appear();
       answerBtn.remove();
@@ -207,7 +215,9 @@ function handleAnswer(answerBtn) {
     } else {
       console.log(res);
       console.error('Error: ' + res.status);
-      displayMessage(json['error']);
+      displayFeedback(feedback,json);
+      // displayFeedback("add-faq-feedback",json);
+      // displayMessage(json['error']);
     }
 
   });
@@ -216,6 +226,7 @@ function handleAnswer(answerBtn) {
 
 function handleDisplay(displayBtn) {
   const faq = displayBtn.parentElement;
+  const feedback = faq.nextElementSibling;
   console.log(faq);
   const hideBtn = faq.querySelector('#hideBtn');
   const answerBtn = faq.querySelector('#answerFaq');
@@ -227,18 +238,24 @@ function handleDisplay(displayBtn) {
     const res = await patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '1' });
     const json = await res.json();
     if (res.ok) {
-      displayMessage(json['success'], false);
+      // displayMessage(json['success'], false);
+      // displayFeedback("add-faq-feedback",json);
+      displayFeedback(feedback,json);
       console.log("success");
     }
     else {
       console.error('Error: ' + res.status);
-      displayMessage(json['error']);
+      // displayMessage(json['error']);
+      // displayFeedback("add-faq-feedback",json);
+      displayFeedback(feedback,json);
+
     }
   })
 };
 
 function handleHide(hideBtn) {
   const faq = hideBtn.parentElement;
+  const feedback = faq.nextElementSibling;
   const displayBtn = faq.querySelector('#displayBtn');
 
   hideBtn.addEventListener('click', async () => {
@@ -248,12 +265,15 @@ function handleHide(hideBtn) {
     const json = await res.json();
     if (res.ok) {
       console.log("success");
-      displayMessage(json['success'], false);
+      // displayMessage(json['success'], false);
+      // displayFeedback("add-faq-feedback",json);
+      displayFeedback(feedback,json);
     }
     else {
       console.error('Error: ' + res.status);
-      displayMessage(json['error']);
-
+      // displayMessage(json['error']);
+      // displayFeedback("add-faq-feedback",json);
+      displayFeedback(feedback,json);
     }
   })
 };

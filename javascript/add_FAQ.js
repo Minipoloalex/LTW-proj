@@ -1,6 +1,6 @@
 const form = document.getElementById('faq-form');
-
 const faqSection = document.getElementById('faqs');
+const addFaqFeedback = document.getElementById('add-faq-feedback');
 if (form) {
     form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -25,7 +25,8 @@ if (form) {
         }).then(async function (response) {
             const json = await response.json();
             if (response.ok) {
-                displayMessage(json['success'], false);
+                displayFeedback(addFaqFeedback,json);
+                // displayMessage(,json['success'], false);
                 form.reset();
 
                 const type = json['type']; //user type;
@@ -181,7 +182,8 @@ if (form) {
 
                 }
             } else {
-                displayMessage(json['error']);
+                // displayMessage(json['error']);
+                displayFeedback(addFaqFeedback, json);
                 throw new Error('Network response was not ok');
             }
 

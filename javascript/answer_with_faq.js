@@ -17,7 +17,7 @@ async function addMessageByFaq(event) {
     console.log(jsonFAQ)
 
     if (jsonFAQ['error']) {
-        displayMessage(jsonFAQ['error'], true)
+        displayFeedback(addMessageFeedback, jsonFAQ);
     }
     else if (jsonFAQ['success']) {
         const messageText = jsonFAQ['question'] + "\n" + jsonFAQ['answer']
