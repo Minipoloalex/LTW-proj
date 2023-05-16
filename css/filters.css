@@ -78,5 +78,9 @@ section#filter-section.hidden {
 /* show filter section when user clicks on filter header */
 .filter-toggle.clicked + section#filter-section.filter {
   display: block;
-  width: 85%; 
+  width: 85%;
+}
+
+.filter-toggle h3 {
+  font-size: 1.5em;
 }

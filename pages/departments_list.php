@@ -22,7 +22,7 @@ require_once(__DIR__ . '/../templates/cards.tpl.php');
 $departments = Department::getDepartments($db);
 
 output_header($session);
-drawTitleDepartments();
+drawTitle("Departments", "department");
 drawDepartmentsTable($departments, $db);
 drawCardContainer();
 output_footer();

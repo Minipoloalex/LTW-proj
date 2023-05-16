@@ -19,6 +19,7 @@ $faqs = Forum::getFaqs($db, 10);
 $type = Client::getType($db, $session->getId());
 
 output_header($session);
+drawTitle("Frequently Asked Questions", "none");
 output_faq_form();
 output_all_faqs($faqs, $type);
 output_footer();

@@ -18,8 +18,9 @@ $filters = Ticket::getFilters($db);
 $tickets = Ticket::getByUser($db, $user->id);
 
 output_header($session);
+drawTitle("My Tickets", "ticket");
 drawFilterMenu($filters);
-drawTicketsTable($tickets, 'My Tickets');
+// drawTicketsTable($tickets, 'My Tickets');
 drawCardContainer();
 output_footer();
 ?>

@@ -57,11 +57,6 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
     </table>
 <?php } ?>
 
-<?php function drawTitleTickets() { ?>
-    <section id="title" data-type="ticket">
-        <h2>Tickets</h2>
-    </section>
-<?php } ?>
 
 <?php function drawFilterMenu(array $filterValues)
 { 
@@ -69,7 +64,7 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
     ?>
 
 <div class="filter-toggle">
-  <h2>Filters <i class="fa fa-caret-right"></i></h2>
+  <h3>Filters <i class="fa fa-caret-right"></i></h3>
 </div>
 
 <section id="filter-section" class="filter hidden" data-type="<?php echo $type?>">
