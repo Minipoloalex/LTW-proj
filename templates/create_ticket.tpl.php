@@ -16,7 +16,7 @@ require_once(__DIR__ . '/../templates/common.tpl.php');
 
         <?php output_csrf_input($session); ?>
 
-        <label>Ticket title*</label>
+        <label>Ticket title* (limit 25 characters)</label>
         <input type='text' name='title' required>
 
         <?php
