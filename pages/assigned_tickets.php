@@ -24,8 +24,9 @@ $filters = Ticket::getFilters($db);
 $tickets = Ticket::getByAgent($db, $user->id);
 
 output_header($session);
+drawTitle("Assigned Tickets", "ticket");
 drawFilterMenu($filters);
-drawTicketsTable($tickets, 'Assigned Tickets');
+// drawTicketsTable($tickets, 'Assigned Tickets');
 drawCardContainer();
 output_footer();
 ?>

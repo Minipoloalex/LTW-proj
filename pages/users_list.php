@@ -21,6 +21,7 @@ $users = Client::getClients($db, $count);
 $all_departments = Department::getDepartments($db);
 
 output_header($session);
+drawTitle("Users", "user");
 drawUsersTable($users, $db, $all_departments);
 output_footer();
 

@@ -6,6 +6,16 @@
   --closed-red: #f44336;
 } */
 
+/*general titles for all pages*/
+
+h2 {
+  font-size: 2em;
+  font-weight: bold;
+  width: fit-content;
+  padding: 0.5rem;
+  margin: auto;
+}
+
 :root {
   --button-color: #846a8b;
   --button-hover: #a492a9;
@@ -165,6 +175,7 @@ tr:hover {
   gap: 1rem;
   justify-content: center;
 }
+
 #charts canvas {
   margin-bottom: 2rem;
   background-color: #F5F6FF;
@@ -175,15 +186,18 @@ tr:hover {
   min-width: 35vw;
   min-height: 35vh;
 }
+
 @media only screen and (max-width: 600px) {
   #charts {
     flex-direction: column;
   }
+
   #charts canvas {
     max-width: 100%;
     max-height: 100%;
   }
 }
+
 .mainpage {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -202,7 +216,7 @@ tr:hover {
   grid-area: h1;
   justify-self: center;
   font-size: 3em;
-  color:rgba(112, 78, 125, 0.562);
+  color: rgba(112, 78, 125, 0.562);
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   text-align: center;
 }
@@ -212,15 +226,20 @@ tr:hover {
   align-items: end;
   text-align: center;
 }
-.mainpage p, .mainpage p1, .mainpage p2 {
+
+.mainpage p,
+.mainpage p1,
+.mainpage p2 {
   display: flex;
   align-items: center;
   padding: 2em;
   text-align: center;
 }
+
 .mainpage p {
   grid-area: p;
 }
+
 .mainpage p1 {
   grid-area: p1;
 }
@@ -274,7 +293,7 @@ div.features {
 /* For tablet and phone devices -> 600 A 961*/
 @media only screen and (max-width: 961px) {
 
-  main{
+  main {
     font-size: calc(10px + 1vw);
   }
 
@@ -282,7 +301,8 @@ div.features {
     margin-bottom: 5rem;
   }
 
-  .login-form, .registerform {
+  .login-form,
+  .registerform {
     width: 70%;
     height: auto;
     padding: 1.5em;
@@ -300,9 +320,12 @@ div.features {
       "p2"
       "p3";
   }
-  .mainpage p1, .mainpage p2 {
+
+  .mainpage p1,
+  .mainpage p2 {
     padding: 1em;
   }
+
   .password-container button span.material-symbols-outlined {
     font-size: 17px;
   }
@@ -324,7 +347,8 @@ div.features {
     height: 100vh;
   }
 
-  .login-form, .registerform {
+  .login-form,
+  .registerform {
     width: 30%;
     height: auto;
     padding: 2em;
@@ -346,6 +370,7 @@ div.features {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
 }
+
 .modalContent {
   font-size: 20px;
   font-weight: bold;
@@ -355,16 +380,20 @@ div.features {
   border: 1px solid #888;
   width: 60%;
 }
+
 .close {
   color: rgb(255, 65, 65);
   float: right;
   font-size: 40px;
   font-weight: bold;
 }
-.close:hover, .close:focus {
+
+.close:hover,
+.close:focus {
   color: #ff1010;
   cursor: pointer;
 }
+
 .modalContent button {
   border: none;
   border-radius: 4px;
@@ -372,12 +401,15 @@ div.features {
   font-weight: bold;
   padding: 10px;
 }
+
 .del {
   background-color: rgb(255, 65, 65);
 }
+
 .del:hover {
   background-color: rgb(255, 7, 7);
 }
+
 .cancel:hover {
   background-color: rgb(167, 167, 167);
 }

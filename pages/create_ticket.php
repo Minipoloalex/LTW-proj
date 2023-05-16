@@ -12,6 +12,7 @@ if (!$session->isLoggedIn()) {
 $db = getDatabaseConnection();
 
 output_header($session);
+drawTitle("Create Ticket", "none");
 output_create_ticket_form($db, $session);
 output_footer();
 

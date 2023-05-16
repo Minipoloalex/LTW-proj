@@ -30,19 +30,7 @@
     width: fit-content;
     margin-bottom: 0.5rem;
   }
-  
-  h2#yourprofile {
-    /*"Your profile"*/
-    margin-bottom: 1rem;
-    text-align: center;
-    color: black;
-    font-size: 30px;
-    font-weight: bold;
-    width: fit-content;
-    padding: 0.5rem;
-    margin: auto;
-  }
-  
+    
   .profile label {
     font-weight: bold;
     margin-bottom: 0.5rem;

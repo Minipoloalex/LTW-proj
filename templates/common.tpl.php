@@ -180,3 +180,9 @@ function output_session_message(Session $session, string $id) {
   }
   else output_feedback_message($id, $message['text'], $message['type']);
 } ?>
+
+<?php function drawTitle($title, $type) { ?>
+    <section id="title" data-type=<?=$type?>>
+        <h2><?=$title?></h2>
+    </section>
+<?php } ?>
