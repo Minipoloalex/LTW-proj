@@ -108,7 +108,13 @@ require_once(__DIR__ . '/../utils/session.php');
         ?>
       </ul>
     </div>
-
+    <!-- TENTATIVA DE UM POPUP NO BOTAO DE USER PARA IR PARA A MAIN PAGE EM VERSAO MOBILE -->
+    <!-- <div class="nav-popup" id="navPopupForHome">
+      <ul class="nav-popupmenu" id="popupMenuForHome">
+        <li class="nav-submenu-item"><a href="../pages/profile.php" class="nav-link">My Profile</a></li>
+        <li class="nav-submenu-item"><a href="../pages/main_page.php" class="nav-link">Home page</a></li>
+      </ul>
+    </div> -->
     <main>
     <?php } ?>
 
@@ -117,6 +123,9 @@ require_once(__DIR__ . '/../utils/session.php');
     <?php function output_footer()
     { ?>
     </main>
+
+    <div class="mobile-logo"><a href="../pages/main_page.php"><img src="../css/images/logomobile-escuro.png" alt="logo"></a></div>
+
     <footer>
       LTW Trouble Ticket Project &copy; 2023
     </footer>

@@ -66,23 +66,6 @@ main {
   display: block;
 }
 
-/* -------------------- damn footer --------------------- */
-
-footer {
-  bottom: 0;
-  padding: 0;
-  text-align: center;
-  background-color: transparent;
-  font-size: 0.8em;
-  border: none;
-  cursor: pointer;
-  color: #846a8b;
-  font-family: 'Martel Sans', sans-serif;
-  align-self: flex-end;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
 
 /* ------------- tables on main page -> to delete ------------------- */
 
@@ -257,38 +240,18 @@ div.features {
   border-radius: 10px;
 }
 
+/*====================== mobile home icon =======================*/
+
+div.mobile-logo {
+  display: none;
+}
+
+div.mobile-logo img {
+  display: none;
+}
 
 /* ================ RESPONSIVENESS (web e mobile) ================== */
 
-/* For mobile devices -> ATÉ 600 */
-/* @media only screen and (max-width: 600px) {
-
-  body main {
-    margin-bottom: 5rem;
-  }
-
-  .login-form, .registerform {
-    width: 90%;
-    height: auto;
-    padding: 1em;
-    border-radius: 5px;
-  }
-
-  .mainpage {
-    grid-template-columns: 1fr;
-    grid-template-rows: 0.1fr 0.1fr 1fr 1fr;
-    gap: 10px 0px;
-    grid-template-areas:
-      "h1"
-      "h2"
-      "p1"
-      "p2"
-      "p3";
-  }
-  .mainpage p1, .mainpage p2 {
-    padding: 1em;
-  }
-} */
 
 /* For tablet and phone devices -> 600 A 961*/
 @media only screen and (max-width: 961px) {
@@ -329,6 +292,29 @@ div.features {
   .password-container button span.material-symbols-outlined {
     font-size: 17px;
   }
+
+  div.mobile-logo {
+  /* bottom: 1rem; */
+  /* left: 0; */
+  display: block;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+  max-height: 60px;
+  transition: width 600ms;
+  position: fixed;
+}
+
+div.mobile-logo img {
+  max-height: 60px;
+  width: auto;
+  display: block;
+}
+
 }
 
 /* For desktop devices -> A PARTIR DE 961*/
@@ -354,6 +340,24 @@ div.features {
     padding: 2em;
     border-radius: 10px;
   }
+}
+
+/* -------------------- damn footer --------------------- */
+
+footer {
+  bottom: 0;
+  padding: 0;
+  text-align: center;
+  background-color: transparent;
+  font-size: 0.8em;
+  border: none;
+  cursor: pointer;
+  color: #846a8b;
+  font-family: 'Martel Sans', sans-serif;
+  align-self: flex-end;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
 }
 
 /* ===================== SURE YOU WANT TO DELETE POPUP ============================================= */
