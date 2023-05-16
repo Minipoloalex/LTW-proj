@@ -165,19 +165,68 @@
             if ($agent->departmentid === NULL) return true;
             return $department->departmentName === $ticket->departmentName;
           }
-          static function filter(PDO $db, array $types, array $departments, string $search) : array {
-            $query = 'SELECT UserID, Name, Username, Password, Email FROM CLIENT';
+          static function filter(PDO $db, array $types = [], array $departments = [], int $page = 1) : array {
+            $query = '
+                    SELECT
+                      c.UserID,
+                      c.Name,
+                      c.Username,
+                      c.Email,
+                      d.DepartmentName AS Department,
+                      CASE
+                          WHEN ad.UserID IS NOT NULL THEN "Admin"
+                          WHEN a.UserID IS NOT NULL THEN "Agent"
+                          ELSE "Client"
+                      END AS UserType
+                    FROM CLIENT c
+                    LEFT JOIN AGENT a ON c.UserID = a.UserID
+                    LEFT JOIN ADMIN ad ON c.UserID = ad.UserID
+                    LEFT JOIN DEPARTMENT d ON a.DepartmentID = d.DepartmentID
+                    WHERE TRUE
+                    ';
+            
             $typesF = '';
             $departmentsF = '';
-            $nameF = '';
+            $params = array();
 
             if(!empty($types)){
               for ($i = 0; $i<count($types); $i++) {
-                if ($i == 0) {$statusF = $statusF.sprintf('(T.Status = %s', $types[$i]);} 
-                else {$statusF = $statusF.sprintf(' or T.Status = %s', $types[$i]);}
+                if ($i == 0) {
+                  $statusF = $statusF.sprintf('(UserType = ?');
+                  $params = $types[$i];
+                } 
+                else {
+                  $statusF = $statusF.sprintf(' or UserType = ?');
+                  $params = $types[$i];
+                }
               }
               $statusF = $statusF.')';
             }
+
+            if(!empty($departments)){
+              for ($i = 0; $i<count($departments); $i++) {
+                if ($i == 0) {
+                  $statusF = $statusF.sprintf('(Department = ?');
+                  $params = $departments[$i];
+                } 
+                else {
+                  $statusF = $statusF.sprintf(' or Department = ?');
+                  $params = $departments[$i];
+                }
+              }
+              $statusF = $statusF.')';
+            }
+            
+            $query = $query.$typesF.$departmentsF;
+            $stmt1 = $db->prepare('SELECT COUNT(DISTINCT UserID) as c FROM ('.$query.');');
+            $stmt1->execute($params);
+            $count = $stmt1->fetch()['c'];
+
+            $query = $query.'ORDER BY Name ASC LIMIT 12 OFFSET ?;';
+            $params[] = ($page - 1) * 12;
+
+            results 
+            return results;
           }
 
           static function getFilters(PDO $db): array {

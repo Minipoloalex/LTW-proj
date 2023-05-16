@@ -33,7 +33,7 @@ const addCards = (pageIndex) => {
 
 function createCard(index) {
   const card = document.createElement("div");
-  card.className = "card";
+  card.classList.add("card");
   console.log(cardType);
   switch (cardType) {
     case 'ticket': {
