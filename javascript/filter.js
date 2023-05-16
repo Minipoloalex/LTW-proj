@@ -47,6 +47,14 @@ async function getFilterValues(cardType) {
       json = await getTickets2(checkedValues);
       break;
     }
+    case 'department': {
+      json = await getDepartments2(checkedValues);
+      break;
+    }
+    case 'user': {
+      json = await getUsers2(checkedValues);
+      break;
+    }
     default: {
       console.error('Error: invalid type');
     }
@@ -89,6 +97,13 @@ async function getDepartments2(checkedValues, page = 0) {
   const data = {...checkedValues, page: page};
   // data['page'] = page;
   const path = '../api/api_departments.php';
+  return json = await getData(path, data);
+}
+
+async function getUsers2(checkedValues, page = 0) {
+  const data = {...checkedValues, page: page};
+  // data['page'] = page;
+  const path = '../api/api_users.php';
   return json = await getData(path, data);
 }
 

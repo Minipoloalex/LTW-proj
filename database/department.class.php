@@ -7,7 +7,7 @@ class Department {
     public ?int $nrAgents;
     public function __construct(int $departmentId, string $departmentName, int $nrTickets = null, int $nrAgents = null) {
         $this->departmentId = $departmentId;
-        $this->departmentName = $departmentName;
+        $this->departmentName = htmlentities($departmentName);
         $this->nrTickets = $nrTickets;
         $this->nrAgents = $nrAgents;
     }

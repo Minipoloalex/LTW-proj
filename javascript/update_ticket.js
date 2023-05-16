@@ -58,7 +58,7 @@ async function updateTicketInformation(event) {
             ticketStatus.classList.remove(status)
         }
         ticketStatus.textContent = json['status']
-        if (json['status'].toLowerCase() == 'in progress') ticketStatus.classList.add("in-progress")
+        if (json['status'].toLowerCase() == 'assigned') ticketStatus.classList.add("assigned")
         else ticketStatus.classList.add(json['status'])
 
         addActionToDOM(json['action_username'], json['action_date'], json['action_text'])

@@ -42,6 +42,8 @@ function createCard(index) {
       break;
     };
     case 'user': {
+      const curr = data.users[index - 1];
+      drawUserCard(card, curr);
       break;
     };
     case 'department': {
@@ -67,6 +69,8 @@ async function queryMore(endRange) {
         break;
       }
       case 'user': {
+        const json = await getUsers2(checkedValues, (endRange / 12) + 1);
+        data.users = data.users.concat(json.users);
         break;
       }
       case 'department': {
@@ -121,6 +125,7 @@ if (cardContainer) {
       }
       case 'user': {
         const users = await getAllUsers();
+        getCards(users);
         break;
       }
       case 'department': {
@@ -170,11 +175,33 @@ async function getAllDepartments() {
   }
 }
 
+async function getAllUsers() {
+  const response = await fetch("../api/api_users.php");
+  if (response.ok) {
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } else {
+    console.error('Error: ' + res.status);
+  }
+}
+
 function checkLoader() {
   const loader = document.getElementById("loader");
   if (loader) return true;
 
   else return false;
+}
+
+function drawUserCard(card, curr){
+  console.log(curr);
+  card.innerHTML = `
+  <article>
+  <header>
+  <span class="card-title">${curr.name}</span>
+  </header>
+  </article>
+  `;
 }
 
 function drawDepartmentCard(card, curr) {

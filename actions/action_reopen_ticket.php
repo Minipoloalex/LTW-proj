@@ -19,7 +19,7 @@ if ($ticket === null) die(header('Location: ../pages/main_page.php'));
 
 if (!Client::hasAcessToTicket($db, $session->getId(), $ticketID)) die(header('Location: ../pages/main_page.php'));
 
-$status = $ticket->assignedagent !== NULL ? 'in progress' : 'open';
+$status = $ticket->assignedagent !== NULL ? 'assigned' : 'open';
 $action = Ticket::reopenTicket($db, $ticketID, $session->getId());
 $session->addMessage('success', 'The ticket was successfully reopened');
 

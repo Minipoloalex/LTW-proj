@@ -99,7 +99,7 @@ array $all_hashtags, array $agents, array $all_departments, Session $session, bo
             <span class="date"><?=date('F j', $message->date)?></span>
         </header>
         <div class="message-body">
-            <p class="text"><?=htmlentities($message->text)?></p>
+            <p class="text"><?=$message->text?></p>
             <?php if ($message->imageID !== null) { ?>
                 <button class="view-image">View attached image</button>
                 <div class="image-container d-none">
@@ -123,7 +123,7 @@ array $all_hashtags, array $agents, array $all_departments, Session $session, bo
             <span class="date"><?=date('F j', $action->date)?></span>
         </header>
         <div class="message-body">
-            <p class="text"><?=htmlentities($action->type)?></p>
+            <p class="text"><?=$action->type?></p>
         </div>
     </article>
 <?php } ?>
@@ -192,7 +192,7 @@ array $all_hashtags, array $agents, array $all_departments, Session $session, bo
         <span id="ticket-status" class="open"><?=$status?></span>
     <?php } 
     else { ?>
-        <span id="ticket-status" class="in-progress"><?=$status?></span>
+        <span id="ticket-status" class="assigned"><?=$status?></span>
 <?php } ?>
 <?php } ?>
 
@@ -234,7 +234,7 @@ array $all_hashtags, array $agents, array $all_departments, Session $session, bo
             <select name="faq">
                 <option></option>
                 <?php foreach($displayed_faqs as $faq) { ?>
-                <option value="<?=$faq->forumId?>"><?=htmlentities($faq->question)?></option>
+                <option value="<?=$faq->forumId?>"><?=$faq->question?></option>
                 <?php } ?>
             </select>
             <div class="buttons left">

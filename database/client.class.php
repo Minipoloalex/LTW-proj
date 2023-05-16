@@ -1,20 +1,26 @@
 <?php
-
     declare(strict_types = 1);
-
+    require_once(__DIR__ . '/ticket.class.php');
     class Client {
         public int $id;
         public string $name;
         public string $username;
-        public string $password;
         public string $email;
-        public function __construct(int $id, string $name, string $username, string $password, string $email)
+        public ?string $department;
+        public ?string $user_type;
+        public ?int $nr_tickets_created;
+        public ?int $nr_tickets_assigned;
+  
+        public function __construct(int $id, string $name, string $username, string $email, string $department = null, string $user_type = null, int $nr_tickets_created = null, int $nr_tickets_assigned = null)
         {
             $this->id = $id;
-            $this->name = $name;
-            $this->username = $username;
-            $this->email = $email;
-            $this->password = $password;
+            $this->name = htmlentities($name);
+            $this->username = htmlentities($username);
+            $this->email = htmlentities($email);
+            $this->department = $department == NULL ? NULL : htmlentities($department);
+            $this->user_type = $user_type == NULL ? NULL : htmlentities($user_type);
+            $this->nr_tickets_created = $nr_tickets_created;
+            $this->nr_tickets_assigned = $nr_tickets_assigned;
         }
      
         function save($db) {
@@ -40,7 +46,6 @@
                 intval($client['UserID']),
                 $client['Name'],
                 $client['Username'],
-                $client['Password'],
                 $client['Email']
               );
             }
@@ -70,7 +75,7 @@
 
 
         static function searchClients(PDO $db, string $search, int $count) : array {
-            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Name LIKE ? LIMIT ?');
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Email FROM CLIENT WHERE Name LIKE ? LIMIT ?');
             $stmt->execute(array($search . '%', $count));
         
             $clients = array();
@@ -79,7 +84,6 @@
                 intval($client['UserID']),
                     $client['Name'],
                     $client['Username'],
-                    $client['Password'],
                     $client['Email']
               );
             }
@@ -90,7 +94,7 @@
         
 
         static function getClients(PDO $db, int $count)  : array {
-            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT LIMIT ? ');
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Email FROM CLIENT LIMIT ? ');
             $stmt->execute(array($count));
 
             $clients = array();
@@ -99,7 +103,6 @@
                     intval($client['UserID']),
                     $client['Name'],
                     $client['Username'],
-                    $client['Password'],
                     $client['Email']
                 );
             }
@@ -108,7 +111,7 @@
 
 
         static function getById(PDO $db, int $id) : Client {
-            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE UserID = ?');
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Email FROM CLIENT WHERE UserID = ?');
             $stmt->execute(array($id));
         
             $client = $stmt->fetch();
@@ -116,7 +119,6 @@
                 intval($client['UserID']),
                 $client['Name'],
                 $client['Username'],
-                $client['Password'],
                 $client['Email']
             );
           }
@@ -161,10 +163,12 @@
             if ($ticket->departmentName === NULL) return true;
             
             $agent = Agent::getById($db, $userID);
-            $department = Department::getById($db, $agent->departmentid);
             if ($agent->departmentid === NULL) return true;
+
+            $department = Department::getById($db, $agent->departmentid);
             return $department->departmentName === $ticket->departmentName;
           }
+
           static function filter(PDO $db, array $types = [], array $departments = [], int $page = 1) : array {
             $query = '
                     SELECT
@@ -184,37 +188,39 @@
                     LEFT JOIN DEPARTMENT d ON a.DepartmentID = d.DepartmentID
                     WHERE TRUE
                     ';
-            
+
             $typesF = '';
             $departmentsF = '';
             $params = array();
 
             if(!empty($types)){
+              $typesF = ' and ';
               for ($i = 0; $i<count($types); $i++) {
                 if ($i == 0) {
-                  $statusF = $statusF.sprintf('(UserType = ?');
-                  $params = $types[$i];
+                  $typesF = $typesF.sprintf('(UserType = ?');
+                  $params[] = $types[$i];
                 } 
                 else {
-                  $statusF = $statusF.sprintf(' or UserType = ?');
-                  $params = $types[$i];
+                  $typesF = $typesF.sprintf(' or UserType = ?');
+                  $params[] = $types[$i];
                 }
               }
-              $statusF = $statusF.')';
+              $typesF = $typesF.')';
             }
 
             if(!empty($departments)){
+              $departmentsF = ' and ';
               for ($i = 0; $i<count($departments); $i++) {
                 if ($i == 0) {
-                  $statusF = $statusF.sprintf('(Department = ?');
-                  $params = $departments[$i];
+                  $departmentsF = $departmentsF.sprintf('(Department = ?');
+                  $params[] = $departments[$i];
                 } 
                 else {
-                  $statusF = $statusF.sprintf(' or Department = ?');
-                  $params = $departments[$i];
+                  $departmentsF = $departmentsF.sprintf(' or Department = ?');
+                  $params[] = $departments[$i];
                 }
               }
-              $statusF = $statusF.')';
+              $departmentsF = $departmentsF.')';
             }
             
             $query = $query.$typesF.$departmentsF;
@@ -225,8 +231,26 @@
             $query = $query.'ORDER BY Name ASC LIMIT 12 OFFSET ?;';
             $params[] = ($page - 1) * 12;
 
-            results 
-            return results;
+            $stmt2 = $db->prepare($query);
+            $stmt2->execute($params);
+
+            $users = array();
+            while ($user = $stmt2->fetch()) {
+              $users[] = new Client(
+                intval($user['UserID']),
+                $user['Name'],
+                $user['Username'],
+                $user['Email'],
+                $user['Department'],
+                $user['UserType'],
+                count(Ticket::getbyUser($db, intval($user['UserID']))),
+                count(Ticket::getByAgent($db, intval($user['UserID'])))
+              );
+            }
+            $result['users'] = $users;
+            $result['count'] = $count;
+            // results;
+            return $result;
           }
 
           static function getFilters(PDO $db): array {
@@ -234,15 +258,16 @@
             $type = ['Client', 'Agent', 'Admin'];
             $departments = [];
         
-            $filters[]=$type;
+            
         
             $stmt = $db->prepare('SELECT * FROM DEPARTMENT;');
             $stmt->execute();
             while ($dp = $stmt->fetch()) {
-              $departments[] = $dp;
+              $departments[] = $dp['DepartmentName'];
             }
             $filters[] = $departments;        
-        
+            $filters[] = $type;
+
             return $filters;
           }
 
@@ -261,11 +286,12 @@
           }
 
           function isPassEqual(PDO $db, string $pass) : bool {
-            return password_verify($pass, $this->password);
+            $client = Client::getClientWithPassword($db, $this->email, $pass);
+            return $client !== NULL && $client->id == $this->id;
           }
 
           static function getByEmail(PDO $db, string $email) : ?Client {
-            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Email = ?');
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Email FROM CLIENT WHERE Email = ?');
             $stmt->execute(array(strtolower($email)));
             
             $client = $stmt->fetch();
@@ -276,13 +302,12 @@
               intval($client['UserID']),
               $client['Name'],
               $client['Username'],
-              $client['Password'],
               $client['Email']
             );
           }
 
           static function getByUsername(PDO $db, string $username) : ?Client {
-            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Username = ?');
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Email FROM CLIENT WHERE Username = ?');
             $stmt->execute(array($username));
         
             $client = $stmt->fetch();
@@ -293,7 +318,6 @@
               intval($client['UserID']),
               $client['Name'],
               $client['Username'],
-              $client['Password'],
               $client['Email']
             );
           }

@@ -21,13 +21,13 @@ class Ticket implements JsonSerializable
   public function __construct(int $ticketid, string $title, string $username, string $status, int $submitdate, ?string $priority, array $hashtags, string $description, ?string $assignedagent, ?string $departmentName)
   {
     $this->ticketid = $ticketid;
-    $this->title = $title;
+    $this->title = htmlentities($title);
     $this->username = $username;
-    $this->status = $status;
+    $this->status = htmlentities($status);
     $this->submitdate = $submitdate;
-    $this->priority = $priority;
+    $this->priority = $priority == NULL ? NULL : htmlentities($priority);
     $this->hashtags = $hashtags;
-    $this->description = $description;
+    $this->description = htmlentities($description);
     $this->departmentName = $departmentName;
     $this->assignedagent = $assignedagent;
   }
@@ -155,7 +155,7 @@ class Ticket implements JsonSerializable
       $this->assignedagent = $agentID != NULL ? Agent::getById($db, $agentID)->username : NULL;
 
       $this->priority = $priority;
-      $this->status = $this->assignedagent !== NULL ? 'in progress' : 'open';
+      $this->status = $this->assignedagent !== NULL ? 'assigned' : 'open';
       $stmt = $db->prepare('UPDATE TICKET SET DepartmentID = ?, AssignedAgent = ?, Priority = ?, Status = ? WHERE TicketID = ?');
       $stmt->execute(array($departmentID, $agentID, $priority, $this->status, $this->ticketid));
     }
@@ -338,7 +338,7 @@ if(!empty($departments)){
   // null filters
   static function getFilters(PDO $db): array {
     $filters = [];
-    $status = ['open', 'in progress', 'closed'];
+    $status = ['open', 'assigned', 'closed'];
     $priorities = ['high', 'medium', 'low'];
     $hashtags = [];
     $agents = [];

@@ -7,7 +7,7 @@ class Hashtag {
 
   public function __construct(int $hashtagid, string $hashtagname){
       $this->hashtagid = $hashtagid;
-      $this->hashtagname = $hashtagname;
+      $this->hashtagname = htmlentities($hashtagname);
   }
 
   static function getHashtags(PDO $db) : array {

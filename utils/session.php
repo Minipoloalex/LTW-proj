@@ -39,8 +39,9 @@ class Session
     public function getCsrf(): ?string {
         return $_SESSION['csrf'];
     }
-    public function verifyCsrf(string $csrf): bool {
-        $return_value = $_SESSION['csrf'] === $csrf;
+    public function verifyCsrf(?string $csrf): bool {
+        if ($csrf == NULL || empty($csrf)) $return_value = false;
+        else $return_value = $_SESSION['csrf'] === $csrf;
         // $_SESSION['csrf'] = Session::generate_random_token();
         return $return_value;
     }

@@ -32,7 +32,7 @@
     border-radius: 10px;
     align-self: right;
 }
-#individual-ticket #ticket-status.open, #individual-ticket #ticket-status.in-progress {
+#individual-ticket #ticket-status.open, #individual-ticket #ticket-status.assigned {
     background-color: rgba(255, 255, 255, 0.138);
     border: 2px solid white;
 }

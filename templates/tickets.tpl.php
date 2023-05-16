@@ -102,8 +102,9 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
             <label for="<?php echo $fv['DepartmentName'] ?>"><?php echo $fv['DepartmentName'] ?></label><br />
         <?php } ?>
         </div>
+        
 
-        <!-- !WARNING: WIP, see filter.js -->
+        <!-- !NOTE: see filter.js -->
         <button type="button" id="clear-filters">Clear Filters</button>
         <button type="submit" id="filter-values">Filter</button>
 

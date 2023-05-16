@@ -14,16 +14,19 @@ $db = getDatabaseConnection();
 require_once(__DIR__ . '/../database/client.class.php');
 require_once(__DIR__ . '/../templates/common.tpl.php');
 require_once(__DIR__ . '/../templates/users.tpl.php');
+require_once(__DIR__ . '/../templates/cards.tpl.php');
 
 $count = 100; /* limite de users na lista */
 
 $users = Client::getClients($db, $count);
 $type = Client::getType($db, $session->getId());
 $all_departments = Department::getDepartments($db);
-
+$filters = Client::getFilters($db);
 output_header($session, $type);
 drawTitle("Users", "user");
-drawUsersTable($users, $db, $all_departments);
+drawUsersFilterMenu($filters);
+// drawUsersTable($users, $db, $all_departments);
+drawCardContainer();
 output_footer();
 
 ?>

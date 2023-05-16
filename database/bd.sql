@@ -41,7 +41,7 @@ INSERT INTO TICKET VALUES(1,'titulooo1',1,'open',1647724861,'high','fun descript
 INSERT INTO TICKET VALUES(2,'titulooo2',2,'open',1647667800,'medium','sad description',4,4);
 INSERT INTO TICKET VALUES(3,'titulooo3',3,'open',1647732762,'medium','happy description',2,3);
 INSERT INTO TICKET VALUES(4,'titulooo4',4,'open',1647714997,'high','no description',5,2);
-INSERT INTO TICKET VALUES(5,'titulooo5',5,'in progress',1647703354,'high','what description',2,3);
+INSERT INTO TICKET VALUES(5,'titulooo5',5,'assigned',1647703354,'high','what description',2,3);
 INSERT INTO TICKET VALUES(6,'My ticket',6,'open',1681642803,NULL,'Ticket description',NULL,NULL);
 INSERT INTO TICKET VALUES(7,'My password is password. I don''t like that!',7,'open',1681922757,NULL,'I registered with password as my password. I don''t like that password anymore. How do I change it.',NULL,NULL);
 INSERT INTO TICKET VALUES(8,'My new ticket, testing hashtags',7,'open',1681985852,NULL,'This ticket description is very informative.',NULL,NULL);
