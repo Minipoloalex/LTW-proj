@@ -113,3 +113,24 @@ if (filterToggle) {
   });
 }
 
+// const dropdownSummaries = document.querySelectorAll("details summary");
+
+// dropdownSummaries.forEach(summary => {
+//   summary.addEventListener("click", () => {
+//     summary.parentNode.classList.toggle("expanded");
+//   });
+// });
+
+
+const dropdowns = document.querySelectorAll("div.filter-options div");
+dropdowns.forEach(dropdown => {
+
+  const caretIcon = dropdown.querySelector("i");
+
+  dropdown.addEventListener("click", () => {
+    dropdown.classList.toggle("clicked");
+    caretIcon.classList.toggle("fa-caret-right");
+    caretIcon.classList.toggle("fa-caret-down");
+  });
+}
+);
