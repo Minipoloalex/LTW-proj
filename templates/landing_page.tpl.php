@@ -39,7 +39,11 @@ require_once(__DIR__ . '/../utils/validate.php');
         output_csrf_input($session);
       ?>
       <input type="text" id="email" name="email" placeholder="Email" pattern=<?=get_email_regex()?>>
+      <div class="password-container">
       <input type="password" id="password" name="password" placeholder="Password">
+      <button type="button" id="hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
+			<button type="button" id="showpass" class="showpass"><span class="material-symbols-outlined showpass">visibility</span></button>
+      </div>
       <input type="submit" value="Login">
       <p> <span>Don't have an account?</span> <a href="../pages/register.php" class="register">Sign up</a></p>
     </form>
@@ -58,11 +62,23 @@ require_once(__DIR__ . '/../utils/validate.php');
     output_session_message($session, "feedback-message");
     output_csrf_input($session);
     ?>
+
     <input type="text" name="name" placeholder="Name" pattern="<?=get_name_regex()?>">
     <input type="text" name="username" placeholder="Username" pattern="<?=get_username_regex()?>">
     <input type="email" name="email" placeholder="Email" pattern="<?=get_email_regex()?>">
-    <input type="password" name="password" placeholder="Password" pattern="<?=get_password_regex()?>">
-    <input type="password" name="confirm_password" placeholder="Confirm password" pattern="<?=get_password_regex()?>">
+
+    <div class="password-container">
+    <input id="password" type="password" name="password" placeholder="Password" pattern="<?=get_password_regex()?>">
+    <button type="button" id="hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
+		<button type="button" id="showpass" class="showpass"><span class="material-symbols-outlined showpass">visibility</span></button>
+    </div>
+
+    <div class="password-container">
+    <input id="confirm-password" type="password" name="confirm_password" placeholder="Confirm password" pattern="<?=get_password_regex()?>">
+    <button type="button" id="confirm-hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
+		<button type="button" id="confirm-showpass" class="showpass"><span class="material-symbols-outlined showpass">visibility</span></button>
+    </div>
+
     <div class="registerbuttons">
     <p class="loginback">Already have an account? <a href="../pages/landing_page.php">Login</a></p>
     <button type="submit" class="create">Create Account</button>
@@ -88,8 +104,10 @@ require_once(__DIR__ . '/../utils/validate.php');
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
       <script src="../javascript/utils.js" defer></script>
       <script src="../javascript/register_feedback_password.js" defer></script>
+      <script src="../javascript/login.js" defer></script>
     </head>
 
     <body class='landingbody'>

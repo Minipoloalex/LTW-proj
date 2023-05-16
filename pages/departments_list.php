@@ -16,12 +16,15 @@ require_once(__DIR__ . '/../database/ticket.class.php');
 require_once(__DIR__ . '/../database/agent.class.php');
 require_once(__DIR__ . '/../templates/common.tpl.php');
 require_once(__DIR__ . '/../templates/departments.tpl.php');
+require_once(__DIR__ . '/../templates/cards.tpl.php');
 
 
 $departments = Department::getDepartments($db);
 
 output_header($session);
+drawTitleDepartments();
 drawDepartmentsTable($departments, $db);
+drawCardContainer();
 output_footer();
 
 ?>

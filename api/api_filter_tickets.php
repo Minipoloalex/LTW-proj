@@ -7,6 +7,7 @@ require_once(__DIR__ . '/../templates/tickets.tpl.php');
 require_once(__DIR__ . '/../database/connection.db.php');
 require_once(__DIR__ . '/../database/ticket.class.php');
 $db = getDatabaseConnection();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Handle AJAX request
   $filterValues = json_decode(file_get_contents('php://input'), true);
@@ -28,6 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo json_encode($data);
   // }
 }
+
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   $page = intval($_GET['page']);

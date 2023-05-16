@@ -2,8 +2,6 @@
 
 const filterBtn = document.getElementById('filter-values');
 const clearFilterBtn = document.getElementById('clear-filters');
-console.log(filterBtn);
-console.log(clearFilterBtn);
 let checkedValues = {};
 
 
@@ -62,7 +60,8 @@ async function getFilterValues(cardType) {
   console.log(data.tickets);
   // cardContainer.innerHTML = '';
   console.log("Filter: ", cardType);
-  getCards(data, cardType);
+  // getCards(data, cardType);
+  getCards(data);
 
   /*
   console.log(res);
@@ -83,6 +82,13 @@ async function getTickets2(checkedValues, page = 0) {
   const data = {...checkedValues, page: page};
   // data['page'] = page;
   const path = '../api/api_filter_tickets.php';
+  return json = await getData(path, data);
+}
+
+async function getDepartments2(checkedValues, page = 0) {
+  const data = {...checkedValues, page: page};
+  // data['page'] = page;
+  const path = '../api/api_departments.php';
   return json = await getData(path, data);
 }
 

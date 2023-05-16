@@ -17,6 +17,7 @@ if (Client::getType($db, $session->getId()) !== 'Admin') {
 
 $filters = Ticket::getFilters($db);
 output_header($session);
+drawTitleTickets();
 drawFilterMenu($filters);
 // $tickets = Ticket::getTickets($db);
 $tickets = Ticket::filter($db);
