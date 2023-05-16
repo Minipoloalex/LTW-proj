@@ -2,6 +2,7 @@ const cardContainer = document.getElementById("card-container");
 const cardCountElem = document.getElementById("card-count");
 const cardTotalElem = document.getElementById("card-total");
 const loader = document.getElementById("loader");
+const title = document.getElementById("title");
 let flag;
 let data = {};
 let throttleTimer = false;
@@ -9,8 +10,11 @@ let cardLimit;
 let cardIncrease;
 let currentPage;
 let pageCount;
-const cardType = document.getElementById("title").getAttribute("data-type");
-console .log (cardType);
+let cardType = 'invalid';
+if (title) {
+  cardType = title.getAttribute("data-type");
+}
+
 const addCards = (pageIndex) => {
   window.removeEventListener("scroll", handleInfiniteScroll);
   currentPage = pageIndex;
@@ -42,6 +46,7 @@ function createCard(index) {
     };
     case 'department': {
       const curr = data.departments[index - 1];
+      // console.log(curr);
       drawDepartmentCard(card, curr);
       break;
     };
@@ -107,6 +112,7 @@ const removeInfiniteScroll = () => {
 if (cardContainer) {
   window.onload = async function () {
     // const type = 'ticket';
+    console.log(cardType);
     switch (cardType) {
       case 'ticket': {
         const tickets = await getAllTickets();
@@ -179,7 +185,7 @@ function drawDepartmentCard(card, curr) {
   <span class="card-title">${curr.departmentName}</span>
   </header>
   </article>
-  `
+  `;
 }
 
 

@@ -3,10 +3,21 @@ declare(strict_types = 1);
 class Department {
     public int $departmentId;
     public string $departmentName;
-    public function __construct(int $departmentId, string $departmentName) {
+    public ?int $nrTickets;
+    public ?int $nrAgents;
+    public function __construct(int $departmentId, string $departmentName, int $nrTickets = null, int $nrAgents = null) {
         $this->departmentId = $departmentId;
         $this->departmentName = $departmentName;
+        $this->nrTickets = $nrTickets;
+        $this->nrAgents = $nrAgents;
     }
+
+    // public function __constructOptional(int $departmentId, string $departmentName, int $nrTickets, int $nrAgents) {
+    //     $this->departmentId = $departmentId;
+    //     $this->departmentName = $departmentName;
+    //     $this->nrTickets = $nrTickets;
+    //     $this->nrAgents = $nrAgents;
+    // }
 
     static public function getDepartments(PDO $db): array {
         $stmt = $db->prepare('SELECT DepartmentID, DepartmentName FROM DEPARTMENT');
@@ -17,13 +28,30 @@ class Department {
             $departments[] = new Department(
                 intval($department['DepartmentID']),
                 $department['DepartmentName']
-            );
+            ); 
         }
         return $departments;
     }
 
     static public function filterDepartments(PDO $db, int $page = 1): array {
-        $query = 'SELECT DepartmentID, DepartmentName FROM DEPARTMENT ';
+        // $query = 'SELECT DepartmentID, DepartmentName FROM DEPARTMENT ';
+        $query = '
+                SELECT  DepartmentID,
+                        DepartmentName, 
+                        CASE
+                            WHEN NrTickets iSNULL THEN 0
+                            ELSE NrTickets
+                        END AS NrTickets,
+                        CASE
+                            WHEN NrAgents iSNULL THEN 0
+                            ELSE NrAgents
+                        END AS NrAgents
+                FROM DEPARTMENT 
+                LEFT JOIN (SELECT DepartmentID, COUNT(ALL) AS NrTickets FROM TICKET GROUP BY DepartmentID) 
+                USING(DepartmentID)
+                LEFT JOIN (SELECT DepartmentID, COUNT(ALL) AS NrAgents FROM AGENT GROUP BY DepartmentID)
+                USING(DepartmentID)
+                ';
 
         $params = array();
         $stmt1 = $db->prepare('SELECT COUNT(DISTINCT DepartmentID) as c FROM ('.$query.');');
@@ -38,7 +66,9 @@ class Department {
         while ($department = $stmt2->fetch()){
             $departments[] = new Department(
                 intval($department['DepartmentID']),
-                $department['DepartmentName']
+                $department['DepartmentName'],
+                intval($department['NrTickets']),
+                intval($department['NrAgents'])
             );
         }
         $result['departments'] = $departments;
