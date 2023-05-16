@@ -10,10 +10,6 @@ body::-webkit-scrollbar-thumb {
   background: #6f6e6e;
 }
 
-main {
-  margin-left: 5rem;
-  padding: 1rem;
-}
 
 .navbar {
   position: fixed;
@@ -44,8 +40,7 @@ main {
   margin-top: auto;
 }
 
-/* .nav-link:not(.nav-submenu-item .nav-link), .nav-submenu-wrapper , .nav-logout { */
-.nav-link, .nav-submenu-wrapper , .nav-logout {
+.nav-link, .nav-submenu-wrapper, .nav-logout {
   display: flex;
   align-items: center;
   height: 5rem;
@@ -68,71 +63,28 @@ main {
 }
 
 .nav-submenu {
-  display: none;
   text-decoration: none;
   list-style: none;
 }
-
-/* .nav-submenu .nav-submenu-item {
-  text-decoration: none;
-} */
 
 .link-text {
   display: none;
   margin-left: 1rem;
 }
 
-/* .nav-link svg {
-  width: 2rem;
-  min-width: 2rem;
-  margin: 0 1.5rem;
-} */
 
-/* .fa-primary {
-  color: #ff7eee;
-}
-
-.fa-secondary {
-  color: #df49a6;
-}
-
-.fa-primary,
-.fa-secondary {
-  transition: var(--transition-speed);
-} */
 
 .logo {
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 1rem;
   text-align: center;
-  /* color: var(--text-secondary); */
   background: var(--bg-secondary);
   font-size: 1.5rem;
   letter-spacing: 0.3ch;
   width: 100%;
-  /* transition: var(--transition-speed); */
 }
 
-/* not needed */
-/* .logo svg {
-  transform: rotate(0deg);
-  transition: var(--transition-speed);
-} */
-
-/* not needed */
-/* .logo-text
-{
-  display: inline;
-  position: absolute;
-  left: -999px;
-  transition: var(--transition-speed);
-} */
-
-/*  not needed */
-/* .navbar:hover .logo svg {
-  transform: rotate(-180deg);
-} */
 
 .nav-popup {
   z-index: 1;
@@ -152,19 +104,10 @@ main {
   justify-content: center;
 }
 
-.active {
+.nav-popup.active {
   display: block;
 }
 
-.forbidden {
-  text-decoration: solid line-through var(--text-secondary) 1.5px;
-  /* display: none; */
-  pointer-events: none;
-}
-
-
-/* Small screens */
-/* @media only screen and (max-width: 600px) { */
 /* Small and medium screeens */
 @media only screen and (max-width: 961px) {
   .navbar {
@@ -189,11 +132,6 @@ main {
     display: none;
   }
 
-  /* .nav-link:hover , .nav-submenu-wrapper:hover {
-    filter: grayscale(0%) opacity(1);
-    background: var(--bg-secondary);
-    color: var(--text-secondary);
-  } */
 
   main {
     margin: 0;
@@ -201,7 +139,6 @@ main {
 }
 
 /* Large screens */
-/* @media only screen and (min-width: 600px) { */
 @media only screen and (min-width: 961px) {
   .navbar {
     top: 0;
@@ -215,18 +152,6 @@ main {
 
   .navbar:hover .link-text {
     display: inline;
-  }
-
-  /* not needed */
-  .navbar:hover .logo svg
-  {
-    margin-left: 11rem;
-  }
-
-  /* not needed */
-  .navbar:hover .logo-text
-  {
-    left: 0px;
   }
 
   .nav-icon {
@@ -249,51 +174,9 @@ main {
     margin-top: 6.5rem;
   }
 
-  .nav-popup {
-    display: none;
-  }
 }
-
-/* .dark {
-  --text-primary: #b6b6b6;
-  --text-secondary: #ececec;
-  --bg-primary: #23232e;
-  --bg-secondary: #141418;
-}
-
-.light {
-  --text-primary: #1f1f1f;
-  --text-secondary: #000000;
-  --bg-primary: #ffffff;
-  --bg-secondary: #e4e4e4;
-}
-
-.solar {
-  --text-primary: #576e75;
-  --text-secondary: #35535c;
-  --bg-primary: #fdf6e3;
-  --bg-secondary: #f5e5b8;
-} */
-
-/* .theme-icon {
-  display: none;
-}
-
-.dark #darkIcon {
-  display: block;
-}
-
-.light #lightIcon {
-  display: block;
-}
-
-.solar #solarIcon {
-  display: block;
-} */
-
 
 /* icons */
-
 .nav-icon {
   text-decoration: none;
   color: #b6b6b6;
@@ -304,17 +187,6 @@ main {
   'opsz' 64
 }
 
-/*logo*/
-
-/* .logo {
-  font-family: 'Roboto Mono', monospace;
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 64
-} */
-
 .logo img {
   height: 100%;
   max-height: 72px;
@@ -323,4 +195,29 @@ main {
 
 li.logo {
   background-color: #23232e;
+}
+
+
+.nav-submenu-wrapper.active {
+  height: fit-content;
+  align-items: start;
+}
+.nav-submenu-wrapper.active .nav-submenu-header {
+  padding-top: 2.05rem;
+}
+
+.nav-submenu-wrapper.active .nav-submenu {
+  display: block;
+}
+
+.nav-submenu-wrapper:not(.active) {
+  height: 5rem;
+  align-items: center;
+}
+.nav-submenu-wrapper:not(.active) .nav-submenu-header {
+  padding-top: 0rem;
+}
+
+.nav-submenu-wrapper:not(.active) .nav-submenu {
+  display: none;
 }

@@ -42,6 +42,7 @@ body {
 }
 
 main {
+  padding: 1rem;
   flex: 1;
 }
 
