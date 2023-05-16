@@ -45,7 +45,7 @@ $isAgentView = !($session->getName() === $ticket->username);
 $ticketDepartment = Department::getByName($db, $ticket->departmentName);
 $agents = $ticketDepartment != null ? Agent::getByDepartment($db, $ticketDepartment->departmentId) 
 : Agent::getAgents($db);
-
+$type = Client::getType($db, $session->getId());
 
 output_header($session, $type);
 output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments, $session, $isAgentView);

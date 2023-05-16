@@ -161,8 +161,9 @@
             if ($ticket->departmentName === NULL) return true;
             
             $agent = Agent::getById($db, $userID);
-            $department = Department::getById($db, $agent->departmentid);
             if ($agent->departmentid === NULL) return true;
+            
+            $department = Department::getById($db, $agent->departmentid);
             return $department->departmentName === $ticket->departmentName;
           }
           static function filter(PDO $db, array $types, array $departments, string $search) : array {

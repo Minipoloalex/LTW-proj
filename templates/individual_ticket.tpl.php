@@ -192,7 +192,7 @@ array $all_hashtags, array $agents, array $all_departments, Session $session, bo
         <span id="ticket-status" class="open"><?=$status?></span>
     <?php } 
     else { ?>
-        <span id="ticket-status" class="in-progress"><?=$status?></span>
+        <span id="ticket-status" class="assigned"><?=$status?></span>
 <?php } ?>
 <?php } ?>
 

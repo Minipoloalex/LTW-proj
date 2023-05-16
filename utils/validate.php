@@ -73,7 +73,7 @@ function is_valid_type(string $userType) : bool {
 }
 function is_valid_status(string $status) : bool {
     $status = strtolower($status);
-    return $status === 'open' || $status === 'closed' || $status === 'in progress';
+    return $status === 'open' || $status === 'closed' || $status === 'assigned';
 }
 
 function is_valid_array_hashtag_ids(PDO $db, array $hashtagIds): bool {

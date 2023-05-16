@@ -44,14 +44,14 @@ if (!is_valid_array_hashtag_ids($db, $hashtags)) {
 }
 $hashtagIDs = array_map('intval', $hashtags);
 
-if (isset($_POST['department']) && !is_valid_department_id($db, $_POST['department']  ?? '')) {
+if (!empty($_POST['department']) && !is_valid_department_id($db, $_POST['department']  ?? '')) {
     http_response_code(400); // Bad request
     echo json_encode(array('error' => 'Invalid department parameter'));
     exit();
 }
 $departmentID = empty($_POST['department']) ? NULL : intval($_POST['department']);
 
-if (isset($_POST['agent']) && !is_valid_agent_id($db, $_POST['agent'] ?? '')) {
+if (!empty($_POST['agent']) && !is_valid_agent_id($db, $_POST['agent'] ?? '')) {
     http_response_code(400); // Bad request
     echo json_encode(array('error' => 'Invalid agent parameter'));
     exit();
@@ -65,11 +65,13 @@ if (!is_valid_priority($_POST['priority'])) {
 }
 $priority = $_POST['priority'];
 
-$agent = Agent::getById($db, $agentID);
-if ($agent->departmentid !== NULL && $agent->departmentid !== $departmentID) {
-    http_response_code(400); // Bad request
-    echo json_encode(array('error' => 'Agent belongs to another department'));
-    exit();
+if ($agentID != NULL) {
+    $agent = Agent::getById($db, $agentID);
+    if ($agent->departmentid !== NULL && $agent->departmentid !== $departmentID) {
+        http_response_code(400); // Bad request
+        echo json_encode(array('error' => 'Agent belongs to another department'));
+        exit();
+    }
 }
 
 $ticket = Ticket::getById($db, $ticketID);
