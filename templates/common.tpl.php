@@ -64,9 +64,6 @@ require_once(__DIR__ . '/../utils/session.php');
 
 <body data-csrf="<?=$session->getCsrf()?>">
 
-  <!-- <header>
-        <h1><a href="main_page.php">Trouble Solver</a></h1>
-      </header> -->
     <nav class="navbar">
       <ul class="navbar-nav">
 
@@ -101,7 +98,7 @@ require_once(__DIR__ . '/../utils/session.php');
       </ul>
 
     </nav>
-    <article></article>
+
     <div class="nav-popup" id="navPopup">
       <ul class="nav-popmenu" id="popMenu">
         <li class="nav-submenu-item"><a href="../pages/my_tickets.php" class="nav-link">My tickets</a></li>
@@ -111,6 +108,15 @@ require_once(__DIR__ . '/../utils/session.php');
         <li class="nav-submenu-item"><a href="../pages/tickets.php" class="nav-link">All tickets</a></li>
       </ul>
     </div>
+
+    <!-- TENTATIVA DE UM POPUP NO BOTAO DE USER PARA IR PARA A MAIN PAGE EM VERSAO MOBILE -->
+    <!-- <div class="nav-popup" id="navPopupForHome">
+      <ul class="nav-popupmenu" id="popupMenuForHome">
+        <li class="nav-submenu-item"><a href="../pages/profile.php" class="nav-link">My Profile</a></li>
+        <li class="nav-submenu-item"><a href="../pages/main_page.php" class="nav-link">Home page</a></li>
+      </ul>
+    </div> -->
+
     <!--
     <section id="session-messages">
         <article>
@@ -126,6 +132,9 @@ require_once(__DIR__ . '/../utils/session.php');
     <?php function output_footer()
     { ?>
     </main>
+
+    <div class="mobile-logo"><a href="../pages/main_page.php"><img src="../css/images/logomobile-escuro.png" alt="logo"></a></div>
+
     <footer>
       LTW Trouble Ticket Project &copy; 2023
     </footer>
