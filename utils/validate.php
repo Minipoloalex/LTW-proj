@@ -101,7 +101,7 @@ function is_valid_faq_id(PDO $db, ?string $forum_id): bool {
     return $faq != null;
 }
 function is_valid_title(string $title): bool {
-    return is_valid_string($title) && strlen($title) <= 50;
+    return is_valid_string($title) && strlen($title) <= 25;
 }
 function is_valid_agent_id(PDO $db, string $agentID): bool {
     return is_valid_id($agentID) && Agent::isValidId($db, intval($agentID));

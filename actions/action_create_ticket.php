@@ -18,7 +18,7 @@ $title = $_POST['title'];
 $description = $_POST['description'];
 
 if (!is_valid_title($title)) {
-    $session->addMessage('error', "Invalid title. Title must be between 1 and 50 characters long");
+    $session->addMessage('error', "Invalid title. Title must be between 1 and 25 characters long");
     die(header('Location: ../pages/create_ticket.php'));
 }
 if (!is_valid_string($description)) {

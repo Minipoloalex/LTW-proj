@@ -21,11 +21,23 @@
   margin-bottom: 20px;
 }
 
-.filter-options legend {
+/* .filter-options legend {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
   flex-basis: 100%;
+} */
+
+
+.filter-options div {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  flex-basis: 100%;
+}
+
+div.filter-options section {
+  display: contents;
 }
 
 .filter-options input[type="checkbox"] {
@@ -67,6 +79,10 @@ section#filter-section.hidden {
   display: none;
 }
 
+section#filter-section div.filter-options section.hidden {
+  display: none;
+}
+
 .filter-toggle {
   cursor: pointer;
 }
@@ -76,11 +92,21 @@ section#filter-section.hidden {
 }
 
 /* show filter section when user clicks on filter header */
-.filter-toggle.clicked + section#filter-section.filter {
+.filter-toggle.clicked + section#filter-section.filter{
   display: block;
   width: 85%;
+}
+
+section#filter-section div.filter-options div.clicked + section {
+  display: contents;
 }
 
 .filter-toggle h3 {
   font-size: 1.5em;
 }
+
+/*toggles for dropdown in each label*/
+
+
+
+
