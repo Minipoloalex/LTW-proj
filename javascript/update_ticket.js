@@ -1,5 +1,5 @@
 const changeTicketInfoButton = document.querySelector("button#update-ticket")
-const ticketInfoFeedbackId = "ticket-info-feedback"
+const ticketInfoFeedback = document.getElementById("ticket-info-feedback");
 
 if (changeTicketInfoButton) {
     changeTicketInfoButton.addEventListener("click", updateTicketInformation)
@@ -47,8 +47,7 @@ async function updateTicketInformation(event) {
         'hashtags': ticketHashtagIDs,
     })
     console.log(json)
-    displayFeedback("ticket-info-feedback", json)
-    // displayMessage (feedback message)
+    displayFeedback(ticketInfoFeedback, json)
     if (json['error']) {
         console.error(json['error'])
     }
@@ -78,125 +77,125 @@ function getAgentOption(agentId, agentUsername) {
 }
 
 async function handleDepartmentSelect(event) {
-    event.preventDefault()
-    const departmentID = event.currentTarget.value
-    const agentSelect = document.querySelector("#ticket-info select[name='agent']")
-    const json = await getData("../api/api_agent.php", {'departmentID': departmentID})
-    console.log(json)
-    // TODO: display success/error message
+    event.preventDefault();
+    const departmentID = event.currentTarget.value;
+    const agentSelect = document.querySelector("#ticket-info select[name='agent']");
+    const json = await getData("../api/api_agent.php", {'departmentID': departmentID});
+    console.log(json);
+
     if (json['error']) {
-        console.error(json['error'])
+        console.error(json['error']);
     }
     if (json['success']) {
-        agentSelect.innerHTML = ""
+        agentSelect.innerHTML = "";
         
-        const blankAgentOption = getAgentOption("", "")
-        agentSelect.appendChild(blankAgentOption)
+        const blankAgentOption = getAgentOption("", "");
+        agentSelect.appendChild(blankAgentOption);
 
         for (const agent of json['agents']) {
-            const agentOption = getAgentOption(agent['id'], agent['username'])
-            agentSelect.appendChild(agentOption)
+            const agentOption = getAgentOption(agent['id'], agent['username']);
+            agentSelect.appendChild(agentOption);
         }
     }
 }
 
 async function closeTicket(event) {
-    event.preventDefault()
-    const ticketID = document.querySelector("#ticket-info #ticket-id").getAttribute("value")
+    event.preventDefault();
+    const ticketID = document.querySelector("#ticket-info #ticket-id").getAttribute("value");
     const json = await postData("../api/api_close_ticket.php", {
         'ticketID': ticketID,
         'status': 'closed',
     })
-    displayFeedback(ticketInfoFeedbackId, json)
+    displayFeedback(ticketInfoFeedback, json);
     if (json['error']) {
-        console.error(json['error'])
+        console.error(json['error']);
     }
     else if (json['success']) {
-        console.log(json['success'])
+        console.log(json['success']);
 
-        const status = document.querySelector("#individual-ticket #ticket-status")
+        const status = document.querySelector("#individual-ticket #ticket-status");
         for (st of status.classList) {
-            status.classList.remove(st)
+            status.classList.remove(st);
         }
-        status.textContent = 'closed'
-        status.classList.add("closed")
+        status.textContent = 'closed';
+        status.classList.add("closed");
 
         // Remove the forms
-        const answerForms = document.querySelector("#answer-forms")
-        if (answerForms) answerForms.remove()
+        const answerForms = document.querySelector("#answer-forms");
+        if (answerForms) answerForms.remove();
         
-        const priority = document.querySelector("#priority")
-        if (priority) priority.remove()
-        const department = document.querySelector("#department")
-        if (department) department.remove()
-        const agent = document.querySelector("#agent")
-        if (agent) agent.remove()
-        const hashtags = document.querySelector("#hashtags")
-        if (hashtags) hashtags.remove()
-        const closeTicket = document.querySelector("#close-ticket")
-        if (closeTicket) closeTicket.remove()
-        const updateTicket = document.querySelector("#update-ticket")
-        if (updateTicket) updateTicket.remove()
+        const priority = document.querySelector("#priority");
+        if (priority) priority.remove();
+        const department = document.querySelector("#department");
+        if (department) department.remove();
+        const agent = document.querySelector("#agent");
+        if (agent) agent.remove();
+        const hashtags = document.querySelector("#hashtags");
+        if (hashtags) hashtags.remove();
+        const closeTicket = document.querySelector("#close-ticket");
+        if (closeTicket) closeTicket.remove();
+        const updateTicket = document.querySelector("#update-ticket");
+        if (updateTicket) updateTicket.remove();
 
 
-        const reopenTicketForm = document.createElement("form")
-        reopenTicketForm.setAttribute("id", "reopen-ticket-form")
-        reopenTicketForm.setAttribute("method", "post")
-        reopenTicketForm.setAttribute("action", "../actions/action_reopen_ticket.php")
+        const reopenTicketForm = document.createElement("form");
+        reopenTicketForm.setAttribute("id", "reopen-ticket-form");
+        reopenTicketForm.setAttribute("method", "post");
+        reopenTicketForm.setAttribute("action", "../actions/action_reopen_ticket.php");
         
-        const reopenTicketID = document.createElement("input")
-        reopenTicketID.setAttribute("type", "hidden")
-        reopenTicketID.setAttribute("id", "ticket-id")
-        reopenTicketID.setAttribute("name", "ticketID")
-        reopenTicketID.setAttribute("value", ticketID)
-        reopenTicketForm.appendChild(reopenTicketID)
+        const reopenTicketID = document.createElement("input");
+        reopenTicketID.setAttribute("type", "hidden");
+        reopenTicketID.setAttribute("id", "ticket-id");
+        reopenTicketID.setAttribute("name", "ticketID");
+        reopenTicketID.setAttribute("value", ticketID);
+        reopenTicketForm.appendChild(reopenTicketID);
 
-        const reopenTicketCSRF = document.createElement("input")
-        reopenTicketCSRF.setAttribute("type", "hidden")
-        reopenTicketCSRF.setAttribute("name", "csrf")
-        reopenTicketCSRF.setAttribute("value", json['csrf'])
-        reopenTicketForm.appendChild(reopenTicketCSRF)
+        const reopenTicketCSRF = document.createElement("input");
+        reopenTicketCSRF.setAttribute("type", "hidden");
+        reopenTicketCSRF.setAttribute("name", "csrf");
+        reopenTicketCSRF.setAttribute("value", json['csrf']);
+        reopenTicketForm.appendChild(reopenTicketCSRF);
 
-        const reopenTicketButton = document.createElement("button")
-        reopenTicketButton.setAttribute("id", "reopen-ticket")
-        reopenTicketButton.setAttribute("type", "submit")
-        reopenTicketButton.textContent = "Reopen Ticket"
-        reopenTicketForm.appendChild(reopenTicketButton)
+        const reopenTicketButton = document.createElement("button");
+        reopenTicketButton.setAttribute("id", "reopen-ticket");
+        reopenTicketButton.setAttribute("type", "submit");
+        reopenTicketButton.textContent = "Reopen Ticket";
+        reopenTicketForm.appendChild(reopenTicketButton);
         
-        const prioritySpan = document.createElement("span")
-        prioritySpan.setAttribute("id", "priority")
-        prioritySpan.textContent = "Priority: " + (json['priority'] ?? "None")
+        const prioritySpan = document.createElement("span");
+        prioritySpan.setAttribute("id", "priority");
+        prioritySpan.textContent = "Priority: " + (json['priority'] ?? "None");
         
-        const departmentSpan = document.createElement("span")
-        departmentSpan.setAttribute("id", "department")
-        departmentSpan.textContent = "Department: " + (json['department'] ?? "None")
+        const departmentSpan = document.createElement("span");
+        departmentSpan.setAttribute("id", "department");
+        departmentSpan.textContent = "Department: " + (json['department'] ?? "None");
         
-        const agentSpan = document.createElement("span")
-        agentSpan.setAttribute("id", "agent")
-        agentSpan.textContent = "Agent: " + (json['agent'] ?? "None")
+        const agentSpan = document.createElement("span");
+        agentSpan.setAttribute("id", "agent");
+        agentSpan.textContent = "Agent: " + (json['agent'] ?? "None");
 
-        const hashtagsDiv = document.createElement('div')
-        hashtagsDiv.setAttribute("id", 'hashtags')
-        const hashtagsLegend = document.createElement('legend')
-        hashtagsLegend.textContent = 'Hashtags'
-        hashtagsDiv.appendChild(hashtagsLegend)
+        const hashtagsDiv = document.createElement('div');
+        hashtagsDiv.setAttribute("id", 'hashtags');
+        const hashtagsLegend = document.createElement('legend');
+        hashtagsLegend.textContent = 'Hashtags';
+        hashtagsDiv.appendChild(hashtagsLegend);
 
-        const hashtagsList = document.createElement('ul')
+        const hashtagsList = document.createElement('ul');
         json['hashtags'].forEach(function(hashtag) {
-            const hashtagLi = document.createElement('li')
-            hashtagLi.classList.add('hashtag')
-            hashtagLi.textContent = hashtag
-            hashtagsList.appendChild(hashtagLi)
+            const hashtagLi = document.createElement('li');
+            hashtagLi.classList.add('hashtag');
+            hashtagLi.textContent = hashtag;
+            hashtagsList.appendChild(hashtagLi);
         })
-        hashtagsDiv.appendChild(hashtagsList)
+        hashtagsDiv.appendChild(hashtagsList);
         
-        const ticketInfoSection = document.querySelector("#ticket-info")
-        ticketInfoSection.appendChild(prioritySpan)
-        ticketInfoSection.appendChild(hashtagsDiv)
-        ticketInfoSection.appendChild(departmentSpan)
-        ticketInfoSection.appendChild(agentSpan)
-        ticketInfoSection.appendChild(reopenTicketForm)
+        const ticketInfoSection = document.querySelector("#ticket-info");
+        ticketInfoSection.appendChild(prioritySpan);
+        ticketInfoSection.appendChild(hashtagsDiv);
+        ticketInfoSection.appendChild(departmentSpan);
+        ticketInfoSection.appendChild(agentSpan);
+        ticketInfoSection.appendChild(reopenTicketForm);
 
-        addActionToDOM(json['action_username'], json['action_date'], json['action_text'])
+        addActionToDOM(json['action_username'], json['action_date'], json['action_text']);
     }
 }

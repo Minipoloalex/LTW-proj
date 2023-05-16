@@ -45,7 +45,9 @@ require_once(__DIR__ . '/common.tpl.php');
 
 		<?php } ?>
 	</article>
-
+	<?php
+	output_empty_feedback_message('');
+	?>
 <?php } ?>
 <?php function output_all_faqs(array $faqs, string $type)
 { ?>
@@ -77,7 +79,7 @@ require_once(__DIR__ . '/common.tpl.php');
 			100
 		);
 
-		output_empty_feedback_message();
+		output_empty_feedback_message('add-faq-feedback');
 		?>
 	</header>
 <?php } ?>

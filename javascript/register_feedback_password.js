@@ -1,9 +1,9 @@
-const registerButton = document.querySelector('.registerform button.create')
+const registerButton = document.querySelector('.registerform button.create');
 if (registerButton) {
-    const feedbackMessageId = 'feedback-message'
+    const registerFeedback = document.getElementById('feedback-message');
     const displayRegisterErrorMessage = (event, message) => {
-        displayMessage(feedbackMessageId, message)
-        event.preventDefault()
+        displayMessage(registerFeedback, message);
+        event.preventDefault();
     }
 
     registerButton.addEventListener('click', function (event) {
