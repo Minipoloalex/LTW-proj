@@ -21,13 +21,13 @@ class Ticket implements JsonSerializable
   public function __construct(int $ticketid, string $title, string $username, string $status, int $submitdate, ?string $priority, array $hashtags, string $description, ?string $assignedagent, ?string $departmentName)
   {
     $this->ticketid = $ticketid;
-    $this->title = $title;
+    $this->title = htmlentities($title);
     $this->username = $username;
-    $this->status = $status;
+    $this->status = htmlentities($status);
     $this->submitdate = $submitdate;
-    $this->priority = $priority;
+    $this->priority = $priority == NULL ? NULL : htmlentities($priority);
     $this->hashtags = $hashtags;
-    $this->description = $description;
+    $this->description = htmlentities($description);
     $this->departmentName = $departmentName;
     $this->assignedagent = $assignedagent;
   }

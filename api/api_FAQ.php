@@ -17,6 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         exit();
     }
     // TODO: CSRF
+    // if (!$session->verifyCsrf($_POST['csrf'] ?? '')) {
+    //     http_response_code(403); // Forbidden
+    //     echo json_encode(array('error' => 'CSRF token invalid'));
+    //     exit();
+    // }
 
     if (!is_valid_string($_POST['question'])) {
         http_response_code(400); // Bad request

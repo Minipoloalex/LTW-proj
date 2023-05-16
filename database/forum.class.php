@@ -10,8 +10,8 @@ class Forum
     public function __construct(int $forumId, string $question, ?string $answer, int $displayed)
     {
         $this->forumId = $forumId;
-        $this->question = $question;
-        $this->answer = $answer;
+        $this->question = htmlentities($question);
+        $this->answer = htmlentities($answer);
         $this->displayed = $displayed;
     }
 
