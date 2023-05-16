@@ -84,3 +84,9 @@ section#filter-section.hidden {
 .filter-toggle h3 {
   font-size: 1.5em;
 }
+
+/*toggles for dropdown in each label*/
+/* 
+.filter-options label {
+  display: none;
+} */

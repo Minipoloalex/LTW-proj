@@ -8,11 +8,11 @@ require_once(__DIR__ . '/common.tpl.php');
 { ?>
 
 	<article class="faq" data-id="<?= $faq->forumId ?>">
-		<textarea id="question" name="question" class="question input-readonly" value="<?= htmlentities($faq->question) ?>"
-			maxlength="100" rows="1" readonly><?= htmlentities($faq->question) ?></textarea>
+		<textarea id="question" name="question" class="question input-readonly" value="<?= $faq->question ?>"
+			maxlength="100" rows="1" readonly><?= $faq->question ?></textarea>
 
-		<textarea id="answer" name="answer" class="answer input-readonly" value="<?= htmlentities($faq->answer ?? '') ?>"
-			rows="1" readonly><?= htmlentities($faq->answer ?? '') ?></textarea>
+		<textarea id="answer" name="answer" class="answer input-readonly" value="<?= $faq->answer ?? '' ?>"
+			rows="1" readonly><?= $faq->answer ?? '' ?></textarea>
 
 		<?php if ($type !== 'Client') { ?>
 			<button id="editFaqBtn" class="edit-faq" title="Edit"><span class="material-symbols-outlined">edit</span></button>

@@ -14,9 +14,9 @@ class Message {
     public function __construct(int $messageID, int $ticketID, string $text, int $userID, string $username, int $date, ?int $imageID = null) {
         $this->id = $messageID;
         $this->ticketID = $ticketID;
-        $this->text = $text;
+        $this->text = htmlentities($text);
         $this->userID = $userID;
-        $this->username = $username;
+        $this->username = htmlentities($username);
         $this->date = $date;
         $this->imageID = $imageID;
     }

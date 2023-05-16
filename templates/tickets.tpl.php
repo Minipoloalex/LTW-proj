@@ -68,34 +68,36 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 </div>
 
 <section id="filter-section" class="filter hidden" data-type="<?php echo $type?>">
-    
-        <!-- <h3 class="filter-header">Filters</h3> -->
-        <div class="filter-options">
-        <legend>Status</legend>
+    <div class="filter-options">
+
+        <!-- status -->
+        <legend>Status<i class="fa fa-caret-right"></i></legend>
         <?php
         foreach ($filterValues[0] as $fv) { ?>
             <input type="checkbox" name="status" id="<?php echo $fv ?>" value="<?php echo $fv ?>" /><label
                 for="<?php echo $fv ?>"><?php echo $fv ?></label><br />
         <?php } ?>
-        <legend>Priority</legend>
+
+
+        <legend>Priority<i class="fa fa-caret-right"></i></legend>
         <?php
         foreach ($filterValues[1] as $fv) { ?>
             <input type="checkbox" name="priorities" id="<?php echo $fv ?>" value="<?php echo $fv ?>" /><label
                 for="<?php echo $fv ?>"><?php echo $fv ?></label><br />
         <?php } ?>
-        <legend>Hashtags</legend>
+        <legend>Hashtags<i class="fa fa-caret-right"></i></legend>
         <?php
         foreach ($filterValues[2] as $fv) { ?>
             <input type="checkbox" name="hashtags" id="<?php echo $fv['HashtagName'] ?>" value="<?php echo $fv['HashtagID'] ?>" />
             <label for="<?php echo $fv['HashtagName'] ?>"><?php echo $fv['HashtagName'] ?></label><br />
         <?php } ?>
-        <legend>Agent</legend>
+        <legend>Agent<i class="fa fa-caret-right"></i></legend>
         <?php
         foreach ($filterValues[3] as $fv) { ?>
             <input type="checkbox" name="agents" id="<?php echo $fv['Username'] ?>" value="<?php echo $fv['UserID'] ?>" />
             <label for="<?php echo $fv['Username'] ?>"><?php echo $fv['Username'] ?></label><br />
         <?php } ?>
-        <legend>Department</legend>
+        <legend>Department<i class="fa fa-caret-right"></i></legend>
         <?php
         foreach ($filterValues[4] as $fv) { ?>
             <input type="checkbox" name="departments" id="<?php echo $fv['DepartmentName'] ?>" value="<?php echo $fv['DepartmentID'] ?>" />

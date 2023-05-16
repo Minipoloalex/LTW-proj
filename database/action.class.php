@@ -10,8 +10,8 @@ class Action {
     public int $date;
     public function __construct(int $actionID, string $username, string $type, int $date) {
         $this->id = $actionID;
-        $this->username = $username;
-        $this->type = $type;
+        $this->username = htmlentities($username);
+        $this->type = $type;    // type is already sanitized by us
         $this->date = $date;
     }
     static function getByTicket(PDO $db, int $ticketID) : array {
@@ -33,13 +33,13 @@ class Action {
         $actionMessage = '';
         switch ($type) {
             case 'create':
-                $actionMessage = htmlentities($client->username) . ' created this ticket';
+                $actionMessage = $client->username . ' created this ticket';
                 break;
             case 'reopen':
-                $actionMessage = htmlentities($client->username) . ' reopened this ticket';
+                $actionMessage = $client->username . ' reopened this ticket';
                 break;
             case 'close':
-                $actionMessage = htmlentities($client->username) . ' closed this ticket';
+                $actionMessage = $client->username . ' closed this ticket';
                 break;
             default:
                 throw new Exception('Invalid action type');
@@ -60,13 +60,13 @@ class Action {
         if ($agentID) $agent = Agent::getById($db, $agentID);
         switch ($type) {
             case 'edit':
-                $actionMessage = htmlentities($client->username) . ' edited this ticket\'s information';
+                $actionMessage = $client->username . ' edited this ticket\'s information';
                 break;
             case 'assign':
-                $actionMessage = htmlentities($client->username) . ' edited this ticket\'s information and assigned the ticket to ' . htmlentities($agent->username);
+                $actionMessage = $client->username . ' edited this ticket\'s information and assigned the ticket to ' . $agent->username;
                 break;
             case 'unassign':
-                $actionMessage = htmlentities($client->username) . ' edited this ticket\'s information and unassigned the ticket from ' . htmlentities($agent->username);
+                $actionMessage = $client->username . ' edited this ticket\'s information and unassigned the ticket from ' . $agent->username;
                 break;
             default:
                 throw new Exception('Invalid action type');

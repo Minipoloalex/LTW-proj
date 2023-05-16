@@ -14,7 +14,7 @@ if (!$session->isLoggedIn()) {
     echo json_encode(array('error' => 'User not logged in'));
     exit();
 }
-if (!$session->verifyCsrf($_POST['csrf'] ?? '')) {
+if (!$session->verifyCsrf($_POST['csrf'])) {
     http_response_code(403); // Forbidden
     echo json_encode(array('error' => 'CSRF token invalid'));
     exit();

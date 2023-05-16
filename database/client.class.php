@@ -6,15 +6,13 @@
         public int $id;
         public string $name;
         public string $username;
-        public string $password;
         public string $email;
-        public function __construct(int $id, string $name, string $username, string $password, string $email)
+        public function __construct(int $id, string $name, string $username, string $email)
         {
             $this->id = $id;
-            $this->name = $name;
-            $this->username = $username;
-            $this->email = $email;
-            $this->password = $password;
+            $this->name = htmlentities($name);
+            $this->username = htmlentities($username);
+            $this->email = htmlentities($email);
         }
      
         function save($db) {
@@ -40,7 +38,6 @@
                 intval($client['UserID']),
                 $client['Name'],
                 $client['Username'],
-                $client['Password'],
                 $client['Email']
               );
             }
@@ -70,7 +67,7 @@
 
 
         static function searchClients(PDO $db, string $search, int $count) : array {
-            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Name LIKE ? LIMIT ?');
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Email FROM CLIENT WHERE Name LIKE ? LIMIT ?');
             $stmt->execute(array($search . '%', $count));
         
             $clients = array();
@@ -79,7 +76,6 @@
                 intval($client['UserID']),
                     $client['Name'],
                     $client['Username'],
-                    $client['Password'],
                     $client['Email']
               );
             }
@@ -90,7 +86,7 @@
         
 
         static function getClients(PDO $db, int $count)  : array {
-            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT LIMIT ? ');
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Email FROM CLIENT LIMIT ? ');
             $stmt->execute(array($count));
 
             $clients = array();
@@ -99,7 +95,6 @@
                     intval($client['UserID']),
                     $client['Name'],
                     $client['Username'],
-                    $client['Password'],
                     $client['Email']
                 );
             }
@@ -108,7 +103,7 @@
 
 
         static function getById(PDO $db, int $id) : Client {
-            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE UserID = ?');
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Email FROM CLIENT WHERE UserID = ?');
             $stmt->execute(array($id));
         
             $client = $stmt->fetch();
@@ -116,7 +111,6 @@
                 intval($client['UserID']),
                 $client['Name'],
                 $client['Username'],
-                $client['Password'],
                 $client['Email']
             );
           }
@@ -162,12 +156,12 @@
             
             $agent = Agent::getById($db, $userID);
             if ($agent->departmentid === NULL) return true;
-            
+
             $department = Department::getById($db, $agent->departmentid);
             return $department->departmentName === $ticket->departmentName;
           }
           static function filter(PDO $db, array $types, array $departments, string $search) : array {
-            $query = 'SELECT UserID, Name, Username, Password, Email FROM CLIENT';
+            $query = 'SELECT UserID, Name, Username, Email FROM CLIENT';
             $typesF = '';
             $departmentsF = '';
             $nameF = '';
@@ -213,11 +207,12 @@
           }
 
           function isPassEqual(PDO $db, string $pass) : bool {
-            return password_verify($pass, $this->password);
+            $client = Client::getClientWithPassword($db, $this->email, $pass);
+            return $client !== NULL && $client->id == $this->id;
           }
 
           static function getByEmail(PDO $db, string $email) : ?Client {
-            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Email = ?');
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Email FROM CLIENT WHERE Email = ?');
             $stmt->execute(array(strtolower($email)));
             
             $client = $stmt->fetch();
@@ -228,13 +223,12 @@
               intval($client['UserID']),
               $client['Name'],
               $client['Username'],
-              $client['Password'],
               $client['Email']
             );
           }
 
           static function getByUsername(PDO $db, string $username) : ?Client {
-            $stmt = $db->prepare('SELECT UserID, Name, Username, Password, Email FROM CLIENT WHERE Username = ?');
+            $stmt = $db->prepare('SELECT UserID, Name, Username, Email FROM CLIENT WHERE Username = ?');
             $stmt->execute(array($username));
         
             $client = $stmt->fetch();
@@ -245,7 +239,6 @@
               intval($client['UserID']),
               $client['Name'],
               $client['Username'],
-              $client['Password'],
               $client['Email']
             );
           }
