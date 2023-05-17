@@ -1,46 +1,6 @@
 PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 
-INSERT INTO CLIENT VALUES(1,'John Doe','johndoe','password123','johndoe@example.com');
-INSERT INTO CLIENT VALUES(2,'Jane Smith','janesmith','secret456','janesmith@example.com');
-INSERT INTO CLIENT VALUES(3,'Bob Johnson','bobjohnson','letmein789','bobjohnson@example.com');
-INSERT INTO CLIENT VALUES(4,'Alice Brown','alicebrown','qwertyuiop','alicebrown@example.com');
-INSERT INTO CLIENT VALUES(5,'David Lee','davidlee','password123','davidlee@example.com');
-INSERT INTO CLIENT VALUES(6,'My cool name','My cool username','123456','my_email@gmail.com');
-INSERT INTO CLIENT VALUES(7,'My name','my_username','$2y$10$xxVUaxbU0fzvH2FMV//Zk.X2iJy11IVhqgcSnfRANyjgmK84uAzcW','email_email@gmail.com');
-INSERT INTO CLIENT VALUES(8,'Sofia','sofia','$2y$12$uXfo9uHG0/pY5.aa6/YiV.Xt5fh6YvM8i1O5/Mj7Q7l0F/6DVTSKm','sofia@gmail.com');
-INSERT INTO CLIENT VALUES(9,'Felix','felix_martins','$2y$12$pc6VAsha1S8wVfvyQj2N/eGPzEY1amW9uK2l7DPAw1XwI/gxGZAZK','hello@gmail.com');
-INSERT INTO CLIENT VALUES(10,'Super Agent','agent_007','$2y$12$ebVgg5qm6/aODz1b9L8bouTmzwmathL8dWd.Hy1utJJI8Y9QtrAEK','agent_example@gmail.com');
-INSERT INTO CLIENT VALUES(11,'Guilherme','ggg','$2y$12$AQuy0EQaVLogpuN007qZfuOjetQHFoerwKNlgKZrjuv05O0HcOpJ6','gui@gmail.com');
-INSERT INTO AGENT VALUES(2,2);
-INSERT INTO AGENT VALUES(3,1);
-INSERT INTO AGENT VALUES(4,4);
-INSERT INTO AGENT VALUES(5,2);
-INSERT INTO AGENT VALUES(7,NULL);
-INSERT INTO AGENT VALUES(9,NULL);
-INSERT INTO AGENT VALUES(10,NULL);
-INSERT INTO AGENT VALUES(11,NULL);
-
-INSERT INTO ADMIN VALUES(3);
-INSERT INTO ADMIN VALUES(7);
-INSERT INTO ADMIN VALUES(9);
-
-INSERT INTO TICKET VALUES(1,'titulooo1',1,'assigned',1647724861,'high','fun description',7,NULL);
-INSERT INTO TICKET VALUES(2,'titulooo2',2,'open',1647667800,'medium','sad description',4,4);
-INSERT INTO TICKET VALUES(3,'titulooo3',3,'open',1647732762,'medium','happy description',2,3);
-INSERT INTO TICKET VALUES(4,'titulooo4',4,'open',1647714997,'high','no description',5,2);
-INSERT INTO TICKET VALUES(5,'titulooo5',5,'in progress',1647703354,'high','what description',2,3);
-INSERT INTO TICKET VALUES(6,'My ticket',6,'open',1681642803,NULL,'Ticket description',NULL,NULL);
-INSERT INTO TICKET VALUES(7,'My password is password. I don''t like that!',7,'open',1681922757,NULL,'I registered with password as my password. I don''t like that password anymore. How do I change it.',NULL,NULL);
-INSERT INTO TICKET VALUES(8,'My new ticket, testing hashtags',7,'open',1681985852,NULL,'This ticket description is very informative.',NULL,NULL);
-INSERT INTO TICKET VALUES(9,'aaaaaaaaaaaaaaaaaa',7,'open',1681986240,NULL,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',NULL,NULL);
-INSERT INTO TICKET VALUES(13,'My new ticket tesint gthe department!',7,'open',1682063807,'low','My ticket has a vveryshort descipriotn',10,4);
-INSERT INTO TICKET VALUES(14,'just a test',7,'open',1682806322,NULL,'testtt',NULL,NULL);
-INSERT INTO TICKET VALUES(15,'outro',7,'open',1682807500,NULL,'...',NULL,NULL);
-INSERT INTO TICKET VALUES(16,'teste',7,'open',1683976754,'low','just a test',NULL,4);
-INSERT INTO TICKET VALUES(17,'teste sofia',8,'open',1684101211,'low','only a test',NULL,2);
-INSERT INTO TICKET VALUES(19,'MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM',7,'open',1684262271,'low','max title',NULL,18);
-
 INSERT INTO DEPARTMENT VALUES(1,'Sales');
 INSERT INTO DEPARTMENT VALUES(2,'Support');
 INSERT INTO DEPARTMENT VALUES(3,'Billing');
@@ -134,6 +94,46 @@ INSERT INTO HASHTAG_TICKET VALUES(19,2);
 INSERT INTO HASHTAG_TICKET VALUES(20,45);
 INSERT INTO HASHTAG_TICKET VALUES(20,39);
 INSERT INTO HASHTAG_TICKET VALUES(20,24);
+
+INSERT INTO CLIENT VALUES(1,'John Doe','johndoe','password123','johndoe@example.com');
+INSERT INTO CLIENT VALUES(2,'Jane Smith','janesmith','secret456','janesmith@example.com');
+INSERT INTO CLIENT VALUES(3,'Bob Johnson','bobjohnson','letmein789','bobjohnson@example.com');
+INSERT INTO CLIENT VALUES(4,'Alice Brown','alicebrown','qwertyuiop','alicebrown@example.com');
+INSERT INTO CLIENT VALUES(5,'David Lee','davidlee','password123','davidlee@example.com');
+INSERT INTO CLIENT VALUES(6,'My cool name','My cool username','123456','my_email@gmail.com');
+INSERT INTO CLIENT VALUES(7,'My name','my_username','$2y$10$xxVUaxbU0fzvH2FMV//Zk.X2iJy11IVhqgcSnfRANyjgmK84uAzcW','email_email@gmail.com');
+INSERT INTO CLIENT VALUES(8,'Sofia','sofia','$2y$12$uXfo9uHG0/pY5.aa6/YiV.Xt5fh6YvM8i1O5/Mj7Q7l0F/6DVTSKm','sofia@gmail.com');
+INSERT INTO CLIENT VALUES(9,'Felix','felix_martins','$2y$12$pc6VAsha1S8wVfvyQj2N/eGPzEY1amW9uK2l7DPAw1XwI/gxGZAZK','hello@gmail.com');
+INSERT INTO CLIENT VALUES(10,'Super Agent','agent_007','$2y$12$ebVgg5qm6/aODz1b9L8bouTmzwmathL8dWd.Hy1utJJI8Y9QtrAEK','agent_example@gmail.com');
+INSERT INTO CLIENT VALUES(11,'Guilherme','ggg','$2y$12$AQuy0EQaVLogpuN007qZfuOjetQHFoerwKNlgKZrjuv05O0HcOpJ6','gui@gmail.com');
+INSERT INTO AGENT VALUES(2,2);
+INSERT INTO AGENT VALUES(3,1);
+INSERT INTO AGENT VALUES(4,4);
+INSERT INTO AGENT VALUES(5,2);
+INSERT INTO AGENT VALUES(7,NULL);
+INSERT INTO AGENT VALUES(9,NULL);
+INSERT INTO AGENT VALUES(10,NULL);
+INSERT INTO AGENT VALUES(11,NULL);
+
+INSERT INTO ADMIN VALUES(3);
+INSERT INTO ADMIN VALUES(7);
+INSERT INTO ADMIN VALUES(9);
+
+INSERT INTO TICKET VALUES(1,'titulooo1',1,'assigned',1647724861,'high','fun description',7,NULL);
+INSERT INTO TICKET VALUES(2,'titulooo2',2,'open',1647667800,'medium','sad description',4,4);
+INSERT INTO TICKET VALUES(3,'titulooo3',3,'open',1647732762,'medium','happy description',2,3);
+INSERT INTO TICKET VALUES(4,'titulooo4',4,'open',1647714997,'high','no description',5,2);
+INSERT INTO TICKET VALUES(5,'titulooo5',5,'in progress',1647703354,'high','what description',2,3);
+INSERT INTO TICKET VALUES(6,'My ticket',6,'open',1681642803,NULL,'Ticket description',NULL,NULL);
+INSERT INTO TICKET VALUES(7,'My password is password. I don''t like that!',7,'open',1681922757,NULL,'I registered with password as my password. I don''t like that password anymore. How do I change it.',NULL,NULL);
+INSERT INTO TICKET VALUES(8,'My new ticket, testing hashtags',7,'open',1681985852,NULL,'This ticket description is very informative.',NULL,NULL);
+INSERT INTO TICKET VALUES(9,'aaaaaaaaaaaaaaaaaa',7,'open',1681986240,NULL,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',NULL,NULL);
+INSERT INTO TICKET VALUES(13,'My new ticket tesint gthe department!',7,'open',1682063807,'low','My ticket has a vveryshort descipriotn',10,4);
+INSERT INTO TICKET VALUES(14,'just a test',7,'open',1682806322,NULL,'testtt',NULL,NULL);
+INSERT INTO TICKET VALUES(15,'outro',7,'open',1682807500,NULL,'...',NULL,NULL);
+INSERT INTO TICKET VALUES(16,'teste',7,'open',1683976754,'low','just a test',NULL,4);
+INSERT INTO TICKET VALUES(17,'teste sofia',8,'open',1684101211,'low','only a test',NULL,2);
+INSERT INTO TICKET VALUES(19,'MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM',7,'open',1684262271,'low','max title',NULL,18);
 
 INSERT INTO "ACTION" VALUES(1,1,1,'open',1647724861);
 INSERT INTO "ACTION" VALUES(2,2,2,'close',1647667800);

@@ -382,8 +382,8 @@
             return $stmt->execute(array(password_hash($pass, PASSWORD_DEFAULT), $this->id));
           }
           static function demoteToClient(PDO $db, int $userID) {
-            $stmt = $db->prepare('DELETE FROM ADMIN WHERE UserID = ?');
-            $stmt->execute(array($userID));
+            // $stmt = $db->prepare('DELETE FROM ADMIN WHERE UserID = ?');
+            // $stmt->execute(array($userID));
             $stmt = $db->prepare('DELETE FROM AGENT WHERE UserID = ?');
             $stmt->execute(array($userID));
           }
