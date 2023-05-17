@@ -37,12 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
-  error_log('ID IN API 1: ' . $_GET['id']);
+  // error_log('ID IN API 1: ' . $_GET['id']);
   
   $id = intval($_GET['id']);
-  error_log('ID IN API: ' . $id);
   $new_user_type = $_GET['user_type'];
-  $department = $_GET['department'];
+  $department = ($_GET['department'] === '' ? NULL : intval($_GET['department']));
+  error_log('department IN API: ' . $department);
   $curr_user_type = Client::getType($db, $id);
 
   if (isset($new_user_type)) {
@@ -78,10 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
     }
     
   }
-  if (isset($department)){
-   //dar update a departament 
+  else{
+    Client::changeDepartment($db, $id, $department);
     
-
   }
 
   $user =  CLient::getByIdExpanded($db, $id);

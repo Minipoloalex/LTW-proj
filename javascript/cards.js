@@ -204,8 +204,10 @@ function checkLoader() {
 }
 
 
-function drawUserCard(card, curr) {
+async function drawUserCard(card, curr) {
   console.log(curr);
+  const deps = await getAllDepartments();
+  
   card.innerHTML = `
     <article>
       <header>
@@ -219,8 +221,15 @@ function drawUserCard(card, curr) {
         <label>Email: </label>
         <span class="card-info">${curr.email}</span><br>
 
+        
         <label>Department: </label>
-        <span class="card-info">${curr.department}</span><br>
+        <select class="department-select" ${curr.user_type === 'Client' ? "disabled" : ""}>
+          <option value=''>None</option>
+          ${curr.user_type !== 'Client' ? 
+            deps.map(dep => `<option value="${dep.departmentId}" ${curr.department === dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('') :
+            ''}
+          </select><br>
+      
 
         <label>Role: </label>
         <select class="user-type-select">
@@ -238,12 +247,38 @@ function drawUserCard(card, curr) {
     </article>
   `;
 
-  const userTypeSelect = card.querySelector('.user-type-select');
-  userTypeSelect.addEventListener('change', async function () {
-    const selectedValue = userTypeSelect.value;
-    const json = await patchData('../api/api_users.php', { id: curr.id, user_type: selectedValue });
+  const departmentSelect = card.querySelector('.department-select');
+  departmentSelect.addEventListener('change', async function () {
+    const selectedValue = departmentSelect.value;
+    const json = await patchData('../api/api_users.php', { id: curr.id, department: selectedValue });
+    console.log(json);
   });
+
+  // const userTypeSelect = card.querySelector('.user-type-select');
+  // userTypeSelect.addEventListener('change', async function () {
+  //   const selectedValue = userTypeSelect.value;
+  //   const json = await patchData('../api/api_users.php', { id: curr.id, user_type: selectedValue });
+  //   console.log(json);
+  // });
+
+  const userTypeSelect = card.querySelector('.user-type-select');
+userTypeSelect.addEventListener('change', async function () {
+  const selectedValue = userTypeSelect.value;
+  
+  // Handle department select based on user type
+  const departmentSelect = card.querySelector('.department-select');
+  if (selectedValue === 'Client') {
+    departmentSelect.value = ''; // Select the "None" option
+    departmentSelect.disabled = true; // Disable the department select
+  } else {
+    departmentSelect.disabled = false; // Enable the department select
+  }
+  
+  const json = await patchData('../api/api_users.php', { id: curr.id, user_type: selectedValue });
+});
+
 }
+
 
 
 function drawDepartmentCard(card, curr) {
