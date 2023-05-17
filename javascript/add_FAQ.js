@@ -202,13 +202,9 @@ if (form) {
     });
 
     form.addEventListener('focusin', function () {
-        // successMessage.style.display = 'none';
-        // errorMessage.style.display = 'none';
         clearAllDisplayFeedback();
     });
     form.addEventListener('change', function () {
-        // successMessage.style.display = 'none';
-        // errorMessage.style.display = 'none';
         clearAllDisplayFeedback();
     });
 }

@@ -4,13 +4,11 @@ require_once(__DIR__ . '/../utils/session.php');
 require_once(__DIR__ . '/../utils/validate.php');
 require_once(__DIR__ . '/../database/ticket.class.php');
 require_once(__DIR__ . '/../database/connection.db.php');
-require_once(__DIR__ . '/handlers/common.api.php');
-function handle_api_close_ticket(Session $session, PDO $db, ?string $dataTicketID, ?string $dataCSRF, ?string $dataStatus) {
-    handle_check_csrf($session, $dataCSRF);
-
+require_once(__DIR__ . '/handlers/api_common.php');
+function handle_api_close_ticket(Session $session, PDO $db, ?string $dataTicketID, ?string $dataStatus) {
     if (!is_valid_ticket_id($db, $dataTicketID)) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Invalid ticketID parameter'));
+        echo_json_csrf($session, array('error' => 'Invalid ticketID parameter'));
         exit();
     }
     if (!is_valid_string($dataStatus) || !is_valid_status($dataStatus)) {
@@ -39,12 +37,12 @@ function handle_api_close_ticket(Session $session, PDO $db, ?string $dataTicketI
     $ticket = Ticket::getById($db, $ticketID);
     if (!$ticket) {
         http_response_code(500); // Internal server error
-        echo json_encode(array('error' => 'Ticket does not exist'));
+        echo_json_csrf($session, array('error' => 'Ticket does not exist'));
         exit();
     }
 
     http_response_code(200); // OK
-    echo json_encode(array(
+    echo_json_csrf($session, array(
         'success' => 'The ticket was successfully closed',
         'ticketID' => $ticket->ticketid,
         'department' => $ticket->departmentName,
@@ -54,8 +52,7 @@ function handle_api_close_ticket(Session $session, PDO $db, ?string $dataTicketI
         'hashtags' => array_column($ticket->hashtags, 'hashtagname'),
         'action_username' => $action->username,
         'action_text' => $action->type,
-        'action_date' => date('F j', $action->date),
-        'csrf' => $session->getCsrf()
+        'action_date' => date('F j', $action->date)
     ));
 }
 ?>

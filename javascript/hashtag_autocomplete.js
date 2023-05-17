@@ -12,7 +12,7 @@ for (const button of removeHashtagButtons) {
 
 function postHashtag(data) {
     return fetch(
-        '../api/api_check_hashtag.php',
+        '../api/api_hashtag.php',
         {
         method: 'POST',
         headers: {
@@ -21,63 +21,58 @@ function postHashtag(data) {
             body: encodeForAjax(data)
         })
 }
-function addHashtag(event) {
+async function addHashtag(event) {
     /*
     * This function does not add the hashtag to the ticket in the database
     * that is the responsibility of the "Save" button
     */
     event.preventDefault();
     const hashtag = input.value;
-    postHashtag({'hashtagName': hashtag, 'csrf': getCsrf()})
-    .catch(error => console.log(error))
-    .then((response) => response.json())
-    .catch(error => console.log(error))
-    .then((json) => {
-        setCsrf(json['csrf'])
-        if (json['error']) {
-            console.error(json['error'])
-        }
-        else if (json['success']) {
-            console.log(json['success'])
-            input.value = ""
-            const hashtagID = json['hashtagID']
+    const json = await getData('../api/api_hashtag.php', {'hashtagName': hashtag});
+    if (json['error']) {
+        console.error(json['error'])
+        return
+    }
+    else if (json['success']) {
+        console.log(json['success'])
+        input.value = ""
+        const hashtagID = json['hashtagID']
 
-            const hashtagList = document.querySelector("#hashtags section#hashtag-items")
-            const hashtagItems = hashtagList.querySelectorAll("input")
-            for (const item of hashtagItems) {
-                if (parseInt(item.value) === hashtagID || parseInt(item.id) === hashtagID) {
-                    console.log("Hashtag is already present in the UI")
-                    return
-                }
+        const hashtagList = document.querySelector("#hashtags section#hashtag-items")
+        const hashtagItems = hashtagList.querySelectorAll("input")
+        for (const item of hashtagItems) {
+            if (parseInt(item.value) === hashtagID || parseInt(item.id) === hashtagID) {
+                console.log("Hashtag is already present in the UI")
+                return
             }
-            const hashtagArticle = document.createElement("article")
-            hashtagArticle.classList.add("hashtag")
-
-            const hashtagInputItem = document.createElement("input")
-            hashtagInputItem.setAttribute("id", hashtagID)
-            hashtagInputItem.setAttribute("value", hashtagID)
-            hashtagInputItem.setAttribute("type", "hidden")
-            hashtagInputItem.setAttribute("name", "hashtags[]")
-            hashtagInputItem.setAttribute("checked", "")
-
-            const hashtagLabelItem = document.createElement("label")
-            hashtagLabelItem.setAttribute("for", hashtagID)
-            hashtagLabelItem.textContent = hashtag
-
-            const hashtagCloseItem = document.createElement("a")
-            hashtagCloseItem.setAttribute("href", "#")
-            hashtagCloseItem.setAttribute("class", "remove-hashtag")
-            hashtagCloseItem.textContent = "X"
-            hashtagCloseItem.addEventListener("click", removeHashtagItem)
-
-            hashtagArticle.appendChild(hashtagInputItem)
-            hashtagArticle.appendChild(hashtagLabelItem)
-            hashtagArticle.appendChild(hashtagCloseItem)
-            hashtagList.appendChild(hashtagArticle)
-            
-            removeFromDataList(hashtag)
         }
-    });
+        const hashtagArticle = document.createElement("article")
+        hashtagArticle.classList.add("hashtag")
+
+        const hashtagInputItem = document.createElement("input")
+        hashtagInputItem.setAttribute("id", hashtagID)
+        hashtagInputItem.setAttribute("value", hashtagID)
+        hashtagInputItem.setAttribute("type", "hidden")
+        hashtagInputItem.setAttribute("name", "hashtags[]")
+        hashtagInputItem.setAttribute("checked", "")
+
+        const hashtagLabelItem = document.createElement("label")
+        hashtagLabelItem.setAttribute("for", hashtagID)
+        hashtagLabelItem.textContent = hashtag
+
+        const hashtagCloseItem = document.createElement("a")
+        hashtagCloseItem.setAttribute("href", "#")
+        hashtagCloseItem.setAttribute("class", "remove-hashtag")
+        hashtagCloseItem.textContent = "X"
+        hashtagCloseItem.addEventListener("click", removeHashtagItem)
+
+        hashtagArticle.appendChild(hashtagInputItem)
+        hashtagArticle.appendChild(hashtagLabelItem)
+        hashtagArticle.appendChild(hashtagCloseItem)
+        hashtagList.appendChild(hashtagArticle)
+        
+        removeFromDataList(hashtag)
+    }
 }
 
 

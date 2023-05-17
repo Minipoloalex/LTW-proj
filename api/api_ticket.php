@@ -8,7 +8,7 @@ require_once(__DIR__ . '/../database/client.class.php');
 require_once(__DIR__ . '/../database/ticket.class.php');
 require_once(__DIR__ . '/api_tickets_last_7_days.php');
 require_once(__DIR__ . '/api_close_ticket.php');
-require_once(__DIR__ . '/handlers/common.api.php');
+require_once(__DIR__ . '/handlers/api_common.php');
 
 $session = new Session();
 $db = getDatabaseConnection();
@@ -29,13 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // NOT DONE YET
     handle_check_logged_in($session);
     handle_check_csrf($session, $_POST['csrf']);
-    // if (!$session->verifyCsrf($_POST['csrf'])) {
-    //     http_response_code(403); // Forbidden
-    //     echo json_encode(array('error' => 'CSRF token invalid'));
-    //     exit();
-    // }
     $db = getDatabaseConnection();
     if (!isset($_POST['request']) || empty($_POST['request'])) {
         http_response_code(400); // Bad request
@@ -45,16 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
     handle_check_logged_in($session);
-    // if (!$session->isLoggedIn()) {
-    //     http_response_code(401); // Unauthorized
-    //     echo json_encode(array('error' => 'User not logged in'));
-    //     exit();
-    // }
     $input = file_get_contents('php://input');
     parse_str($input, $data);
-    $db = getDatabaseConnection();
+    handle_check_csrf($session, $data['csrf']);
 
-    handle_api_close_ticket($session, $db, $data['ticketID'], $data['csrf'], $data['status']);
+    $db = getDatabaseConnection();
+    handle_api_close_ticket($session, $db, $data['ticketID'], $data['status']);
     exit();
 }
 http_response_code(400); // Bad request

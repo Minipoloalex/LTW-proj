@@ -21,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
     $db = getDatabaseConnection();
-    
     if (!is_valid_string($_POST['message'])) {
         http_response_code(400); // Bad request
         echo json_encode(array('error' => 'Missing message parameter. Message text is required'));

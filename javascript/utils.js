@@ -3,15 +3,28 @@ const entityMap = {
     "<": "&lt;",
     ">": "&gt;",
     '"': '&quot;',
-    "'": '&#39;',
+    "'": '&#039;',
     "/": '&#x2F;'
 };
+const inverterdEntityMap = {
+    "&amp;": "&",
+    "&lt;": "<",
+    "&gt;": ">",
+    '&quot;': '"',
+    '&#039;': "'",
+    '&#x2F;': "/"
+};
+
 function escapeHtml(string) {
     return String(string).replace(/[&<>"'\/]/g, function (s) {
         return entityMap[s];
     });
 }
-
+function decodeHtml(string) {
+    return String(string).replace(/&(amp|lt|gt|quot|#039|#x2F);/g, function (s) {
+        return inverterdEntityMap[s];
+    });
+}
 function encodeForAjax(data) {
     return Object.keys(data).map(function (k) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
@@ -125,9 +138,6 @@ function clearFeedbackMessage(message) {
     message.classList.remove('success-message');
 }
 
-// function clearDisplayFeedback(feedbackMessage) {
-//     clearFeedbackMessage(feedbackMessage);
-// }
 
 function clearAllDisplayFeedback() {
     const feedbackMessages = document.querySelectorAll('.feedback-message');
@@ -152,4 +162,7 @@ function getNameRegex() {
 }
 function isEmpty(string) {
     return !string || string.length === 0;
+}
+function setTextContent(element, messageText) {
+    element.textContent = decodeHtml(messageText);
 }

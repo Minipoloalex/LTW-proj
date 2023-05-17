@@ -102,7 +102,7 @@ if (editBtn) {
     /*verificar se posso fazer toggle para 'edit' outra vez (apos dar save), apenas se os dados estiverem certos*/
 
     editBtn.addEventListener('click', function () {
-        clearDisplayFeedback("feedback-message");
+        clearAllDisplayFeedback();
         toggleProfile();
     });
 }
