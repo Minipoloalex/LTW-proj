@@ -8,7 +8,7 @@ async function putFaqData(data) {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: encodeForAjax(data)
-  })
+  });
 }
 
 async function deleteFaqData(data) {
@@ -19,7 +19,7 @@ async function deleteFaqData(data) {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: encodeForAjax(data)
-  })
+  });
 }
 
 async function patchFaqData(data) {
@@ -32,7 +32,7 @@ async function patchFaqData(data) {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: encodeForAjax(data)
-  })
+  });
 }
 
 const editFaqBtns = document.querySelectorAll('#editFaqBtn');
@@ -107,14 +107,14 @@ function handleDelete(deleteFaqBtn) {
 
   deleteFaqBtn.addEventListener('click', async (event) => {
     toggleModal();
-    event.preventDefault()
-    event.stopPropagation()
-    document.addEventListener('click', clickOnDocument)
+    event.preventDefault();
+    event.stopPropagation();
+    document.addEventListener('click', clickOnDocument);
   })
 
   x.addEventListener("click", () => {
     toggleModal();
-    document.removeEventListener('click', clickOnDocument)
+    document.removeEventListener('click', clickOnDocument);
   });
   
   function toggleModal() {
@@ -122,11 +122,11 @@ function handleDelete(deleteFaqBtn) {
   }
 
   function clickOnDocument(event) {
-    if (modalContent.contains(event.target)) return
-    event.preventDefault()
-    event.stopPropagation()
-    toggleModal()
-    document.removeEventListener('click', clickOnDocument)
+    if (modalContent.contains(event.target)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    toggleModal();
+    document.removeEventListener('click', clickOnDocument);
 }
 
   // window.onclick = function (event) {

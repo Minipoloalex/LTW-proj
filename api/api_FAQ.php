@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         exit();
     }
     // TODO: CSRF
-    // if (!$session->verifyCsrf($_POST['csrf'] ?? '')) {
+    // if (!$session->verifyCsrf($_POST['csrf'])) {
     //     http_response_code(403); // Forbidden
     //     echo json_encode(array('error' => 'CSRF token invalid'));
     //     exit();
@@ -61,12 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 /*edit faq and answer faq*/
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-    // TODO: CSRF
     if (!$session->isLoggedIn()) {
         http_response_code(401); // Unauthorized
         echo json_encode(array('error' => 'You are not logged in.'));
         exit();
     }
+    // TODO: CSRF
 
     if (Client::getType($db, $session->getId()) !== 'Admin') {
         http_response_code(403); // Forbidden
