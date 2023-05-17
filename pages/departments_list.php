@@ -24,7 +24,7 @@ $departments = Department::getDepartments($db);
 
 output_header($session, "Admin");
 drawTitle("Departments", "department");
-drawDepartmentsTable($departments, $db);
+// drawDepartmentsTable($departments, $db);
 drawCardContainer();
 output_footer();
 
