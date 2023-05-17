@@ -8,6 +8,7 @@ require_once(__DIR__ . '/../database/connection.db.php');
 $session = new Session();
 $db = getDatabaseConnection();
 
+
 /* get user type */
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (!$session->isLoggedIn()) {
