@@ -11,19 +11,23 @@ $session = new Session();
 $db = getDatabaseConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+  $all = $_GET['all'];
   $page = intval($_GET['page']);
 
-  if (isset($page)) {
-    $data = Department::filterDepartments($db, $page);
+  if (isset($all)) {
+    $data = Department::getDepartments($db);
     http_response_code(200); // OK
     echo json_encode($data);
   } else {
-    $data = Department::filterDepartments($db);
-    http_response_code(200); // OK
-    echo json_encode($data);
+    if (isset($page)) {
+      $data = Department::filterDepartments($db, $page);
+      http_response_code(200); // OK
+      echo json_encode($data);
+    } else {
+      $data = Department::filterDepartments($db);
+      http_response_code(200); // OK
+      echo json_encode($data);
+    }
   }
-  
-  // $departments = Department::getDepartments($db);
-  // http_response_code(200); // OK
-  // echo json_encode($departments);
 }

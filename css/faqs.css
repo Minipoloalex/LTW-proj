@@ -268,9 +268,10 @@ button.hide-faq span.material-symbols-outlined:hover {
 
 @media screen and (min-width: 768px) {
 
+
+  /* button.answer-faq,
+  button.save-answer, */
   .textarea-form button,
-  button.answer-faq,
-  button.save-answer,
   .profile button {
     width: 15%;
   }

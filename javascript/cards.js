@@ -115,21 +115,20 @@ const removeInfiniteScroll = () => {
 
 if (cardContainer) {
   window.onload = async function () {
-    // const type = 'ticket';
     console.log(cardType);
     switch (cardType) {
       case 'ticket': {
-        const tickets = await getAllTickets();
+        const tickets = await getPartialTickets();
         getCards(tickets);
         break;
       }
       case 'user': {
-        const users = await getAllUsers();
+        const users = await getPartialUsers();
         getCards(users);
         break;
       }
       case 'department': {
-        const departments = await getAllDepartments();
+        const departments = await getPartialDepartments();
         getCards(departments);
         break;
       }
@@ -154,7 +153,7 @@ function getCards(content) {
   flag = true;
 }
 
-async function getAllTickets() {
+async function getPartialTickets() {
   const response = await fetch("../api/api_filter_tickets.php");
   if (response.ok) {
     const data = await response.json();
@@ -164,7 +163,7 @@ async function getAllTickets() {
   }
 }
 
-async function getAllDepartments() {
+async function getPartialDepartments() {
   const response = await fetch("../api/api_departments.php");
   if (response.ok) {
     const data = await response.json();
@@ -175,11 +174,22 @@ async function getAllDepartments() {
   }
 }
 
-async function getAllUsers() {
+async function getPartialUsers() {
   const response = await fetch("../api/api_users.php");
   if (response.ok) {
     const data = await response.json();
     console.log(data);
+    return data;
+  } else {
+    console.error('Error: ' + res.status);
+  }
+}
+
+async function getAllDepartments() {
+  const response = await fetch("../api/api_departments.php?all=true");
+  if (response.ok) {
+    const data = await response.json();
+    console.log("All deps: ",data);
     return data;
   } else {
     console.error('Error: ' + res.status);

@@ -11,6 +11,7 @@ $db = getDatabaseConnection();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Handle AJAX request
   $filterValues = json_decode(file_get_contents('php://input'), true);
+  
   $agents = $filterValues['agents'];
   $departments = $filterValues['departments'];
   $hashtags = $filterValues['hashtags'];
