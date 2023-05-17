@@ -11,17 +11,9 @@ $db = getDatabaseConnection();
 
 /*add faq*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    if (!$session->isLoggedIn()) {
-        http_response_code(401); // Unauthorized
-        echo json_encode(array('error' => 'User not logged in'));
-        exit();
-    }
+    handle_check_logged_in($session);
     // TODO: CSRF
-    // if (!$session->verifyCsrf($_POST['csrf'])) {
-    //     http_response_code(403); // Forbidden
-    //     echo json_encode(array('error' => 'CSRF token invalid'));
-    //     exit();
-    // }
+    // handle_check_csrf($session, $_POST['csrf']);
 
     if (!is_valid_string($_POST['question'])) {
         http_response_code(400); // Bad request

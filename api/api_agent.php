@@ -9,11 +9,7 @@ require_once(__DIR__ . '/../database/department.class.php');
 require_once(__DIR__ . '/../database/client.class.php');
 
 $session = new Session();
-if (!$session->isLoggedIn()) {
-    http_response_code(401); // Unauthorized
-    echo json_encode(array('error' => 'User not logged in'));
-    exit();
-}
+handle_check_logged_in($session);
 $db = getDatabaseConnection();
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['departmentID'])) {

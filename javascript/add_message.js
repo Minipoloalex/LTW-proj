@@ -119,7 +119,7 @@ function getPlainMessageBody(messageText) {
 
     const text = document.createElement("p");
     text.classList.add("text");
-    text.textContent = messageText;
+    setTextContent(text, messageText);
     messageBody.appendChild(text);
     return messageBody;
 }
@@ -135,12 +135,12 @@ function getHeader(username, dateText) {
     
     const user = document.createElement("span");
     user.classList.add("user");
-    user.textContent = username;
+    setTextContent(user, username);
     header.appendChild(user);
     
     const date = document.createElement("span");
     date.classList.add("date");
-    date.textContent = dateText;
+    setTextContent(date, dateText);
     header.appendChild(date);
     return header;
 }
