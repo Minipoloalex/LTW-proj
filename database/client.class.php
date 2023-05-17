@@ -406,6 +406,11 @@
             $stmt = $db->prepare('INSERT INTO AGENT (UserID, DepartmentID) VALUES (?, NULL)');
             $stmt->execute(array($userID));
           }
+
+          static function changeDepartment(PDO $db, int $userID, ?int $departmentID) {
+            $stmt = $db->prepare('UPDATE AGENT SET DepartmentID = ? WHERE UserID = ?');
+            $stmt->execute(array($departmentID, $userID));
+          }
     }
 
     
