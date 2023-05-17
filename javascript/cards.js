@@ -239,27 +239,11 @@ function drawUserCard(card, curr) {
   `;
 
   const userTypeSelect = card.querySelector('.user-type-select');
-  userTypeSelect.addEventListener('change', function () {
+  userTypeSelect.addEventListener('change', async function () {
     const selectedValue = userTypeSelect.value;
-    updateUserType(selectedValue); // Send the selected value to the server
+    const json = await patchData('../api/api_users.php', { id: curr.id, user_type: selectedValue });
   });
 }
-
-/*patch*/
-// function updateUserType(selectedValue) {
-//   const url = '../api/api_users.php';
-//   const data = { user_type: selectedValue };
-//   fetch(url, {
-//     method: 'PATCH',
-//     body: JSON.stringify(data),
-//     headers: {
-//       'Content-Type': 'application/json'
-//     }
-//   }).then(res => res.json())
-//     .then(response => console.log('Success:', JSON.stringify(response)))
-//     .catch(error => console.error('Error:', error));
-// }
-
 
 
 function drawDepartmentCard(card, curr) {

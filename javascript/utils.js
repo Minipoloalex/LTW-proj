@@ -50,7 +50,7 @@ async function patchData(path, data) {
     data['csrf'] = getCsrf();
     console.log(getCsrf())
     console.log(data)
-    const json = await bodyFetch(path, data, 'PATCH');
+    const json = await urlFetch(path, data, 'PATCH');
     setCsrf(json['csrf']);
     return json;
 }

@@ -137,6 +137,8 @@
           }
 
         static function getByIdExpanded(PDO $db, int $id) : Client {
+          
+          error_log("Getting user with id: " . $id);
           $query = '
                     SELECT
                       c.UserID,
@@ -158,6 +160,7 @@
           $stmt = $db-> prepare($query);
           $stmt->execute(array($id));
           $user = $stmt->fetch();
+          error_log("User: " . print_r($user, true));
           return new Client(
             intval($user['UserID']),
             $user['Name'],
@@ -379,6 +382,8 @@
             return $stmt->execute(array(password_hash($pass, PASSWORD_DEFAULT), $this->id));
           }
           static function demoteToClient(PDO $db, int $userID) {
+            $stmt = $db->prepare('DELETE FROM ADMIN WHERE UserID = ?');
+            $stmt->execute(array($userID));
             $stmt = $db->prepare('DELETE FROM AGENT WHERE UserID = ?');
             $stmt->execute(array($userID));
           }
@@ -391,14 +396,14 @@
             $stmt->execute(array($userID));
           }
           static function upgradeToAdminFromClient(PDO $db, int $userID) {
-            $stmt = $db->prepare('INSERT INTO AGENT (UserID, Department) VALUES (?, NULL)');
+            $stmt = $db->prepare('INSERT INTO AGENT (UserID, DepartmentID) VALUES (?, NULL)');
             $stmt->execute(array($userID));
 
             $stmt = $db->prepare('INSERT INTO ADMIN (UserID) VALUES (?)');
             $stmt->execute(array($userID));
           }
           static function upgradeToAgent(PDO $db, int $userID) {
-            $stmt = $db->prepare('INSERT INTO AGENT (UserID, Department) VALUES (?, NULL)');
+            $stmt = $db->prepare('INSERT INTO AGENT (UserID, DepartmentID) VALUES (?, NULL)');
             $stmt->execute(array($userID));
           }
     }
