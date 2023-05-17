@@ -189,7 +189,7 @@ async function getAllDepartments() {
   const response = await fetch("../api/api_departments.php?all=true");
   if (response.ok) {
     const data = await response.json();
-    console.log("All deps: ",data);
+    console.log("All deps: ", data);
     return data;
   } else {
     console.error('Error: ' + res.status);
@@ -207,7 +207,7 @@ function checkLoader() {
 async function drawUserCard(card, curr) {
   console.log(curr);
   const deps = await getAllDepartments();
-  
+
   card.innerHTML = `
     <article>
       <header>
@@ -225,9 +225,9 @@ async function drawUserCard(card, curr) {
         <label>Department: </label>
         <select class="department-select" ${curr.user_type === 'Client' ? "disabled" : ""}>
           <option value=''>None</option>
-          ${curr.user_type !== 'Client' ? 
-            deps.map(dep => `<option value="${dep.departmentId}" ${curr.department === dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('') :
-            ''}
+          ${curr.user_type !== 'Client' ?
+      deps.map(dep => `<option value="${dep.departmentId}" ${curr.department === dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('') :
+      ''}
           </select><br>
       
 
@@ -248,34 +248,37 @@ async function drawUserCard(card, curr) {
   `;
 
   const departmentSelect = card.querySelector('.department-select');
+  const userTypeSelect = card.querySelector('.user-type-select');
+  const depSelectedValue = departmentSelect.value;
+  const typeSelectedValue = userTypeSelect.value;
+
   departmentSelect.addEventListener('change', async function () {
-    const selectedValue = departmentSelect.value;
-    const json = await patchData('../api/api_users.php', { id: curr.id, department: selectedValue });
+    depSelectedValue = departmentSelect.value;
+    // const json = await patchData('../api/api_users.php', { id: curr.id, department: selectedValue });
+    const json = await patchData('../api/api_users.php', { id: curr.id, user_type: typeSelectedValue, department: depSelectedValue });
     console.log(json);
   });
 
-  // const userTypeSelect = card.querySelector('.user-type-select');
-  // userTypeSelect.addEventListener('change', async function () {
-  //   const selectedValue = userTypeSelect.value;
-  //   const json = await patchData('../api/api_users.php', { id: curr.id, user_type: selectedValue });
-  //   console.log(json);
-  // });
+  
+  userTypeSelect.addEventListener('change', async function () {
+    typeSelectedValue = userTypeSelect.value;
+    // Handle department select based on user type
+    const departmentSelect = card.querySelector('.department-select');
+    if (typeSelectedValue === 'Client') {
+      departmentSelect.value = ''; // Select the "None" option
+      departmentSelect.disabled = true; // Disable the department select
+    } else {
+      departmentSelect.disabled = false; // Enable the department select
+      departmentSelect.innerHTML = `
+      <option value="">None</option>
+      ${deps.map(dep => `<option value="${dep.departmentId}" ${curr.department === dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('')}
+    `; // Update the department select options
+    }
 
-  const userTypeSelect = card.querySelector('.user-type-select');
-userTypeSelect.addEventListener('change', async function () {
-  const selectedValue = userTypeSelect.value;
-  
-  // Handle department select based on user type
-  const departmentSelect = card.querySelector('.department-select');
-  if (selectedValue === 'Client') {
-    departmentSelect.value = ''; // Select the "None" option
-    departmentSelect.disabled = true; // Disable the department select
-  } else {
-    departmentSelect.disabled = false; // Enable the department select
-  }
-  
-  const json = await patchData('../api/api_users.php', { id: curr.id, user_type: selectedValue });
-});
+    const json = await patchData('../api/api_users.php', { id: curr.id, user_type: typeSelectedValue, department: depSelectedValue });
+    console.log(json);
+  });
+
 
 }
 

@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
   error_log('department IN API: ' . $department);
   $curr_user_type = Client::getType($db, $id);
 
-  if (isset($new_user_type)) {
+  // if (isset($new_user_type)) {
     if ($curr_user_type === $new_user_type) {
       // User type is already the same, no need to make any changes
       http_response_code(200); // OK
@@ -77,11 +77,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
       }
     }
     
-  }
-  else{
+  // }
+  // else{
     Client::changeDepartment($db, $id, $department);
     
-  }
+  // 
 
   $user =  CLient::getByIdExpanded($db, $id);
   http_response_code(200); // OK

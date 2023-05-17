@@ -449,31 +449,20 @@ label select {
   }
   
   .createticket label {
-    /* font-weight: bold; */
     align-self: center ;
   }
   
   .createticket input[type="text"],
   .createticket select,
   .createticket textarea {
-    /* padding: 0.5rem; */
     padding: 0.2em 1em 0 1em;
     color: black;
     font-size: 0.8rem;
-    /* border: 1px solid #ccc;
-    border-radius: 5px; */
     border: 1px solid black;
     border-radius: 5px;
-    /* box-shadow:  0 5px 15px rgba(0, 0, 0, 0.3);  */
     font-family: 'Martel Sans', sans-serif;
-    /* margin-top: 6px; */
-    /* margin-bottom: 1rem; */
   }
   
-  /* .createticket input[type="text"],
-  .createticket select {
-    width: 95%;
-  } */
   
   .createticket textarea {
     width: 95%;
@@ -499,8 +488,6 @@ label select {
   
   
   .createticket button.submit-ticket {
-    /* background-color: #53536e;   */
-    /* color: white; */
     border-radius: 5px;
     padding: 0.5em;
   }
