@@ -158,6 +158,7 @@ function handleDelete(deleteFaqBtn) {
 function handleAnswer(answerBtn) {
   const faq = answerBtn.parentElement;
   const feedback = faq.nextElementSibling;
+  console.log(feedback);
   const question = faq.querySelector('#question');
   const answer = faq.querySelector('#answer');
   const saveFaqBtn = faq.querySelector('#saveFaqBtn');

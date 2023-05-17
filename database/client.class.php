@@ -123,6 +123,40 @@
             );
           }
 
+        static function getByIdExpanded(PDO $db, int $id) : Client {
+          $query = '
+                    SELECT
+                      c.UserID,
+                      c.Name,
+                      c.Username,
+                      c.Email,
+                      d.DepartmentName AS Department,
+                      CASE
+                          WHEN ad.UserID IS NOT NULL THEN "Admin"
+                          WHEN a.UserID IS NOT NULL THEN "Agent"
+                          ELSE "Client"
+                      END AS UserType
+                    FROM CLIENT c
+                    LEFT JOIN AGENT a ON c.UserID = a.UserID
+                    LEFT JOIN ADMIN ad ON c.UserID = ad.UserID
+                    LEFT JOIN DEPARTMENT d ON a.DepartmentID = d.DepartmentID
+                    WHERE c.UserID = ?
+                    ';
+          $stmt = $db-> prepare($query);
+          $stmt->execute(array($id));
+          
+          return new Client(
+            intval($user['UserID']),
+            $user['Name'],
+            $user['Username'],
+            $user['Email'],
+            $user['Department'],
+            $user['UserType'],
+            count(Ticket::getbyUser($db, intval($user['UserID']))),
+            count(Ticket::getByAgent($db, intval($user['UserID'])))
+          );
+        }
+
           function name() {
             return $this->username;
           } //not really needed in ours
@@ -344,7 +378,7 @@
             $stmt->execute(array($userID));
           }
           static function upgradeToAdminFromClient(PDO $db, int $userID) {
-            $stmt = $db->prepare('INSER INTO AGENT (UserID, Department) VALUES (?, NULL)');
+            $stmt = $db->prepare('INSERT INTO AGENT (UserID, Department) VALUES (?, NULL)');
             $stmt->execute(array($userID));
 
             $stmt = $db->prepare('INSERT INTO ADMIN (UserID) VALUES (?)');

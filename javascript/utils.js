@@ -84,6 +84,7 @@ function handleTextAreas(textarea) {
 
 
 function displayMessage(feedbackMessage, message, error = true, remove = false) {
+    console.log(feedbackMessage);
     feedbackMessage.textContent = message;
     if (error){
         feedbackMessage.classList.add('error-message');
