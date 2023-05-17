@@ -30,4 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       echo json_encode($data);
     }
   }
+  exit();
 }
+
+http_response_code(405); // Method not allowed
+echo json_encode(array('error' => 'Invalid request method.'));
+
+?>

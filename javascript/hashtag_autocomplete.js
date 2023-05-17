@@ -9,18 +9,6 @@ for (const button of removeHashtagButtons) {
     button.addEventListener("click", removeHashtagItem);
 }
 
-
-function postHashtag(data) {
-    return fetch(
-        '../api/api_hashtag.php',
-        {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: encodeForAjax(data)
-        })
-}
 async function addHashtag(event) {
     /*
     * This function does not add the hashtag to the ticket in the database

@@ -15,7 +15,7 @@ async function postNewMessage(messageText, ticketID, fileInput) {
         const response = await fetch('../api/api_message.php', {
             method: 'POST',
             body: formData
-        })
+        });
         const json = await response.json();
         setCsrf(json['csrf']);
         displayFeedback(addMessageFeedback, json);
@@ -25,7 +25,7 @@ async function postNewMessage(messageText, ticketID, fileInput) {
         'message': messageText,
         'ticketID': ticketID,
     });
-    // console.log(json)
+
     displayFeedback(addMessageFeedback, json);
     return json;
 }

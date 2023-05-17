@@ -7,6 +7,7 @@ require_once(__DIR__ . '/../database/connection.db.php');
 require_once(__DIR__ . '/../database/agent.class.php');
 require_once(__DIR__ . '/../database/department.class.php');
 require_once(__DIR__ . '/../database/client.class.php');
+require_once(__DIR__ . '/handlers/api_common.php');
 
 $session = new Session();
 handle_check_logged_in($session);

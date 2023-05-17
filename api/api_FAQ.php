@@ -5,6 +5,7 @@ require_once(__DIR__ . '/../database/forum.class.php');
 require_once(__DIR__ . '/../database/client.class.php');
 require_once(__DIR__ . '/../utils/validate.php');
 require_once(__DIR__ . '/../database/connection.db.php');
+require_once(__DIR__ . '/handlers/api_common.php');
 
 $session = new Session();
 $db = getDatabaseConnection();
@@ -12,12 +13,11 @@ $db = getDatabaseConnection();
 /*add faq*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     handle_check_logged_in($session);
-    // TODO: CSRF
-    // handle_check_csrf($session, $_POST['csrf']);
+    handle_check_csrf($session, $_POST['csrf']);
 
     if (!is_valid_string($_POST['question'])) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Missing question parameter.'));
+        echo_json_csrf($session, array('error' => 'Missing question parameter.'));
         exit();
     }
 
@@ -25,14 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if (Forum::alreadyExists($db, $question)) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'A similar FAQ was found.'));
+        echo_json_csrf($session, array('error' => 'A similar FAQ was found.'));
         exit();
     }
     $faq = Forum::addFaq($db, $question);
 
     if (!$faq) {
         http_response_code(500); // Internal server error
-        echo json_encode(array('error' => 'Failed to add FAQ.'));
+        echo_json_csrf($session, array('error' => 'Failed to add FAQ.'));
         exit();
     }
 
@@ -46,19 +46,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         'displayed' => $faq->displayed,
         'type' => $type
     ));
-
-    exit(); /*após uma mensagem (sucesso ou failure) deve levar exit()*/
-
+    exit();
 }
 
 /*edit faq and answer faq*/
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-    if (!$session->isLoggedIn()) {
-        http_response_code(401); // Unauthorized
-        echo json_encode(array('error' => 'You are not logged in.'));
-        exit();
-    }
-    // TODO: CSRF
+    handle_check_logged_in($session);
+    $input = file_get_contents('php://input');
+    parse_str($input, $_GET);
+    error_log("BEFORE");
+    error_log(print_r($_GET, true));
+    error_log("AFTER");
+    handle_check_csrf($session, $_GET['csrf']);
 
     if (Client::getType($db, $session->getId()) !== 'Admin') {
         http_response_code(403); // Forbidden
@@ -76,12 +75,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     // verify if parameters are valid
     if (!is_valid_string($_GET['question']) || !is_valid_string($_GET['answer'])) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Invalid parameters.'));
+        echo json_encode(array('error' => 'Invalid question or answer parameters.'));
         exit();
     }
     if (!is_valid_id($_GET['id'])) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Invalid parameters.'));
+        echo json_encode(array('error' => 'Invalid faq.'));
         exit();
     }
 
@@ -118,33 +117,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
 /*delete faq*/
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    // TODO: receive id
-    // verify if user is logged in
-    if (!$session->isLoggedIn()) {
-        http_response_code(401); // Unauthorized
-        echo json_encode(array('error' => 'User not logged in'));
-        exit();
-    }
-    // TODO: CSRF
-    // verify if user is admin
+    handle_check_logged_in($session);
+    handle_check_csrf($session, $_GET['csrf']);
+
     if (Client::getType($db, $session->getId()) === "Client") {
         http_response_code(403); // Forbidden
         echo json_encode(array('error' => 'User not authorized'));
         exit();
-    } 
-    
-    // $question = $_GET['question'];
-    // $answer = $_GET['answer'];
-
-    // $faq = Forum::getFaq($db, $question, $answer);
-
-    // if (!$faq) {
-    //     http_response_code(500); // Internal server error
-    //     echo json_encode(array('error' => 'Failed to find FAQ on database'));
-    //     exit();
-    // }
-
-    // delete FAQ
+    }
     $id = $_GET['id'];
     $faq = Forum::deleteFaq($db, $id);
     echo json_encode(array('success' => 'FAQ deleted successfully.'));

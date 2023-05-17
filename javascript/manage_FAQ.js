@@ -1,26 +1,3 @@
-async function putFaqData(data) {
-  console.log(data);
-  // const url = `../api/api_edit_FAQ.php?id=${data.id}&question=${encodeURIComponent(data.question)}&answer=${encodeURIComponent(data.answer)}`;
-  const url = `../api/api_FAQ.php?id=${data.id}&${encodeForAjax({ question: data.question, answer: data.answer })}`;
-  return await fetch(url, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: encodeForAjax(data)
-  });
-}
-
-async function deleteFaqData(data) {
-  console.log(data);
-  return await fetch(`../api/api_FAQ.php?id=${data.id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: encodeForAjax(data)
-  });
-}
 
 async function patchFaqData(data) {
   console.log(data);
@@ -76,20 +53,17 @@ function handleEdit(editFaqBtn) {
     console.log(question.value);
     console.log(answer.value);
 
-    const res = await putFaqData({ 'id': faq.getAttribute("data-id"), 'question': question.value, 'answer': answer.value });
-    const json = await res.json();
-    if (res.ok) {
-      console.log("success");
-      // !TODO: get faq and faq.querySelector(".feedbackMessage");
-      // displayMessage(json['success'], false);
-      displayFeedback(feedback,json);
-      toggle();
-    } else {
-      console.error('Error: ' + res.status);
-      // displayMessage(json['error']);
+    const json = await putData('../api/api_FAQ.php', { 'id': faq.getAttribute("data-id"), 'question': question.value, 'answer': answer.value });
+
+
+    if (json['error']) {
       displayFeedback(feedback,json);
     }
-
+    else {
+      console.log("success");
+      displayFeedback(feedback, json);
+      toggle();
+    }
   });
 };
 
@@ -127,29 +101,16 @@ function handleDelete(deleteFaqBtn) {
     event.stopPropagation();
     toggleModal();
     document.removeEventListener('click', clickOnDocument);
-}
+  }
 
-  // window.onclick = function (event) {
-  //   if (event.target == modal) {
-  //     hideModal();
-  //   }
-  // }
-/*DELETE confirmation POPUP*/
   confirm.addEventListener("click", async () => {
-    const res = await deleteFaqData({ 'id': faq.getAttribute("data-id") });
-    const json = await res.json();
-    if (res.ok) {
-      console.log("success");
-      // delete element
+    const json = await deleteData('../api/api_FAQ.php', {'id': faq.getAttribute("data-id")});
+    if (json['error']) {
+      displayFeedback(feedback, json);
+    }
+    else {
       faq.remove();
-      // displayMessage(json['success'], false);
-      // displayFeedback("add-faq-feedback",json);
-      displayFeedback(feedback,json, true);
-    } else {
-      console.error('Error: ' + res.status);
-      // displayMessage(json['error']);
-      // displayFeedback("add-faq-feedback",json);
-      displayFeedback(feedback,json);
+      displayFeedback(feedback, json, true);
     }
   });
 
@@ -202,25 +163,22 @@ function handleAnswer(answerBtn) {
     console.log(question.value);
     console.log(answer.value);
 
-    const res = await putFaqData({ 'id': faq.getAttribute("data-id"), 'question': question.value, 'answer': answer.value });
-    const json = await res.json();
-    if (res.ok) {
+    const json = await putData('../api/api_FAQ.php', {
+      'id': faq.getAttribute("data-id"),
+      'question': question.value,
+      'answer': answer.value
+    });
+    
+    
+    if (json['error']) {
       displayFeedback(feedback,json);
-      // displayFeedback("add-faq-feedback",json);
-      // displayMessage(json['success'], false);
-      console.log("success");
+    }
+    else {
+      displayFeedback(feedback,json);
       appear();
       answerBtn.remove();
       saveAnsBtn.remove();
-      // appear();
-    } else {
-      console.log(res);
-      console.error('Error: ' + res.status);
-      displayFeedback(feedback,json);
-      // displayFeedback("add-faq-feedback",json);
-      // displayMessage(json['error']);
     }
-
   });
 
 };
@@ -239,8 +197,6 @@ function handleDisplay(displayBtn) {
     const res = await patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '1' });
     const json = await res.json();
     if (res.ok) {
-      // displayMessage(json['success'], false);
-      // displayFeedback("add-faq-feedback",json);
       displayFeedback(feedback,json);
       console.log("success");
     }

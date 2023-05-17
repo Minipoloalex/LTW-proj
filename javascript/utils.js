@@ -61,9 +61,19 @@ async function postData(path, data) {
 }
 async function patchData(path, data) {
     data['csrf'] = getCsrf();
-    console.log(getCsrf())
-    console.log(data)
     const json = await urlFetch(path, data, 'PATCH');
+    setCsrf(json['csrf']);
+    return json;
+}
+async function putData(path, data) {
+    data['csrf'] = getCsrf();
+    const json = await bodyFetch(path, data, 'PUT');
+    setCsrf(json['csrf']);
+    return json;
+}
+async function deleteData(path, data) {
+    data['csrf'] = getCsrf();
+    const json = await urlFetch(path, data, 'DELETE');
     setCsrf(json['csrf']);
     return json;
 }

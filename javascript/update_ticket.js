@@ -38,7 +38,7 @@ async function updateTicketInformation(event) {
     for (const hashtag of ticketHashtags) {
         ticketHashtagIDs.push(hashtag.getAttribute("value"))
     }
-    const json = await postData("../api/api_update_ticket.php",{
+    const json = await putData("../api/api_ticket.php",{
         'ticketID': ticketID,
         'ticketID': ticketID,
         'department': ticketDepartment,

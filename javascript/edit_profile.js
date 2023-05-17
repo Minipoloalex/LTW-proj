@@ -15,15 +15,7 @@ const username = document.getElementById('username');
 const oldpass = document.getElementById('old-password');
 
 async function postProfileData(data) {
-    console.log(data);
-    console.log(encodeForAjax(data))
-    return await fetch('../api/api_edit_profile.php', {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: encodeForAjax(data)
-    })
+    return postData('../api/api_edit_profile.php', data);
 }
 
 function toggleProfile() {
@@ -64,22 +56,17 @@ function toggleProfile() {
 }
 if (saveBtn) {
     saveBtn.addEventListener('click', async () => {
-        
-        const res = await postProfileData({
+        const json = await postProfileData({
             'name': thename.value,
             'email': email.value,
             'username': username.value,
             'oldpass': oldpass.value,
             'newpass': newpassInp.value,
             'editpass': checkChangeState(),
-            'csrf': getCsrf()
         });
-        console.log(res);
-        const json = await res.json();
-        console.log(json);
-        if (!res.ok) {
+        if (json['error']) {
             displayMessage(json['error']);
-            return; // why?
+            return;
         }
         else {
             displayMessage(json['success'], false);
