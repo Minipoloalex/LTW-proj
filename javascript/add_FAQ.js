@@ -152,7 +152,7 @@ if (form) {
                     faq.appendChild(modal);
 
 
-                    if (json['answer'] === null) {
+                    // if (json['answer'] === null) {
                         const answerFaqBtn = document.createElement('button');
                         answerFaqBtn.classList.add('answer-faq');
                         answerFaqBtn.setAttribute('id', 'answerFaq');
@@ -166,20 +166,26 @@ if (form) {
                         saveAnswerBtn.textContent = 'Save answer';
                         faq.appendChild(saveAnswerBtn);
 
-                        handleAnswer(answerFaqBtn);
-                    }
+                        // handleAnswer(answerFaqBtn);
+                    // }
 
-                    handleEdit(editBtn);
-                    handleDelete(deleteBtn);
-                    handleDisplay(displayBtn);
-                    handleHide(hideBtn);
+                    const feedback = document.createElement('div');
+                    feedback.classList.add('feedback-message');
+                    feedback.textContent = '';
 
                     // }
 
                     faqSection.appendChild(faq);
                     handleTextAreas(question);
                     handleTextAreas(answer);
+                    faqSection.appendChild(feedback);
 
+                    handleEdit(editBtn);
+                    handleDelete(deleteBtn);
+                    handleDisplay(displayBtn);
+                    handleHide(hideBtn);
+
+                    handleAnswer(answerFaqBtn);
                 }
             } else {
                 // displayMessage(json['error']);
