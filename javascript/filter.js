@@ -47,6 +47,14 @@ async function getFilterValues(cardType) {
       json = await getTickets2(checkedValues);
       break;
     }
+    case 'department': {
+      json = await getDepartments2(checkedValues);
+      break;
+    }
+    case 'user': {
+      json = await getUsers2(checkedValues);
+      break;
+    }
     default: {
       console.error('Error: invalid type');
     }
@@ -57,8 +65,6 @@ async function getFilterValues(cardType) {
   }
   console.log(json);
   const data = json;
-  console.log(data.tickets);
-  // cardContainer.innerHTML = '';
   console.log("Filter: ", cardType);
   // getCards(data, cardType);
   getCards(data);
@@ -92,6 +98,13 @@ async function getDepartments2(checkedValues, page = 0) {
   return json = await getData(path, data);
 }
 
+async function getUsers2(checkedValues, page = 0) {
+  const data = {...checkedValues, page: page};
+  // data['page'] = page;
+  const path = '../api/api_users.php';
+  return json = await getData(path, data);
+}
+
 function clearFilters(cardType) {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   checkboxes.forEach(checkbox => {
@@ -104,12 +117,33 @@ function clearFilters(cardType) {
 /*dropdown */
 const filterToggle = document.querySelector(".filter-toggle");
 if (filterToggle) {
+  const caretIcon = filterToggle.querySelector("i");
 
-const caretIcon = filterToggle.querySelector("i");
-
-filterToggle.addEventListener("click", function() {
-  filterToggle.classList.toggle("clicked");
-  caretIcon.classList.toggle("fa-caret-right");
+  filterToggle.addEventListener("click", function() {
+    filterToggle.classList.toggle("clicked");
+    caretIcon.classList.toggle("fa-caret-right");
     caretIcon.classList.toggle("fa-caret-down");
-});
+  });
 }
+
+// const dropdownSummaries = document.querySelectorAll("details summary");
+
+// dropdownSummaries.forEach(summary => {
+//   summary.addEventListener("click", () => {
+//     summary.parentNode.classList.toggle("expanded");
+//   });
+// });
+
+
+const dropdowns = document.querySelectorAll("div.filter-options div");
+dropdowns.forEach(dropdown => {
+
+  const caretIcon = dropdown.querySelector("i");
+
+  dropdown.addEventListener("click", () => {
+    dropdown.classList.toggle("clicked");
+    caretIcon.classList.toggle("fa-caret-right");
+    caretIcon.classList.toggle("fa-caret-down");
+  });
+}
+);

@@ -7,6 +7,45 @@ require_once(__DIR__ . '/../database/agent.class.php');
 require_once(__DIR__ . '/../database/client.class.php');
 
 ?>
+<?php function drawUsersFilterMenu(array $filtervalues)
+{
+    $type = 'user';
+    ?>
+    <div class="filter-toggle">
+        <h3>Filters <i class="fa fa-caret-right"></i></h3>
+    </div>
+
+    <section id="filter-section" class="filter hidden" data-type="<?php echo $type ?>">
+        <div class="filter-options">
+            
+            <div class="toggle-departments">
+            <legend>Department <i class="fa fa-caret-right"></i> </legend>
+            </div>
+            <section class="hidden">
+            <?php
+            foreach ($filtervalues[0] as $fv) { ?>
+                <input type="checkbox" name="department" id="<?php echo $fv ?>" value="<?php echo $fv ?>" /><label
+                    for="<?php echo $fv ?>"><?php echo $fv ?></label><br />
+            <?php } ?>
+            </section>
+            <div class="toggle-types">
+            <legend>User type <i class="fa fa-caret-right"></i></legend>
+            </div>
+            <section class="hidden">
+            <?php
+            foreach ($filtervalues[1] as $fv) { ?>
+                <input type="checkbox" name="user_type" id="<?php echo $fv ?>" value="<?php echo $fv ?>" /><label
+                    for="<?php echo $fv ?>"><?php echo $fv ?></label><br />
+            <?php } ?>
+            </section>
+        </div>
+
+        <button type="button" id="clear-filters">Clear Filters</button>
+        <button type="submit" id="filter-values">Filter</button>
+        
+    </section>
+<?php } ?>
+
 
 <!--- confirmar o GET BY AGENT e BY USER (ver se interpretei isso bem), como fazer o user type... --->
 <?php function drawUser(Client $user, PDO $db, array $all_departments) { ?>

@@ -33,7 +33,7 @@ const addCards = (pageIndex) => {
 
 function createCard(index) {
   const card = document.createElement("div");
-  card.className = "card";
+  card.classList.add("card");
   console.log(cardType);
   switch (cardType) {
     case 'ticket': {
@@ -42,6 +42,8 @@ function createCard(index) {
       break;
     };
     case 'user': {
+      const curr = data.users[index - 1];
+      drawUserCard(card, curr);
       break;
     };
     case 'department': {
@@ -67,6 +69,8 @@ async function queryMore(endRange) {
         break;
       }
       case 'user': {
+        const json = await getUsers2(checkedValues, (endRange / 12) + 1);
+        data.users = data.users.concat(json.users);
         break;
       }
       case 'department': {
@@ -121,6 +125,7 @@ if (cardContainer) {
       }
       case 'user': {
         const users = await getAllUsers();
+        getCards(users);
         break;
       }
       case 'department': {
@@ -170,11 +175,33 @@ async function getAllDepartments() {
   }
 }
 
+async function getAllUsers() {
+  const response = await fetch("../api/api_users.php");
+  if (response.ok) {
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } else {
+    console.error('Error: ' + res.status);
+  }
+}
+
 function checkLoader() {
   const loader = document.getElementById("loader");
   if (loader) return true;
 
   else return false;
+}
+
+function drawUserCard(card, curr){
+  console.log(curr);
+  card.innerHTML = `
+  <article>
+  <header>
+  <span class="card-title">${curr.name}</span>
+  </header>
+  </article>
+  `;
 }
 
 function drawDepartmentCard(card, curr) {
@@ -270,34 +297,127 @@ function drawTicketCard(card, curr) {
   //   card.querySelector('.card-priority').classList.add('noneP');
   // }
 
-  card.innerHTML = `
-  <article>
-  <a href="../pages/individual_ticket.php?id=${curr.ticketid}">
-    <header>
-      <span class="card-title">${curr.title}</span>
-    </header>
-    <div>
-      <label class="status">Status:</label>
-      <span class="card-info card-status">${curr.status ? curr.status : "None"}</span><br>
+  //   card.innerHTML = `
+  //   <article>
+  //   <a href="../pages/individual_ticket.php?id=${curr.ticketid}">
+  //     <header>
+  //       <span class="card-title">${curr.title}</span>
+  //     </header>
+  //     <div>
+  //       <label class="status">Status:</label>
+  //       <span class="card-info card-status">${curr.status ? curr.status : "None"}</span><br>
 
 
-      <label class="hashtags">Hashtags:</label><br>
-    <div class="hashtags-container">
-      ${curr.hashtags.length > 0 ?
-      curr.hashtags.map(hashtag => `<span class="card-info card-hashtags">${hashtag.hashtagname}</span>`).join('<br>') :
-      '<span class="card-info">None</span>'}
-    </div>
+  //       <label class="hashtags">Hashtags:</label><br>
+  //     <div class="hashtags-container">
+  //       ${curr.hashtags.length > 0 ?
+  //       curr.hashtags.map(hashtag => `<span class="card-info card-hashtags">${hashtag.hashtagname}</span>`).join('<br>') :
+  //       '<span class="card-info">None</span>'}
+  //     </div>
 
-      <label class="agent">Assigned agent:</label><br>
-      <span class="card-info card-agent">${curr.assignedagent ? curr.assignedagent : "None"}</span><br>
-      <label class="deparment">Department:</label>
-      <span class="card-info card-department">${curr.departmentName ? curr.departmentName : "Not defined"}</span><br>
-      <label class=priority">Priority:</label>
-      <span class="card-info card-priority">${curr.priority ? curr.priority : "Not defined"}</span><br>
-    </div>
-  </a>
-</article>
-  `
+  //       <label class="agent">Assigned agent:</label><br>
+  //       <span class="card-info card-agent">${curr.assignedagent ? curr.assignedagent : "None"}</span><br>
+  //       <label class="deparment">Department:</label>
+  //       <span class="card-info card-department">${curr.departmentName ? curr.departmentName : "Not defined"}</span><br>
+  //       <label class=priority">Priority:</label>
+  //       <span class="card-info card-priority">${curr.priority ? curr.priority : "Not defined"}</span><br>
+  //     </div>
+  //   </a>
+  // </article>
+  //   `
+
+  // const card = document.createElement("div");
+  // card.classList.add("card");
+
+  const article = document.createElement("article");
+
+  const link = document.createElement("a");
+  link.href = `../pages/individual_ticket.php?id=${curr.ticketid}`;
+
+  const header = document.createElement("header");
+  const titleSpan = document.createElement("span");
+  titleSpan.classList.add("card-title");
+  titleSpan.textContent = curr.title;
+  header.appendChild(titleSpan);
+
+  const contentDiv = document.createElement("div");
+
+  const statusLabel = document.createElement("label");
+  statusLabel.classList.add("status");
+  statusLabel.textContent = "Status: ";
+  contentDiv.appendChild(statusLabel);
+
+  const statusSpan = document.createElement("span");
+  statusSpan.classList.add("card-info", "card-status");
+  statusSpan.textContent = curr.status ? curr.status : "None";
+  contentDiv.appendChild(statusSpan);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const hashtagsLabel = document.createElement("label");
+  hashtagsLabel.classList.add("hashtags");
+  hashtagsLabel.textContent = "Hashtags: ";
+  contentDiv.appendChild(hashtagsLabel);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const hashtagsContainerDiv = document.createElement("div");
+  hashtagsContainerDiv.classList.add("hashtags-container");
+  if (curr.hashtags.length > 0) {
+    curr.hashtags.forEach(hashtag => {
+      const hashtagSpan = document.createElement("span");
+      hashtagSpan.classList.add("card-info", "card-hashtags");
+      hashtagSpan.textContent = hashtag.hashtagname;
+      hashtagsContainerDiv.appendChild(hashtagSpan);
+      hashtagsContainerDiv.appendChild(document.createElement("br"));
+    });
+  } else {
+    const noneSpan = document.createElement("span");
+    noneSpan.classList.add("card-info");
+    noneSpan.textContent = "None";
+    hashtagsContainerDiv.appendChild(noneSpan);
+  }
+  contentDiv.appendChild(hashtagsContainerDiv);
+
+  const agentLabel = document.createElement("label");
+  agentLabel.classList.add("agent");
+  agentLabel.textContent = "Assigned agent: ";
+  contentDiv.appendChild(agentLabel);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const agentSpan = document.createElement("span");
+  agentSpan.classList.add("card-info", "card-agent");
+  agentSpan.textContent = curr.assignedagent ? curr.assignedagent : "None";
+  contentDiv.appendChild(agentSpan);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const departmentLabel = document.createElement("label");
+  departmentLabel.classList.add("department");
+  departmentLabel.textContent = "Department: ";
+  contentDiv.appendChild(departmentLabel);
+
+  const departmentSpan = document.createElement("span");
+  departmentSpan.classList.add("card-info", "card-department");
+  departmentSpan.textContent = curr.departmentName ? curr.departmentName : "Not defined";
+  contentDiv.appendChild(departmentSpan);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const priorityLabel = document.createElement("label");
+  priorityLabel.classList.add("priority");
+  priorityLabel.textContent = "Priority: ";
+  contentDiv.appendChild(priorityLabel);
+
+  const prioritySpan = document.createElement("span");
+  prioritySpan.classList.add("card-info", "card-priority");
+  prioritySpan.textContent = curr.priority ? curr.priority : "Not defined";
+  contentDiv.appendChild(prioritySpan);
+  contentDiv.appendChild(document.createElement("br"));
+
+  link.appendChild(header);
+  link.appendChild(contentDiv);
+  article.appendChild(link);
+  card.appendChild(article);
+
+  console.log(card);
+
   // Add class to set background color based on priority value
   if (curr.priority === 'high') {
     card.querySelector('.card-priority').classList.add('highP');
