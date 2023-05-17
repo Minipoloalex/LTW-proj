@@ -11,7 +11,7 @@ class Forum
     {
         $this->forumId = $forumId;
         $this->question = htmlentities($question);
-        $this->answer = htmlentities($answer);
+        $this->answer = $answer == NULL ? NULL : htmlentities($answer);
         $this->displayed = $displayed;
     }
 
