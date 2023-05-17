@@ -102,10 +102,10 @@ async function handleDepartmentSelect(event) {
 async function closeTicket(event) {
     event.preventDefault();
     const ticketID = document.querySelector("#ticket-info #ticket-id").getAttribute("value");
-    const json = await postData("../api/api_close_ticket.php", {
+    const json = await patchData("../api/api_ticket.php", {
         'ticketID': ticketID,
         'status': 'closed',
-    })
+    });
     displayFeedback(ticketInfoFeedback, json);
     if (json['error']) {
         console.error(json['error']);

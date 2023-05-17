@@ -1,12 +1,12 @@
-const addHashtagButton = document.getElementById("add-hashtag")
-const input = document.getElementById("hashtag-search")
+const addHashtagButton = document.getElementById("add-hashtag");
+const input = document.getElementById("hashtag-search");
 if (addHashtagButton && input) {
-    addHashtagButton.addEventListener("click", addHashtag)
+    addHashtagButton.addEventListener("click", addHashtag);
 }
 
 const removeHashtagButtons = document.querySelectorAll(".hashtag .remove-hashtag")
 for (const button of removeHashtagButtons) {
-    button.addEventListener("click", removeHashtagItem)
+    button.addEventListener("click", removeHashtagItem);
 }
 
 
@@ -26,8 +26,8 @@ function addHashtag(event) {
     * This function does not add the hashtag to the ticket in the database
     * that is the responsibility of the "Save" button
     */
-    event.preventDefault()
-    const hashtag = input.value
+    event.preventDefault();
+    const hashtag = input.value;
     postHashtag({'hashtagName': hashtag, 'csrf': getCsrf()})
     .catch(error => console.log(error))
     .then((response) => response.json())
@@ -77,33 +77,33 @@ function addHashtag(event) {
             
             removeFromDataList(hashtag)
         }
-    })
+    });
 }
 
 
 function removeFromDataList(hashtag) {
-    const hashtagDataList = document.getElementById("hashtag-datalist")
-    const hashtagDataItems = hashtagDataList.querySelectorAll("option")
+    const hashtagDataList = document.getElementById("hashtag-datalist");
+    const hashtagDataItems = hashtagDataList.querySelectorAll("option");
 
     for (const item of hashtagDataItems) {
         if (item.value === hashtag) {
-            item.remove()
-            break
+            item.remove();
+            break;
         }
     }
 }
 
 function addToDataList(hashtag) {   // called from X (remove hashtag) eventListener
-    const hashtagDataList = document.getElementById("hashtag-datalist")
-    const newHashtagItem = document.createElement("option")
-    newHashtagItem.value = hashtag
-    hashtagDataList.appendChild(newHashtagItem)
+    const hashtagDataList = document.getElementById("hashtag-datalist");
+    const newHashtagItem = document.createElement("option");
+    newHashtagItem.value = hashtag;
+    hashtagDataList.appendChild(newHashtagItem);
 }
 
 function removeHashtagItem(event) {
-    event.preventDefault()
-    const hashtagArticle = event.target.parentNode
-    const hashtag = hashtagArticle.querySelector("label").textContent
-    addToDataList(hashtag)
-    hashtagArticle.remove()
+    event.preventDefault();
+    const hashtagArticle = event.target.parentNode;
+    const hashtag = hashtagArticle.querySelector("label").textContent;
+    addToDataList(hashtag);
+    hashtagArticle.remove();
 }

@@ -12,7 +12,7 @@ async function postNewMessage(messageText, ticketID, fileInput) {
         formData.append('ticketID', ticketID);
         formData.append('image', file);
         formData.append('csrf', getCsrf());
-        const response = await fetch('../api/api_add_message.php', {
+        const response = await fetch('../api/api_message.php', {
             method: 'POST',
             body: formData
         })
@@ -21,7 +21,7 @@ async function postNewMessage(messageText, ticketID, fileInput) {
         displayFeedback(addMessageFeedback, json);
         return json;
     }
-    const json = await postData('../api/api_add_message.php', {
+    const json = await postData('../api/api_message.php', {
         'message': messageText,
         'ticketID': ticketID,
     });

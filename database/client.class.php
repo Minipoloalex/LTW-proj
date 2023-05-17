@@ -22,6 +22,19 @@
             $this->nr_tickets_created = $nr_tickets_created;
             $this->nr_tickets_assigned = $nr_tickets_assigned;
         }
+
+        public function jsonSerialize(){
+          return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'username' => $this->username,
+            'email' => $this->email,
+            'department' => $this->department,
+            'user_type' => $this->user_type,
+            'nr_tickets_created' => $this->nr_tickets_created,
+            'nr_tickets_assigned' => $this->nr_tickets_assigned
+          ];
+        }
      
         function save($db) {
             $stmt = $db->prepare('
@@ -144,7 +157,7 @@
                     ';
           $stmt = $db-> prepare($query);
           $stmt->execute(array($id));
-          
+          $user = $stmt->fetch();
           return new Client(
             intval($user['UserID']),
             $user['Name'],

@@ -15,58 +15,65 @@ function escapeHtml(string) {
 function encodeForAjax(data) {
     return Object.keys(data).map(function (k) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-    }).join('&')
+    }).join('&');
 }
 
-async function postData(path, data) {
-    data['csrf'] = getCsrf()
+async function bodyFetch(path, data, method) {
     const response = await fetch(path, {
-        method: 'POST',
+        method: method,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: encodeForAjax(data)
         }
     );
-    const json = await response.json()
-    
-    setCsrf(json['csrf'])
-    return json;
+    return await response.json();
 }
-
-async function getData(path, data) {
+async function urlFetch(path, data, method) {
     const response = await fetch(path + "?" + encodeForAjax(data), {
-        method: 'GET',
+        method: method,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
             },
         }
-    )    
-    return await response.json()
+    );
+    return await response.json();
 }
-
+async function postData(path, data) {
+    data['csrf'] = getCsrf();
+    console.log(getCsrf());
+    const json = await bodyFetch(path, data, 'POST');
+    setCsrf(json['csrf']);
+    return json;
+}
+async function patchData(path, data) {
+    data['csrf'] = getCsrf();
+    console.log(getCsrf())
+    console.log(data)
+    const json = await bodyFetch(path, data, 'PATCH');
+    setCsrf(json['csrf']);
+    return json;
+}
+async function getData(path, data) {
+    return await urlFetch(path, data, 'GET');
+}
 function getCsrf() {
-    return document.querySelector("body").getAttribute("data-csrf")
+    return document.querySelector("body").getAttribute("data-csrf");
 }
 
 function setCsrf(csrfValue) {
-    if (!csrfValue) return
-    const body = document.querySelector("body")
-    if (body) body.setAttribute("data-csrf", csrfValue)
+    if (!csrfValue) return;
+    const body = document.querySelector("body");
+    if (body) body.setAttribute("data-csrf", csrfValue);
 
-    const csrfInputs = document.querySelectorAll("input[name='csrf']")
-    for (const input of csrfInputs) input.setAttribute("value", csrfValue)
+    const csrfInputs = document.querySelectorAll("input[name='csrf']");
+    for (const input of csrfInputs) input.setAttribute("value", csrfValue);
 }
 
 
 const tx = document.getElementsByTagName("textarea");
 for (let i = 0; i < tx.length; i++) {
     handleTextAreas(tx[i]);
-    //   tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
-    //   tx[i].addEventListener("input", OnInput, false);
-    //   tx[i].addEventListener("input", function() {
-    //     this.value = this.value.replace(/(\r\n|\n|\r){2,}/gm, '$1');
-    //   });
 }
 
 function handleTextAreas(textarea) {
@@ -96,7 +103,7 @@ function displayMessage(feedbackMessage, message, error = true, remove = false) 
     }
     if (remove) {
         setTimeout(function() {
-            feedbackMessage.remove()
+            feedbackMessage.remove();
         }, 5000);
     } else {
         setTimeout(function() {
@@ -107,9 +114,9 @@ function displayMessage(feedbackMessage, message, error = true, remove = false) 
 
 function displayFeedback(element, json, remove = false) {
     if (json['error']) {
-        displayMessage(element, json['error'], true, remove)
+        displayMessage(element, json['error'], true, remove);
     }
-    else displayMessage(element, json['success'], false, remove)
+    else displayMessage(element, json['success'], false, remove);
 }
 
 function clearFeedbackMessage(message) {
@@ -135,7 +142,7 @@ function getPasswordRegex() {
     return /^(?=.*[0-9])(?=.*[!@#$%^&])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&]{6,}$/;
 }
 function getEmailRegex() {
-    return /^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
+    return /^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
 }
 function getUsernameRegex() {
     return /^[A-Za-zÀ-ÖØ-öø-ÿ0-9_\-. ]+$/;

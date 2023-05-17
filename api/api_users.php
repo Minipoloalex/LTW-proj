@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     http_response_code(200); // OK
     echo json_encode($data);
   } else {
-    $data = Ticket::filter($db);
+    $data = Client::filter($db);
     http_response_code(200); // OK
     echo json_encode($data);
   }
@@ -64,24 +64,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
       }
     } elseif ($curr_user_type === 'Admin') {
       if ($new_user_type === 'Client') {
-        // Demoting an Admin to a Client is not allowed
-        http_response_code(400); // Bad Request
-        echo json_encode(array('error' => 'Invalid user type change'));
-        exit();
+        // // Demoting an Admin to a Client is not allowed
+        // http_response_code(400); // Bad Request
+        // echo json_encode(array('error' => 'Invalid user type change'));
+        // exit();
+        Client::demoteToClient($db, $id);
       } elseif ($new_user_type === 'Agent') {
         Client::demoteToAgent($db, $id);
       }
     }
-
-    http_response_code(200); // OK
-    echo json_encode(array('user_type' => $new_user_type));
-    exit();
-
-  }
-  if (isset($department)){
     
   }
+  if (isset($department)){
+   //dar update a departament 
+  }
 
-
+  $user =  CLient::getByIdExpanded($db, $id);
+  http_response_code(200); // OK
+  echo json_encode($user);
+  exit();
 
 }
