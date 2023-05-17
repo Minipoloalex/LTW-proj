@@ -22,6 +22,19 @@
             $this->nr_tickets_created = $nr_tickets_created;
             $this->nr_tickets_assigned = $nr_tickets_assigned;
         }
+
+        public function jsonSerialize(){
+          return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'username' => $this->username,
+            'email' => $this->email,
+            'department' => $this->department,
+            'user_type' => $this->user_type,
+            'nr_tickets_created' => $this->nr_tickets_created,
+            'nr_tickets_assigned' => $this->nr_tickets_assigned
+          ];
+        }
      
         function save($db) {
             $stmt = $db->prepare('
@@ -122,6 +135,40 @@
                 $client['Email']
             );
           }
+
+        static function getByIdExpanded(PDO $db, int $id) : Client {
+          $query = '
+                    SELECT
+                      c.UserID,
+                      c.Name,
+                      c.Username,
+                      c.Email,
+                      d.DepartmentName AS Department,
+                      CASE
+                          WHEN ad.UserID IS NOT NULL THEN "Admin"
+                          WHEN a.UserID IS NOT NULL THEN "Agent"
+                          ELSE "Client"
+                      END AS UserType
+                    FROM CLIENT c
+                    LEFT JOIN AGENT a ON c.UserID = a.UserID
+                    LEFT JOIN ADMIN ad ON c.UserID = ad.UserID
+                    LEFT JOIN DEPARTMENT d ON a.DepartmentID = d.DepartmentID
+                    WHERE c.UserID = ?
+                    ';
+          $stmt = $db-> prepare($query);
+          $stmt->execute(array($id));
+          $user = $stmt->fetch();
+          return new Client(
+            intval($user['UserID']),
+            $user['Name'],
+            $user['Username'],
+            $user['Email'],
+            $user['Department'],
+            $user['UserType'],
+            count(Ticket::getbyUser($db, intval($user['UserID']))),
+            count(Ticket::getByAgent($db, intval($user['UserID'])))
+          );
+        }
 
           function name() {
             return $this->username;
@@ -344,7 +391,7 @@
             $stmt->execute(array($userID));
           }
           static function upgradeToAdminFromClient(PDO $db, int $userID) {
-            $stmt = $db->prepare('INSER INTO AGENT (UserID, Department) VALUES (?, NULL)');
+            $stmt = $db->prepare('INSERT INTO AGENT (UserID, Department) VALUES (?, NULL)');
             $stmt->execute(array($userID));
 
             $stmt = $db->prepare('INSERT INTO ADMIN (UserID) VALUES (?)');

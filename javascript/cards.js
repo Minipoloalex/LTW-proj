@@ -241,9 +241,24 @@ function drawUserCard(card, curr) {
   const userTypeSelect = card.querySelector('.user-type-select');
   userTypeSelect.addEventListener('change', function () {
     const selectedValue = userTypeSelect.value;
-    // Handle the selected value change as needed
+    updateUserType(selectedValue); // Send the selected value to the server
   });
 }
+
+/*patch*/
+// function updateUserType(selectedValue) {
+//   const url = '../api/api_users.php';
+//   const data = { user_type: selectedValue };
+//   fetch(url, {
+//     method: 'PATCH',
+//     body: JSON.stringify(data),
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   }).then(res => res.json())
+//     .then(response => console.log('Success:', JSON.stringify(response)))
+//     .catch(error => console.error('Error:', error));
+// }
 
 
 
@@ -269,37 +284,6 @@ function drawDepartmentCard(card, curr) {
 
 
 function drawTicketCard(card, curr) {
-  //   card.innerHTML = `
-  //   <article>
-  //   <a href="../pages/individual_ticket.php?id=${curr.ticketid}">
-  //     <header>
-  //       <span class="card-title">${curr.title}</span>
-  //     </header>
-  //     <div>
-  //       <label class="status">Status:</label>
-  //       <span class="card-info card-status">${curr.status ? curr.status : "None"}</span><br>
-
-
-  //       <label class="hashtags">Hashtags:</label><br>
-  //     <div class="hashtags-container">
-  //       ${curr.hashtags.length > 0 ?
-  //       curr.hashtags.map(hashtag => `<span class="card-info card-hashtags">${hashtag.hashtagname}</span>`).join('<br>') :
-  //       '<span class="card-info">None</span>'}
-  //     </div>
-
-  //       <label class="agent">Assigned agent:</label><br>
-  //       <span class="card-info card-agent">${curr.assignedagent ? curr.assignedagent : "None"}</span><br>
-  //       <label class="deparment">Department:</label>
-  //       <span class="card-info card-department">${curr.departmentName ? curr.departmentName : "Not defined"}</span><br>
-  //       <label class=priority">Priority:</label>
-  //       <span class="card-info card-priority">${curr.priority ? curr.priority : "Not defined"}</span><br>
-  //     </div>
-  //   </a>
-  // </article>
-  //   `
-
-  // const card = document.createElement("div");
-  // card.classList.add("card");
 
   const article = document.createElement("article");
 
