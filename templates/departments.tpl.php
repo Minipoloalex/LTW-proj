@@ -44,8 +44,8 @@ require_once(__DIR__ . '/../database/agent.class.php');
     <div class="add-department-form">
     <p>Want to add a new department?</p>
         <form id="addDepartmentForm">
-            <label for="department_name">Department Name:</label>
-            <input type="text" id="department_name" name="department_name" required>
+            <label for="department_name">Department Name (limit 24 characters):</label>
+            <input type="text" id="department_name" name="department_name" maxlength="24" required>
             <button type="submit">Add</button>
         </form>
     </div>
