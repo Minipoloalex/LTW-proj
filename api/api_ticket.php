@@ -6,10 +6,10 @@ require_once(__DIR__ . '/../utils/validate.php');
 require_once(__DIR__ . '/../database/connection.db.php');
 require_once(__DIR__ . '/../database/client.class.php');
 require_once(__DIR__ . '/../database/ticket.class.php');
-require_once(__DIR__ . '/api_tickets_last_7_days.php');
-require_once(__DIR__ . '/api_close_ticket.php');
-require_once(__DIR__ . '/api_update_ticket.php');
 require_once(__DIR__ . '/handlers/api_common.php');
+require_once(__DIR__ . '/handlers/api_tickets_last_7_days.php');
+require_once(__DIR__ . '/handlers/api_close_ticket.php');
+require_once(__DIR__ . '/handlers/api_update_ticket.php');
 
 $session = new Session();
 $db = getDatabaseConnection();

@@ -7,16 +7,13 @@ const toggleLabs = document.querySelectorAll('label[for="old-password"], label[f
 const changepass = document.getElementById('changepass');
 const newpassInp = document.getElementById('new-password');
 const newpassLab = document.querySelector('label[for="new-password"]');
+const editProfileFeedback = document.querySelector('#edit-profile-feedback');
 
 /*buscar valores dos inputs*/
 const thename = document.getElementById('name');
 const email = document.getElementById('email');
 const username = document.getElementById('username');
 const oldpass = document.getElementById('old-password');
-
-async function postProfileData(data) {
-    return postData('../api/api_edit_profile.php', data);
-}
 
 function toggleProfile() {
     for (const lab of toggleLabs)
@@ -56,7 +53,7 @@ function toggleProfile() {
 }
 if (saveBtn) {
     saveBtn.addEventListener('click', async () => {
-        const json = await postProfileData({
+        const json = await putData('../api/api_users.php', {
             'name': thename.value,
             'email': email.value,
             'username': username.value,
@@ -64,12 +61,8 @@ if (saveBtn) {
             'newpass': newpassInp.value,
             'editpass': checkChangeState(),
         });
-        if (json['error']) {
-            displayMessage(json['error']);
-            return;
-        }
-        else {
-            displayMessage(json['success'], false);
+        displayFeedback(editProfileFeedback, json);
+        if (json['success']) {
             toggleProfile();
         }
     });

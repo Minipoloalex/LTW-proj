@@ -4,7 +4,6 @@ require_once(__DIR__ . '/../utils/session.php');
 require_once(__DIR__ . '/../utils/validate.php');
 require_once(__DIR__ . '/../database/ticket.class.php');
 require_once(__DIR__ . '/../database/connection.db.php');
-require_once(__DIR__ . '/handlers/api_common.php');
 function handle_api_close_ticket(Session $session, PDO $db, ?string $dataTicketID, ?string $dataStatus) {
     if (!is_valid_ticket_id($db, $dataTicketID)) {
         http_response_code(400); // Bad request

@@ -1,19 +1,17 @@
 <?php
 declare(strict_types=1);
 
-require_once(__DIR__ . '/../utils/session.php');
-require_once(__DIR__ . '/../utils/validate.php');
-require_once(__DIR__ . '/../database/connection.db.php');
-require_once(__DIR__ . '/../database/hashtag.class.php');
-require_once(__DIR__ . '/../database/department.class.php');
-require_once(__DIR__ . '/../database/client.class.php');
-require_once(__DIR__ . '/../database/ticket.class.php');
-require_once(__DIR__ . '/handlers/api_common.php');
+require_once(__DIR__ . '/../../utils/session.php');
+require_once(__DIR__ . '/../../utils/validate.php');
+require_once(__DIR__ . '/../../database/connection.db.php');
+require_once(__DIR__ . '/../../database/hashtag.class.php');
+require_once(__DIR__ . '/../../database/department.class.php');
+require_once(__DIR__ . '/../../database/client.class.php');
+require_once(__DIR__ . '/../../database/ticket.class.php');
 
 function handle_update_ticket(Session $session, PDO $db, ?string $dataHashtags, ?string $dataTicketID,
  ?string $dataDepartment, ?string $dataAgent, ?string $dataPriority) {
     $hashtags = $dataHashtags != NULL ? explode(',', $dataHashtags) : array();
-    error_log("HELLOOOOOO INSIDE UPDATE TICKET");
     if (!is_valid_ticket_id($db, $dataTicketID)) {
         http_response_code(400); // Bad request
         echo_json_csrf($session, array('error' => 'Invalid ticketID parameter'));
