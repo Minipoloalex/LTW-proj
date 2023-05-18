@@ -30,6 +30,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <script src="../javascript/charts.js" defer></script>
     <script src="../javascript/file_input.js" defer></script>
 
+    <link rel="icon" href="../css/images/logomobile-escuro.png" type="image/png">
     <link rel="stylesheet" href="../css/buttons.css">
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/individual_ticket.css">

@@ -6,10 +6,10 @@
     <!-- loading new cards  -->
     <div id="loader">
       <!-- <div class="skeleton-card"></div> -->
-      <div class="skeleton-card"></div>
-      <div class="skeleton-card"></div>
-      <div class="skeleton-card"></div>
-      <div class="skeleton-card"></div>
+      <div class="skeleton-card d-none"></div>
+      <div class="skeleton-card d-none"></div>
+      <div class="skeleton-card d-none"></div>
+      <div class="skeleton-card d-none"></div>
     </div>
     <div class="card-actions">
       <span>Showing
