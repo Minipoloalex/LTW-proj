@@ -325,6 +325,10 @@ div.mobile-logo img {
   display: block;
 }
 
+footer{
+  display: none;
+}
+
 }
 
 /* For desktop devices -> A PARTIR DE 961*/
@@ -362,7 +366,7 @@ footer {
   background-color: transparent;
   font-size: 0.8em;
   border: none;
-  cursor: pointer;
+  cursor:default;
   color: #846a8b;
   font-family: 'Martel Sans', sans-serif;
   align-self: flex-end;

@@ -1,6 +1,7 @@
 const addDepartmentForm = document.getElementById('addDepartmentForm');
 const addDepartmentFeedback = document.getElementById('add-department-feedback');
 
+if(addDepartmentForm) {
 addDepartmentForm.addEventListener('submit', async function (event) {
     event.preventDefault(); // Prevent form submission
 
@@ -19,5 +20,6 @@ addDepartmentForm.addEventListener('submit', async function (event) {
         departmentNameInput.value = '';
     }
 });
+}
 
 

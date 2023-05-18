@@ -111,17 +111,41 @@ function throttle(callback, time) {
   }, time);
 }
 
+// const handleInfiniteScroll = () => {
+//   throttle(() => {
+//     const endOfPage =
+//       window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+//     if (currentPage === pageCount) {
+//       removeInfiniteScroll();
+//     }
+//     else if (endOfPage) {
+//       addCards(currentPage + 1);
+//     }
+
+//   }, 1000);
+// };
+
+// const handleInfiniteScroll = () => {
+//   throttle(() => {
+//     const endOfPage =
+//       window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight;
+//     if (currentPage === pageCount) {
+//       removeInfiniteScroll();
+//     } else if (endOfPage) {
+//       addCards(currentPage + 1);
+//     }
+//   }, 1000);
+// };
+
 const handleInfiniteScroll = () => {
   throttle(() => {
     const endOfPage =
-      window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+      window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight-10;
     if (currentPage === pageCount) {
       removeInfiniteScroll();
-    }
-    else if (endOfPage) {
+    } else if (endOfPage) {
       addCards(currentPage + 1);
     }
-
   }, 1000);
 };
 
