@@ -22,8 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $u = $_GET['user_type'];
     $user_type = ($u == "") ? [] : explode(',', $u);
 
-
-
     error_log('HERE' . implode($user_type));
     error_log('HERE' . $departments);
 
@@ -39,18 +37,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
-  // error_log('ID IN API 1: ' . $_GET['id']);
   handle_check_logged_in($session);
   handle_check_admin($session, $db);
   handle_check_csrf($session, $_GET['csrf']);
   if (!is_valid_user_id($db, $_GET['id'])) {
     http_response_code(400); // Bad Request
-    echo json_encode(array('error' => 'Invalid user ID'));
+    echo_json_csrf($session, array('error' => 'Invalid user ID'));
     exit();
   }
   if (!empty($_GET['department']) && !is_valid_department_id($db, $_GET['department'])) {
     http_response_code(400); // Bad Request
-    echo json_encode(array('error' => 'Invalid department ID'));
+    echo_json_csrf($session, array('error' => 'Invalid department ID'));
     exit();
   }
   $id = intval($_GET['id']);
@@ -58,12 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
   $department = ($_GET['department'] === '' ? NULL : intval($_GET['department']));
   $curr_user_type = Client::getType($db, $id);
 
-  // if ($curr_user_type === $new_user_type) {
-  //   // User type is already the same, no need to make any changes
-  //   http_response_code(200); // OK
-  //   echo_json_csrf($session, array('user_type' => $curr_user_type));
-  //   exit();
-  // }
   if ($curr_user_type === 'Client') {
     if ($new_user_type === 'Agent') {
       Client::upgradeToAgent($db, $id);
@@ -85,7 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
     }
   }
   if (isset($_GET['department']) && ($new_user_type === 'Agent' || $new_user_type === 'Admin')) {
-    error_log("Updating department to " . $_GET['department']);
     Agent::updateDepartment($db, $id, $department);
   }
 
