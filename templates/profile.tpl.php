@@ -40,33 +40,9 @@ require_once(__DIR__ . '/../utils/session.php');
     <button type="reset" id="cancel-btn" hidden>Cancel</button>
     </div>
 
-    <!-- <div class="success-message" id="success-message">Your profile was successfully edited.</div>
-		<div class="error-message" id="error-message">There was an error editing your profile. Please try again.</div>
-	 -->
-   <div id="feedback-message" class="feedback-message"></div>
+   <?php
+   output_empty_feedback_message('edit-profile-feedback');
+   ?>
 
   </form>
-<?php } ?>
-
-<!-- now this form is not used! we only change the state of the drawProfileForm  -->
-<?php function drawProfile(Client $client, string $type) {?>
-  
-  <h2>Profile</h2>
-  <div class="profile" class="saved_profile">
-    <label for="name">Name:</label>
-    <span id="name"><?=$client->name?></span>
-    
-    <label for="username">Username:</label>
-    <span id="username"><?=$client->username?></span>  
-    
-    <label for="email">Email:</label>
-    <span id="email"><?=$client->email?></span>
-  
-    <label for="type">Type:</label>
-    <span id="type"><?=$type?></span>
-    
-    <!-- <button id="edit-btn" >Edit</button>  -->
-    <!-- onclick="editProfile()" -->
-  </div>
-  
 <?php } ?>

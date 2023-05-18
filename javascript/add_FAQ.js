@@ -32,7 +32,7 @@ if (form) {
                 question.setAttribute('maxlength', '100');
                 question.setAttribute('rows', '1');
                 question.setAttribute('readonly', '');
-                question.textContent = json['question'];
+                setTextContent(question, json['question']);
                 faq.appendChild(question);
 
                 const answer = document.createElement('textarea');
@@ -42,7 +42,7 @@ if (form) {
                 answer.setAttribute('id', 'answer');
                 answer.setAttribute('rows', '1');
                 answer.setAttribute('readonly', '');
-                answer.textContent = json['answer'] ?? '';
+                setTextContent(answer, json['answer'] ?? '');
                 faq.appendChild(answer);
 
                 //if (type !== 'Client') {

@@ -191,7 +191,7 @@ async function getPartialDepartments() {
     console.log(data);
     return data;
   } else {
-    console.error('Error: ' + res.status);
+    console.error('Error: ' + response.status);
   }
 }
 
@@ -202,7 +202,7 @@ async function getPartialUsers() {
     console.log(data);
     return data;
   } else {
-    console.error('Error: ' + res.status);
+    console.error('Error: ' + response.status);
   }
 }
 
@@ -339,7 +339,7 @@ function drawTicketCard(card, curr) {
   const header = document.createElement("header");
   const titleSpan = document.createElement("span");
   titleSpan.classList.add("card-title");
-  titleSpan.textContent = curr.title;
+  setTextContent(titleSpan, curr.title);
   header.appendChild(titleSpan);
 
   const contentDiv = document.createElement("div");
@@ -351,7 +351,7 @@ function drawTicketCard(card, curr) {
 
   const statusSpan = document.createElement("span");
   statusSpan.classList.add("card-info", "card-status");
-  statusSpan.textContent = curr.status ? curr.status : "None";
+  setTextContent(statusSpan, curr.status ? curr.status : "None");
   contentDiv.appendChild(statusSpan);
   contentDiv.appendChild(document.createElement("br"));
 
@@ -367,7 +367,7 @@ function drawTicketCard(card, curr) {
     curr.hashtags.forEach(hashtag => {
       const hashtagSpan = document.createElement("span");
       hashtagSpan.classList.add("card-info", "card-hashtags");
-      hashtagSpan.textContent = hashtag.hashtagname;
+      setTextContent(hashtagSpan, hashtag.hashtagname);
       hashtagsContainerDiv.appendChild(hashtagSpan);
       hashtagsContainerDiv.appendChild(document.createElement("br"));
     });
@@ -387,7 +387,7 @@ function drawTicketCard(card, curr) {
 
   const agentSpan = document.createElement("span");
   agentSpan.classList.add("card-info", "card-agent");
-  agentSpan.textContent = curr.assignedagent ? curr.assignedagent : "None";
+  setTextContent(agentSpan, curr.assignedagent ? curr.assignedagent : "None");
   contentDiv.appendChild(agentSpan);
   contentDiv.appendChild(document.createElement("br"));
 
@@ -398,7 +398,7 @@ function drawTicketCard(card, curr) {
 
   const departmentSpan = document.createElement("span");
   departmentSpan.classList.add("card-info", "card-department");
-  departmentSpan.textContent = curr.departmentName ? curr.departmentName : "Not defined";
+  setTextContent(departmentSpan, curr.departmentName ? curr.departmentName : "Not defined");
   contentDiv.appendChild(departmentSpan);
   contentDiv.appendChild(document.createElement("br"));
 
@@ -409,7 +409,7 @@ function drawTicketCard(card, curr) {
 
   const prioritySpan = document.createElement("span");
   prioritySpan.classList.add("card-info", "card-priority");
-  prioritySpan.textContent = curr.priority ? curr.priority : "Not defined";
+  setTextContent(prioritySpan, curr.priority ? curr.priority : "Not defined");
   contentDiv.appendChild(prioritySpan);
   contentDiv.appendChild(document.createElement("br"));
 

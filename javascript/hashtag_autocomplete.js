@@ -46,7 +46,7 @@ async function addHashtag(event) {
 
         const hashtagLabelItem = document.createElement("label")
         hashtagLabelItem.setAttribute("for", hashtagID)
-        hashtagLabelItem.textContent = hashtag
+        setTextContent(hashtagLabelItem, hashtag)
 
         const hashtagCloseItem = document.createElement("a")
         hashtagCloseItem.setAttribute("href", "#")

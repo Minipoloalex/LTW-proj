@@ -54,9 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     handle_check_logged_in($session);
     $input = file_get_contents('php://input');
     parse_str($input, $_GET);
-    error_log("BEFORE");
-    error_log(print_r($_GET, true));
-    error_log("AFTER");
     handle_check_csrf($session, $_GET['csrf']);
 
     if (Client::getType($db, $session->getId()) !== 'Admin') {

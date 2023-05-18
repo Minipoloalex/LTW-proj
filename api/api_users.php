@@ -4,14 +4,16 @@ declare(strict_types=1);
 require_once(__DIR__ . '/../utils/session.php');
 require_once(__DIR__ . '/../utils/validate.php');
 require_once(__DIR__ . '/../database/connection.db.php');
-
 require_once(__DIR__ . '/../database/client.class.php');
-
+require_once(__DIR__ . '/handlers/api_common.php');
+require_once(__DIR__ . '/handlers/api_edit_profile.php');
 
 $session = new Session();
 $db = getDatabaseConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+  handle_check_logged_in($session);
+  handle_check_admin($session, $db);
   $page = intval($_GET['page']);
 
   if (isset($page)) {
@@ -33,11 +35,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     http_response_code(200); // OK
     echo json_encode($data);
   }
-
+  exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
   // error_log('ID IN API 1: ' . $_GET['id']);
+  handle_check_logged_in($session);
+  handle_check_admin($session, $db);
+  handle_check_csrf($session, $_GET['csrf']);
   
   $id = intval($_GET['id']);
   $new_user_type = $_GET['user_type'];
@@ -83,9 +88,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
     
   // 
 
-  $user =  CLient::getByIdExpanded($db, $id);
+  $user =  Client::getByIdExpanded($db, $id);
   http_response_code(200); // OK
   echo json_encode($user);
   exit();
-
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+  handle_check_logged_in($session);
+  $input = file_get_contents('php://input');
+  parse_str($input, $_POST);
+  handle_check_csrf($session, $_POST['csrf']);
+  handle_edit_profile($session, $db, $_POST['name'], $_POST['username'], $_POST['email'], $_POST['editpass'], $_POST['oldpass'], $_POST['newpass']);
+  exit();
+}
+
+http_response_code(405); // Method not allowed
+echo json_encode(array('error' => 'Invalid HTTP method'));
+
+?>

@@ -115,7 +115,7 @@ function handleTextAreas(textarea) {
 
 function displayMessage(feedbackMessage, message, error = true, remove = false) {
     console.log(feedbackMessage);
-    feedbackMessage.textContent = message;
+    feedbackMessage.textContent = message; // message does not come from the user (nor from the database)
     if (error){
         feedbackMessage.classList.add('error-message');
         feedbackMessage.classList.remove('success-message');
