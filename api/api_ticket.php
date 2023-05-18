@@ -16,6 +16,10 @@ $db = getDatabaseConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     handle_check_logged_in($session);
+    if (isset($_GET['page'])) {
+        $page = intval($_GET['page']);
+        handle_filter_tickets($db, $_GET['agents'], $_GET['departments'], $_GET['hashtags'], $_GET['priorities'], $_GET['status'], $page);
+    }
     if ($_GET['request'] === 'closedTicketsLast7Days') {
         handle_closed_tickets_last_7_days($db, $session);
         exit();

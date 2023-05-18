@@ -9,7 +9,6 @@ const newpassInp = document.getElementById('new-password');
 const newpassLab = document.querySelector('label[for="new-password"]');
 const editProfileFeedback = document.querySelector('#edit-profile-feedback');
 
-/*buscar valores dos inputs*/
 const thename = document.getElementById('name');
 const email = document.getElementById('email');
 const username = document.getElementById('username');
@@ -19,26 +18,18 @@ function toggleProfile() {
     for (const lab of toggleLabs)
         lab.toggleAttribute('hidden');
 
-    //esconder password
     for (const inp of toggleInps)
         inp.toggleAttribute('hidden');
 
-    //colocar readonly
     for (var input of inputs) {
-        input.toggleAttribute('readonly'); //toggle passa sempre para o oposto do atual (interruptor)
-        // !TODO: change this classes and do this in css instead
-        input.style.border = (input.style.border === '1px solid rgb(51, 51, 51)') ? 'none' : '1px solid rgb(51, 51, 51)';
-        input.style.borderRadius = (input.style.borderRadius === '5px') ? '0px' : '5px';
-        input.style.backgroundColor = (input.style.backgroundColor === 'white') ? 'transparent' : 'white';
+        input.toggleAttribute('readonly');
     }
 
-    //mudar texto do botão
-    // editBtn.textContent = (editBtn.textContent === 'Save') ? 'Edit' : 'Save';
     editBtn.toggleAttribute('hidden');
     saveBtn.toggleAttribute('hidden');
     cancelBtn.toggleAttribute('hidden');
 
-    //aparecer botao de mudar password
+    // changePass button appears
     changepass.toggleAttribute('hidden');
 
     //apagar old password apos dar save
@@ -90,14 +81,7 @@ if (editBtn) {
 
 function checkChangeState() {
     if (changepass.textContent === 'Cancel') {
-        return 'yes'; //se o botao de cancelar mudar de password estiver visivel, retorna true
+        return 'yes';
     }
     return 'no';
 }
-
-// function checkEditState() {
-//     if (editBtn.textContent === 'Save') {
-//         return true; //se o botao de cancelar mudar de password estiver visivel, retorna true
-//     }
-//     return false;
-// }

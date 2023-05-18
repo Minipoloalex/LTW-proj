@@ -57,7 +57,7 @@ async function updateTicketInformation(event) {
         for (const status of ticketStatus.classList) {
             ticketStatus.classList.remove(status)
         }
-        ticketStatus.textContent = json['status']
+        setTextContent(ticketStatus, json['status'])
         if (json['status'].toLowerCase() == 'assigned') ticketStatus.classList.add("assigned")
         else ticketStatus.classList.add(json['status'])
 

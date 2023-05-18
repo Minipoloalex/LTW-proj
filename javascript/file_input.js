@@ -21,7 +21,7 @@ if (fileInput) {
 
     fileInput.addEventListener('change', () => {
         if (fileInput.files.length > 0) {
-          fileName.textContent = fileInput.files[0].name;
+          fileName.textContent = fileInput.files[0].name; // no need to decodeHTML (setTextContent)
           removeImageBtn.classList.remove('d-none');
           uploadImageBtn.classList.add('d-none');
         } else {
