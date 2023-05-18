@@ -421,15 +421,26 @@ label select {
     .message.has-image .image-container button {
         display: none;
     }
+    .createticket textarea {
+        width: 65%;}
+
+    form.createticket fieldset#priority, form.createticket fieldset#hashtags.create-ticket, form.createticket label#department{
+        width: 70%;
+        }
+    .createticket button.submit-ticket {
+        width: 45%;
+      }
+
+    .createticket input[type="text"], .createticket button.submit-ticket {
+      width: 60%;
   }
+
+  .createticket select{
+    width: 90%;
+  }
+}
   
-  /* For tablet devices -> 600 A 961*/
-@media only screen and (max-width: 961px) {
- 
-}
-  /* For desktop devices -> A PARTIR DE 961*/
-@media only screen and (min-width: 961px) {
-}
+
 
 
 /* ======================== CREATE TICKET FORM ======================== */
@@ -465,7 +476,6 @@ label select {
   
   
   .createticket textarea {
-    width: 95%;
     resize: vertical;
   }
   
