@@ -271,7 +271,7 @@ async function drawUserCard(card, curr) {
         <select class="department-select" ${curr.user_type === 'Client' ? "disabled" : ""}>
           <option value=''>None</option>
           ${curr.user_type !== 'Client' ?
-      deps.map(dep => `<option value="${dep.departmentId}" ${curr.department === dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('') :
+      deps.map(dep => `<option value="${dep.departmentId}" ${curr.department == dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('') :
       ''}
           </select><br>
       
@@ -296,27 +296,22 @@ async function drawUserCard(card, curr) {
   const userTypeSelect = card.querySelector('.user-type-select');
 
   departmentSelect.addEventListener('change', async function () {
-    console.log("Department changed");
     const json = await patchData('../api/api_users.php', { id: curr.id, user_type: userTypeSelect.value, department: departmentSelect.value });
+    console.log("INSIDE DEPARTMENT SELECT EVENT LISTENER");
     console.log(json);
+    departmentSelect.innerHTML = `
+      <option value="">None</option>
+      ${deps.map(dep => `<option value="${dep.departmentId}" ${json['department'] === dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('')}`;
   });
 
 
   userTypeSelect.addEventListener('change', async function () {
-    console.log("User type changed");
-    // Handle department select based on user type
-    // const departmentSelect = card.querySelector('.department-select');
-    if (typeSelectedValue === 'Client') {
+    if (userTypeSelect.value === 'Client') {
       departmentSelect.value = ''; // Select the "None" option
-      departmentSelect.disabled = true; // Disable the department select
+      departmentSelect.disabled = true;
     } else {
-      departmentSelect.disabled = false; // Enable the department select
-      departmentSelect.innerHTML = `
-      <option value="">None</option>
-      ${deps.map(dep => `<option value="${dep.departmentId}" ${curr.department === dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('')}
-    `; // Update the department select options
+      departmentSelect.disabled = false;
     }
-
     const json = await patchData('../api/api_users.php', { id: curr.id, user_type: userTypeSelect.value, department: departmentSelect.value });
     console.log(json);
   });
@@ -478,4 +473,6 @@ function updateSkeletonCards() {
   }
 }
 
-updateSkeletonCards(); // Call the function on page load
+if (cardContainer) {
+  updateSkeletonCards(); // Call the function on page load
+}

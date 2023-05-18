@@ -81,7 +81,7 @@ require_once(__DIR__ . '/../utils/session.php');
               if ($type !== 'Client') {
                 output_assigned_tickets_li();
               }
-              if ($type === 'Admin') {
+              if ($type !== 'Client') {
                 output_all_tickets_li();
               } ?>
             </ul>
@@ -183,7 +183,7 @@ function output_session_message(Session $session, string $id) {
   else output_feedback_message($id, $message['text'], $message['type']);
 } ?>
 
-<?php function drawTitle($title, $type) { ?>
+<?php function drawTitle(string $title, string $type) { ?>
     <section id="title" data-type=<?=$type?>>
         <h2><?=$title?></h2>
     </section>

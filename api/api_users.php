@@ -84,13 +84,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
       Client::demoteToAgent($db, $id);
     }
   }
-  if ($new_user_type === 'Agent' || $new_user_type === 'Admin') {
+  if (isset($_GET['department']) && ($new_user_type === 'Agent' || $new_user_type === 'Admin')) {
+    error_log("Updating department to " . $_GET['department']);
     Agent::updateDepartment($db, $id, $department);
   }
 
   $user = Client::getByIdExpanded($db, $id);
   http_response_code(200); // OK
-  echo json_encode($user);
+  echo_json_csrf($session, array(
+    'id' => $user->id,
+    'name' => $user->name,
+    'username' => $user->username,
+    'email' => $user->email,
+    'department' => $user->department,
+    'user_type' => $user->user_type,
+    'nr_tickets_created' => $user->nr_tickets_created,
+    'nr_tickets_assigned' => $user->nr_tickets_assigned
+  ));
   exit();
 }
 
