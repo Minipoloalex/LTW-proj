@@ -32,7 +32,8 @@ class Ticket implements JsonSerializable
     $this->assignedagent = $assignedagent;
   }
 
-  public function jsonSerialize(){
+  public function jsonSerialize()
+  {
     return [
       'ticketid' => $this->ticketid,
       'title' => $this->title,
@@ -45,8 +46,9 @@ class Ticket implements JsonSerializable
       'assignedagent' => $this->assignedagent,
       'departmentName' => $this->departmentName
     ];
-  }  
-  static function getById(PDO $db, int $id): ?Ticket {
+  }
+  static function getById(PDO $db, int $id): ?Ticket
+  {
     $stmt = $db->prepare('SELECT * FROM TICKET WHERE TicketID = ?');
     $stmt->execute(array($id));
     $ticket = $stmt->fetch();
@@ -99,7 +101,8 @@ class Ticket implements JsonSerializable
     return $tickets;
   }
 
-  private static function convertToTicket(PDO $db, array $ticket) {
+  private static function convertToTicket(PDO $db, array $ticket)
+  {
     $client = Client::getById($db, intval($ticket['UserID']));
     $department = $ticket['DepartmentID'] != NULL ? Department::getById($db, intval($ticket['DepartmentID'])) : NULL;
     $agent = $ticket['AssignedAgent'] != NULL ? Agent::getById($db, intval($ticket['AssignedAgent'])) : NULL;
@@ -115,10 +118,11 @@ class Ticket implements JsonSerializable
       $hashtags,
       $ticket['Description'],
       $agent != NULL ? $agent->username : NULL,
-      $department != NULL ? $department->departmentName: NULL,
+      $department != NULL ? $department->departmentName : NULL,
     );
   }
-  static function existsTicket(PDO $db, string $title, int $userID): ?int {
+  static function existsTicket(PDO $db, string $title, int $userID): ?int
+  {
     /* Same user can't create tickets with the same name */
     $stmt = $db->prepare('SELECT * FROM TICKET WHERE Title = ? AND UserID = ?');
     $stmt->execute(array($title, $userID));
@@ -126,12 +130,13 @@ class Ticket implements JsonSerializable
     return $ticket['TicketID'] != NULL ? intval($ticket['TicketID']) : NULL;
   }
 
-  static function createTicket(PDO $db, string $title, int $userID, ?string $priority, array $hashtags, string $description, ?int $departmentID) : int {
+  static function createTicket(PDO $db, string $title, int $userID, ?string $priority, array $hashtags, string $description, ?int $departmentID): int
+  {
     $submitdate = idate('U');
     $status = "open";
-    
+
     $stmt = $db->prepare('INSERT INTO TICKET(TicketID, Title, UserID, Status, SubmitDate, Priority, Description, AssignedAgent, DepartmentID)
-    VALUES (NULL, ?, ?, ?, ?, ?, ?, NULL, ?)');  /* assignedAgent is always null */
+    VALUES (NULL, ?, ?, ?, ?, ?, ?, NULL, ?)'); /* assignedAgent is always null */
     $stmt->execute(array($title, $userID, $status, $submitdate, $priority, $description, $departmentID));
     $ticketID = intval($db->lastInsertId());
 
@@ -142,8 +147,9 @@ class Ticket implements JsonSerializable
     Action::addUserAction($db, $userID, $ticketID, 'create', $submitdate);
     return $ticketID;
   }
-  function updateTicket(PDO $db, ?int $departmentID, ?int $agentID, string $priority, array $hashtags, int $userID): Action {
-    $ticketHashtags = array_map(function($hashtag) {
+  function updateTicket(PDO $db, ?int $departmentID, ?int $agentID, string $priority, array $hashtags, int $userID): Action
+  {
+    $ticketHashtags = array_map(function ($hashtag) {
       return $hashtag->hashtagid;
     }, $this->hashtags);
     $old_agent = $this->assignedagent;
@@ -159,7 +165,7 @@ class Ticket implements JsonSerializable
       $stmt = $db->prepare('UPDATE TICKET SET DepartmentID = ?, AssignedAgent = ?, Priority = ?, Status = ? WHERE TicketID = ?');
       $stmt->execute(array($departmentID, $agentID, $priority, $this->status, $this->ticketid));
     }
-    
+
     foreach ($hashtags_to_add as $hashtagID) {
       Hashtag::addHashtagToTicket($db, $this->ticketid, $hashtagID);
     }
@@ -169,7 +175,7 @@ class Ticket implements JsonSerializable
     if (!empty($hashtags_to_add) || !empty($hashtags_to_remove)) {
       $this->hashtags = Hashtag::getByTicketId($db, $this->ticketid);
     }
-    
+
     $new_agent = $this->assignedagent;
 
     if ($old_agent === $new_agent) {
@@ -182,24 +188,27 @@ class Ticket implements JsonSerializable
     return Action::addEditAction($db, $userID, $this->ticketid, 'assign', time(), $agentID);
   }
 
-  static function reopenTicket(PDO $db, int $ticketID, int $userID): Action {
+  static function reopenTicket(PDO $db, int $ticketID, int $userID): Action
+  {
     Ticket::updateStatus($db, $ticketID, 'open');
     return Action::addUserAction($db, $userID, $ticketID, 'reopen', time());
   }
-  static function closeTicket(PDO $db, int $ticketID, int $userID): Action {
+  static function closeTicket(PDO $db, int $ticketID, int $userID): Action
+  {
     Ticket::updateStatus($db, $ticketID, 'closed');
     return Action::addUserAction($db, $userID, $ticketID, 'close', time());
   }
-  static function updateStatus(PDO $db, int $ticketID, string $status) {
+  static function updateStatus(PDO $db, int $ticketID, string $status)
+  {
     $stmt = $db->prepare('UPDATE TICKET SET Status = ? WHERE TicketID = ?');
     $stmt->execute(array($status, $ticketID));
   }
 
   // adicionar filtros por data
   // static function filter(PDO $db, array $status, array $priorities, array $hashtags, array $agents, array $departments, int $page = 1): array
-  static function filter(PDO $db, array $status = [], array $priorities = [], array $hashtags = [] , array $agents = [], array $departments = [], int $page = 1): array
+  static function filter(PDO $db, ?int $userID, string $pageType, array $status = [], array $priorities = [], array $hashtags = [], array $agents = [], array $departments = [], int $page = 1): array
   {
-  
+
     $query = 'SELECT DISTINCT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T LEFT JOIN HASHTAG_TICKET H USING(TicketID) WHERE TRUE';
     // $query = 'SELECT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, H.HashtagID, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T LEFT JOIN HASHTAG_TICKET H USING(TicketID) WHERE TRUE';
     $statusF = '';
@@ -208,119 +217,138 @@ class Ticket implements JsonSerializable
     $agentsF = '';
     $departmentsF = '';
     $params = array();
-    
-    if(!empty($status)){
+
+    if (!empty($status)) {
       $statusF = ' and ';
-      for ($i = 0; $i<count($status); $i++) {
+      for ($i = 0; $i < count($status); $i++) {
         if ($i == 0) {
-          $statusF = $statusF.sprintf('(T.Status = ?');
+          $statusF = $statusF . sprintf('(T.Status = ?');
           $params[] = $status[$i];
-        } 
-        else {
-          $statusF = $statusF.sprintf(' or T.Status = ?');
+        } else {
+          $statusF = $statusF . sprintf(' or T.Status = ?');
           $params[] = $status[$i];
         }
       }
-      $statusF = $statusF.')';
+      $statusF = $statusF . ')';
       // for ($i = 0; $i<count($status); $i++) {
       //   if ($i == 0) {$statusF = $statusF.sprintf('(T.Status = %s', $status[$i]);} 
       //   else {$statusF = $statusF.sprintf(' or T.Status = %s', $status[$i]);}
       // }
       // $statusF = $statusF.')';
-  }
-  
-  if(!empty($priorities)){
-    $prioritiesF = ' and ';
-    // if ($statusF != '') {$prioritiesF = ' and ';}
-    for ($i = 0; $i<count($priorities); $i++) {
-      if ($i == 0) {
-        $prioritiesF = $prioritiesF.sprintf('(T.Priority = ?');
-        $params[] = $priorities[$i];
-      } 
-      else {
-        $prioritiesF = $prioritiesF.sprintf(' or T.Priority = ?');
-        $params[] = $priorities[$i];
+    }
+
+    if (!empty($priorities)) {
+      $prioritiesF = ' and ';
+      // if ($statusF != '') {$prioritiesF = ' and ';}
+      for ($i = 0; $i < count($priorities); $i++) {
+        if ($i == 0) {
+          $prioritiesF = $prioritiesF . sprintf('(T.Priority = ?');
+          $params[] = $priorities[$i];
+        } else {
+          $prioritiesF = $prioritiesF . sprintf(' or T.Priority = ?');
+          $params[] = $priorities[$i];
+        }
+        $prioritiesF = $prioritiesF . ')';
+
       }
-    $prioritiesF = $prioritiesF.')';
-
+      // for ($i = 0; $i<count($priorities); $i++) {
+      //   if ($i == 0) {$prioritiesF = $prioritiesF.sprintf('(T.Priority = %s', $priorities[$i]);} 
+      //   else {$prioritiesF = $prioritiesF.sprintf(' or T.Priority = %s', $priorities[$i]);}
+      // }
+      // $prioritiesF = $prioritiesF.')';
     }
-    // for ($i = 0; $i<count($priorities); $i++) {
-    //   if ($i == 0) {$prioritiesF = $prioritiesF.sprintf('(T.Priority = %s', $priorities[$i]);} 
-    //   else {$prioritiesF = $prioritiesF.sprintf(' or T.Priority = %s', $priorities[$i]);}
-    // }
-    // $prioritiesF = $prioritiesF.')';
-}
 
-if(!empty($hashtags)){
-  $hashtagsF = ' and ';
-  // if ($statusF != '' || $prioritiesF != '') {$hashtagsF = ' and ';}
-  for ($i = 0; $i<count($hashtags); $i++) {
-    if ($i == 0) {
-      $hashtagsF = $hashtagsF.sprintf('(H.HashtagID = ?');
-      $params[] = $hashtags[$i];
-    } 
-    else {
-      $hashtagsF = $hashtagsF.sprintf(' or H.HashtagID = ?');
-      $params[] = $hashtags[$i];
+    if (!empty($hashtags)) {
+      $hashtagsF = ' and ';
+      // if ($statusF != '' || $prioritiesF != '') {$hashtagsF = ' and ';}
+      for ($i = 0; $i < count($hashtags); $i++) {
+        if ($i == 0) {
+          $hashtagsF = $hashtagsF . sprintf('(H.HashtagID = ?');
+          $params[] = $hashtags[$i];
+        } else {
+          $hashtagsF = $hashtagsF . sprintf(' or H.HashtagID = ?');
+          $params[] = $hashtags[$i];
+        }
+      }
+      $hashtagsF = $hashtagsF . ')';
+      // for ($i = 0; $i<count($hashtags); $i++) {
+      //   if ($i == 0) {$hashtagsF = $hashtagsF.sprintf('(H.HashtagID = %s', $hashtags[$i]);} 
+      //   else {$hashtagsF = $hashtagsF.sprintf(' or H.HashtagID = %s', $hashtags[$i]);}
+      // }
+      // $hashtagsF = $hashtagsF.')';
     }
-  }
-  $hashtagsF = $hashtagsF.')';
-  // for ($i = 0; $i<count($hashtags); $i++) {
-  //   if ($i == 0) {$hashtagsF = $hashtagsF.sprintf('(H.HashtagID = %s', $hashtags[$i]);} 
-  //   else {$hashtagsF = $hashtagsF.sprintf(' or H.HashtagID = %s', $hashtags[$i]);}
-  // }
-  // $hashtagsF = $hashtagsF.')';
-}
 
-if(!empty($agents)){
-  $agentsF = ' and ';
-  // if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '') {$agentsF = ' and ';}
-  for ($i = 0; $i<count($agents); $i++) {
-    if ($i == 0) {
-      $agentsF = $agentsF.sprintf('(T.AssignedAgent = ?');
-      $params[] = $agents[$i];
-    } 
-    else {
-      $agentsF = $agentsF.sprintf(' or T.AssignedAgent = ?');
-      $params[] = $agents[$i];
+    if (!empty($agents)) {
+      $agentsF = ' and ';
+      // if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '') {$agentsF = ' and ';}
+      for ($i = 0; $i < count($agents); $i++) {
+        if ($i == 0) {
+          $agentsF = $agentsF . sprintf('(T.AssignedAgent = ?');
+          $params[] = $agents[$i];
+        } else {
+          $agentsF = $agentsF . sprintf(' or T.AssignedAgent = ?');
+          $params[] = $agents[$i];
+        }
+      }
+      $agentsF = $agentsF . ')';
+      // for ($i = 0; $i<count($agents); $i++) {
+      //   if ($i == 0) {$agentsF = $agentsF.sprintf('(T.AssignedAgent = %s', $agents[$i]);} 
+      //   else {$agentsF = $agentsF.sprintf(' or T.AssignedAgent = %s', $agents[$i]);}
+      // }
+      // $agentsF = $agentsF.')';
     }
-  }
-  $agentsF = $agentsF.')';
-  // for ($i = 0; $i<count($agents); $i++) {
-  //   if ($i == 0) {$agentsF = $agentsF.sprintf('(T.AssignedAgent = %s', $agents[$i]);} 
-  //   else {$agentsF = $agentsF.sprintf(' or T.AssignedAgent = %s', $agents[$i]);}
-  // }
-  // $agentsF = $agentsF.')';
-}
 
-if(!empty($departments)){
-  $departmentsF = ' and ';
-  // if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '' || $agentsF != '') {$departmentsF = ' and ';}
-  for ($i = 0; $i<count($departments); $i++) {
-    if ($i == 0) {
-      $departmentsF = $departmentsF.sprintf('(T.DepartmentID = ?');
-      $params[] = $departments[$i];
-    } 
-    else {
-      $departmentsF = $departmentsF.sprintf(' or T.DepartmentID = ?');
-      $params[] = $departments[$i];
+    if (!empty($departments)) {
+      $departmentsF = ' and ';
+      // if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '' || $agentsF != '') {$departmentsF = ' and ';}
+      for ($i = 0; $i < count($departments); $i++) {
+        if ($i == 0) {
+          $departmentsF = $departmentsF . sprintf('(T.DepartmentID = ?');
+          $params[] = $departments[$i];
+        } else {
+          $departmentsF = $departmentsF . sprintf(' or T.DepartmentID = ?');
+          $params[] = $departments[$i];
+        }
+      }
+      $departmentsF = $departmentsF . ')';
+      // for ($i = 0; $i<count($departments); $i++) {
+      //   if ($i == 0) {$departmentsF = $departmentsF.sprintf('(T.DepartmentID = %s', $departments[$i]);} 
+      //   else {$departmentsF = $departmentsF.sprintf(' or T.DepartmentID= %s', $departments[$i]);}
+      // }
+      // $departmentsF = $departmentsF.')';
     }
-  }
-  $departmentsF = $departmentsF.')';
-  // for ($i = 0; $i<count($departments); $i++) {
-  //   if ($i == 0) {$departmentsF = $departmentsF.sprintf('(T.DepartmentID = %s', $departments[$i]);} 
-  //   else {$departmentsF = $departmentsF.sprintf(' or T.DepartmentID= %s', $departments[$i]);}
-  // }
-  // $departmentsF = $departmentsF.')';
-}  
     // filters
-    $query .= $statusF.$prioritiesF.$hashtagsF.$agentsF.$departmentsF;
-    $stmt1 = $db->prepare('SELECT COUNT(DISTINCT TicketID) as c FROM ('.$query.');');
-    $stmt1->execute($params);
-    $count = $stmt1->fetch(); 
+    $query .= $statusF . $prioritiesF . $hashtagsF . $agentsF . $departmentsF;
+    $pageQuery = '';
 
-    $query .= " LIMIT 12 OFFSET " . ($page - 1) * 12 . ";";
-    $stmt2 = $db->prepare($query);
+    error_log("pageType: " . $pageType);
+    switch ($pageType) {
+      case 'my':
+        $pageQuery = 'SELECT * FROM (' . $query . ') as T WHERE T.UserID = ?';
+        $params[] = $userID;
+        break;
+      case 'assigned':
+        $pageQuery = 'SELECT * FROM (' . $query . ') as T WHERE T.AssignedAgent = ?';
+        $params[] = $userID;
+        break;
+      case 'all-agent':
+        $pageQuery = 'SELECT * FROM (' . $query . ') as T WHERE T.DepartmentID IS NULL OR T.DepartmentID = ?';
+        $params[] = Agent::getDepartment($db, $userID);
+        break;
+      case 'all-admin':
+        $pageQuery = $query;
+        break;
+      default:
+      $pageQuery = $query;
+        break;
+    }
+
+    $stmt1 = $db->prepare('SELECT COUNT(DISTINCT TicketID) as c FROM (' . $pageQuery . ');');
+    $stmt1->execute($params);
+    $count = $stmt1->fetch();
+
+    $pageQuery .= " LIMIT 12 OFFSET " . ($page - 1) * 12 . ";";
+    $stmt2 = $db->prepare($pageQuery);
     $stmt2->execute($params);
 
     $tickets = [];
@@ -336,7 +364,8 @@ if(!empty($departments)){
 
   // TODO
   // null filters
-  static function getFilters(PDO $db): array {
+  static function getFilters(PDO $db): array
+  {
     $filters = [];
     $status = ['open', 'assigned', 'closed'];
     $priorities = ['high', 'medium', 'low'];
@@ -344,8 +373,8 @@ if(!empty($departments)){
     $agents = [];
     $departments = [];
 
-    $filters[]=$status;
-    $filters[]=$priorities;
+    $filters[] = $status;
+    $filters[] = $priorities;
 
     $stmt = $db->prepare('SELECT * from HASHTAG;');
     $stmt->execute();
@@ -371,10 +400,12 @@ if(!empty($departments)){
 
     return $filters;
   }
-  function isClosed() {
+  function isClosed()
+  {
     return strtolower($this->status) === 'closed';
   }
-  static function getClosedTicketsLast7Days(PDO $db): array {
+  static function getClosedTicketsLast7Days(PDO $db): array
+  {
     $stmt = $db->prepare(
       "SELECT COUNT(t.TicketID) as count, date_range.date as date
       FROM (
@@ -399,7 +430,8 @@ if(!empty($departments)){
     }
     return $counts;
   }
-  static function getCreatedTicketsLast7Days(PDO $db) : array {
+  static function getCreatedTicketsLast7Days(PDO $db): array
+  {
     $stmt = $db->prepare(
       "SELECT COUNT(t.TicketID) as count, date_range.date as date
       FROM (
@@ -416,13 +448,13 @@ if(!empty($departments)){
       ) ON date_range.date = strftime('%Y-%m-%d', act.actionDate, 'unixepoch') and t.status != 'closed'
       GROUP BY date_range.date
       ORDER BY date_range.date ASC;"
-      );
-      $stmt->execute();
-      $counts = [];
-      while ($count = $stmt->fetch()) { // last line will have date = today
-        $counts[] = $count['count'];
-      }
-      return $counts;
+    );
+    $stmt->execute();
+    $counts = [];
+    while ($count = $stmt->fetch()) { // last line will have date = today
+      $counts[] = $count['count'];
+    }
+    return $counts;
   }
 }
 ?>

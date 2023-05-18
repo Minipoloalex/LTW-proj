@@ -157,7 +157,7 @@
                     LEFT JOIN DEPARTMENT d ON a.DepartmentID = d.DepartmentID
                     WHERE c.UserID = ?
                     ';
-          $stmt = $db-> prepare($query);
+          $stmt = $db->prepare($query);
           $stmt->execute(array($id));
           $user = $stmt->fetch();
           error_log("User: " . print_r($user, true));
@@ -168,15 +168,10 @@
             $user['Email'],
             $user['Department'],
             $user['UserType'],
-            count(Ticket::getbyUser($db, intval($user['UserID']))),
+            count(Ticket::getByUser($db, intval($user['UserID']))),
             count(Ticket::getByAgent($db, intval($user['UserID'])))
           );
         }
-
-          function name() {
-            return $this->username;
-          } //not really needed in ours
-
 
           static function getType(PDO $db, int $id) : string {
            if (Client::isAdmin($db, $id)) return "Admin";
@@ -382,8 +377,6 @@
             return $stmt->execute(array(password_hash($pass, PASSWORD_DEFAULT), $this->id));
           }
           static function demoteToClient(PDO $db, int $userID) {
-            // $stmt = $db->prepare('DELETE FROM ADMIN WHERE UserID = ?');
-            // $stmt->execute(array($userID));
             $stmt = $db->prepare('DELETE FROM AGENT WHERE UserID = ?');
             $stmt->execute(array($userID));
           }

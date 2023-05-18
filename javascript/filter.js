@@ -44,7 +44,8 @@ async function getFilterValues(cardType) {
   let json;
   switch (cardType) {
     case 'ticket': {
-      json = await getTickets2(checkedValues);
+      const pageType = filterBtn.parentElement.getAttribute('data-pageType');
+      json = await getTickets2(checkedValues, pageType);
       break;
     }
     case 'department': {
@@ -84,8 +85,8 @@ async function getFilterValues(cardType) {
   */
 }
 
-async function getTickets2(checkedValues, page = 0) {
-  const data = {...checkedValues, page: page};
+async function getTickets2(checkedValues, pageType ,page = 0) {
+  const data = {...checkedValues, page: page, pageType: pageType};
   // data['page'] = page;
   const path = '../api/api_filter_tickets.php';
   return json = await getData(path, data);

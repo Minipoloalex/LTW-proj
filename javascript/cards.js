@@ -11,14 +11,18 @@ let cardIncrease;
 let currentPage;
 let pageCount;
 let cardType = 'invalid';
+let pageType = 'invalid';
 if (title) {
   cardType = title.getAttribute("data-type");
+  if (cardType === 'ticket') {
+    pageType = document.getElementById('filter-values').parentElement.getAttribute("data-pageType");
+  }
 }
 const cardWidth = 225;
 
 function updateCardIncrease() {
   console.log(cardContainer.clientWidth);
-  const cardsPerRow = Math.floor(cardContainer.clientWidth / cardWidth); // Adjust the width (200) according to your card size
+  const cardsPerRow = Math.floor(cardContainer.clientWidth / cardWidth);
 
   if (cardsPerRow >= 4) {
     cardIncrease = 4;
@@ -82,18 +86,27 @@ async function queryMore(endRange) {
 
     switch (cardType) {
       case 'ticket': {
-        const json = await getTickets2(checkedValues, (endRange / 12) + 1);
+        const json = await getTickets2(checkedValues, pageType, (endRange / 12) + 1);
         data.tickets = data.tickets.concat(json.tickets);
+        data.count = json.count;
+        cardLimit = data.count;
         break;
       }
       case 'user': {
         const json = await getUsers2(checkedValues, (endRange / 12) + 1);
         data.users = data.users.concat(json.users);
+        data.count = json.count;
+        cardLimit = data.count;
         break;
       }
       case 'department': {
         const json = await getDepartments2(checkedValues, (endRange / 12) + 1);
         data.departments = data.departments.concat(json.departments);
+        // console.log(data.departments);
+        data.count = json.count;
+        cardLimit = data.count;
+        console.log(data);
+        console.log(cardLimit);
         break;
       }
       default:
@@ -198,8 +211,9 @@ function getCards(content) {
   flag = true;
 }
 
+
 async function getPartialTickets() {
-  const response = await fetch("../api/api_filter_tickets.php");
+  const response = await fetch("../api/api_filter_tickets.php?pageType=" + pageType);
   if (response.ok) {
     const data = await response.json();
     return data;
@@ -207,6 +221,15 @@ async function getPartialTickets() {
     console.error('Error: ' + res.status);
   }
 }
+// async function getPartialTickets() {
+//   const response = await fetch("../api/api_filter_tickets.php");
+//   if (response.ok) {
+//     const data = await response.json();
+//     return data;
+//   } else {
+//     console.error('Error: ' + res.status);
+//   }
+// }
 
 async function getPartialDepartments() {
   const response = await fetch("../api/api_departments.php");
@@ -271,7 +294,7 @@ async function drawUserCard(card, curr) {
         <select class="department-select" ${curr.user_type === 'Client' ? "disabled" : ""}>
           <option value=''>None</option>
           ${curr.user_type !== 'Client' ?
-      deps.map(dep => `<option value="${dep.departmentId}" ${curr.department === dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('') :
+      deps.map(dep => `<option value="${dep.departmentId}" ${curr.department == dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('') :
       ''}
           </select><br>
       
@@ -296,27 +319,22 @@ async function drawUserCard(card, curr) {
   const userTypeSelect = card.querySelector('.user-type-select');
 
   departmentSelect.addEventListener('change', async function () {
-    console.log("Department changed");
     const json = await patchData('../api/api_users.php', { id: curr.id, user_type: userTypeSelect.value, department: departmentSelect.value });
+    console.log("INSIDE DEPARTMENT SELECT EVENT LISTENER");
     console.log(json);
+    departmentSelect.innerHTML = `
+      <option value="">None</option>
+      ${deps.map(dep => `<option value="${dep.departmentId}" ${json['department'] === dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('')}`;
   });
 
 
   userTypeSelect.addEventListener('change', async function () {
-    console.log("User type changed");
-    // Handle department select based on user type
-    // const departmentSelect = card.querySelector('.department-select');
-    if (typeSelectedValue === 'Client') {
+    if (userTypeSelect.value === 'Client') {
       departmentSelect.value = ''; // Select the "None" option
-      departmentSelect.disabled = true; // Disable the department select
+      departmentSelect.disabled = true;
     } else {
-      departmentSelect.disabled = false; // Enable the department select
-      departmentSelect.innerHTML = `
-      <option value="">None</option>
-      ${deps.map(dep => `<option value="${dep.departmentId}" ${curr.department === dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('')}
-    `; // Update the department select options
+      departmentSelect.disabled = false;
     }
-
     const json = await patchData('../api/api_users.php', { id: curr.id, user_type: userTypeSelect.value, department: departmentSelect.value });
     console.log(json);
   });
@@ -461,7 +479,7 @@ if(cardType === 'department') {
   });
 }
 function updateSkeletonCards() {
-  if (skeletonCards) {
+  if (skeletonCards.length > 0 ) {
     const cardsPerRow = Math.floor(cardContainer.clientWidth / cardWidth); // Adjust the width (200) according to your card size
     console.log(cardsPerRow);
     // Hide all skeleton cards
@@ -478,4 +496,6 @@ function updateSkeletonCards() {
   }
 }
 
-updateSkeletonCards(); // Call the function on page load
+if (cardContainer) {
+  updateSkeletonCards(); // Call the function on page load
+}

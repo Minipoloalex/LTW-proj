@@ -11,14 +11,22 @@ if (!$session->isLoggedIn()) {
     die(header('Location: landing_page.php'));
 }
 $db = getDatabaseConnection();
-if (Client::getType($db, $session->getId()) !== 'Admin') {
+$userType = Client::getType($db, $session->getId());
+if ($userType === 'Client') {
     die(header('Location: main_page.php'));
 }
 $filters = Ticket::getFilters($db);
 
-output_header($session, 'Admin');
-drawTitle("All Tickets", "ticket");
-drawFilterMenu($filters);
+output_header($session, $userType);
+if ($userType === 'Admin') {
+    drawTitle("All Tickets", "ticket");
+    drawFilterMenu($filters, 'all-admin');
+}
+else if ($userType === 'Agent') {
+    drawTitle("My Department's tickets", "ticket");
+    drawFilterMenu($filters, 'all-agent');
+}
+
 // $tickets = Ticket::getTickets($db);
 // $tickets = Ticket::filter($db);
 // drawTicketsTable($tickets, 'All Tickets');
