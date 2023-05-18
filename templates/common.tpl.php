@@ -29,6 +29,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../javascript/charts.js" defer></script>
     <script src="../javascript/file_input.js" defer></script>
+    <script src="../javascript/add_department.js" defer></script>
 
     <link rel="stylesheet" href="../css/buttons.css">
     <link rel="stylesheet" href="../css/nav.css">

@@ -42,10 +42,11 @@ require_once(__DIR__ . '/../database/agent.class.php');
 
 <?php function drawAddDepartmentForm(){ ?>
     <div class="add-department-form">
-        <form action="process_department.php" method="POST">
+    <p>Want to add a new department?</p>
+        <form id="addDepartmentForm">
             <label for="department_name">Department Name:</label>
             <input type="text" id="department_name" name="department_name" required>
-            <button type="submit">Add Department</button>
+            <button type="submit">Add</button>
         </form>
     </div>
 <?php } ?>
