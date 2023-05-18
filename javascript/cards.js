@@ -294,8 +294,8 @@ async function drawUserCard(card, curr) {
         <select class="department-select" ${curr.user_type === 'Client' ? "disabled" : ""}>
           <option value=''>None</option>
           ${curr.user_type !== 'Client' ?
-      deps.map(dep => `<option value="${dep.departmentId}" ${curr.department == dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('') :
-      ''}
+      deps.map(dep => `<option value="${dep.departmentId}" ${curr.department === dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('') :
+      deps.map(dep => `<option value="${dep.departmentId}">${dep.departmentName}</option>`).join('')}
           </select><br>
       
 
