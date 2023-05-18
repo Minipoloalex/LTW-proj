@@ -13,7 +13,6 @@ $session = new Session();
 $db = getDatabaseConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-
   $all = $_GET['all'] ?? NULL;
   $page = intval($_GET['page']);
 
