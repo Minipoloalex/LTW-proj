@@ -47,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
   $id = intval($_GET['id']);
   $new_user_type = $_GET['user_type'];
   $department = ($_GET['department'] === '' ? NULL : intval($_GET['department']));
+  
+  error_log('type IN API: ' . $new_user_type);
   error_log('department IN API: ' . $department);
   $curr_user_type = Client::getType($db, $id);
 
@@ -70,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
       } elseif ($new_user_type === 'Admin') {
         Client::upgradeToAdminFromAgent($db, $id);
       }
+      Client::changeDepartment($db, $id, $department);
     } elseif ($curr_user_type === 'Admin') {
       if ($new_user_type === 'Client') {
         // // Demoting an Admin to a Client is not allowed
@@ -80,11 +83,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
       } elseif ($new_user_type === 'Agent') {
         Client::demoteToAgent($db, $id);
       }
+      Client::changeDepartment($db, $id, $department);
     }
+
+    // Client::changeDepartment($db, $id, $department);
     
   // }
   // else{
-    Client::changeDepartment($db, $id, $department);
     
   // 
 

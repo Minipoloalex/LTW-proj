@@ -18,7 +18,16 @@ $filters = Ticket::getFilters($db);
 
 output_header($session, 'Admin');
 drawTitle("All Tickets", "ticket");
-drawFilterMenu($filters);
+$userType = Client::getType($db, $session->getId());
+if($userType === 'Admin'){
+  drawFilterMenu($filters, 'all-admin');
+}
+else if ($userType === 'Agent'){
+  drawFilterMenu($filters, 'all-agent');
+}
+
+// drawFilterMenu($filters,);
+
 // $tickets = Ticket::getTickets($db);
 // $tickets = Ticket::filter($db);
 // drawTicketsTable($tickets, 'All Tickets');
