@@ -1,5 +1,6 @@
 const addDepartmentForm = document.getElementById('addDepartmentForm');
 const addDepartmentFeedback = document.getElementById('add-department-feedback');
+<<<<<<< HEAD
 
 if(addDepartmentForm) {
 addDepartmentForm.addEventListener('submit', async function (event) {
@@ -21,5 +22,3 @@ addDepartmentForm.addEventListener('submit', async function (event) {
     }
 });
 }
-
-

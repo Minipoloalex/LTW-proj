@@ -9,8 +9,8 @@ if (registerButton) {
     registerButton.addEventListener('click', function (event) {
         console.log("HELLO INSIDE EVENT LISTENTER");
         event.preventDefault();
-        const password = document.querySelector('input[name="password"][type="password"]').value;
-        const confirmPassword = document.querySelector('input[name="confirm_password"][type="password"]').value;
+        const password = document.querySelector('input[name="password"]').value;
+        const confirmPassword = document.querySelector('input[name="confirm_password"]').value;
         const username = document.querySelector('input[name="username"]').value;
         const name = document.querySelector('input[name="name"]').value;
         const email = document.querySelector('input[name="email"]').value;
