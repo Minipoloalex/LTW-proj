@@ -7,19 +7,12 @@ require_once(__DIR__ . '/../database/connection.db.php');
 require_once(__DIR__ . '/../database/message.class.php');
 require_once(__DIR__ . '/../database/ticket.class.php');
 require_ONCE(__DIR__ . '/../database/image.class.php');
+require_once(__DIR__ . '/handlers/api_common.php');
 
 $session = new Session();
-if (!$session->isLoggedIn()) {
-    http_response_code(401); // Unauthorized
-    echo json_encode(array('error' => 'User not logged in'));
-    exit();
-}
+handle_check_logged_in($session);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!$session->verifyCsrf($_POST['csrf'])) {
-        http_response_code(403); // Forbidden
-        echo json_encode(array('error' => 'CSRF token invalid'));
-        exit();
-    }
+    handle_check_csrf($session, $_POST['csrf']);
     $db = getDatabaseConnection();
     if (!is_valid_string($_POST['message'])) {
         http_response_code(400); // Bad request

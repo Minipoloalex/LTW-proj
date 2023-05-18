@@ -191,7 +191,7 @@ async function getPartialDepartments() {
     console.log(data);
     return data;
   } else {
-    console.error('Error: ' + res.status);
+    console.error('Error: ' + response.status);
   }
 }
 
@@ -202,7 +202,7 @@ async function getPartialUsers() {
     console.log(data);
     return data;
   } else {
-    console.error('Error: ' + res.status);
+    console.error('Error: ' + response.status);
   }
 }
 
