@@ -47,6 +47,9 @@ require_once(__DIR__ . '/../database/agent.class.php');
             <label for="department_name">Department Name (limit 24 characters):</label>
             <input type="text" id="department_name" name="department_name" maxlength="24" required>
             <button type="submit">Add</button>
+            <?php
+            output_empty_feedback_message("add-department-feedback");
+            ?>
         </form>
     </div>
 <?php } ?>

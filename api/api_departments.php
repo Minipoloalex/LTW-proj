@@ -7,12 +7,14 @@ require_once(__DIR__ . '/../database/connection.db.php');
 require_once(__DIR__ . '/../database/department.class.php');
 require_once(__DIR__ . '/../database/ticket.class.php');
 require_once(__DIR__ . '/../database/agent.class.php');
+require_once(__DIR__ . '/handlers/api_common.php');
+
 $session = new Session();
 $db = getDatabaseConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-  $all = $_GET['all'];
+  $all = $_GET['all'] ?? NULL;
   $page = intval($_GET['page']);
 
   if (isset($all)) {
@@ -34,29 +36,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  handle_check_logged_in($session);
+  handle_check_csrf($session, $_POST['csrf']);
+  handle_check_admin($session, $db);
   $department_name = $_POST['department_name'];
   error_log("department_name: " . $department_name);
   if (isset($department_name)) {
-    /*check if already exists using getByName from deparment.class*/
-
-    if (Department::getByName($db, $department_name)){
+    if (Department::getByName($db, $department_name) !== NULL){
       http_response_code(409); // Conflict
-      echo json_encode(array('error' => 'Department already exists.'));
+      echo_json_csrf($session, array('error' => 'Department already exists.'));
       exit();
     }
   
-    Department::addDepartment($db, $department_name);
+    $id = Department::addDepartment($db, $department_name);
     http_response_code(201); // Created
-    echo json_encode(array('message' => 'Department created.'));
+    echo_json_csrf($session, array(
+      'success' => 'Created department "' . $department_name . '"',
+      'department_name' => $department_name,
+      'department_id' => $id
+    ));
   } else {
     http_response_code(400); // Bad request
-    echo json_encode(array('error' => 'Invalid request parameters.'));
+    echo_json_csrf($session, array('error' => 'Invalid request parameters.'));
   }
   exit();
 }
 
 http_response_code(405); // Method not allowed
 echo json_encode(array('error' => 'Invalid request method.'));
-
 
 ?>

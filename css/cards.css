@@ -211,10 +211,16 @@ div.add-department-form{
 
 .add-department-form form {
   display: grid;
-  grid-template-rows: auto auto; /* Each element will occupy a separate row */
-  grid-gap: 1rem;
+  grid-template-rows: repeat(3, auto);
+  grid-template-columns: repeat(2, auto);
+  grid-template-areas:
+    "label label"
+    "input button"
+    "feedback feedback";
+  grid-gap: 0.5rem;
   max-width: 15rem;
   padding: 1rem;
+  /* TODO: generalize these styles */
   background-color: #f5f5f5;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -228,31 +234,44 @@ div.add-department-form{
 }
 
 .add-department-form label {
-  grid-row: 1; /* Place label in the first row */
+  grid-area: label;
   padding-right: 1rem;
-  margin-right: 1rem;
+  /* margin-right: 1rem; */
   width: 100%;
 }
 
+.add-department-form .feedback-message {
+  grid-area: feedback;
+}
+
 .add-department-form input[type="text"] {
-  grid-row: 2; /* Place input in the second row */
+  grid-area: input;
   border-radius: 5px;
   padding: 0.5em;
   border: 1px solid black;
-  margin-right: 2rem;
+  /* margin-right: 2rem; */
   width: 90%;
 }
 
 .add-department-form button {
-  grid-row: 2; /* Place button in the second row */
+  grid-area: button;
+  align-self: center;
 }
 
 @media (max-width: 480px) {
   .add-department-form form {
     max-width: 10rem;
   }
-
+  .add-department-form form{
+    grid-template-rows: repeat(3, auto);
+    grid-template-columns: repeat(1, auto);
+    grid-template-areas:
+    "label label"
+    "input input"
+    "button button"
+    "feedback feedback";
+  }
   .add-department-form button {
-    grid-row: 3; 
+    margin: auto;
   }
 }

@@ -1,22 +1,22 @@
-
 const addDepartmentForm = document.getElementById('addDepartmentForm');
+const addDepartmentFeedback = document.getElementById('add-department-feedback');
+
 addDepartmentForm.addEventListener('submit', async function (event) {
     event.preventDefault(); // Prevent form submission
 
-    const departmentNameInput = document.getElementById('department_name');
+    const departmentNameInput = addDepartmentForm.querySelector('#department_name');
     const departmentName = departmentNameInput.value;
 
-    const response = await postData('../api/api_departments.php', { department_name: departmentName });
+    const json = await postData('../api/api_departments.php', {department_name: departmentName});
 
     // Handle the response and display the added department
-    if (response.status === 'success') {
-        const addedDepartment = response.department;
-
-        // Reset the form input
+    displayFeedback(addDepartmentFeedback, json);
+    if (json['success']) {
+        const addedDepartment = json.department_name;
+        // TODO: do something with added department
+        console.log(json);
+        console.log(addedDepartment);
         departmentNameInput.value = '';
-    } else {
-        // Handle error case if needed
-        console.error('Failed to add department:', response.message);
     }
 });
 
