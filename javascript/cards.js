@@ -14,6 +14,24 @@ let cardType = 'invalid';
 if (title) {
   cardType = title.getAttribute("data-type");
 }
+const cardWidth = 225;
+
+function updateCardIncrease() {
+  console.log(cardContainer.clientWidth);
+  const cardsPerRow = Math.floor(cardContainer.clientWidth / cardWidth); // Adjust the width (200) according to your card size
+
+  if (cardsPerRow >= 4) {
+    cardIncrease = 4;
+  } else if (cardsPerRow === 3) {
+    cardIncrease = 3;
+  } else if (cardsPerRow === 2) {
+    cardIncrease = 2;
+  } else {
+    cardIncrease = 1;
+  }
+}
+
+
 
 const addCards = (pageIndex) => {
   window.removeEventListener("scroll", handleInfiniteScroll);
@@ -115,7 +133,7 @@ const removeInfiniteScroll = () => {
 
 if (cardContainer) {
   window.onload = async function () {
-    console.log(cardType);
+    updateCardIncrease();
     switch (cardType) {
       case 'ticket': {
         const tickets = await getPartialTickets();
@@ -135,13 +153,16 @@ if (cardContainer) {
     }
   }
 }
+
+// window.addEventListener('resize', updateCardIncrease);
+
 function getCards(content) {
   data = content;
   // cardType = type;
   cardContainer.innerHTML = '';
   cardLimit = data.count;
   cardTotalElem.innerHTML = cardLimit;
-  cardIncrease = 4;
+  // cardIncrease = 4;
   pageCount = Math.ceil(cardLimit / cardIncrease);
   currentPage = 1;
   if (!checkLoader() && currentPage < pageCount) {
@@ -249,22 +270,25 @@ async function drawUserCard(card, curr) {
 
   const departmentSelect = card.querySelector('.department-select');
   const userTypeSelect = card.querySelector('.user-type-select');
-  const depSelectedValue = departmentSelect.value;
-  const typeSelectedValue = userTypeSelect.value;
+  let depSelectedValue = departmentSelect.value;
+  let typeSelectedValue = userTypeSelect.value;
 
   departmentSelect.addEventListener('change', async function () {
+    console.log("Department changed");
     depSelectedValue = departmentSelect.value;
     // const json = await patchData('../api/api_users.php', { id: curr.id, department: selectedValue });
     const json = await patchData('../api/api_users.php', { id: curr.id, user_type: typeSelectedValue, department: depSelectedValue });
     console.log(json);
   });
 
-  
+
   userTypeSelect.addEventListener('change', async function () {
+    console.log("User type changed");
     typeSelectedValue = userTypeSelect.value;
     // Handle department select based on user type
-    const departmentSelect = card.querySelector('.department-select');
+    // const departmentSelect = card.querySelector('.department-select');
     if (typeSelectedValue === 'Client') {
+      depSelectedValue = ''; // Select the "None" option
       departmentSelect.value = ''; // Select the "None" option
       departmentSelect.disabled = true; // Disable the department select
     } else {
@@ -408,3 +432,27 @@ function drawTicketCard(card, curr) {
     card.querySelector('.card-priority').classList.add('noneP');
   }
 }
+
+
+const skeletonCards = document.querySelectorAll('.skeleton-card');
+window.addEventListener('resize', updateSkeletonCards);
+
+function updateSkeletonCards() {
+  if (skeletonCards) {
+    const cardsPerRow = Math.floor(cardContainer.clientWidth / cardWidth); // Adjust the width (200) according to your card size
+    console.log(cardsPerRow);
+    // Hide all skeleton cards
+    skeletonCards.forEach((card) => {
+      card.classList.add('d-none');
+    });
+
+    // Show the required number of skeleton cards
+    for (let i = 0; i < cardsPerRow; i++) {
+      if (skeletonCards[i]) {
+        skeletonCards[i].classList.remove('d-none');
+      }
+    }
+  }
+}
+
+updateSkeletonCards(); // Call the function on page load
