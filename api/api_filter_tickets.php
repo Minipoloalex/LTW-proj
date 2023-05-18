@@ -31,7 +31,7 @@ $db = getDatabaseConnection();
 // }
 
 
-function handle_filter_tickets(PDO $db, ?string $dataAgents, ?string $dataDepartments,
+function handle_filter_tickets(PDO $db, ?int $userID, string $pageType, ?string $dataAgents, ?string $dataDepartments,
 ?string $dataHashtags, ?string $dataPriorities, ?string $dataStatus, ?int $page) {
   $a = $dataAgents;
   $agents = ($a == "") ? [] : explode(',', $a);
@@ -44,10 +44,12 @@ function handle_filter_tickets(PDO $db, ?string $dataAgents, ?string $dataDepart
   $s = $dataStatus;
   $status = ($s == "") ? [] : explode(',', $s);
 
+  $pageType = $_GET['pageType'];
+
   error_log('HERE'.implode($agents));
   error_log('HERE'.$departments);
 
-  $data = Ticket::filter($db, $status, $priorities, $hashtags, $agents, $departments, $page);
+  $data = Ticket::filter($db, $userID, $pageType, $status, $priorities, $hashtags, $agents, $departments, $page);
   http_response_code(200); // OK
   echo json_encode($data);
   
@@ -61,7 +63,8 @@ function handle_filter_tickets(PDO $db, ?string $dataAgents, ?string $dataDepart
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   // TODO: security for this and isset($page) does nothing
   $page = intval($_GET['page']);
-
+  $pageType = $_GET['pageType'];
+  $userID = $session->getId();
   if (isset($page)) {
     $a = $_GET['agents'];
     $agents = ($a == "") ? [] : explode(',', $a);
@@ -74,18 +77,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $s = $_GET['status'];
     $status = ($s == "") ? [] : explode(',', $s);
 
+    // $pageType = $_GET['pageType'];
+
     error_log('HERE'.implode($agents));
     error_log('HERE'.$departments);
 
-    $data = Ticket::filter($db, $status, $priorities, $hashtags, $agents, $departments, $page);
+    $data = Ticket::filter($db, $userID, $pageType, $status, $priorities, $hashtags, $agents, $departments, $page);
     http_response_code(200); // OK
     echo json_encode($data);
   } else {
-    $data = Ticket::filter($db);
+    $data = Ticket::filter($db, $userID, $pageType);
     http_response_code(200); // OK
     echo json_encode($data);
   }
-  
+
 } 
 // else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 //   // Handle AJAX request

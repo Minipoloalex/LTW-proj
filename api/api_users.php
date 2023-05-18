@@ -56,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
   $id = intval($_GET['id']);
   $new_user_type = $_GET['user_type'];
   $department = ($_GET['department'] === '' ? NULL : intval($_GET['department']));
-  error_log('department IN API: ' . $department ?? '');
   $curr_user_type = Client::getType($db, $id);
 
   // if ($curr_user_type === $new_user_type) {
@@ -71,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
     } else if ($new_user_type === 'Admin') {
       Client::upgradeToAdminFromClient($db, $id);
     }
+
   } elseif ($curr_user_type === 'Agent') {
     if ($new_user_type === 'Client') {
       Client::demoteToClient($db, $id);
@@ -88,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
     error_log("Updating department to " . $_GET['department']);
     Agent::updateDepartment($db, $id, $department);
   }
+
 
   $user = Client::getByIdExpanded($db, $id);
   http_response_code(200); // OK

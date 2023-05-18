@@ -22,7 +22,7 @@ $tickets = Ticket::getByUser($db, $user->id);
 
 output_header($session, $type);
 drawTitle("My Tickets", "ticket");
-drawFilterMenu($filters);
+drawFilterMenu($filters, 'my');
 // drawTicketsTable($tickets, 'My Tickets');
 drawCardContainer();
 output_footer();
