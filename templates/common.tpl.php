@@ -80,8 +80,6 @@ require_once(__DIR__ . '/../utils/session.php');
               output_create_ticket_li();
               if ($type !== 'Client') {
                 output_assigned_tickets_li();
-              }
-              if ($type !== 'Client') {
                 output_all_tickets_li();
               } ?>
             </ul>
@@ -103,8 +101,6 @@ require_once(__DIR__ . '/../utils/session.php');
         output_create_ticket_li();
         if ($type !== 'Client') {
           output_assigned_tickets_li();
-        }
-        if ($type === 'Admin') {
           output_all_tickets_li();
         }
         ?>
