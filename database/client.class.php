@@ -199,8 +199,8 @@
             $ticket = Ticket::getById($db, $ticketID);
             $user = Client::getById($db, $userID);
             $type = Client::getType($db, $userID);
-            if ($ticket->username === $user->username) return false;
             if ($type === 'Admin') return true;
+            if ($ticket->username === $user->username) return false;
             if ($type !== 'Agent') return false;
 
             // agents can change their department's tickets and null department tickets

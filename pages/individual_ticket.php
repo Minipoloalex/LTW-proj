@@ -19,12 +19,12 @@ if (!$session->isLoggedIn()) {
 }
 
 $db = getDatabaseConnection();
+$type = Client::getType($db, $session->getId());
 
 if (!is_valid_ticket_id($db, $_GET['id'])) {
     die(header('Location: main_page.php'));
 }
 $ticketID = intval($_GET['id']);
-
 
 if (!Client::hasAcessToTicket($db, $session->getId(), $ticketID)) {
     die(header('Location: main_page.php'));
@@ -40,12 +40,11 @@ $messages = Message::getByTicket($db, $ticketID);
 $actions = Action::getByTicket($db, $ticketID);
 $hashtags = Hashtag::getHashtags($db);
 $departments = Department::getDepartments($db);
-$isAgentView = !($session->getName() === $ticket->username);
+$isAgentView = $type === 'Admin' ? true : !($session->getName() === $ticket->username);
 
 $ticketDepartment = Department::getByName($db, $ticket->departmentName);
 $agents = $ticketDepartment != null ? Agent::getByDepartment($db, $ticketDepartment->departmentId) 
 : Agent::getAgents($db);
-$type = Client::getType($db, $session->getId());
 
 output_header($session, $type);
 output_single_ticket($ticket, $messages, $actions, $hashtags, $agents, $departments, $session, $isAgentView);

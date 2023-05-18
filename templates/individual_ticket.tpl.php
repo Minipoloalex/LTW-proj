@@ -152,7 +152,10 @@ array $all_hashtags, array $agents, array $all_departments, Session $session, bo
 
 <?php function output_change_ticket_info_form(Ticket $ticket, array $agents, array $departments, array $hashtags) { ?>
         <?php
-        output_priority_form($ticket->priority);
+        if ($ticket->priority !== NULL) {
+            output_priority_form($ticket->priority);
+        }
+        else output_priority_form();
 
         output_department_form($departments, $ticket->departmentName);
 
