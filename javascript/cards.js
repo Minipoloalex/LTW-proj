@@ -124,17 +124,41 @@ function throttle(callback, time) {
   }, time);
 }
 
+// const handleInfiniteScroll = () => {
+//   throttle(() => {
+//     const endOfPage =
+//       window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+//     if (currentPage === pageCount) {
+//       removeInfiniteScroll();
+//     }
+//     else if (endOfPage) {
+//       addCards(currentPage + 1);
+//     }
+
+//   }, 1000);
+// };
+
+// const handleInfiniteScroll = () => {
+//   throttle(() => {
+//     const endOfPage =
+//       window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight;
+//     if (currentPage === pageCount) {
+//       removeInfiniteScroll();
+//     } else if (endOfPage) {
+//       addCards(currentPage + 1);
+//     }
+//   }, 1000);
+// };
+
 const handleInfiniteScroll = () => {
   throttle(() => {
     const endOfPage =
-      window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+      window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight-10;
     if (currentPage === pageCount) {
       removeInfiniteScroll();
-    }
-    else if (endOfPage) {
+    } else if (endOfPage) {
       addCards(currentPage + 1);
     }
-
   }, 1000);
 };
 
@@ -293,25 +317,19 @@ async function drawUserCard(card, curr) {
 
   const departmentSelect = card.querySelector('.department-select');
   const userTypeSelect = card.querySelector('.user-type-select');
-  let depSelectedValue = departmentSelect.value;
-  let typeSelectedValue = userTypeSelect.value;
 
   departmentSelect.addEventListener('change', async function () {
     console.log("Department changed");
-    depSelectedValue = departmentSelect.value;
-    // const json = await patchData('../api/api_users.php', { id: curr.id, department: selectedValue });
-    const json = await patchData('../api/api_users.php', { id: curr.id, user_type: typeSelectedValue, department: depSelectedValue });
+    const json = await patchData('../api/api_users.php', { id: curr.id, user_type: userTypeSelect.value, department: departmentSelect.value });
     console.log(json);
   });
 
 
   userTypeSelect.addEventListener('change', async function () {
     console.log("User type changed");
-    typeSelectedValue = userTypeSelect.value;
     // Handle department select based on user type
     // const departmentSelect = card.querySelector('.department-select');
     if (typeSelectedValue === 'Client') {
-      depSelectedValue = ''; // Select the "None" option
       departmentSelect.value = ''; // Select the "None" option
       departmentSelect.disabled = true; // Disable the department select
     } else {
@@ -322,7 +340,7 @@ async function drawUserCard(card, curr) {
     `; // Update the department select options
     }
 
-    const json = await patchData('../api/api_users.php', { id: curr.id, user_type: typeSelectedValue, department: depSelectedValue });
+    const json = await patchData('../api/api_users.php', { id: curr.id, user_type: userTypeSelect.value, department: departmentSelect.value });
     console.log(json);
   });
 

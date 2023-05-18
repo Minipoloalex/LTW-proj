@@ -12,6 +12,9 @@ function get_password_regex(): string {
 function get_email_regex(): string {
     return "^[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
 }
+function get_department_regex(): string {
+    return get_username_regex();
+}
 function is_valid_id(?String $id): bool {
     return isset($id) && is_numeric($id) && intval($id) >= 0;
 }
@@ -103,7 +106,14 @@ function is_valid_faq_id(PDO $db, ?string $forum_id): bool {
 function is_valid_title(string $title): bool {
     return is_valid_string($title) && strlen($title) <= 25;
 }
-function is_valid_agent_id(PDO $db, string $agentID): bool {
+function is_valid_agent_id(PDO $db, ?string $agentID): bool {
     return is_valid_id($agentID) && Agent::isValidId($db, intval($agentID));
+}
+
+function is_valid_department_name(?string $departmentName): bool {
+    return isset($departmentName) && !empty($departmentName) && strlen($departmentName) <= 20 && preg_match('/' . get_department_regex() . '/', $departmentName);
+}
+function is_valid_user_id(PDO $db, ?string $userID): bool {
+    return is_valid_id($userID) && Client::isValidId($db, intval($userID));
 }
 ?>

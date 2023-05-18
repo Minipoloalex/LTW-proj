@@ -43,57 +43,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
   handle_check_logged_in($session);
   handle_check_admin($session, $db);
   handle_check_csrf($session, $_GET['csrf']);
-  
+  if (!is_valid_user_id($db, $_GET['id'])) {
+    http_response_code(400); // Bad Request
+    echo json_encode(array('error' => 'Invalid user ID'));
+    exit();
+  }
+  if (!empty($_GET['department']) && !is_valid_department_id($db, $_GET['department'])) {
+    http_response_code(400); // Bad Request
+    echo json_encode(array('error' => 'Invalid department ID'));
+    exit();
+  }
   $id = intval($_GET['id']);
   $new_user_type = $_GET['user_type'];
   $department = ($_GET['department'] === '' ? NULL : intval($_GET['department']));
-  
-  error_log('type IN API: ' . $new_user_type);
-  error_log('department IN API: ' . $department);
   $curr_user_type = Client::getType($db, $id);
 
-  // if (isset($new_user_type)) {
-    if ($curr_user_type === $new_user_type) {
-      // User type is already the same, no need to make any changes
-      http_response_code(200); // OK
-      echo json_encode(array('user_type' => $curr_user_type));
-      exit();
-    }
-
-    if ($curr_user_type === 'Client') {
-      if ($new_user_type === 'Agent') {
-        Client::upgradeToAgent($db, $id);
-      } elseif ($new_user_type === 'Admin') {
-        Client::upgradeToAdminFromClient($db, $id);
-      }
-    } elseif ($curr_user_type === 'Agent') {
-      if ($new_user_type === 'Client') {
-        Client::demoteToClient($db, $id);
-      } elseif ($new_user_type === 'Admin') {
-        Client::upgradeToAdminFromAgent($db, $id);
-      }
-      Client::changeDepartment($db, $id, $department);
-    } elseif ($curr_user_type === 'Admin') {
-      if ($new_user_type === 'Client') {
-        // // Demoting an Admin to a Client is not allowed
-        // http_response_code(400); // Bad Request
-        // echo json_encode(array('error' => 'Invalid user type change'));
-        // exit();
-        Client::demoteToClient($db, $id);
-      } elseif ($new_user_type === 'Agent') {
-        Client::demoteToAgent($db, $id);
-      }
-      Client::changeDepartment($db, $id, $department);
-    }
-
-    // Client::changeDepartment($db, $id, $department);
-    
+  // if ($curr_user_type === $new_user_type) {
+  //   // User type is already the same, no need to make any changes
+  //   http_response_code(200); // OK
+  //   echo_json_csrf($session, array('user_type' => $curr_user_type));
+  //   exit();
   // }
-  // else{
-    
-  // 
+  if ($curr_user_type === 'Client') {
+    if ($new_user_type === 'Agent') {
+      Client::upgradeToAgent($db, $id);
+    } else if ($new_user_type === 'Admin') {
+      Client::upgradeToAdminFromClient($db, $id);
+    }
 
-  $user =  Client::getByIdExpanded($db, $id);
+  } elseif ($curr_user_type === 'Agent') {
+    if ($new_user_type === 'Client') {
+      Client::demoteToClient($db, $id);
+    } else if ($new_user_type === 'Admin') {
+      Client::upgradeToAdminFromAgent($db, $id);
+    }
+  } else if ($curr_user_type === 'Admin') {
+    if ($new_user_type === 'Client') {
+      Client::demoteToClient($db, $id);
+    } else if ($new_user_type === 'Agent') {
+      Client::demoteToAgent($db, $id);
+    }
+  }
+  if ($new_user_type === 'Agent' || $new_user_type === 'Admin') {
+    Agent::updateDepartment($db, $id, $department);
+  }
+
+
+  $user = Client::getByIdExpanded($db, $id);
   http_response_code(200); // OK
   echo json_encode($user);
   exit();

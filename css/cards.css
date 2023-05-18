@@ -275,3 +275,15 @@ div.add-department-form{
     margin: auto;
   }
 }
+
+select.department-select{
+  border-radius: 5px;
+  /* padding: 0 0.5em; */
+  border: 1px solid black;
+  width: 90%;
+}
+
+div.card select {
+  border-radius: 5px;
+  border: 1px solid black;
+}
