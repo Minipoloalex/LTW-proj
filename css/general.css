@@ -257,9 +257,18 @@ div.mobile-logo img {
 /* For tablet and phone devices -> 600 A 961*/
 @media only screen and (max-width: 961px) {
 
-  main {
+  main, button {
+    font-size: calc(9px + 1vw);
+    /* font-size: calc(10px + 1vw); */
+  }
+
+  /* .card article label, .card article{
     font-size: calc(10px + 1vw);
   }
+
+  .card article header span{
+    font-size: calc(12px + 1vw);
+  } */
 
   body main {
     margin-bottom: 5rem;
@@ -341,6 +350,7 @@ div.mobile-logo img {
     padding: 2em;
     border-radius: 10px;
   }
+
 }
 
 /* -------------------- damn footer --------------------- */

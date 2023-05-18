@@ -33,7 +33,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   exit();
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $department_name = $_POST['department_name'];
+  error_log("department_name: " . $department_name);
+  if (isset($department_name)) {
+    /*check if already exists using getByName from deparment.class*/
+
+    if (Department::getByName($db, $department_name)){
+      http_response_code(409); // Conflict
+      echo json_encode(array('error' => 'Department already exists.'));
+      exit();
+    }
+  
+    Department::addDepartment($db, $department_name);
+    http_response_code(201); // Created
+    echo json_encode(array('message' => 'Department created.'));
+  } else {
+    http_response_code(400); // Bad request
+    echo json_encode(array('error' => 'Invalid request parameters.'));
+  }
+  exit();
+}
+
 http_response_code(405); // Method not allowed
 echo json_encode(array('error' => 'Invalid request method.'));
+
 
 ?>
