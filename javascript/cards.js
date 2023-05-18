@@ -431,6 +431,11 @@ function drawTicketCard(card, curr) {
 const skeletonCards = document.querySelectorAll('.skeleton-card');
 window.addEventListener('resize', updateSkeletonCards);
 
+if(cardType === 'department') {
+  skeletonCards.forEach((card) => {
+    card.classList.add('small-card');
+  });
+}
 function updateSkeletonCards() {
   if (skeletonCards) {
     const cardsPerRow = Math.floor(cardContainer.clientWidth / cardWidth); // Adjust the width (200) according to your card size
