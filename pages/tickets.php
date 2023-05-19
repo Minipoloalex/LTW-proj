@@ -23,7 +23,7 @@ if ($userType === 'Admin') {
     drawFilterMenu($filters, 'all-admin');
 }
 else if ($userType === 'Agent') {
-    drawTitle("My Department's tickets", "ticket");
+    drawTitle("My Department tickets", "ticket");
     drawFilterMenu($filters, 'all-agent');
 }
 
