@@ -10,5 +10,5 @@ if ($session->isLoggedIn()) {
 
 drawLandingPageHeader();
 drawRegisterForm($session);
-output_footer();
+output_footer(true);
 ?>

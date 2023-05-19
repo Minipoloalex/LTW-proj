@@ -118,11 +118,12 @@ require_once(__DIR__ . '/../utils/session.php');
 
 
 
-    <?php function output_footer()
+    <?php function output_footer(bool $isLandingPage = false)
     { ?>
     </main>
-
-    <div class="mobile-logo"><a href="../pages/main_page.php"><img src="../css/images/logomobile-escuro.png" alt="logo"></a></div>
+    <?php if (!$isLandingPage) { ?>
+      <div class="mobile-logo"><a href="../pages/main_page.php"><img src="../css/images/logomobile-escuro.png" alt="logo"></a></div>
+    <?php } ?>
 
     <footer>
       LTW Trouble Ticket Project &copy; 2023

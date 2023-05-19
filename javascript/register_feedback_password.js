@@ -7,8 +7,6 @@ if (registerButton) {
     }
 
     registerButton.addEventListener('click', function (event) {
-        console.log("HELLO INSIDE EVENT LISTENTER");
-        event.preventDefault();
         const password = document.querySelector('input[name="password"]').value;
         const confirmPassword = document.querySelector('input[name="confirm_password"]').value;
         const username = document.querySelector('input[name="username"]').value;
@@ -26,8 +24,7 @@ if (registerButton) {
             displayRegisterErrorMessage(event, 'Please enter a valid username');
             return;
         }
-        // TODO: check email regex
-        if (!email.match(getEmailRegex())) {
+        if (!email.toLowerCase().match(getEmailRegex())) {
             displayRegisterErrorMessage(event, 'Please enter a valid email address');
             return;
         }
