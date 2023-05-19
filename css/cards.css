@@ -115,13 +115,20 @@
 /*info*/
 
 .card article {
-  font-size: 14px;
+  font-size: 13px;
   height: 18.75rem;
   width: 100%;
 }
 
+.card-email {
+  display: inline-block;
+  max-width: 11rem;
+  overflow-x: auto;
+  white-space: nowrap; /*normal*/
+}
+
 .card article div {
-  margin-top: 1rem;
+  margin-top: 0.7rem;
   padding-left: 1rem;
   padding-right: 0.5rem;
 }
@@ -155,16 +162,30 @@
 }
 
 .card article header span {
-  margin: 5px;
-  font-size: 16px;
+  margin: 0.3rem;
+  margin-top: 0.5rem;
+  font-size: 15px;
   font-weight: bold;
-  padding-left: 1rem;
+  padding-left: 0.5rem;
   overflow-wrap: anywhere;
+}
+
+.card-info::-webkit-scrollbar, .hashtags-container::-webkit-scrollbar {
+  height: 6px; /* Adjust the height of the scroll bar */
+}
+
+.hashtags-container::-webkit-scrollbar {
+  width: 6px;
+  height: fit-content;
+}
+
+.card-info::-webkit-scrollbar-thumb, .hashtags-container::-webkit-scrollbar {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .card article label {
   font-weight: bold;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .card a {

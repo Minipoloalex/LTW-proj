@@ -280,8 +280,8 @@ async function drawUserCard(card, curr) {
         <label>Username: </label>
         <span class="card-info">${curr.username}</span><br>
 
-        <label>Email: </label>
-        <span class="card-info">${curr.email}</span><br>
+        <label>Email: </label><br>
+        <span class="card-info card-email">${curr.email}</span><br>
 
         
         <label>Department: </label>
