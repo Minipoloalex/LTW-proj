@@ -116,4 +116,8 @@ function is_valid_department_name(?string $departmentName): bool {
 function is_valid_user_id(PDO $db, ?string $userID): bool {
     return is_valid_id($userID) && Client::isValidId($db, intval($userID));
 }
+
+function is_valid_page_type(?string $pageType): bool {
+    return $pageType !== NULL && ($pageType === 'my' || $pageType === 'assigned' || $pageType === 'all-agent' || $pageType === 'all-admin');
+}
 ?>

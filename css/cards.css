@@ -60,9 +60,20 @@
   }
 }
 
+#no-cards {
+  display: block;
+  text-align: center;
+  height: 10rem;
+  line-height: 10rem;
+  /* line-height: 100%; */
+  /* justify-content: center; */
+  /* align-content: center; */
+  /* padding: auto 0; */
+}
+
 
 /* ================ Priorities ======================== */
-
+/* !WARNING: NOT NEEDED */
 .highP {
   background-color: #a82431;
   color: white;

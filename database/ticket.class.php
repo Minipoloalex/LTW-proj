@@ -345,7 +345,7 @@ class Ticket implements JsonSerializable
 
     $stmt1 = $db->prepare('SELECT COUNT(DISTINCT TicketID) as c FROM (' . $pageQuery . ');');
     $stmt1->execute($params);
-    $count = $stmt1->fetch();
+    $count = intval($stmt1->fetch()['c']);
 
     $pageQuery .= " LIMIT 12 OFFSET " . ($page - 1) * 12 . ";";
     $stmt2 = $db->prepare($pageQuery);
@@ -358,7 +358,7 @@ class Ticket implements JsonSerializable
     }
 
     $result['tickets'] = $tickets;
-    $result['count'] = $count['c'];
+    $result['count'] = $count;
     return $result;
   }
 
