@@ -167,11 +167,11 @@
 .card a {
   text-decoration: none;
   color: black;
+  display: block;
+  height: 100%;
 }
 
 .card div.hashtags-container {
-  /* display: inline-block; */
-  /* height: 1.9rem; */
   height: 2rem;
   overflow-y: auto;
   white-space: normal;
