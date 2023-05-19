@@ -41,18 +41,11 @@
 /*================= LOGIN FORM  =================*/
 
 body.landingbody {
-/* body { */
   background-image: url('../css/images/fundo.jpg');
   background-size: cover;
   background-position: center center;
 }
 
-/*TRYING BACKGROUND IMG*/
-/* body{
-  background-image: url('../css/images/fundo2.png'); */
-  /* background-size: cover; */
-  /* background-position: center center; */
-/* } */
 
 .login-container {
   display: flex;
@@ -124,11 +117,6 @@ body.landingbody {
   font-size: 0.9em;
   margin-top: 1.5em;
 }
-
-/* .login-form a {
-  color: #846a8b;
-} */
-
 
 
 a.register {
@@ -202,10 +190,6 @@ a.register:hover {
 .registerform .create:hover {
   background-color: #a492a9;
 }
-
-/* .registerform button.create {
-  align-items: ;
-} */
 
 .registerform p {
   text-align: center;

@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Martel+Sans:wght@400;700&display=swap');
 
-
-/* :root {
-  --button-green: #4CAF50;
-  --closed-red: #f44336;
-} */
-
 /*general titles for all pages*/
 
 h2 {
@@ -259,16 +253,7 @@ div.mobile-logo img {
 
   main, button {
     font-size: calc(9px + 1vw);
-    /* font-size: calc(10px + 1vw); */
   }
-
-  /* .card article label, .card article{
-    font-size: calc(10px + 1vw);
-  }
-
-  .card article header span{
-    font-size: calc(12px + 1vw);
-  } */
 
   body main {
     margin-bottom: 5rem;
@@ -379,7 +364,6 @@ footer {
 
 .modal {
   text-align: center;
-  /* display: none; */
   position: fixed;
   z-index: 1;
   padding-top: 100px;
@@ -441,12 +425,12 @@ input {
   font-family: 'Martel Sans', sans-serif;
   box-shadow: none;
 }
-/*.profile*/ input[readonly] {
+input[readonly] {
   border: none;
   background-color: transparent;
 }
 
-/*.profile*/ input:not([readonly]) {
+input:not([readonly]) {
   border: 1px solid rgb(51, 51, 51);
   border-radius: 5px;
   background-color: white;

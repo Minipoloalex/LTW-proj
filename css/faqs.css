@@ -12,7 +12,6 @@ header.faq-page {
   grid-template-rows: auto auto auto;
   gap: 20px;
   padding: 20px;
-  /* margin-left: 80px; */
 }
 
 header.faq-page h2.faq-header {
@@ -65,7 +64,6 @@ header.faq-page form {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/*ask button e answer button (propriedades iguais)*/
 .textarea-form button,
 .faq button.answer-faq,
 .faq button.save-answer {
@@ -90,7 +88,6 @@ article.faq {
 
 .faq .question {
   width: 90%;
-  /* resize: vertical; */
   font-weight: bold;
   font-size: 0.9rem;
   color: #333;
@@ -100,7 +97,6 @@ article.faq {
 
 .faq .answer {
   width: 90%;
-  /* resize: none; */
   margin-top: 10px;
   font-size: 0.9rem;
   color: #666;
@@ -215,15 +211,6 @@ button.hide-faq span.material-symbols-outlined:hover {
     'opsz' 48
 }
 
-
-
-/* button.display-faq span.material-symbols-outlined {
-    padding: 0;
-  } */
-
-
-
-
 .faq input.answer {
   display: block;
 }
@@ -241,14 +228,6 @@ button.hide-faq span.material-symbols-outlined:hover {
 .faq input[readonly]:focus {
   outline: none;
 }
-
-/* !WARNING: comentei isto por causa das classes sequintes para os inputs nas faqs*/
-
-/* .faq input {
-  border: none;
-  background-color: transparent;
-  box-shadow: none;
-} */
 
 .input-readonly {
   border: none;
@@ -268,9 +247,6 @@ button.hide-faq span.material-symbols-outlined:hover {
 
 @media screen and (min-width: 768px) {
 
-
-  /* button.answer-faq,
-  button.save-answer, */
   .textarea-form button,
   .profile button {
     width: 15%;
