@@ -213,23 +213,8 @@ function getCards(content) {
 
 
 async function getPartialTickets() {
-  const response = await fetch("../api/api_filter_tickets.php?pageType=" + pageType);
-  if (response.ok) {
-    const data = await response.json();
-    return data;
-  } else {
-    console.error('Error: ' + res.status);
-  }
+  return await getData('../api/api_ticket.php', {'pageType': pageType});
 }
-// async function getPartialTickets() {
-//   const response = await fetch("../api/api_filter_tickets.php");
-//   if (response.ok) {
-//     const data = await response.json();
-//     return data;
-//   } else {
-//     console.error('Error: ' + res.status);
-//   }
-// }
 
 async function getPartialDepartments() {
   const response = await fetch("../api/api_departments.php");

@@ -88,7 +88,7 @@ async function getFilterValues(cardType) {
 async function getTickets2(checkedValues, pageType ,page = 0) {
   const data = {...checkedValues, page: page, pageType: pageType};
   // data['page'] = page;
-  const path = '../api/api_filter_tickets.php';
+  const path = '../api/api_ticket.php';
   return json = await getData(path, data);
 }
 
