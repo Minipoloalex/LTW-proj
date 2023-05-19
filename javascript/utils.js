@@ -156,10 +156,8 @@ function clearAllDisplayFeedback() {
     }
 }
 
-
-
 function getPasswordRegex() {
-    return /^(?=.*[0-9])(?=.*[!@#$%^&])(?=.*[A-Z])(?=.*[a-z])[a-zA-Z0-9!@#$%^&]{6,}$/;
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/;
 }
 function getEmailRegex() {
     return /^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;

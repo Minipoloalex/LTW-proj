@@ -12,6 +12,5 @@ if ($session->isLoggedIn()) {
 drawLandingPageHeader();
 drawShape();
 drawLoginForm($session);
-drawLogo();
-output_footer();
+output_footer(true);
 ?>

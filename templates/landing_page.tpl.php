@@ -22,12 +22,6 @@ require_once(__DIR__ . '/../utils/validate.php');
 <?php } ?>
 
 
-<?php function drawLogo(){ ?>
-
-
-<?php } ?>
-
-
 <?php function drawLoginForm(Session $session)
 {
   ?>
@@ -65,7 +59,8 @@ require_once(__DIR__ . '/../utils/validate.php');
 
     <input type="text" name="name" placeholder="Name" pattern="<?=get_name_regex()?>">
     <input type="text" name="username" placeholder="Username" pattern="<?=get_username_regex()?>">
-    <input type="email" name="email" placeholder="Email" pattern="<?=get_email_regex()?>">
+    <input type="email" name="email" placeholder="Email">
+    <!-- no pattern in email, verified by javascript -->
 
     <div class="password-container">
     <input id="password" type="password" name="password" placeholder="Password" pattern="<?=get_password_regex()?>">
