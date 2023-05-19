@@ -35,6 +35,8 @@ $type = Client::getType($db, $client->id);
 
 if ($type === 'Client')
   header('Location: ../pages/my_tickets.php');
-else 
+else if ($type === 'Admin')
   header('Location: ../pages/main_page.php');
+else
+  header('Location: ../pages/assigned_tickets.php');
 ?>
