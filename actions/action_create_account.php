@@ -6,6 +6,7 @@ require_once(__DIR__ . '/../database/connection.db.php');
 require_once(__DIR__ . '/../utils/validate.php');
 require_once(__DIR__ . '/../database/client.class.php');
 $session = new Session();
+
 if ($session->isLoggedIn()) {
     die(header('Location: ../pages/main_page.php'));
 }
@@ -13,7 +14,6 @@ if (!$session->verifyCsrf($_POST['csrf'] ?? '')) {
     die(header('Location: ../pages/register.php'));
 }
 $db = getDatabaseConnection();
-
 
 $name = $_POST['name'];
 $username = $_POST['username'];
@@ -37,7 +37,6 @@ $user_id = Client::create_account($db, $name, $username, $email, $password, $con
 $session->setId($user_id);
 $session->setName($username);
 $session->addMessage('success', $account_exists[1]);
-
 
 header('Location: ../pages/main_page.php');
 ?>

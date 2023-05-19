@@ -11,6 +11,7 @@
       <div class="skeleton-card d-none"></div>
       <div class="skeleton-card d-none"></div>
     </div>
+    <div id="no-cards" class="d-none"></div>
     <div class="card-actions">
       <span>Showing
         <span id="card-count"></span> of

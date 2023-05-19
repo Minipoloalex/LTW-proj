@@ -174,17 +174,26 @@ if (cardContainer) {
     switch (cardType) {
       case 'ticket': {
         const tickets = await getPartialTickets();
-        getCards(tickets);
+        console.log(tickets);
+        if (tickets.count !== 0)
+          getCards(tickets);
+        else noValues("No tickets found");
         break;
       }
       case 'user': {
         const users = await getPartialUsers();
-        getCards(users);
+        console.log(users);
+        if (users.count !== 0)
+          getCards(users);
+        else noValues("No users found");
         break;
       }
       case 'department': {
         const departments = await getPartialDepartments();
-        getCards(departments);
+        console.log(departments);
+        if (departments.count !== 0)
+          getCards(departments);
+        else noValues("No departments found");
         break;
       }
     }
@@ -483,4 +492,15 @@ function updateSkeletonCards() {
 
 if (cardContainer) {
   updateSkeletonCards(); // Call the function on page load
+}
+
+
+function noValues(message){
+  const noCards = document.getElementById("no-cards");
+  noCards.textContent = message;
+  loader.remove();
+  cardCountElem.innerHTML = 0;
+  cardTotalElem.innerHTML = 0;
+  noCards.classList.toggle("d-none");
+  
 }
