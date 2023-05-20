@@ -130,7 +130,9 @@
   padding-right: 0.5rem;
 }
 
-.card article div span.card-hashtags {
+
+/* .card article div span.card-hashtags  */
+.card-hashtags {
   background-color: #ddd;
   padding: 1px 6px;
   border-radius: 5px;

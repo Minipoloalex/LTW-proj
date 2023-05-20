@@ -103,24 +103,7 @@
         
             return $clients;
           }
-        
-        
 
-        static function getClients(PDO $db, int $count)  : array {
-            $stmt = $db->prepare('SELECT UserID, Name, Username, Email FROM CLIENT LIMIT ? ');
-            $stmt->execute(array($count));
-
-            $clients = array();
-            while($client = $stmt->fetch()){
-                $clients[] = new Client(
-                    intval($client['UserID']),
-                    $client['Name'],
-                    $client['Username'],
-                    $client['Email']
-                );
-            }
-            return $clients;
-        }
 
 
         static function getById(PDO $db, int $id) : Client {
@@ -303,7 +286,6 @@
             $type = ['Client', 'Agent', 'Admin'];
             $departments = [];
         
-            
         
             $stmt = $db->prepare('SELECT * FROM DEPARTMENT;');
             $stmt->execute();

@@ -1,10 +1,6 @@
-// !WARNING: WIP, trying to write it like prof wanted
-
 const filterBtn = document.getElementById('filter-values');
 const clearFilterBtn = document.getElementById('clear-filters');
 let checkedValues = {};
-
-
 
 if (filterBtn) {
   const cardType = filterBtn.parentElement.getAttribute('data-type');
@@ -22,6 +18,7 @@ if (clearFilterBtn) {
 // !NOTE: Old way. Works
 
 async function getFilterValues(cardType) {
+  console.log("STARTING FUNCTION GET FILTER VALUES");
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   checkedValues = {};
   checkboxes.forEach(checkbox => {
@@ -98,25 +95,36 @@ function clearFilters(cardType) {
 
 
 /*dropdown */
-const filterToggle = document.querySelector(".filter-toggle");
-if (filterToggle) {
-  const caretIcon = filterToggle.querySelector("i");
-
-  filterToggle.addEventListener("click", function() {
-    filterToggle.classList.toggle("clicked");
-    caretIcon.classList.toggle("fa-caret-right");
-    caretIcon.classList.toggle("fa-caret-down");
-  });
+const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
+if (dropdownToggles) {
+    dropdownToggles.forEach(dropdown => {
+    const caretIcon = dropdown.querySelector("i");
+    dropdown.addEventListener("click", () => {
+      dropdown.classList.toggle("clicked");
+      caretIcon.classList.toggle("fa-caret-right");
+      caretIcon.classList.toggle("fa-caret-down");
+    });
+  })
 }
+// const filterToggle = document.querySelector(".filter-toggle");
+// if (filterToggle) {
+//   const caretIcon = filterToggle.querySelector("i");
 
-const dropdowns = document.querySelectorAll("div.filter-options div");
-dropdowns.forEach(dropdown => {
+//   filterToggle.addEventListener("click", function() {
+//     filterToggle.classList.toggle("clicked");
+//     caretIcon.classList.toggle("fa-caret-right");
+//     caretIcon.classList.toggle("fa-caret-down");
+//   });
+// }
 
-  const caretIcon = dropdown.querySelector("i");
+// const dropdowns = document.querySelectorAll("div.filter-options div");
+// dropdowns.forEach(dropdown => {
 
-  dropdown.addEventListener("click", () => {
-    dropdown.classList.toggle("clicked");
-    caretIcon.classList.toggle("fa-caret-right");
-    caretIcon.classList.toggle("fa-caret-down");
-  });
-});
+//   const caretIcon = dropdown.querySelector("i");
+
+//   dropdown.addEventListener("click", () => {
+//     dropdown.classList.toggle("clicked");
+//     caretIcon.classList.toggle("fa-caret-right");
+//     caretIcon.classList.toggle("fa-caret-down");
+//   });
+// });

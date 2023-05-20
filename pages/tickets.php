@@ -19,18 +19,13 @@ $filters = Ticket::getFilters($db);
 
 output_header($session, $userType);
 if ($userType === 'Admin') {
-    drawTitle("All Tickets", "ticket");
+    drawTitle("All Tickets", "ticket"); 
     drawFilterMenu($filters, 'all-admin');
 }
 else if ($userType === 'Agent') {
     drawTitle("My Department tickets", "ticket");
     drawFilterMenu($filters, 'all-agent');
 }
-
-// $tickets = Ticket::getTickets($db);
-// $tickets = Ticket::filter($db);
-// drawTicketsTable($tickets, 'All Tickets');
-
 drawCardContainer();
 output_footer();
 ?>

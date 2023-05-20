@@ -4,13 +4,15 @@
     grid-template-columns: repeat(3, auto);
     grid-template-rows: repeat(2, auto);
     grid-template-areas:
-    "hashtags-label hashtag-search  add-hashtag-button"
-    "hashtag-items  hashtag-items   hashtag-items";
+        "hashtags-label hashtag-search  add-hashtag-button"
+        "hashtag-items  hashtag-items   hashtag-items";
 }
+
 #hashtags label[for="hashtag-search"] {
     grid-area: hashtags-label;
     align-self: center;
 }
+
 #hashtags #hashtag-search {
     grid-area: hashtag-search;
     height: 50%;
@@ -19,9 +21,11 @@
     border-radius: 5px;
     border: 1px solid black;
 }
+
 #hashtags button#add-hashtag {
     grid-area: add-hashtag-button;
 }
+
 #hashtags section#hashtag-items {
     grid-area: hashtag-items;
 }
@@ -30,6 +34,7 @@
 #hashtags {
     padding-left: 1em;
 }
+
 #hashtag-items {
     display: flex;
     flex-direction: row;
@@ -38,12 +43,14 @@
     align-items: center;
     padding-left: 1em;
 }
+
 #hashtag-items article.hashtag {
     padding: 0.3em;
     font-size: 0.8rem;
     margin: 0.5em;
     border: none;
 }
+
 #hashtags .hashtag a.remove-hashtag {
     padding: 0rem 0.2rem 0 0.35rem;
 }
@@ -51,7 +58,55 @@
 #hashtag-items article.hashtag label {
     padding-left: 0.2rem;
 }
+
 /* ======================== ADD HASHTAG BUTTON ======================== */
 button#add-hashtag {
     padding: 0.5rem 1rem;
+}
+
+/* ======================== MANAGE HASHTAG ======================== */
+
+ul.hashtag-list {
+    padding: 0;
+    list-style-type: none;
+    margin-top: 2rem;
+}
+
+li.list-hashtags {
+    background-color: #ddd;
+    margin: 0.5rem 0;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    padding: 0 0.5rem;
+    width: fit-content;
+}
+
+.hashtag-options {
+    margin-bottom: 20px;
+}
+
+.hashtag-options form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.hashtag-options input[type="text"] {
+    padding: 0.2rem;
+    width: 50%;
+}
+
+.hashtags-menu {
+    width: 50%;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 961px) {
+    .hashtags-menu {
+        width: 80%;
+    }
+}
+
+.hashtags-menu button {
+    margin-left: 1rem;
 }

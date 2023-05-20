@@ -1,6 +1,6 @@
 /* ========================== FILTER TICKETS ========================== */
 
-.filter {
+.menu {
   background-color: #fff;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -57,46 +57,62 @@ div.filter-options section {
   color: #fff;
 }
 
-.filter button {
+.menu button {
   padding: 0.5rem 1rem;
 }
 
-.filter button:hover {
+.menu button:hover {
   background-color: #a492a9;
 }
 
 /*dropdown*/
 
-section#filter-section.hidden {
+section.filter-section.hidden {
   display: none;
 }
-
+/* 
 section#filter-section div.filter-options section.hidden {
   display: none;
-}
+} */
 
-.filter-toggle {
+.dropdown-toggle {
   cursor: pointer;
 }
 
-.filter-toggle h2 {
+.dropdown-toggle h2 {
   margin: 0;
 }
 
 /* show filter section when user clicks on filter header */
-.filter-toggle.clicked + section#filter-section.filter{
+.dropdown-toggle.clicked + section.filter-section {
   display: block;
   width: 85%;
 }
 
-section#filter-section div.filter-options div.clicked + section {
+section.filter-section div.filter-options div.clicked + section {
   display: contents;
 }
 
-.filter-toggle h3 {
+.dropdown-toggle h3 {
   font-size: 1.5em;
 }
 
-
-
-
+.filter-manage-hashtag-grid {
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-template-columns: repeat(2, auto);
+  grid-template-areas:
+  "filter-title   button"
+  "filter-section filter-section";
+}
+.filter-manage-hashtag-grid button {
+  grid-area: button;
+  height: fit-content;
+  margin: auto;
+}
+.filter-manage-hashtag-grid #filter-title {
+  grid-area: filter-title;
+}
+.filter-manage-hashtag-grid #filter-section {
+  grid-area: filter-section;
+}
