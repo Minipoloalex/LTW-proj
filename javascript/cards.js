@@ -367,6 +367,8 @@ function drawDepartmentCard(card, curr) {
 function drawTicketCard(card, curr) {
   card.classList.add("hover-card");
   // !TODO: add atribute data-id to card
+  card.setAttribute("data-id", curr.ticketid);
+  card.setAttribute("data-type", cardType);
   const article = document.createElement("article");
 
   const link = document.createElement("a");
@@ -450,18 +452,20 @@ function drawTicketCard(card, curr) {
   contentDiv.appendChild(prioritySpan);
   contentDiv.appendChild(document.createElement("br"));
 
-  const deleteBtn = document.createElement('button');
-  deleteBtn.classList.add('delete-faq');
-  deleteBtn.classList.add('delete-card');
-  deleteBtn.classList.add('openModal');
-  // deleteBtn.setAttribute('id', 'deleteFaqBtn');
-  deleteBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
-  contentDiv.appendChild(deleteBtn);
+  const deleteCardBtn = document.createElement('button');
+  deleteCardBtn.classList.add('delete-faq');
+  deleteCardBtn.classList.add('delete-card');
+  deleteCardBtn.classList.add('openModal');
+  // deleteCardBtn.setAttribute('id', 'deleteFaqBtn');
+  deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
+  contentDiv.appendChild(deleteCardBtn);
 
   link.appendChild(header);
   link.appendChild(contentDiv);
   article.appendChild(link);
   card.appendChild(article);
+  
+  handleDeleteCard(deleteCardBtn);
 
   console.log(card);
 
@@ -518,4 +522,28 @@ function noValues(message){
   cardTotalElem.innerHTML = 0;
   noCards.classList.toggle("d-none");
   
+}
+
+function handleDeleteCard(deleteCardBtn){
+  const card = deleteCardBtn.parentElement.parentElement.parentElement.parentElement;
+  console.log(card);
+  const cardId = card.getAttribute("data-id");
+  const cardType = card.getAttribute("data-type");
+  // const feedback = card.nextElementSibling;
+  console.log(cardId);
+  console.log(cardType);
+  deleteCardBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const json = await deleteData(`../api/api_${cardType}.php`, {id: cardId});
+    if (json['error']) {
+    console.error(json['error']);
+    }
+    // displayFeedback(feedback,json);
+    card.remove();
+    cardCountElem.innerHTML = cardCountElem.innerHTML - 1;
+    cardTotalElem.innerHTML = cardTotalElem.innerHTML - 1;
+    if (cardCountElem.innerHTML == 0) {
+      noValues("No tickets found");
+    }
+  });
 }

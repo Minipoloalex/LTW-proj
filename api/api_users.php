@@ -104,6 +104,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
   exit();
 }
 
+
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+  handle_check_logged_in($session);
+  handle_check_admin($session, $db);
+  handle_check_csrf($session, $_GET['csrf']);
+
+  if (!is_valid_user_id($db, $_GET['id'])) {
+    http_response_code(400); // Bad Request
+    echo_json_csrf($session, array('error' => 'Invalid user ID'));
+    exit();
+  }
+  
+  $id = intval($_GET['id']);
+  $success = Client::deleteAccount($db, $id);
+  if (!$success) {
+    http_response_code(500); // Internal Server Error
+    echo_json_csrf($session, array('error' => 'Failed to delete user'));
+    exit();
+  }
+  http_response_code(200); // OK
+  echo_json_csrf($session, array('success' => 'User deleted'));
+  exit();
+}
+
 http_response_code(405); // Method not allowed
 echo json_encode(array('error' => 'Invalid HTTP method'));
 
