@@ -5,12 +5,12 @@ require_once(__DIR__ . '/../utils/session.php');
 require_once(__DIR__ . '/../database/connection.db.php');
 require_once(__DIR__ . '/../utils/validate.php');
 require_once(__DIR__ . '/../database/client.class.php');
-$session = new Session();
 
+$session = new Session();
 if ($session->isLoggedIn()) {
     die(header('Location: ../pages/main_page.php'));
 }
-if (!$session->verifyCsrf($_POST['csrf'] ?? '')) {
+if (!$session->verifyCsrf($_POST['csrf'])) {
     die(header('Location: ../pages/register.php'));
 }
 $db = getDatabaseConnection();
@@ -40,4 +40,3 @@ $session->addMessage('success', $account_exists[1]);
 
 header('Location: ../pages/main_page.php');
 ?>
-

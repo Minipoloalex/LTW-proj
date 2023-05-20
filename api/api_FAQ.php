@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     parse_str($input, $_GET);
     handle_check_csrf($session, $_GET['csrf']);
 
-    if (Client::getType($db, $session->getId()) !== 'Admin') {
+    if (Client::getType($db, $session->getId()) === 'Client') {
         http_response_code(403); // Forbidden
         echo_json_csrf($session, array('error' => 'You are not authorized to update a faq.'));
         exit();
