@@ -1,12 +1,3 @@
-// .file-name {
-//     display: inline-block;
-//     margin-left: 1em;
-//     font-size: 0.8em;
-//     color: #666;
-//     white-space: nowrap;
-//     overflow: hidden;
-//     text-overflow: ellipsis;
-//   }
 const fileInput = document.getElementById('upload-image');
 if (fileInput) {
     const fileName = document.querySelector('.file-name');

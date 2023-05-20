@@ -11,7 +11,7 @@ subWrapper.addEventListener('click', function toggleSubMenu() {
   const navPopup = document.getElementById("navPopup");
 
   if (window.matchMedia("(min-width: 961px)").matches) {
-    //big screen
+    // big screen
     if (subWrapper.classList.contains("active")) {
       subWrapper.classList.remove("active");
     } else {
@@ -25,7 +25,7 @@ subWrapper.addEventListener('click', function toggleSubMenu() {
     });
   }
   else {
-    //small screen
+    // small screen
     if (navPopup.classList.contains("active")) {
       navPopup.classList.remove("active");
     } else {

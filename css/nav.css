@@ -196,6 +196,11 @@ body::-webkit-scrollbar-thumb {
 li.logo {
   background-color: #23232e;
 }
+li.logo a {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
 
 
 .nav-submenu-wrapper.active {

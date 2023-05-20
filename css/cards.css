@@ -65,10 +65,11 @@
   height: 10rem;
   line-height: 10rem;
 }
-
+#no-cards.d-none {
+  display: none;
+}
 
 /* ================ Priorities ======================== */
-/* !WARNING: NOT NEEDED */
 .highP {
   background-color: #a82431;
   color: white;

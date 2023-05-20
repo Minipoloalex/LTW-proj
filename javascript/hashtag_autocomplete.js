@@ -18,51 +18,27 @@ async function addHashtag(event) {
     const hashtag = input.value;
     const json = await getData('../api/api_hashtag.php', {'hashtagName': hashtag});
     if (json['error']) {
-        console.error(json['error'])
-        return
+        console.error(json['error']);
+        return;
     }
     else if (json['success']) {
-        console.log(json['success'])
-        input.value = ""
-        const hashtagID = json['hashtagID']
+        input.value = "";
+        const hashtagID = json['hashtagID'];
 
-        const hashtagList = document.querySelector("#hashtags section#hashtag-items")
-        const hashtagItems = hashtagList.querySelectorAll("input")
+        const hashtagList = document.querySelector("#hashtags section#hashtag-items");
+        const hashtagItems = hashtagList.querySelectorAll("input");
         for (const item of hashtagItems) {
             if (parseInt(item.value) === hashtagID || parseInt(item.id) === hashtagID) {
-                console.log("Hashtag is already present in the UI")
-                return
+                console.log("Hashtag is already present in the UI");
+                return;
             }
         }
-        const hashtagArticle = document.createElement("article")
-        hashtagArticle.classList.add("hashtag")
-
-        const hashtagInputItem = document.createElement("input")
-        hashtagInputItem.setAttribute("id", hashtagID)
-        hashtagInputItem.setAttribute("value", hashtagID)
-        hashtagInputItem.setAttribute("type", "hidden")
-        hashtagInputItem.setAttribute("name", "hashtags[]")
-        hashtagInputItem.setAttribute("checked", "")
-
-        const hashtagLabelItem = document.createElement("label")
-        hashtagLabelItem.setAttribute("for", hashtagID)
-        setTextContent(hashtagLabelItem, hashtag)
-
-        const hashtagCloseItem = document.createElement("a")
-        hashtagCloseItem.setAttribute("href", "#")
-        hashtagCloseItem.setAttribute("class", "remove-hashtag")
-        hashtagCloseItem.textContent = "X"
-        hashtagCloseItem.addEventListener("click", removeHashtagItem)
-
-        hashtagArticle.appendChild(hashtagInputItem)
-        hashtagArticle.appendChild(hashtagLabelItem)
-        hashtagArticle.appendChild(hashtagCloseItem)
-        hashtagList.appendChild(hashtagArticle)
+        const hashtagArticle = createHashtagArticle(hashtagID, hashtag);
+        hashtagList.appendChild(hashtagArticle);
         
-        removeFromDataList(hashtag)
+        removeFromDataList(hashtag);
     }
 }
-
 
 function removeFromDataList(hashtag) {
     const hashtagDataList = document.getElementById("hashtag-datalist");
@@ -76,6 +52,14 @@ function removeFromDataList(hashtag) {
     }
 }
 
+function removeHashtagItem(event) {
+    event.preventDefault();
+    const hashtagArticle = event.target.parentNode;
+    const hashtag = hashtagArticle.querySelector("label").textContent;
+    addToDataList(hashtag);
+    hashtagArticle.remove();
+}
+
 function addToDataList(hashtag) {   // called from X (remove hashtag) eventListener
     const hashtagDataList = document.getElementById("hashtag-datalist");
     const newHashtagItem = document.createElement("option");
@@ -83,10 +67,29 @@ function addToDataList(hashtag) {   // called from X (remove hashtag) eventListe
     hashtagDataList.appendChild(newHashtagItem);
 }
 
-function removeHashtagItem(event) {
-    event.preventDefault();
-    const hashtagArticle = event.target.parentNode;
-    const hashtag = hashtagArticle.querySelector("label").textContent;
-    addToDataList(hashtag);
-    hashtagArticle.remove();
+function createHashtagArticle(hashtagID, hashtag) {
+    const hashtagArticle = document.createElement("article");
+    hashtagArticle.classList.add("hashtag");
+
+    const hashtagInputItem = document.createElement("input");
+    hashtagInputItem.setAttribute("id", hashtagID);
+    hashtagInputItem.setAttribute("value", hashtagID);
+    hashtagInputItem.setAttribute("type", "hidden");
+    hashtagInputItem.setAttribute("name", "hashtags[]");
+    hashtagInputItem.setAttribute("checked", "");
+
+    const hashtagLabelItem = document.createElement("label");
+    hashtagLabelItem.setAttribute("for", hashtagID);
+    setTextContent(hashtagLabelItem, hashtag);
+
+    const hashtagCloseItem = document.createElement("a");
+    hashtagCloseItem.setAttribute("href", "#");
+    hashtagCloseItem.setAttribute("class", "remove-hashtag");
+    hashtagCloseItem.textContent = "X";
+    hashtagCloseItem.addEventListener("click", removeHashtagItem);
+
+    hashtagArticle.appendChild(hashtagInputItem);
+    hashtagArticle.appendChild(hashtagLabelItem);
+    hashtagArticle.appendChild(hashtagCloseItem);
+    return hashtagArticle;
 }
