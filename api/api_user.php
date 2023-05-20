@@ -14,16 +14,13 @@ $db = getDatabaseConnection();
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   handle_check_logged_in($session);
   handle_check_admin($session, $db);
-  $page = intval($_GET['page']);
 
-  if (isset($page)) {
-    $d = $_GET['department'];
-    $departments = ($d == "") ? [] : explode(',', $d);
-    $u = $_GET['user_type'];
-    $user_type = ($u == "") ? [] : explode(',', $u);
-
-    error_log('HERE' . implode($user_type));
-    error_log('HERE' . $departments);
+  if (isset($_GET['page'])) {
+    $page = intval($_GET['page']);
+    $d = $_GET['department'] ?? NULL;
+    $departments = ($d == NULL) ? [] : explode(',', $d);
+    $u = $_GET['user_type'] ?? NULL;
+    $user_type = ($u == NULL) ? [] : explode(',', $u);
 
     $data = Client::filter($db, $departments, $user_type, $page);
     http_response_code(200); // OK

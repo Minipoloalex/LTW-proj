@@ -95,14 +95,14 @@ async function getTickets2(checkedValues, pageType ,page = 0) {
 async function getDepartments2(checkedValues, page = 0) {
   const data = {...checkedValues, page: page};
   // data['page'] = page;
-  const path = '../api/api_departments.php';
+  const path = '../api/api_department.php';
   return json = await getData(path, data);
 }
 
 async function getUsers2(checkedValues, page = 0) {
   const data = {...checkedValues, page: page};
   // data['page'] = page;
-  const path = '../api/api_users.php';
+  const path = '../api/api_user.php';
   return json = await getData(path, data);
 }
 

@@ -44,7 +44,7 @@ function toggleProfile() {
 }
 if (saveBtn) {
     saveBtn.addEventListener('click', async () => {
-        const json = await putData('../api/api_users.php', {
+        const json = await putData('../api/api_user.php', {
             'name': thename.value,
             'email': email.value,
             'username': username.value,

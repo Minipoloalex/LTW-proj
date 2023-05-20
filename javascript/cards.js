@@ -226,7 +226,7 @@ async function getPartialTickets() {
 }
 
 async function getPartialDepartments() {
-  const response = await fetch("../api/api_departments.php");
+  const response = await fetch("../api/api_department.php");
   if (response.ok) {
     const data = await response.json();
     console.log(data);
@@ -237,7 +237,7 @@ async function getPartialDepartments() {
 }
 
 async function getPartialUsers() {
-  const response = await fetch("../api/api_users.php");
+  const response = await fetch("../api/api_user.php");
   if (response.ok) {
     const data = await response.json();
     console.log(data);
@@ -248,7 +248,7 @@ async function getPartialUsers() {
 }
 
 async function getAllDepartments() {
-  const response = await fetch("../api/api_departments.php?all=true");
+  const response = await fetch("../api/api_department.php?all=true");
   if (response.ok) {
     const data = await response.json();
     console.log("All deps: ", data);
@@ -313,7 +313,7 @@ async function drawUserCard(card, curr) {
   const userTypeSelect = card.querySelector('.user-type-select');
 
   departmentSelect.addEventListener('change', async function () {
-    const json = await patchData('../api/api_users.php', { id: curr.id, user_type: userTypeSelect.value, department: departmentSelect.value });
+    const json = await patchData('../api/api_user.php', { id: curr.id, user_type: userTypeSelect.value, department: departmentSelect.value });
     console.log("INSIDE DEPARTMENT SELECT EVENT LISTENER");
     console.log(json);
     departmentSelect.innerHTML = `
@@ -329,7 +329,7 @@ async function drawUserCard(card, curr) {
     } else {
       departmentSelect.disabled = false;
     }
-    const json = await patchData('../api/api_users.php', { id: curr.id, user_type: userTypeSelect.value, department: departmentSelect.value });
+    const json = await patchData('../api/api_user.php', { id: curr.id, user_type: userTypeSelect.value, department: departmentSelect.value });
     console.log(json);
   });
 

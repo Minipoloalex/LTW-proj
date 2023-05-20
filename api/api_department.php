@@ -14,14 +14,14 @@ $db = getDatabaseConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   $all = $_GET['all'] ?? NULL;
-  $page = intval($_GET['page']);
 
   if (isset($all)) {
     $data = Department::getDepartments($db);
     http_response_code(200); // OK
     echo json_encode($data);
   } else {
-    if (isset($page)) {
+    if (isset($_GET['page'])) {
+      $page = intval($_GET['page']);
       $data = Department::filterDepartments($db, $page);
       http_response_code(200); // OK
       echo json_encode($data);
