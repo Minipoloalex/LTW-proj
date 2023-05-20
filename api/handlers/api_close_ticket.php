@@ -12,7 +12,7 @@ function handle_api_close_ticket(Session $session, PDO $db, ?string $dataTicketI
     }
     if (!is_valid_string($dataStatus) || !is_valid_status($dataStatus)) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Invalid status parameter'));
+        echo_json_csrf($session, array('error' => 'Invalid status parameter'));
         exit();
     }
     $ticketID = intval($dataTicketID);
@@ -21,13 +21,13 @@ function handle_api_close_ticket(Session $session, PDO $db, ?string $dataTicketI
 
     if (!Client::hasAcessToTicket($db, $userID, $ticketID)) {
         http_response_code(403); // Forbidden
-        echo json_encode(array('error' => 'You do not have access to the ticket'));
+        echo_json_csrf($session, array('error' => 'You do not have access to the ticket'));
         exit();
     }
 
     if ($status !== 'closed') {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Invalid status parameter'));
+        echo_json_csrf($session, array('error' => 'Invalid status parameter'));
         exit();
     }
 

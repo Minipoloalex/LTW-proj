@@ -8,7 +8,7 @@ $session = new Session();
 if (!$session->isLoggedIn()) {
     die(header('Location: ../pages/main_page.php'));
 }
-if (!$session->verifyCsrf($_POST['csrf'] ?? '')) {
+if (!$session->verifyCsrf($_POST['csrf'] )) {
     die(header('Location: ../pages/create_ticket.php'));
 }
 
@@ -36,8 +36,7 @@ $hashtags = array_map('intval', array_unique($hashtags));
 
 
 if (is_valid_string($departmentID) && !is_valid_department_id($db, $_POST['department'])) {
-    // can be null
-    // but if it's not null, then must be valid
+    // Can be null. But if it's not null, then must be valid
     $session->addMessage('error', "Invalid department");
     die(header('Location: ../pages/create_ticket.php'));
 }

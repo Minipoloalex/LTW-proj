@@ -148,16 +148,7 @@ class Forum
         if (!$faq) {
             return false;
         }
-
         return true;
-        // // !NOTE: This ensures that the question is not the same as the one being updated
-        // foreach ($faq as $f) {
-        //     if ($f['ForumID'] != intval($forumID)) {
-        //         return true;
-        //     }
-            
-        // }
-        // return false;
     }
 
     static function updateDisplayed(PDO $db, string $displayed, string $forumID): bool

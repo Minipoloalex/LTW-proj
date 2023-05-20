@@ -40,9 +40,6 @@ class Hashtag {
     }
     return $hashtags;
   }
-  static function getByHashtagId(PDO $db, int $id) : array {
-    return array(); // TODO: implement this function or getByHashtagName
-  }
   static function addHashtagToTicket(PDO $db, int $ticketID, int $hashtagID) : void {
     $stmt = $db->prepare('
     INSERT INTO HASHTAG_TICKET (TicketID, HashtagID)

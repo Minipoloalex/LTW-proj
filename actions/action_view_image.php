@@ -13,7 +13,6 @@ $session = new Session();
 if (!$session->isLoggedIn()) {
     die(header('Location: ../pages/landing_page.php'));
 }
-// CSRF ?
 $db = getDatabaseConnection();
 if (!is_valid_id($_GET['messageID'])) {
     die(header('Location: ../pages/main_page.php'));

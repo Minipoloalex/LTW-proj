@@ -16,12 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $db = getDatabaseConnection();
     if (!is_valid_string($_POST['message'])) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Missing message parameter. Message text is required'));
+        echo_json_csrf($session, array('error' => 'Missing message parameter. Message text is required'));
         exit();
     }
     if (!is_valid_ticket_id($db, $_POST['ticketID'])) {
         http_response_code(400); // Bad request
-        echo json_encode(array('error' => 'Invalid ticketID parameter'));
+        echo_json_csrf($session, array('error' => 'Invalid ticketID parameter'));
         exit();
     }
     
@@ -31,13 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if (!Client::hasAcessToTicket($db, $userID, $ticketID)) {
         http_response_code(403); // Forbidden
-        echo json_encode(array('error' => 'User does not have access to ticket'));
+        echo_json_csrf($session, array('error' => 'User does not have access to ticket'));
         exit();
     }
     $ticket = Ticket::getById($db, $ticketID);
     if ($ticket->isClosed()) {
         http_response_code(401); // Unauthorized
-        echo json_encode(array('error' => 'Ticket is closed'));
+        echo_json_csrf($session, array('error' => 'Ticket is closed'));
         exit();
     }
     
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$original) $original = @imagecreatefromgif($tempFileName);
         if (!$original) {
             http_response_code(400); // Bad request
-            echo json_encode(array('error' => 'Unknown image format! Only recognize .jpeg .png and .gif'));
+            echo_json_csrf($session, array('error' => 'Unknown image format! Only recognize .jpeg .png and .gif'));
             exit();
         }
     
@@ -66,14 +66,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     http_response_code(200); // OK
-    echo json_encode(array(
+    echo_json_csrf($session, array(
         'success' => 'Message successfully added',
         'id' => $message->id,
         'text' => $message->text,
         'userID' => $message->userID,
         'username' => $message->username,
         'date' => date('F j', $message->date),
-        'csrf' => $session->getCsrf(),
     ));
     exit();
 }
