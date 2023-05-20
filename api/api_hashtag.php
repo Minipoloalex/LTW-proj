@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 http_response_code(405); // Method not allowed
-echo_json_csrf($session, array('error' => 'Method not allowed'));
+echo json_encode(array('error' => 'Method not allowed'));
 exit();
 
 ?>
