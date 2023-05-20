@@ -239,50 +239,147 @@ async function drawUserCard(card, curr) {
   console.log(curr);
   const deps = await getAllDepartments();
 
-  card.innerHTML = `
-    <article>
-      <header>
-        <span class="card-title">${curr.name}</span>
-      </header>
+  card.classList.add("card");
+  card.setAttribute("data-id", curr.id);
+  card.setAttribute("data-type", cardType);
+  const article = document.createElement("article");
 
-      <div>
-        <label>Username: </label> <br>
-        <span class="card-info">${curr.username}</span><br>
+  const header = document.createElement("header");
+  const titleSpan = document.createElement("span");
+  titleSpan.classList.add("card-title");
+  setTextContent(titleSpan, curr.name);
+  header.appendChild(titleSpan);
 
-        <label>Email: </label><br>
-        <span class="card-info card-email">${curr.email}</span><br>
+  const contentDiv = document.createElement("div");
 
-        
-        <label>Department: </label>
-        <select class="department-select" ${curr.user_type === 'Client' ? "disabled" : ""}>
-          <option value=''>None</option>
-          ${curr.user_type !== 'Client' ?
+  const usernameLabel = document.createElement("label");
+  usernameLabel.textContent = "Username: ";
+  contentDiv.appendChild(usernameLabel);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const usernameSpan = document.createElement("span");
+  usernameSpan.classList.add("card-info");
+  setTextContent(usernameSpan, curr.username);
+  contentDiv.appendChild(usernameSpan);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const emailLabel = document.createElement("label");
+  emailLabel.textContent = "Email: ";
+  contentDiv.appendChild(emailLabel);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const emailSpan = document.createElement("span");
+  emailSpan.classList.add("card-info", "card-email");
+  setTextContent(emailSpan, curr.email);
+  contentDiv.appendChild(emailSpan);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const departmentLabel = document.createElement("label");
+  departmentLabel.textContent = "Department: ";
+  contentDiv.appendChild(departmentLabel);
+
+  const departmentSelect = document.createElement("select");
+  departmentSelect.classList.add("department-select");
+  departmentSelect.disabled = curr.user_type === 'Client';
+  departmentSelect.innerHTML = `
+    <option value="">None</option>
+    ${curr.user_type !== 'Client' ?
       deps.map(dep => `<option value="${dep.departmentId}" ${curr.department === dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('') :
       deps.map(dep => `<option value="${dep.departmentId}">${dep.departmentName}</option>`).join('')}
-          </select><br>
+    `;
+  contentDiv.appendChild(departmentSelect);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const roleLabel = document.createElement("label");
+  roleLabel.textContent = "Role: ";
+  contentDiv.appendChild(roleLabel);
+
+  const userTypeSelect = document.createElement("select");
+  userTypeSelect.classList.add("user-type-select");
+  userTypeSelect.innerHTML = `
+    <option value="Client" ${curr.user_type === 'Client' ? 'selected' : ''}>Client</option>
+    <option value="Agent" ${curr.user_type === 'Agent' ? 'selected' : ''}>Agent</option>
+    <option value="Admin" ${curr.user_type === 'Admin' ? 'selected' : ''}>Admin</option>
+    `;
+  contentDiv.appendChild(userTypeSelect);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const nrTicketsCreatedLabel = document.createElement("label");
+  nrTicketsCreatedLabel.textContent = "Created tickets: ";
+  contentDiv.appendChild(nrTicketsCreatedLabel);
+
+  const nrTicketsCreatedSpan = document.createElement("span");
+  nrTicketsCreatedSpan.classList.add("card-info");
+  setTextContent(nrTicketsCreatedSpan, curr.nr_tickets_created);
+  contentDiv.appendChild(nrTicketsCreatedSpan);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const nrTicketsAssignedLabel = document.createElement("label");
+  nrTicketsAssignedLabel.textContent = "Solved tickets: ";
+  contentDiv.appendChild(nrTicketsAssignedLabel);
+
+  const nrTicketsAssignedSpan = document.createElement("span");
+  nrTicketsAssignedSpan.classList.add("card-info");
+  nrTicketsAssignedSpan.textContent = curr.nr_tickets_assigned;
+  contentDiv.appendChild(nrTicketsAssignedSpan);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const deleteCardBtn = document.createElement('button');
+  deleteCardBtn.classList.add('delete-faq');
+  deleteCardBtn.classList.add('delete-card');
+  deleteCardBtn.classList.add('openModal');
+  // deleteCardBtn.setAttribute('id', 'deleteFaqBtn');
+  deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
+  contentDiv.appendChild(deleteCardBtn);
+
+  article.appendChild(header);
+  article.appendChild(contentDiv);
+  card.appendChild(article);
+
+  // card.innerHTML = `
+  //   <article>
+  //     <header>
+  //       <span class="card-title">${curr.name}</span>
+  //     </header>
+
+  //     <div>
+  //       <label>Username: </label> <br>
+  //       <span class="card-info">${curr.username}</span><br>
+
+  //       <label>Email: </label><br>
+  //       <span class="card-info card-email">${curr.email}</span><br>
+
+        
+  //       <label>Department: </label>
+  //       <select class="department-select" ${curr.user_type === 'Client' ? "disabled" : ""}>
+  //         <option value=''>None</option>
+  //         ${curr.user_type !== 'Client' ?
+  //     deps.map(dep => `<option value="${dep.departmentId}" ${curr.department === dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('') :
+  //     deps.map(dep => `<option value="${dep.departmentId}">${dep.departmentName}</option>`).join('')}
+  //         </select><br>
       
 
-        <label>Role: </label>
-        <select class="user-type-select">
-          <option value="Client" ${curr.user_type === 'Client' ? 'selected' : ''}>Client</option>
-          <option value="Agent" ${curr.user_type === 'Agent' ? 'selected' : ''}>Agent</option>
-          <option value="Admin" ${curr.user_type === 'Admin' ? 'selected' : ''}>Admin</option>
-        </select><br>
+  //       <label>Role: </label>
+  //       <select class="user-type-select">
+  //         <option value="Client" ${curr.user_type === 'Client' ? 'selected' : ''}>Client</option>
+  //         <option value="Agent" ${curr.user_type === 'Agent' ? 'selected' : ''}>Agent</option>
+  //         <option value="Admin" ${curr.user_type === 'Admin' ? 'selected' : ''}>Admin</option>
+  //       </select><br>
 
-        <label>Created tickets: </label>
-        <span class="card-info">${curr.nr_tickets_created}</span><br>
+  //       <label>Created tickets: </label>
+  //       <span class="card-info">${curr.nr_tickets_created}</span><br>
 
-        <label>Solved tickets: </label>
-        <span class="card-info">${curr.nr_tickets_assigned}</span><br>
+  //       <label>Solved tickets: </label>
+  //       <span class="card-info">${curr.nr_tickets_assigned}</span><br>
 
-        <button class="delete-faq delete-card openModal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
+  //       <button class="delete-faq delete-card openModal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
 
-      </div>
-    </article>
-  `;
+  //     </div>
+  //   </article>
+  // `;
 
-  const departmentSelect = card.querySelector('.department-select');
-  const userTypeSelect = card.querySelector('.user-type-select');
+  // const departmentSelect = card.querySelector('.department-select');
+  // const userTypeSelect = card.querySelector('.user-type-select');
 
   departmentSelect.addEventListener('change', async function () {
     const json = await patchData('../api/api_user.php', { id: curr.id, user_type: userTypeSelect.value, department: departmentSelect.value });
@@ -304,12 +401,63 @@ async function drawUserCard(card, curr) {
     const json = await patchData('../api/api_user.php', { id: curr.id, user_type: userTypeSelect.value, department: departmentSelect.value });
     console.log(json);
   });
+
+  handleDeleteCard(deleteCardBtn);
+
 }
 
 
 
 function drawDepartmentCard(card, curr) {
   card.classList.add("small-card");
+  card.setAttribute("data-id", curr.departmentId);
+  card.setAttribute("data-type", cardType);
+  const article = document.createElement("article");
+  
+  const header = document.createElement("header");
+  const titleSpan = document.createElement("span");
+  titleSpan.classList.add("card-title");
+  setTextContent(titleSpan, curr.departmentName);
+  header.appendChild(titleSpan);
+
+  const contentDiv = document.createElement("div");
+
+  const nrTicketsLabel = document.createElement("label");
+  nrTicketsLabel.textContent = "Number of tickets: ";
+  contentDiv.appendChild(nrTicketsLabel);
+
+  const nrTicketsSpan = document.createElement("span");
+  nrTicketsSpan.classList.add("card-info");
+  setTextContent(nrTicketsSpan, curr.nrTickets);
+  contentDiv.appendChild(nrTicketsSpan);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const nrAgentsLabel = document.createElement("label");
+  nrAgentsLabel.textContent = "Number of agents: ";
+  contentDiv.appendChild(nrAgentsLabel);
+
+  const nrAgentsSpan = document.createElement("span");
+  nrAgentsSpan.classList.add("card-info");
+  setTextContent(nrAgentsSpan, curr.nrAgents);
+  contentDiv.appendChild(nrAgentsSpan);
+  contentDiv.appendChild(document.createElement("br"));
+
+  const deleteCardBtn = document.createElement('button');
+  deleteCardBtn.classList.add('delete-faq');
+  deleteCardBtn.classList.add('delete-card');
+  deleteCardBtn.classList.add('openModal');
+  // deleteCardBtn.setAttribute('id', 'deleteFaqBtn');
+  deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
+  contentDiv.appendChild(deleteCardBtn);
+
+  article.appendChild(header);
+  article.appendChild(contentDiv);
+  card.appendChild(article);
+
+  handleDeleteCard(deleteCardBtn);
+
+  console.log(card);
+  /*
   card.innerHTML = `
   <article>
   <header>
@@ -327,13 +475,12 @@ function drawDepartmentCard(card, curr) {
   
   </div>
   </article>
-  `;
+  `;*/
 }
 
 
 function drawTicketCard(card, curr) {
   card.classList.add("hover-card");
-  // !TODO: add atribute data-id to card
   card.setAttribute("data-id", curr.ticketid);
   card.setAttribute("data-type", cardType);
   const article = document.createElement("article");
@@ -460,7 +607,7 @@ if(cardType === 'department') {
 }
 function updateSkeletonCards() {
   if (skeletonCards.length > 0 ) {
-    // Adjust the width (200) according to your card size
+    // Adjust the width according to your card size
     const cardsPerRow = Math.floor(cardContainer.clientWidth / cardWidth);
 
     // Hide all skeleton cards
@@ -492,10 +639,15 @@ function noValues(message){
 }
 
 function handleDeleteCard(deleteCardBtn){
-  const card = deleteCardBtn.parentElement.parentElement.parentElement.parentElement;
+  let card;
+  if (cardType === 'ticket') {
+   card = deleteCardBtn.parentElement.parentElement.parentElement.parentElement;
+  } else {
+    card = deleteCardBtn.parentElement.parentElement.parentElement;
+  }
   console.log(card);
   const cardId = card.getAttribute("data-id");
-  const cardType = card.getAttribute("data-type");
+  // const cardType = card.getAttribute("data-type");
   // const feedback = card.nextElementSibling;
   console.log(cardId);
   console.log(cardType);
@@ -504,13 +656,14 @@ function handleDeleteCard(deleteCardBtn){
     const json = await deleteData(`../api/api_${cardType}.php`, {id: cardId});
     if (json['error']) {
     console.error(json['error']);
-    }
+    } else {
     // displayFeedback(feedback,json);
     card.remove();
     cardCountElem.innerHTML = cardCountElem.innerHTML - 1;
     cardTotalElem.innerHTML = cardTotalElem.innerHTML - 1;
     if (cardCountElem.innerHTML == 0) {
       noValues("No tickets found");
+    }
     }
   });
 }

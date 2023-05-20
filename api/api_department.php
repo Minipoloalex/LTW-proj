@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
   $department_id = $_GET['id'] ?? NULL;
 
   if (isset($department_id)) {
-    $department = Department::getById($db, $department_id);
+    $department = Department::getById($db, intval($department_id));
     if ($department === NULL) {
       http_response_code(404); // Not found
       echo_json_csrf($session, array('error' => 'Department not found.'));
@@ -91,10 +91,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     http_response_code(200); // OK
     echo_json_csrf($session, array(
       'success' => 'Deleted department "' . $department_name . '"'));
+    exit();
 
   } else {
     http_response_code(400); // Bad request
     echo_json_csrf($session, array('error' => 'Invalid request parameters.'));
+    exit();
   }
 }
 
