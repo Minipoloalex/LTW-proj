@@ -14,6 +14,11 @@ const email = document.getElementById('email');
 const username = document.getElementById('username');
 const oldpass = document.getElementById('old-password');
 
+const showPassButtonOld = document.getElementById("profile-showpass");
+const hidePassButtonOld = document.getElementById("profile-hidepass");
+const showPassButtonNew = document.getElementById("profile-new-showpass");
+const hidePassButtonNew = document.getElementById("profile-new-hidepass");
+
 function toggleProfile() {
     for (const lab of toggleLabs)
         lab.toggleAttribute('hidden');
@@ -38,6 +43,11 @@ function toggleProfile() {
     newpassInp.setAttribute('hidden','hidden');
     newpassLab.setAttribute('hidden','hidden');
     changepass.textContent = 'Change password';
+    newpassInp.type = "password";
+    oldpass.type = "password";
+
+    // show and hide password buttons
+    showPassButtonOld.toggleAttribute('hidden');
 }
 
 if (saveBtn) {
@@ -53,18 +63,46 @@ if (saveBtn) {
         displayFeedback(editProfileFeedback, json);
         if (json['success']) {
             toggleProfile();
+            showPassButtonNew.hidden = true;
+            hidePassButtonNew.hidden = true;
+            showPassButtonOld.hidden = true;
+            hidePassButtonOld.hidden = true;
+            oldpass.type = "password";
         }
     });
     changepass.addEventListener('click', () => {
         newpassInp.toggleAttribute('hidden');
         newpassLab.toggleAttribute('hidden');
         changepass.textContent = (changepass.textContent === 'Change password') ? 'Cancel' : 'Change password';
+        showPassButtonNew.toggleAttribute('hidden');
+
+        if (newpassInp.hidden === true) {
+            showPassButtonNew.hidden = true;
+            hidePassButtonNew.hidden = true;
+            newpassInp.type = "password";
+        }
     });
 }
 
 if (cancelBtn) {
     cancelBtn.addEventListener('click', () => {
         toggleProfile();
+        if (showPassButtonNew.hidden === false) {
+            showPassButtonNew.toggleAttribute('hidden');
+            newpassInp.type = "password";
+        }   
+        if (hidePassButtonNew.hidden === false) {
+            hidePassButtonNew.toggleAttribute('hidden');
+            newpassInp.type = "password";
+        }
+        if (showPassButtonOld.hidden === false) {
+            showPassButtonOld.toggleAttribute('hidden');
+            oldpass.type = "password";
+        }
+        if (hidePassButtonOld.hidden === false) {
+            hidePassButtonOld.toggleAttribute('hidden');
+            oldpass.type = "password";
+        }
     });
 }
 if (editBtn) {
@@ -81,3 +119,36 @@ function checkChangeState() {
     }
     return 'no';
 }
+
+if(showPassButtonNew){
+showPassButtonNew.addEventListener('click', () => {
+    showPassButtonNew.toggleAttribute('hidden');
+    hidePassButtonNew.toggleAttribute('hidden');
+    newpassInp.type = "text";
+})
+}
+
+if(showPassButtonOld){
+    showPassButtonOld.addEventListener('click', () => {
+    showPassButtonOld.toggleAttribute('hidden');
+    hidePassButtonOld.toggleAttribute('hidden');
+    oldpass.type = "text";
+})
+}
+
+if(hidePassButtonNew){
+    hidePassButtonNew.addEventListener('click', () => {
+    showPassButtonNew.toggleAttribute('hidden');
+    hidePassButtonNew.toggleAttribute('hidden');
+    newpassInp.type = "password";
+})
+}
+
+if(hidePassButtonOld){  
+    hidePassButtonOld.addEventListener('click', () => {
+    showPassButtonOld.toggleAttribute('hidden');
+    hidePassButtonOld.toggleAttribute('hidden');
+    oldpass.type = "password";
+})
+}
+
