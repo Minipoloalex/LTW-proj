@@ -18,11 +18,8 @@ const answerBtns = document.querySelectorAll('#answerFaq');
 const displayFaqBtns = document.querySelectorAll('#displayBtn');
 const hideFaqBtns = document.querySelectorAll('#hideBtn');
 
-// !XXX: Funtions to add listeners
-
 function handleEdit(editFaqBtn) {
   const faq = editFaqBtn.parentElement;
-  // const message = faq.nextElementSibling;
   const feedback = faq.nextElementSibling;
   const question = faq.querySelector('#question');
   const answer = faq.querySelector('#answer');
@@ -33,7 +30,6 @@ function handleEdit(editFaqBtn) {
   const toggle = () => {
     editFaqBtn.toggleAttribute('hidden');
     saveFaqBtn.toggleAttribute('hidden');
-    // deleteFaqBtn.toggleAttribute('hidden');
 
     question.toggleAttribute('readonly');
     question.classList.toggle("input-readonly");
@@ -55,7 +51,6 @@ function handleEdit(editFaqBtn) {
 
     const json = await putData('../api/api_FAQ.php', { 'id': faq.getAttribute("data-id"), 'question': question.value, 'answer': answer.value });
 
-
     if (json['error']) {
       displayFeedback(feedback,json);
     }
@@ -74,9 +69,6 @@ function handleDelete(deleteFaqBtn) {
   const modalContent = modal.querySelector(".modalContent");
   const x = modal.querySelector(".close");
   const confirm = modal.querySelector(".confirm-del");
-
-  // const answerBtn = faq.querySelector('#aswerFaq');
-  // if (answerBtn.hasAttribute('hidden')) {deleteFaqBtn.toggleAttribute('hidden');}
 
 
   deleteFaqBtn.addEventListener('click', async (event) => {
@@ -127,8 +119,6 @@ function handleAnswer(answerBtn) {
   const deleteFaqBtn = faq.querySelector('#deleteFaqBtn');
   const displayBtn = faq.querySelector('#displayBtn');
   const saveAnsBtn = faq.querySelector('#saveAnswerBtn');
-
-  // editFaqBtn.toggleAttribute('hidden');
   // deleteFaqBtn.toggleAttribute('hidden');
 
   const toggle = () => {
@@ -143,14 +133,11 @@ function handleAnswer(answerBtn) {
   }
 
   const appear = () => {
-    /*appear:*/
     displayBtn.toggleAttribute('hidden');
-    // deleteFaqBtn.toggleAttribute('hidden');
     editFaqBtn.toggleAttribute('hidden');
 
-    /*readonly:*/
     answer.toggleAttribute('readonly');
-    answer.classList.toggle("input-readonly"); /*this is related to visual aspect -> css*/
+    answer.classList.toggle("input-readonly");
     answer.classList.toggle("input-write");
   }
 
@@ -169,12 +156,9 @@ function handleAnswer(answerBtn) {
       'answer': answer.value
     });
     
-    
-    if (json['error']) {
-      displayFeedback(feedback,json);
-    }
-    else {
-      displayFeedback(feedback,json);
+    displayFeedback(feedback,json);
+
+    if (json['success']) {
       appear();
       answerBtn.remove();
       saveAnsBtn.remove();
@@ -186,7 +170,6 @@ function handleAnswer(answerBtn) {
 function handleDisplay(displayBtn) {
   const faq = displayBtn.parentElement;
   const feedback = faq.nextElementSibling;
-  console.log(faq);
   const hideBtn = faq.querySelector('#hideBtn');
   const answerBtn = faq.querySelector('#answerFaq');
   if (answerBtn) { displayBtn.toggleAttribute('hidden'); }
@@ -198,12 +181,8 @@ function handleDisplay(displayBtn) {
     const json = await res.json();
     if (res.ok) {
       displayFeedback(feedback,json);
-      console.log("success");
     }
     else {
-      console.error('Error: ' + res.status);
-      // displayMessage(json['error']);
-      // displayFeedback("add-faq-feedback",json);
       displayFeedback(feedback,json);
 
     }
@@ -221,15 +200,9 @@ function handleHide(hideBtn) {
     const res = await patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '0' });
     const json = await res.json();
     if (res.ok) {
-      console.log("success");
-      // displayMessage(json['success'], false);
-      // displayFeedback("add-faq-feedback",json);
       displayFeedback(feedback,json);
     }
     else {
-      console.error('Error: ' + res.status);
-      // displayMessage(json['error']);
-      // displayFeedback("add-faq-feedback",json);
       displayFeedback(feedback,json);
     }
   })

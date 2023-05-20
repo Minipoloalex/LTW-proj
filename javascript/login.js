@@ -1,5 +1,3 @@
-/*login*/
-
 const passwordInput = document.getElementById("password");
 const showPassButton = document.getElementById("showpass");
 const hidePassButton = document.getElementById("hidepass");
@@ -16,12 +14,10 @@ hidePassButton.addEventListener("click", function() {
   showPassButton.hidden = false;
 });
 
-/*confirm password*/
 
 const confirmPasswordInput = document.getElementById("confirm-password");
 const showConfirmPassButton = document.getElementById("confirm-showpass");
 const hideConfirmPassButton = document.getElementById("confirm-hidepass");
-// console.log(showConfirmPassButton);
 
 if (showConfirmPassButton) {
 showConfirmPassButton.addEventListener("click", function() {

@@ -17,7 +17,7 @@ if (form) {
             displayFeedback(addFaqFeedback, json);
             form.reset();
 
-            const type = json['type']; //user type;
+            const type = json['type'];
 
             if (type !== 'Client') {
                 const faq = document.createElement('article');
@@ -45,7 +45,6 @@ if (form) {
                 setTextContent(answer, json['answer'] ?? '');
                 faq.appendChild(answer);
 
-                //if (type !== 'Client') {
                 const editBtn = document.createElement('button');
                 editBtn.classList.add('edit-faq');
                 editBtn.setAttribute('id', 'editFaqBtn');
@@ -92,36 +91,29 @@ if (form) {
                     displayBtn.innerHTML = '<span class="material-symbols-outlined">visibility</span>';
                     faq.appendChild(displayBtn);
                 }
-                // Create the modal container element
                 const modal = document.createElement('div');
                 modal.classList.add('modal');
                 modal.classList.add('d-none');
 
-                // Create the modal content element
                 const modalContent = document.createElement('div');
                 modalContent.classList.add('modalContent');
 
-                // Create the close button
                 const closeButton = document.createElement('span');
                 closeButton.classList.add('close');
                 closeButton.textContent = '×';
                 modalContent.appendChild(closeButton);
 
-                // Create the message
                 const message = document.createElement('p');
                 message.textContent = 'Are you sure you want to delete?';
                 modalContent.appendChild(message);
 
-                // Create the delete button
                 const deleteButton = document.createElement('button');
                 deleteButton.classList.add('confirm-del');
                 deleteButton.textContent = 'Delete';
                 modalContent.appendChild(deleteButton);
 
-                // Add the modal content to the modal container
                 modal.appendChild(modalContent);
 
-                // Add the modal to the page
                 faq.appendChild(modal);
 
                 const answerFaqBtn = document.createElement('button');

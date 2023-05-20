@@ -32,16 +32,14 @@ function toggleProfile() {
     // changePass button appears
     changepass.toggleAttribute('hidden');
 
-    //apagar old password apos dar save
+    // reset input value after saving
     oldpass.value = '';
-
-    //apagar new password apos dar save
     newpassInp.value = '';
     newpassInp.setAttribute('hidden','hidden');
     newpassLab.setAttribute('hidden','hidden');
     changepass.textContent = 'Change password';
-
 }
+
 if (saveBtn) {
     saveBtn.addEventListener('click', async () => {
         const json = await putData('../api/api_user.php', {
@@ -70,8 +68,6 @@ if (cancelBtn) {
     });
 }
 if (editBtn) {
-    /*verificar se posso fazer toggle para 'edit' outra vez (apos dar save), apenas se os dados estiverem certos*/
-
     editBtn.addEventListener('click', function () {
         clearAllDisplayFeedback();
         toggleProfile();

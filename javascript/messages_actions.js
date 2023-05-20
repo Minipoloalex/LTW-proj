@@ -18,7 +18,6 @@ function enable_messages(event) {
     if (answerForms) {  // if ticket is closed, this is null
         answerForms.classList.remove("d-none");
     }
-    
 
     actions.classList.add("d-none");
     enableMessagesButton.classList.remove("inactive");
@@ -30,10 +29,9 @@ function enable_actions(event) {
 
     actions.classList.remove("d-none");
     messages.classList.add("d-none");
-    if (answerForms) {  // if ticket is closed, this is null
+    if (answerForms) {
         answerForms.classList.add("d-none");
     }
-    
 
     enableActionsButton.classList.remove("inactive");
     enableMessagesButton.classList.add("inactive");

@@ -67,41 +67,23 @@ async function getFilterValues(cardType) {
   console.log(json);
   const data = json;
   console.log("Filter: ", cardType);
-  // getCards(data, cardType);
   getCards(data);
-
-  /*
-  console.log(res);
-  if (res.ok) {
-  
-    const data = await res.json();
-
-    // cardContainer.innerHTML = '';
-    console.log(data);
-    getCards(data);
-  } else {
-    console.error('Error: ' + res.status);
-  }
-  */
 }
 
 async function getTickets2(checkedValues, pageType ,page = 0) {
   const data = {...checkedValues, page: page, pageType: pageType};
-  // data['page'] = page;
   const path = '../api/api_ticket.php';
   return json = await getData(path, data);
 }
 
 async function getDepartments2(checkedValues, page = 0) {
   const data = {...checkedValues, page: page};
-  // data['page'] = page;
   const path = '../api/api_department.php';
   return json = await getData(path, data);
 }
 
 async function getUsers2(checkedValues, page = 0) {
   const data = {...checkedValues, page: page};
-  // data['page'] = page;
   const path = '../api/api_user.php';
   return json = await getData(path, data);
 }
@@ -137,5 +119,4 @@ dropdowns.forEach(dropdown => {
     caretIcon.classList.toggle("fa-caret-right");
     caretIcon.classList.toggle("fa-caret-down");
   });
-}
-);
+});

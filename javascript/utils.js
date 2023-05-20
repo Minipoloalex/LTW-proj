@@ -1,11 +1,3 @@
-const entityMap = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': '&quot;',
-    "'": '&#039;',
-    "/": '&#x2F;'
-};
 const inverterdEntityMap = {
     "&amp;": "&",
     "&lt;": "<",
@@ -14,12 +6,6 @@ const inverterdEntityMap = {
     '&#039;': "'",
     '&#x2F;': "/"
 };
-
-function escapeHtml(string) {
-    return String(string).replace(/[&<>"'\/]/g, function (s) {
-        return entityMap[s];
-    });
-}
 function decodeHtml(string) {
     return String(string).replace(/&(amp|lt|gt|quot|#039|#x2F);/g, function (s) {
         return inverterdEntityMap[s];
@@ -114,8 +100,7 @@ function handleTextAreas(textarea) {
 
 
 function displayMessage(feedbackMessage, message, error = true, remove = false) {
-    console.log(feedbackMessage);
-    feedbackMessage.textContent = message; // message does not come from the user (nor from the database)
+    feedbackMessage.textContent = message;  // does not come from the DB (no need for decodeHtml)
     if (error){
         feedbackMessage.classList.add('error-message');
         feedbackMessage.classList.remove('success-message');
