@@ -65,6 +65,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   exit();
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+  handle_check_logged_in($session);
+  handle_check_csrf($session, $_GET['csrf']);
+  handle_check_admin($session, $db);
+
+  $department_id = $_GET['id'] ?? NULL;
+
+  // !NOTE: Check this ->
+  if (isset($department_id)) {
+    $department = Department::getById($db, $department_id);
+    if ($department === NULL) {
+      http_response_code(404); // Not found
+      echo_json_csrf($session, array('error' => 'Department not found.'));
+      exit();
+    }
+    $department_name = $department->departmentName;
+    $department_id = $department->departmentId;
+    $nr_tickets = count(Ticket::getByDepartment($db, $department_id));
+    $nr_agents = count(Agent::getByDepartment($db, $department_id));
+    if ($nr_tickets > 0 || $nr_agents > 0) {
+      http_response_code(409); // Conflict
+      echo_json_csrf($session, array('error' => 'Department has tickets or agents assigned.'));
+      exit();
+    }
+    $success = Department::deleteDepartment($db, $department_id);
+    if (!$success) {
+      http_response_code(500); // Internal server error
+      echo_json_csrf($session, array('error' => 'Failed to delete department.'));
+      exit();
+    }
+    http_response_code(200); // OK
+    echo_json_csrf($session, array(
+      'success' => 'Deleted department "' . $department_name . '"',
+      'department_name' => $department_name,
+      'department_id' => $department_id
+    ));
+  } else {
+    http_response_code(400); // Bad request
+    echo_json_csrf($session, array('error' => 'Invalid request parameters.'));
+  }
+
+  /* TILL HERE */
+}
+
 http_response_code(405); // Method not allowed
 echo json_encode(array('error' => 'Invalid request method.'));
 

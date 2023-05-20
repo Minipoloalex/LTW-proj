@@ -104,32 +104,6 @@ article.faq {
   font-family: 'Martel Sans', sans-serif;
 }
 
-.edit-faq,
-.save-faq {
-  position: absolute;
-  top: 40px;
-  right: 0;
-}
-
-.delete-faq {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-}
-
-.hide-faq {
-  position: absolute;
-  top: 73px;
-  right: 0px;
-}
-
-.display-faq {
-  position: absolute;
-  top: 73px;
-  right: 0;
-}
-
-
 /* faq icons for buttons */
 
 button.display-faq span.material-symbols-outlined,
@@ -157,20 +131,28 @@ button.delete-faq {
   margin-left: 0.3rem;
 }
 
-
-button.display-faq,
-button.hide-faq {
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-}
-
 button.edit-faq,
 button.save-faq {
+  position: absolute;
+  top: 40px;
+  right: 0px;
   margin-top: 0.5rem;
 }
 
 button.delete-faq {
+  position: absolute;
+  top: 0px;
+  right: 0px;
   margin-top: 1rem;
+}
+
+button.display-faq, 
+button.hide-faq {
+  position: absolute;
+  top: 73px;
+  right: 0px;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 button.delete-faq span.material-symbols-outlined:hover {

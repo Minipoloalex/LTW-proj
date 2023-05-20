@@ -277,7 +277,7 @@ async function drawUserCard(card, curr) {
       </header>
 
       <div>
-        <label>Username: </label>
+        <label>Username: </label> <br>
         <span class="card-info">${curr.username}</span><br>
 
         <label>Email: </label><br>
@@ -305,6 +305,9 @@ async function drawUserCard(card, curr) {
 
         <label>Solved tickets: </label>
         <span class="card-info">${curr.nr_tickets_assigned}</span><br>
+
+        <button class="delete-faq delete-card openModal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
+
       </div>
     </article>
   `;
@@ -340,7 +343,6 @@ async function drawUserCard(card, curr) {
 
 function drawDepartmentCard(card, curr) {
   card.classList.add("small-card");
-  console.log(curr);
   card.innerHTML = `
   <article>
   <header>
@@ -348,19 +350,23 @@ function drawDepartmentCard(card, curr) {
   </header>
 
   <div>
-  <label>Number of tickets:</label>
-  <span class="card-info">${curr.nrTickets}</span><br>
+    <label>Number of tickets:</label>
+    <span class="card-info">${curr.nrTickets}</span><br>
 
-  <label>Number of agents:</label>
-  <span class="card-info">${curr.nrAgents}</span><br>
+    <label>Number of agents:</label>
+    <span class="card-info">${curr.nrAgents}</span><br>
   
+    <button class="delete-faq delete-card openModal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
+  
+  </div>
   </article>
   `;
 }
 
 
 function drawTicketCard(card, curr) {
-
+  card.classList.add("hover-card");
+  // !TODO: add atribute data-id to card
   const article = document.createElement("article");
 
   const link = document.createElement("a");
@@ -373,6 +379,7 @@ function drawTicketCard(card, curr) {
   header.appendChild(titleSpan);
 
   const contentDiv = document.createElement("div");
+  // contentDiv.classList.add("card-content");
 
   const statusLabel = document.createElement("label");
   statusLabel.classList.add("status");
@@ -442,6 +449,14 @@ function drawTicketCard(card, curr) {
   setTextContent(prioritySpan, curr.priority ? curr.priority : "Not defined");
   contentDiv.appendChild(prioritySpan);
   contentDiv.appendChild(document.createElement("br"));
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.classList.add('delete-faq');
+  deleteBtn.classList.add('delete-card');
+  deleteBtn.classList.add('openModal');
+  // deleteBtn.setAttribute('id', 'deleteFaqBtn');
+  deleteBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
+  contentDiv.appendChild(deleteBtn);
 
   link.appendChild(header);
   link.appendChild(contentDiv);

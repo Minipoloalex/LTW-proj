@@ -109,5 +109,11 @@ class Department {
             $department['DepartmentName']
         );
     }
+
+    static function deleteDepartment(PDO $db, int $departmentID) : bool {
+        $stmt = $db->prepare('DELETE FROM DEPARTMENT WHERE DepartmentID = ?');
+        $stmt->execute(array($departmentID));
+        return $stmt->rowCount() > 0;
+    }
 }
 ?>

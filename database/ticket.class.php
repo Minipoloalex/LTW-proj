@@ -205,12 +205,10 @@ class Ticket implements JsonSerializable
   }
 
   // adicionar filtros por data
-  // static function filter(PDO $db, array $status, array $priorities, array $hashtags, array $agents, array $departments, int $page = 1): array
   static function filter(PDO $db, ?int $userID, string $pageType, array $status = [], array $priorities = [], array $hashtags = [], array $agents = [], array $departments = [], int $page = 1): array
   {
 
     $query = 'SELECT DISTINCT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T LEFT JOIN HASHTAG_TICKET H USING(TicketID) WHERE TRUE';
-    // $query = 'SELECT T.TicketID, T.Title, T.UserID, T.Status, T.SubmitDate, T.Priority, H.HashtagID, T.Description, T.AssignedAgent, T.DepartmentID FROM TICKET T LEFT JOIN HASHTAG_TICKET H USING(TicketID) WHERE TRUE';
     $statusF = '';
     $prioritiesF = '';
     $hashtagsF = '';
@@ -230,16 +228,10 @@ class Ticket implements JsonSerializable
         }
       }
       $statusF = $statusF . ')';
-      // for ($i = 0; $i<count($status); $i++) {
-      //   if ($i == 0) {$statusF = $statusF.sprintf('(T.Status = %s', $status[$i]);} 
-      //   else {$statusF = $statusF.sprintf(' or T.Status = %s', $status[$i]);}
-      // }
-      // $statusF = $statusF.')';
     }
 
     if (!empty($priorities)) {
       $prioritiesF = ' and ';
-      // if ($statusF != '') {$prioritiesF = ' and ';}
       for ($i = 0; $i < count($priorities); $i++) {
         if ($i == 0) {
           $prioritiesF = $prioritiesF . sprintf('(T.Priority = ?');
@@ -251,16 +243,10 @@ class Ticket implements JsonSerializable
         $prioritiesF = $prioritiesF . ')';
 
       }
-      // for ($i = 0; $i<count($priorities); $i++) {
-      //   if ($i == 0) {$prioritiesF = $prioritiesF.sprintf('(T.Priority = %s', $priorities[$i]);} 
-      //   else {$prioritiesF = $prioritiesF.sprintf(' or T.Priority = %s', $priorities[$i]);}
-      // }
-      // $prioritiesF = $prioritiesF.')';
     }
 
     if (!empty($hashtags)) {
       $hashtagsF = ' and ';
-      // if ($statusF != '' || $prioritiesF != '') {$hashtagsF = ' and ';}
       for ($i = 0; $i < count($hashtags); $i++) {
         if ($i == 0) {
           $hashtagsF = $hashtagsF . sprintf('(H.HashtagID = ?');
@@ -271,16 +257,10 @@ class Ticket implements JsonSerializable
         }
       }
       $hashtagsF = $hashtagsF . ')';
-      // for ($i = 0; $i<count($hashtags); $i++) {
-      //   if ($i == 0) {$hashtagsF = $hashtagsF.sprintf('(H.HashtagID = %s', $hashtags[$i]);} 
-      //   else {$hashtagsF = $hashtagsF.sprintf(' or H.HashtagID = %s', $hashtags[$i]);}
-      // }
-      // $hashtagsF = $hashtagsF.')';
     }
 
     if (!empty($agents)) {
       $agentsF = ' and ';
-      // if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '') {$agentsF = ' and ';}
       for ($i = 0; $i < count($agents); $i++) {
         if ($i == 0) {
           $agentsF = $agentsF . sprintf('(T.AssignedAgent = ?');
@@ -291,16 +271,10 @@ class Ticket implements JsonSerializable
         }
       }
       $agentsF = $agentsF . ')';
-      // for ($i = 0; $i<count($agents); $i++) {
-      //   if ($i == 0) {$agentsF = $agentsF.sprintf('(T.AssignedAgent = %s', $agents[$i]);} 
-      //   else {$agentsF = $agentsF.sprintf(' or T.AssignedAgent = %s', $agents[$i]);}
-      // }
-      // $agentsF = $agentsF.')';
     }
 
     if (!empty($departments)) {
       $departmentsF = ' and ';
-      // if ($statusF != '' || $prioritiesF != '' || $hashtagsF != '' || $agentsF != '') {$departmentsF = ' and ';}
       for ($i = 0; $i < count($departments); $i++) {
         if ($i == 0) {
           $departmentsF = $departmentsF . sprintf('(T.DepartmentID = ?');
@@ -311,11 +285,6 @@ class Ticket implements JsonSerializable
         }
       }
       $departmentsF = $departmentsF . ')';
-      // for ($i = 0; $i<count($departments); $i++) {
-      //   if ($i == 0) {$departmentsF = $departmentsF.sprintf('(T.DepartmentID = %s', $departments[$i]);} 
-      //   else {$departmentsF = $departmentsF.sprintf(' or T.DepartmentID= %s', $departments[$i]);}
-      // }
-      // $departmentsF = $departmentsF.')';
     }
     // filters
     $query .= $statusF . $prioritiesF . $hashtagsF . $agentsF . $departmentsF;
@@ -362,8 +331,6 @@ class Ticket implements JsonSerializable
     return $result;
   }
 
-  // TODO
-  // null filters
   static function getFilters(PDO $db): array
   {
     $filters = [];
@@ -455,6 +422,12 @@ class Ticket implements JsonSerializable
       $counts[] = $count['count'];
     }
     return $counts;
+  }
+  
+  static function deleteTicket(PDO $db, int $ticketID): bool {
+    $stmt = $db->prepare('DELETE FROM TICKET WHERE TicketID = ?');
+    $stmt->execute(array($ticketID));
+    return $stmt->rowCount() > 0;
   }
 }
 ?>

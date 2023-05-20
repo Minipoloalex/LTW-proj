@@ -404,4 +404,10 @@
             $stmt->execute(array($userID));
             return $stmt->fetch() != NULL;
           }
+
+          static function deleteAccount(PDO $db, int $userID): bool{
+            $stmt = $db->prepare('DELETE FROM CLIENT WHERE UserID = ?');
+            $stmt->execute(array($userID));
+            return $stmt->rowCount() > 0;
+          }
     }

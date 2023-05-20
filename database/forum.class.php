@@ -135,8 +135,7 @@ class Forum
         $stmt = $db->prepare('DELETE FROM FORUM WHERE ForumID = ?');
         // $id = intval($forumID);
         $stmt->execute(array($forumID));
-
-        return true;
+        return $stmt->rowCount() > 0;
     }
 
     static function alreadyExists(PDO $db, string $question): bool

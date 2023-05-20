@@ -108,7 +108,7 @@
 }
 
 
-.card:hover {
+.hover-card:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
 }
 
@@ -128,9 +128,10 @@
 }
 
 .card article div {
-  margin-top: 0.7rem;
+  margin-top: 0.6rem;
   padding-left: 1rem;
   padding-right: 0.5rem;
+  position: relative;
 }
 
 .card article div span.card-hashtags {
@@ -211,12 +212,6 @@
 /*department card */
 
 .small-card {
-  transition: all 200ms ease-in-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f5f5f5;
-  border-radius: 10px;
   height: 10rem;
 }
 
@@ -305,4 +300,10 @@ select.department-select{
 div.card select {
   border-radius: 5px;
   border: 1px solid black;
+}
+
+/* ================ DELETE BUTTONS ======================== */
+
+button.delete-card {
+  margin-top: 0;
 }
