@@ -85,21 +85,21 @@ async function queryMore(endRange) {
 
     switch (cardType) {
       case 'ticket': {
-        const json = await getTickets2(checkedValues, pageType, (endRange / 12) + 1);
+        const json = await getTicketsByPage(checkedValues, pageType, (endRange / 12) + 1);
         data.tickets = data.tickets.concat(json.tickets);
         data.count = json.count;
         cardLimit = data.count;
         break;
       }
       case 'user': {
-        const json = await getUsers2(checkedValues, (endRange / 12) + 1);
+        const json = await getUsersByPage(checkedValues, (endRange / 12) + 1);
         data.users = data.users.concat(json.users);
         data.count = json.count;
         cardLimit = data.count;
         break;
       }
       case 'department': {
-        const json = await getDepartments2(checkedValues, (endRange / 12) + 1);
+        const json = await getDepartmentsByPage(checkedValues, (endRange / 12) + 1);
         data.departments = data.departments.concat(json.departments);
         data.count = json.count;
         cardLimit = data.count;
@@ -329,7 +329,6 @@ async function drawUserCard(card, curr) {
   deleteCardBtn.classList.add("delete-faq");
   deleteCardBtn.classList.add("delete-card");
   deleteCardBtn.classList.add("openModal");
-  // deleteCardBtn.setAttribute('id', 'deleteFaqBtn');
   deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
   contentDiv.appendChild(deleteCardBtn);
 
@@ -428,7 +427,6 @@ function drawDepartmentCard(card, curr) {
   deleteCardBtn.classList.add('delete-faq');
   deleteCardBtn.classList.add('delete-card');
   deleteCardBtn.classList.add('openModal');
-  // deleteCardBtn.setAttribute('id', 'deleteFaqBtn');
   deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
   contentDiv.appendChild(deleteCardBtn);
 
@@ -482,7 +480,6 @@ function drawTicketCard(card, curr) {
   header.appendChild(titleSpan);
 
   const contentDiv = document.createElement("div");
-  // contentDiv.classList.add("card-content");
 
   const statusLabel = document.createElement("label");
   statusLabel.classList.add("status");
@@ -557,7 +554,6 @@ function drawTicketCard(card, curr) {
   deleteCardBtn.classList.add('delete-faq');
   deleteCardBtn.classList.add('delete-card');
   deleteCardBtn.classList.add('openModal');
-  // deleteCardBtn.setAttribute('id', 'deleteFaqBtn');
   deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
   contentDiv.appendChild(deleteCardBtn);
 
@@ -588,7 +584,6 @@ function drawTicketCard(card, curr) {
   link.appendChild(contentDiv);
   article.appendChild(link);
   article.appendChild(modal);
-  // article.appendChild(feedback);
   card.appendChild(article);
 
   handleDeleteCard(deleteCardBtn);
@@ -659,7 +654,6 @@ function handleDeleteCard(deleteCardBtn) {
   }
   console.log(card);
   const cardId = card.getAttribute("data-id");
-  // const feedback = card.querySelector('.feedback-message');
   console.log(cardId);
   console.log(cardType);
 

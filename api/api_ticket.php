@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     handle_check_logged_in($session);
     handle_check_csrf($session, $_GET['csrf']);
     handle_check_admin($session, $db);
-    // $db = getDatabaseConnection();
+    
     handle_delete_ticket($session, $db, $_GET['id']);
     exit();
 }
