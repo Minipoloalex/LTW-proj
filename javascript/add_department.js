@@ -13,9 +13,6 @@ if(addDepartmentForm) {
         displayFeedback(addDepartmentFeedback, json);
         if (json['success']) {
             const addedDepartment = json.department_name;
-            // TODO: do something with added department
-            console.log(json);
-            console.log(addedDepartment);
             departmentNameInput.value = '';
             const departments = await getPartialDepartments();
             if (departments.count !== 0)

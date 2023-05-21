@@ -218,7 +218,7 @@ class Client {
     $query = $query.$typesF.$departmentsF;
     $stmt1 = $db->prepare('SELECT COUNT(DISTINCT UserID) as c FROM ('.$query.');');
     $stmt1->execute($params);
-    $count = $stmt1->fetch()['c'];
+    $count = intval($stmt1->fetch()['c']);
 
     $query = $query.'ORDER BY Name ASC LIMIT 24 OFFSET ?;';
     $params[] = ($page - 1) * 24;

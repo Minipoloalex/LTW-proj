@@ -12,11 +12,6 @@ if (clearFilterBtn) {
   clearFilterBtn.addEventListener('click', () => clearFilters(cardType));
 }
 
-
-
-/*================================================================================*/
-// !NOTE: Old way. Works
-
 async function getFilterValues(cardType) {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   checkedValues = {};
@@ -33,7 +28,6 @@ async function getFilterValues(cardType) {
       }
     }
   });
-  console.log(checkedValues);
 
   let json;
   switch (cardType) {
@@ -58,9 +52,7 @@ async function getFilterValues(cardType) {
     console.error(json['error']);
     return;
   }
-  console.log(json);
   const data = json;
-  console.log("Filter: ", cardType);
   getCards(data);
 }
 
@@ -83,11 +75,15 @@ async function getUsersByPage(checkedValues, page = 0) {
 }
 
 function clearFilters(cardType) {
+  clearCheckBoxes();
+  getFilterValues(cardType);
+}
+
+function clearCheckBoxes() {
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   checkboxes.forEach(checkbox => {
     checkbox.checked = false;
   });
-  getFilterValues(cardType);
 }
 
 const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
