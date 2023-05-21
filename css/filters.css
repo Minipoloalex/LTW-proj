@@ -65,15 +65,9 @@ div.filter-options section {
   background-color: #a492a9;
 }
 
-/*dropdown*/
-
 section.filter-section.hidden {
   display: none;
 }
-/* 
-section#filter-section div.filter-options section.hidden {
-  display: none;
-} */
 
 .dropdown-toggle {
   cursor: pointer;
@@ -122,7 +116,3 @@ section.filter-section div.filter-options div.clicked + section {
 .filter-manage-hashtag-grid #filter-section {
   grid-area: filter-section;
 }
-
-/* .filter-manage-hashtag-grid > button{
-margin-right: 10%;
-} */

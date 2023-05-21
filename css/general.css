@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Martel+Sans:wght@400;700&display=swap');
 
-/*general titles for all pages*/
-
 h2 {
   font-size: 2em;
   font-weight: bold;
@@ -60,90 +58,6 @@ main {
   margin-top: 10px;
   display: block;
 }
-
-
-/* ------------- tables on main page -> to delete ------------------- */
-
-table,
-th,
-td {
-  border: 1px solid #846a8b;
-  background-color: #dee2ff;
-  border-collapse: collapse;
-  padding: 0.5em;
-}
-
-.display-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-.display-table caption {
-  font-weight: bold;
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.display-table th {
-  text-align: left;
-  background-color: #333;
-  color: white;
-  padding: 12px;
-}
-
-.display-table td {
-  border: 1px solid #333;
-  padding: 8px;
-}
-
-.display-table tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.display-table tr:hover {
-  background-color: #ddd;
-}
-
-.display-table ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.display-table ul li {
-  display: inline-block;
-  margin-right: 5px;
-  background-color: #ddd;
-  padding: 3px 6px;
-  border-radius: 3px;
-}
-
-table {
-  border-collapse: collapse;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-th,
-td {
-  padding: 10px;
-  text-align: left;
-}
-
-th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-tr:hover {
-  background-color: #ddd;
-}
-
 
 /* ========= MAIN PAGE CONTENT ========= */
 
@@ -235,7 +149,7 @@ div.features {
   border-radius: 10px;
 }
 
-/*====================== mobile home icon =======================*/
+/*====================== Mobile home icon =======================*/
 
 div.mobile-logo {
   display: none;
@@ -245,10 +159,9 @@ div.mobile-logo img {
   display: none;
 }
 
-/* ================ RESPONSIVENESS (web e mobile) ================== */
+/* ==================== RESPONSIVENESS ====================== */
 
-
-/* For tablet and phone devices -> 600 A 961*/
+/* For tablet and phone devices -> 600 - 961 */
 @media only screen and (max-width: 961px) {
 
   main, button {
@@ -289,32 +202,30 @@ div.mobile-logo img {
   }
 
   div.mobile-logo {
-  display: block;
-  padding: 0;
-  border: none;
-  cursor: pointer;
-  align-self: flex-end;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  margin-top: 0.5rem;
-  max-height: 60px;
-  transition: width 600ms;
-  position: fixed;
+    display: block;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+    max-height: 60px;
+    transition: width 600ms;
+    position: fixed;
+  }
+  div.mobile-logo img {
+    max-height: 60px;
+    width: auto;
+    display: block;
+  }
+
+  footer{
+    display: none;
+  }
 }
 
-div.mobile-logo img {
-  max-height: 60px;
-  width: auto;
-  display: block;
-}
-
-footer{
-  display: none;
-}
-
-}
-
-/* For desktop devices -> A PARTIR DE 961*/
+/* For desktop devices >= 961 */
 @media only screen and (min-width: 961px) {
   body main div.mainpage {
     margin-bottom: 5rem;
@@ -340,7 +251,7 @@ footer{
 
 }
 
-/* -------------------- damn footer --------------------- */
+/* ==================== Footer ==================== */
 
 footer {
   bottom: 0;
@@ -358,7 +269,7 @@ footer {
   position: relative;
 }
 
-/* ===================== SURE YOU WANT TO DELETE POPUP ============================================= */
+/* ===================== SURE YOU WANT TO DELETE POPUP ============================ */
 
 .modal {
   text-align: center;

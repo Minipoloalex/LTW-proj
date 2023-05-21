@@ -200,7 +200,7 @@ button.hide-faq span.material-symbols-outlined:hover {
   margin-right: 5.2rem;
 }
 
-/* individual faq buttons for javascript */
+/* individual faq buttons */
 .faq input[readonly] {
   user-select: none;
   cursor: default;

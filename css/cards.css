@@ -85,7 +85,6 @@
 
 /* ================ INDIVIDUAL CARD ======================== */
 
-
 .card {
   transition: all 200ms ease-in-out;
   display: flex;
@@ -105,8 +104,6 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
 }
 
-/*info*/
-
 .card article {
   font-size: 13px;
   height: 18.75rem;
@@ -117,7 +114,7 @@
   display: inline-block;
   max-width: 11rem;
   overflow-x: auto;
-  white-space: nowrap; /*normal*/
+  white-space: nowrap;
 }
 
 .card article div:not(.modal):not(.hashtags-container) {
@@ -127,8 +124,6 @@
   position: relative;
 }
 
-
-/* .card article div span.card-hashtags  */
 .card-hashtags {
   background-color: #ddd;
   padding: 1px 6px;
@@ -166,8 +161,7 @@
   overflow-wrap: anywhere;
 }
 
-/*scroll bar on cards*/
-
+/* scroll bar on cards */
 .card-info::-webkit-scrollbar{
   height: 5px;
   width: 5px;
@@ -211,7 +205,7 @@
   margin-bottom: 0.2rem;
 }
 
-/*department card */
+/*for department cards*/
 
 .small-card {
   height: 10rem;
@@ -220,8 +214,6 @@
 .small-card article {
   height: 10rem;
 }
-
-/*for department cards*/  
 
 div.add-department-form{
   display: grid;
