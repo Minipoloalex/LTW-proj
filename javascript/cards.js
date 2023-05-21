@@ -88,6 +88,7 @@ async function queryMore(endRange) {
         data.tickets = data.tickets.concat(json.tickets);
         data.count = json.count;
         cardLimit = data.count;
+        cardTotalElem.innerHTML = cardLimit;
         break;
       }
       case 'user': {
@@ -95,6 +96,7 @@ async function queryMore(endRange) {
         data.users = data.users.concat(json.users);
         data.count = json.count;
         cardLimit = data.count;
+        cardTotalElem.innerHTML = cardLimit;
         break;
       }
       case 'department': {
@@ -102,8 +104,7 @@ async function queryMore(endRange) {
         data.departments = data.departments.concat(json.departments);
         data.count = json.count;
         cardLimit = data.count;
-        console.log(data);
-        console.log(cardLimit);
+        cardTotalElem.innerHTML = cardLimit;
         break;
       }
       default:
@@ -432,44 +433,47 @@ function drawDepartmentCard(card, curr) {
   contentDiv.appendChild(nrAgentsSpan);
   contentDiv.appendChild(document.createElement("br"));
 
-  const deleteCardBtn = document.createElement('button');
-  deleteCardBtn.classList.add('delete-faq');
-  deleteCardBtn.classList.add('delete-card');
-  deleteCardBtn.classList.add('openModal');
-  deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
-  contentDiv.appendChild(deleteCardBtn);
-
-  const modal = document.createElement("div");
-  modal.classList.add("modal");
-  modal.classList.add("d-none");
-
-  const modalContent = document.createElement("div");
-  modalContent.classList.add("modalContent");
-
-  const closeButton = document.createElement("span");
-  closeButton.classList.add("close");
-  closeButton.textContent = '×';
-  modalContent.appendChild(closeButton);
-
-  const message = document.createElement("p");
-  message.textContent = "Are you sure you want to delete this department?";
-  modalContent.appendChild(message);
-
-  const deleteButtonModal = document.createElement("button");
-  deleteButtonModal.classList.add("confirm-del");
-  deleteButtonModal.textContent = "Delete";
-  modalContent.appendChild(deleteButtonModal);
-
-  modal.appendChild(modalContent);
-
   article.appendChild(header);
   article.appendChild(contentDiv);
-  article.appendChild(modal);
+
+  let deleteCardBtn
+  if (userType === 'Admin') {
+    deleteCardBtn = document.createElement('button');
+    deleteCardBtn.classList.add('delete-faq');
+    deleteCardBtn.classList.add('delete-card');
+    deleteCardBtn.classList.add('openModal');
+    deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
+    contentDiv.appendChild(deleteCardBtn);
+
+    const modal = document.createElement("div");
+    modal.classList.add("modal");
+    modal.classList.add("d-none");
+
+    const modalContent = document.createElement("div");
+    modalContent.classList.add("modalContent");
+
+    const closeButton = document.createElement("span");
+    closeButton.classList.add("close");
+    closeButton.textContent = '×';
+    modalContent.appendChild(closeButton);
+
+    const message = document.createElement("p");
+    message.textContent = "Are you sure you want to delete this department?";
+    modalContent.appendChild(message);
+
+    const deleteButtonModal = document.createElement("button");
+    deleteButtonModal.classList.add("confirm-del");
+    deleteButtonModal.textContent = "Delete";
+    modalContent.appendChild(deleteButtonModal);
+
+    modal.appendChild(modalContent);
+    
+    article.appendChild(modal);
+  }
+
   card.appendChild(article);
 
-  handleDeleteCard(deleteCardBtn);
-
-  console.log(card);
+  if (userType == "Admin") handleDeleteCard(deleteCardBtn);
 }
 
 
@@ -600,7 +604,7 @@ function drawTicketCard(card, curr) {
 
   card.appendChild(article);
 
-  if(userType === 'Admin') handleDeleteCard(deleteCardBtn);
+  if (userType === 'Admin') handleDeleteCard(deleteCardBtn);
 
   console.log(card);
   if (curr.priority === 'high') {

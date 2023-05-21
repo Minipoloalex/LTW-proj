@@ -17,6 +17,10 @@ if(addDepartmentForm) {
             console.log(json);
             console.log(addedDepartment);
             departmentNameInput.value = '';
+            const departments = await getPartialDepartments();
+            if (departments.count !== 0)
+                getCards(departments);
+            else noValues("No departments found");
         }
     });
 }
