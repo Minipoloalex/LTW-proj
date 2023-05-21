@@ -30,7 +30,8 @@
     'opsz' 48;
   font-size: 20px;
 }
-.landingbody .showpass:hover {
+
+.landingbody .showpass:hover, .landingbody .hidepass:hover {
   color: var(--visibility-hover);
   background-color: transparent;
 }
