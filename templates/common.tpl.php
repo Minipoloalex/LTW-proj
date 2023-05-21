@@ -243,7 +243,6 @@ function output_session_message(Session $session, string $id) {
                     outputDropdownOption($name, $fv->hashtagname, strval($fv->hashtagid));
                     break;
                 default:
-                    error_log("Invalid type");
                     break;
             }
             ?>

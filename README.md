@@ -1,1 +1,42 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10523667&assignment_repo_type=AssignmentRepo)
+
+# **TROUBLE SOLVER**
+
+A trouble-ticket website designed for the *2023 LTW project* on *LEIC-FEUP*.
+
+<br>
+
+
+## **Group Members**
+<br>
+
+- Félix Martins (up202108837)
+- Guilherme Monteiro (up202108668)
+- Sofia Sá (up202108676)
+
+<br>
+
+## **Instructions to run project**
+
+<br>
+
+## Commands
+
+```
+git clone <url>
+cd <folder>
+git checkout final-delivery-v1
+sqlite3 database/tickets.db < database/script.sql
+php -S localhost:9000
+```
+<br>
+
+##  Test credentials
+
+<br>
+
+
+| Type | Email | Password|
+| :--: | :--: | :--: |
+| Admin | adminchris@gmail.com | Password1. |
+| Agent | sofia@gmail.com | Sofiasa1! |
+| Client | clientliam@gmail.com | Client123, |

@@ -84,6 +84,7 @@ for (let i = 0; i < tx.length; i++) {
     handleTextAreas(tx[i]);
 }
 
+
 function handleTextAreas(textarea) {
     function OnInput() {
         this.style.height = 0;
@@ -99,7 +100,7 @@ function handleTextAreas(textarea) {
 
 
 function displayMessage(feedbackMessage, message, error = true, remove = false) {
-    feedbackMessage.textContent = message;  // does not come from the DB (no need for decodeHtml)
+    feedbackMessage.textContent = message;
     if (error){
         feedbackMessage.classList.add('error-message');
         feedbackMessage.classList.remove('success-message');
@@ -131,7 +132,6 @@ function clearFeedbackMessage(message) {
     message.classList.remove('error-message');
     message.classList.remove('success-message');
 }
-
 
 function clearAllDisplayFeedback() {
     const feedbackMessages = document.querySelectorAll('.feedback-message');

@@ -10,11 +10,7 @@ if (addNewHashtagButton) {
         const hashtag = newHashtagInp.value;
         const json = await postData('../api/api_hashtag.php', { 'hashtagName': hashtag });
         
-        // displayFeedback(manageHashtags, json);
-        if (json['error']) {
-            console.log(json['error']);
-        }
-        else {
+        if (json['success']) {
             addToDataList(json['hashtagName']);
             addToHashtagList(json['hashtagName']);
             newHashtagInp.value = '';
@@ -23,19 +19,13 @@ if (addNewHashtagButton) {
     });
 }
 
-
 if(deleteHashtagButton){
     deleteHashtagButton.addEventListener('click', async (event) => {
         event.preventDefault();
         const hashtag = deletehashtagInp.value;
         const json = await deleteData('../api/api_hashtag.php', { 'hashtagName': hashtag });
 
-        // displayFeedback(manageHashtags, json);
-        if (json['error']) {
-            console.log(json['error']);
-
-        }
-        else {
+        if (json['success']) {
             removeFromDataList(hashtag);
             removeFromHashtagList(hashtag);
             deletehashtagInp.value = '';

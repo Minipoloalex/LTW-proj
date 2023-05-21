@@ -41,7 +41,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <input id="type" type="text" value="<?=$type?>" readonly>
 
     <input id='csrf' name="csrf" type="hidden" value="<?=$session->getCsrf()?>">
-    <!-- <button type="submit" id="save-btn">Save</button> -->
+
     <button type="button" id="edit-btn">Edit</button>
 
     <div>

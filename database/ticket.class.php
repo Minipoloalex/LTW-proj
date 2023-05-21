@@ -285,11 +285,9 @@ class Ticket implements JsonSerializable
       }
       $departmentsF = $departmentsF . ')';
     }
-    // filters
     $query .= $statusF . $prioritiesF . $hashtagsF . $agentsF . $departmentsF;
     $pageQuery = '';
 
-    error_log("pageType: " . $pageType);
     switch ($pageType) {
       case 'my':
         $pageQuery = 'SELECT * FROM (' . $query . ') as T WHERE T.UserID = ?';
@@ -399,7 +397,7 @@ class Ticket implements JsonSerializable
     );
     $stmt->execute();
     $counts = [];
-    while ($count = $stmt->fetch()) { // last line will have date = today
+    while ($count = $stmt->fetch()) {
       $counts[] = $count['count'];
     }
     return $counts;

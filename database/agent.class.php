@@ -55,12 +55,6 @@ class Agent extends Client
         $stmt->execute(array($departmentID));
         $agents = array();
         while ($agent = $stmt->fetch()) {
-            error_log(strval($agent['UserID']));
-            error_log($agent['Name']);
-            error_log($agent['Username']);
-            error_log($agent['Password']);
-            error_log($agent['Email']);
-            error_log(strval($agent['DepartmentID']));
             $agents[] = new Agent(
                 intval($agent['UserID']),
                 $agent['Name'],

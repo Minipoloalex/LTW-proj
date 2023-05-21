@@ -226,15 +226,12 @@ if (cardType === 'department') {
 }
 function updateSkeletonCards() {
   if (skeletonCards.length > 0) {
-    // Adjust the width according to your card size
     const cardsPerRow = Math.floor(cardContainer.clientWidth / cardWidth);
 
-    // Hide all skeleton cards
     skeletonCards.forEach((card) => {
       card.classList.add('d-none');
     });
 
-    // Show the required number of skeleton cards
     for (let i = 0; i < cardsPerRow; i++) {
       if (skeletonCards[i]) {
         skeletonCards[i].classList.remove('d-none');

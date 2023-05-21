@@ -39,11 +39,9 @@ h2.ticket-description{
 
 
 /* =========================== CONTAINER TICKET INFO ============================ */
-/* TODO */
 #container-ticket-info {
     width: 30rem;
     margin: auto;
-    border-radius: 20px;
     margin-bottom: 3rem;
 }
 /* ================================ TICKET INFO ================================== */
@@ -149,7 +147,7 @@ fieldset#priority {
 }
 
 fieldset#priority label.radio-button {
-    background-color: #53536e;
+    background-color: var(--blue-dark);
     color: white;
     border: 1px solid white;
     font-size: 1rem;
@@ -198,7 +196,7 @@ label select {
 #hashtag-items article.hashtag {
     border:rgba(0, 0, 0, 0.5) 1px solid;
     border-radius: 5px;
-    background-color: #53536e;
+    background-color: var(--blue-dark);
     color: white;
     font-size: 1rem;
     text-align: center;
@@ -318,7 +316,7 @@ label select {
     color: white;
 }
 .message.other header {
-    background-color: #53536E;
+    background-color: var(--blue-dark);
     color: white;
 }
 .message .message-body {

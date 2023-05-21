@@ -49,7 +49,7 @@ div.filter-options section {
 }
 
 .filter-options label:hover {
-  background-color: #ddd;
+  background-color: var(--hashtags-gray);
 }
 
 .filter-options input[type="checkbox"]:checked+label {

@@ -40,9 +40,6 @@ function handleAgentFilterByDepartment(Session $session, PDO $db, string $depart
             exit();
         }
         $agents = Agent::getByDepartment($db, intval($departmentID));
-        foreach ($agents as $agent)  {
-            error_log($agent->name);
-        }
     }
 
     echo json_encode(array(

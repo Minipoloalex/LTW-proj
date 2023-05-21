@@ -34,10 +34,8 @@ function toggleProfile() {
     saveBtn.toggleAttribute('hidden');
     cancelBtn.toggleAttribute('hidden');
 
-    // changePass button appears
     changepass.toggleAttribute('hidden');
 
-    // reset input value after saving
     oldpass.value = '';
     newpassInp.value = '';
     newpassInp.setAttribute('hidden','hidden');
@@ -46,7 +44,6 @@ function toggleProfile() {
     newpassInp.type = "password";
     oldpass.type = "password";
 
-    // show and hide password buttons
     showPassButtonOld.toggleAttribute('hidden');
 }
 

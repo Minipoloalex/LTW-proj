@@ -29,7 +29,6 @@ function handleEdit(editFaqBtn) {
     answer.toggleAttribute('readonly');
     answer.classList.toggle("input-readonly");
     answer.classList.toggle("input-write");
-
   }
 
   editFaqBtn.addEventListener('click', () => {
@@ -37,16 +36,9 @@ function handleEdit(editFaqBtn) {
   });
 
   saveFaqBtn.addEventListener('click', async () => {
-    console.log(question.value);
-    console.log(answer.value);
-
     const json = await putData('../api/api_FAQ.php', { 'id': faq.getAttribute("data-id"), 'question': question.value, 'answer': answer.value });
-
-    if (json['error']) {
-      displayFeedback(feedback,json);
-    }
-    else {
-      console.log("success");
+    displayFeedback(feedback,json);
+    if (json['success']) {
       displayFeedback(feedback, json);
       toggle();
     }
@@ -96,21 +88,16 @@ function handleDelete(deleteFaqBtn) {
       displayFeedback(feedback, json, true);
     }
   });
-
 };
 
 function handleAnswer(answerBtn) {
   const faq = answerBtn.parentElement;
   const feedback = faq.nextElementSibling;
-  console.log(feedback);
   const question = faq.querySelector('#question');
   const answer = faq.querySelector('#answer');
-  const saveFaqBtn = faq.querySelector('#saveFaqBtn');
   const editFaqBtn = faq.querySelector('#editFaqBtn');
-  const deleteFaqBtn = faq.querySelector('#deleteFaqBtn');
   const displayBtn = faq.querySelector('#displayBtn');
   const saveAnsBtn = faq.querySelector('#saveAnswerBtn');
-  // deleteFaqBtn.toggleAttribute('hidden');
 
   const toggle = () => {
     answerBtn.toggleAttribute('hidden');
@@ -119,8 +106,6 @@ function handleAnswer(answerBtn) {
     answer.toggleAttribute('readonly');
     answer.classList.toggle("input-readonly");
     answer.classList.toggle("input-write");
-
-    // saveFaqBtn.toggleAttribute('hidden');
   }
 
   const appear = () => {
@@ -137,15 +122,11 @@ function handleAnswer(answerBtn) {
   });
 
   saveAnsBtn.addEventListener('click', async () => {
-    console.log(question.value);
-    console.log(answer.value);
-
     const json = await putData('../api/api_FAQ.php', {
       'id': faq.getAttribute("data-id"),
       'question': question.value,
       'answer': answer.value
     });
-    
     displayFeedback(feedback,json);
 
     if (json['success']) {
@@ -154,7 +135,6 @@ function handleAnswer(answerBtn) {
       saveAnsBtn.remove();
     }
   });
-
 };
 
 function handleDisplay(displayBtn) {
@@ -197,7 +177,6 @@ function handleHide(hideBtn) {
     }
   })
 };
-
 
 if (editFaqBtns) {
   editFaqBtns.forEach((editFaqBtn) => {

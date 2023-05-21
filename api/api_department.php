@@ -44,7 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
   }
   $department_name = $_POST['department_name'];
-  error_log("department_name: " . $department_name);
   if (isset($department_name)) {
     if (Department::getByName($db, $department_name) !== NULL){
       http_response_code(409); // Conflict

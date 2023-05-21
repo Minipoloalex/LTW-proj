@@ -49,7 +49,6 @@ async function getFilterValues(cardType) {
     }
   }
   if (json['error']) {
-    console.error(json['error']);
     return;
   }
   const data = json;

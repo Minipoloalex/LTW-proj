@@ -40,8 +40,6 @@ CREATE TABLE ADMIN(
     FOREIGN KEY (UserID) REFERENCES AGENT(UserID) ON DELETE CASCADE
 );
 
-/* admin <- agent <- client */
-
 CREATE TABLE TICKET(
     TicketID INTEGER,
     Title VARCHAR(50),
@@ -57,8 +55,6 @@ CREATE TABLE TICKET(
     FOREIGN KEY (UserID) REFERENCES CLIENT(UserID) ON DELETE CASCADE,
     FOREIGN KEY (AssignedAgent) REFERENCES AGENT(UserID) ON DELETE SET NULL,
     FOREIGN KEY (DepartmentID) REFERENCES DEPARTMENT(DepartmentID) ON DELETE SET NULL
-    
-    /*List all changes done to a ticket (e.g., status changes, assignments, edits).*/
 );
 
 CREATE TABLE DEPARTMENT(
@@ -72,7 +68,7 @@ CREATE TABLE HASHTAG(
     HashtagName VARCHAR(50)
 );
 
-CREATE TABLE HASHTAG_TICKET(    /* many to many */
+CREATE TABLE HASHTAG_TICKET(
     TicketID INTEGER,
     HashtagID INTEGER,
     FOREIGN KEY (TicketID) REFERENCES TICKET(TicketID) ON DELETE CASCADE,
@@ -84,7 +80,7 @@ CREATE TABLE ACTION(
     ActionID INTEGER PRIMARY KEY,
     TicketID INTEGER,
     UserID INTEGER,
-    Type VARCHAR(255), /*open, process, close, transfer*/
+    Type VARCHAR(255),
     TimeStamp INTEGER NOT NULL,
 
     FOREIGN KEY (TicketID) REFERENCES TICKET(TicketID) ON DELETE CASCADE,

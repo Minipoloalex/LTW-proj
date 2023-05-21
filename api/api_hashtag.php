@@ -39,9 +39,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo_json_csrf($session, array('error' => 'Missing hashtag parameter'));
         exit();
     }
-    error_log($_POST['hashtagName']);
     $hashtagName = transform_hashtag($_POST['hashtagName']);
-    error_log($hashtagName);
     if (!is_valid_hashtag_name($hashtagName)) {
         http_response_code(400); // Bad request
         echo_json_csrf($session, array('error' => 'Hashtag name must have at most 20 characters and only contain letters or underscores.'));

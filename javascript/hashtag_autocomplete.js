@@ -26,7 +26,6 @@ async function addHashtag(event) {
         const hashtagItems = hashtagList.querySelectorAll("input");
         for (const item of hashtagItems) {
             if (parseInt(item.value) === hashtagID || parseInt(item.id) === hashtagID) {
-                console.log("Hashtag is already present in the UI");
                 return;
             }
         }
@@ -57,7 +56,7 @@ function removeHashtagItem(event) {
     hashtagArticle.remove();
 }
 
-function addToDataList(hashtag) {   // called from X (remove hashtag) eventListener
+function addToDataList(hashtag) {
     const hashtagDataList = document.getElementById("hashtag-datalist");
     const newHashtagItem = document.createElement("option");
     newHashtagItem.value = hashtag;
