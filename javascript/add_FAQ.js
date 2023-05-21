@@ -107,10 +107,10 @@ if (form) {
                 message.textContent = 'Are you sure you want to delete?';
                 modalContent.appendChild(message);
 
-                const deleteButton = document.createElement('button');
-                deleteButton.classList.add('confirm-del');
-                deleteButton.textContent = 'Delete';
-                modalContent.appendChild(deleteButton);
+                const deleteButtonModal = document.createElement('button');
+                deleteButtonModal.classList.add('confirm-del');
+                deleteButtonModal.textContent = 'Delete';
+                modalContent.appendChild(deleteButtonModal);
 
                 modal.appendChild(modalContent);
 

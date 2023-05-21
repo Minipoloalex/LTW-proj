@@ -125,7 +125,7 @@ function throttle(callback, time) {
 const handleInfiniteScroll = () => {
   throttle(() => {
     const endOfPage =
-      window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight-10;
+      window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight - 10;
     if (currentPage === pageCount) {
       removeInfiniteScroll();
     } else if (endOfPage) {
@@ -191,7 +191,7 @@ function getCards(content) {
 
 
 async function getPartialTickets() {
-  return await getData('../api/api_ticket.php', {'pageType': pageType});
+  return await getData('../api/api_ticket.php', { 'pageType': pageType });
 }
 
 async function getPartialDepartments() {
@@ -324,62 +324,43 @@ async function drawUserCard(card, curr) {
   contentDiv.appendChild(nrTicketsAssignedSpan);
   contentDiv.appendChild(document.createElement("br"));
 
-  const deleteCardBtn = document.createElement('button');
-  deleteCardBtn.classList.add('delete-faq');
-  deleteCardBtn.classList.add('delete-card');
-  deleteCardBtn.classList.add('openModal');
+  const deleteCardBtn = document.createElement("button");
+  deleteCardBtn.classList.add("delete-faq");
+  deleteCardBtn.classList.add("delete-card");
+  deleteCardBtn.classList.add("openModal");
   // deleteCardBtn.setAttribute('id', 'deleteFaqBtn');
   deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
   contentDiv.appendChild(deleteCardBtn);
 
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
+  modal.classList.add("d-none");
+
+  const modalContent = document.createElement("div");
+  modalContent.classList.add("modalContent");
+
+  const closeButton = document.createElement("span");
+  closeButton.classList.add("close");
+  closeButton.textContent = '×';
+  modalContent.appendChild(closeButton);
+
+  const message = document.createElement("p");
+  message.textContent = "Are you sure you want to delete this user?";
+  modalContent.appendChild(message);
+
+  const deleteButtonModal = document.createElement("button");
+  deleteButtonModal.classList.add("confirm-del");
+  deleteButtonModal.textContent = "Delete";
+  modalContent.appendChild(deleteButtonModal);
+
+  modal.appendChild(modalContent);
+
+
   article.appendChild(header);
   article.appendChild(contentDiv);
+  article.appendChild(modal);
   card.appendChild(article);
 
-  // card.innerHTML = `
-  //   <article>
-  //     <header>
-  //       <span class="card-title">${curr.name}</span>
-  //     </header>
-
-  //     <div>
-  //       <label>Username: </label> <br>
-  //       <span class="card-info">${curr.username}</span><br>
-
-  //       <label>Email: </label><br>
-  //       <span class="card-info card-email">${curr.email}</span><br>
-
-        
-  //       <label>Department: </label>
-  //       <select class="department-select" ${curr.user_type === 'Client' ? "disabled" : ""}>
-  //         <option value=''>None</option>
-  //         ${curr.user_type !== 'Client' ?
-  //     deps.map(dep => `<option value="${dep.departmentId}" ${curr.department === dep.departmentName ? 'selected' : ''}>${dep.departmentName}</option>`).join('') :
-  //     deps.map(dep => `<option value="${dep.departmentId}">${dep.departmentName}</option>`).join('')}
-  //         </select><br>
-      
-
-  //       <label>Role: </label>
-  //       <select class="user-type-select">
-  //         <option value="Client" ${curr.user_type === 'Client' ? 'selected' : ''}>Client</option>
-  //         <option value="Agent" ${curr.user_type === 'Agent' ? 'selected' : ''}>Agent</option>
-  //         <option value="Admin" ${curr.user_type === 'Admin' ? 'selected' : ''}>Admin</option>
-  //       </select><br>
-
-  //       <label>Created tickets: </label>
-  //       <span class="card-info">${curr.nr_tickets_created}</span><br>
-
-  //       <label>Solved tickets: </label>
-  //       <span class="card-info">${curr.nr_tickets_assigned}</span><br>
-
-  //       <button class="delete-faq delete-card openModal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
-
-  //     </div>
-  //   </article>
-  // `;
-
-  // const departmentSelect = card.querySelector('.department-select');
-  // const userTypeSelect = card.querySelector('.user-type-select');
 
   departmentSelect.addEventListener('change', async function () {
     const json = await patchData('../api/api_user.php', { id: curr.id, user_type: userTypeSelect.value, department: departmentSelect.value });
@@ -413,7 +394,7 @@ function drawDepartmentCard(card, curr) {
   card.setAttribute("data-id", curr.departmentId);
   card.setAttribute("data-type", cardType);
   const article = document.createElement("article");
-  
+
   const header = document.createElement("header");
   const titleSpan = document.createElement("span");
   titleSpan.classList.add("card-title");
@@ -450,32 +431,37 @@ function drawDepartmentCard(card, curr) {
   deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
   contentDiv.appendChild(deleteCardBtn);
 
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
+  modal.classList.add("d-none");
+
+  const modalContent = document.createElement("div");
+  modalContent.classList.add("modalContent");
+
+  const closeButton = document.createElement("span");
+  closeButton.classList.add("close");
+  closeButton.textContent = '×';
+  modalContent.appendChild(closeButton);
+
+  const message = document.createElement("p");
+  message.textContent = "Are you sure you want to delete this user?";
+  modalContent.appendChild(message);
+
+  const deleteButtonModal = document.createElement("button");
+  deleteButtonModal.classList.add("confirm-del");
+  deleteButtonModal.textContent = "Delete";
+  modalContent.appendChild(deleteButtonModal);
+
+  modal.appendChild(modalContent);
+
   article.appendChild(header);
   article.appendChild(contentDiv);
+  article.appendChild(modal);
   card.appendChild(article);
 
   handleDeleteCard(deleteCardBtn);
 
   console.log(card);
-  /*
-  card.innerHTML = `
-  <article>
-  <header>
-  <span class="card-title">${curr.departmentName}</span>
-  </header>
-
-  <div>
-    <label>Number of tickets:</label>
-    <span class="card-info">${curr.nrTickets}</span><br>
-
-    <label>Number of agents:</label>
-    <span class="card-info">${curr.nrAgents}</span><br>
-  
-    <button class="delete-faq delete-card openModal" title="Delete"><span class="material-symbols-outlined">delete</span></button>
-  
-  </div>
-  </article>
-  `;*/
 }
 
 
@@ -574,11 +560,36 @@ function drawTicketCard(card, curr) {
   deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
   contentDiv.appendChild(deleteCardBtn);
 
+  const modal = document.createElement("div");
+  modal.classList.add("modal");
+  modal.classList.add("d-none");
+
+  const modalContent = document.createElement("div");
+  modalContent.classList.add("modalContent");
+
+  const closeButton = document.createElement("span");
+  closeButton.classList.add("close");
+  closeButton.textContent = '×';
+  modalContent.appendChild(closeButton);
+
+  const message = document.createElement("p");
+  message.textContent = "Are you sure you want to delete this user?";
+  modalContent.appendChild(message);
+
+  const deleteButtonModal = document.createElement("button");
+  deleteButtonModal.classList.add("confirm-del");
+  deleteButtonModal.textContent = "Delete";
+  modalContent.appendChild(deleteButtonModal);
+
+  modal.appendChild(modalContent);
+
   link.appendChild(header);
   link.appendChild(contentDiv);
   article.appendChild(link);
+  article.appendChild(modal);
+  // article.appendChild(feedback);
   card.appendChild(article);
-  
+
   handleDeleteCard(deleteCardBtn);
 
   console.log(card);
@@ -600,13 +611,13 @@ function drawTicketCard(card, curr) {
 const skeletonCards = document.querySelectorAll('.skeleton-card');
 window.addEventListener('resize', updateSkeletonCards);
 
-if(cardType === 'department') {
+if (cardType === 'department') {
   skeletonCards.forEach((card) => {
     card.classList.add('small-card');
   });
 }
 function updateSkeletonCards() {
-  if (skeletonCards.length > 0 ) {
+  if (skeletonCards.length > 0) {
     // Adjust the width according to your card size
     const cardsPerRow = Math.floor(cardContainer.clientWidth / cardWidth);
 
@@ -629,7 +640,7 @@ if (cardContainer) {
 }
 
 
-function noValues(message){
+function noValues(message) {
   const noCards = document.getElementById("no-cards");
   noCards.textContent = message;
   loader.remove();
@@ -638,32 +649,62 @@ function noValues(message){
   noCards.classList.toggle("d-none");
 }
 
-function handleDeleteCard(deleteCardBtn){
+function handleDeleteCard(deleteCardBtn) {
   let card;
   if (cardType === 'ticket') {
-   card = deleteCardBtn.parentElement.parentElement.parentElement.parentElement;
+    card = deleteCardBtn.parentElement.parentElement.parentElement.parentElement;
   } else {
     card = deleteCardBtn.parentElement.parentElement.parentElement;
   }
   console.log(card);
   const cardId = card.getAttribute("data-id");
-  // const cardType = card.getAttribute("data-type");
-  // const feedback = card.nextElementSibling;
+  // const feedback = card.querySelector('.feedback-message');
   console.log(cardId);
   console.log(cardType);
-  deleteCardBtn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    const json = await deleteData(`../api/api_${cardType}.php`, {id: cardId});
+
+  const modal = card.querySelector(".modal");
+  const modalContent = modal.querySelector(".modalContent");
+  const x = modal.querySelector(".close");
+  const confirm = modal.querySelector(".confirm-del");
+
+  deleteCardBtn.addEventListener('click', async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    toggleModal();
+    document.addEventListener('click', clickOnDocument);
+  });
+
+  x.addEventListener("click", () => {
+    toggleModal();
+    document.removeEventListener('click', clickOnDocument);
+  });
+
+  function toggleModal() {
+    modal.classList.toggle("d-none");
+  }
+
+  function clickOnDocument(event) {
+    if (modalContent.contains(event.target)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    toggleModal();
+    document.removeEventListener('click', clickOnDocument);
+  }
+
+  confirm.addEventListener("click", async () => {
+    const json = await deleteData(`../api/api_${cardType}.php`, { id: cardId });
     if (json['error']) {
-    console.error(json['error']);
-    } else {
-    // displayFeedback(feedback,json);
-    card.remove();
-    cardCountElem.innerHTML = cardCountElem.innerHTML - 1;
-    cardTotalElem.innerHTML = cardTotalElem.innerHTML - 1;
-    if (cardCountElem.innerHTML == 0) {
-      noValues("No tickets found");
+      console.error(json['error'])
+      // displayFeedback(feedback, json);
     }
+    else {
+      card.remove();
+      cardCountElem.innerHTML = cardCountElem.innerHTML - 1;
+      cardTotalElem.innerHTML = cardTotalElem.innerHTML - 1;
+      if (cardCountElem.innerHTML == 0) {
+        noValues("No tickets found");
+      }
+      // displayFeedback(feedback, json, true);
     }
   });
 }

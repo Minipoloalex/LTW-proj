@@ -122,6 +122,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
   }
   http_response_code(200); // OK
   echo_json_csrf($session, array('success' => 'User deleted'));
+  if ($id === $session->getId()) {
+    $session->logout();
+    // exit(header('Location: ../pages/landing_page.php'));
+    // header('Location: ../actions/action_logout.php');
+  }
   exit();
 }
 
