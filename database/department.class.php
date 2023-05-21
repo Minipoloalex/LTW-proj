@@ -11,14 +11,6 @@ class Department {
         $this->nrTickets = $nrTickets;
         $this->nrAgents = $nrAgents;
     }
-
-    // public function __constructOptional(int $departmentId, string $departmentName, int $nrTickets, int $nrAgents) {
-    //     $this->departmentId = $departmentId;
-    //     $this->departmentName = $departmentName;
-    //     $this->nrTickets = $nrTickets;
-    //     $this->nrAgents = $nrAgents;
-    // }
-
     static public function getDepartments(PDO $db): array {
         $stmt = $db->prepare('SELECT DepartmentID, DepartmentName FROM DEPARTMENT');
         $stmt->execute();
@@ -34,7 +26,6 @@ class Department {
     }
 
     static public function filterDepartments(PDO $db, int $page = 1): array {
-        // $query = 'SELECT DepartmentID, DepartmentName FROM DEPARTMENT ';
         $query = '
                 SELECT  DepartmentID,
                         DepartmentName, 
@@ -58,8 +49,8 @@ class Department {
         $stmt1->execute();
         $count = intval($stmt1->fetch()['c']);
         
-        $query .= " LIMIT 12 OFFSET ?;";
-        $params[] = ($page - 1) * 12;
+        $query .= " LIMIT 24 OFFSET ?;";
+        $params[] = ($page - 1) * 24;
         $stmt2 = $db->prepare($query);
         $stmt2->execute($params);
         $departments = array();

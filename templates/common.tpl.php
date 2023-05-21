@@ -45,27 +45,15 @@ require_once(__DIR__ . '/../utils/session.php');
     <link rel="stylesheet" href="../css/hashtags.css">
 
 
-    <!---navbar icons--->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <!-- -->
-    <!-- <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
-    <!-- -->
-    <!-- <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
-    <!--ticket-->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
       integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!---FAQ icons--->
-  <!-- <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
 </head>
 
-<body data-csrf="<?=$session->getCsrf()?>">
+<body data-csrf="<?=$session->getCsrf()?>" data-userType="<?=$type?>">
     <nav class="navbar">
       <ul class="navbar-nav">
         <li class="logo"><a href="../pages/main_page.php"><img src="../css/images/logo.png" alt="logo"></a></li>
@@ -244,13 +232,13 @@ function output_session_message(Session $session, string $id) {
                     outputDropdownOption($name, $fv, $fv);
                     break;
                 case 'department':
-                    outputDropdownOption($name, $fv['DepartmentName'], strval($fv['DepartmentID']));
+                    outputDropdownOption($name, $fv->departmentName, strval($fv->departmentId));
                     break;
                 case 'agent':
-                    outputDropdownOption($name, $fv['Username'], strval($fv['UserID']));
+                    outputDropdownOption($name, $fv->username, strval($fv->id));
                     break;
                 case 'hashtags':
-                    outputDropdownOption($name, $fv['HashtagName'], strval($fv['HashtagID']));
+                    outputDropdownOption($name, $fv->hashtagname, strval($fv->hashtagid));
                     break;
                 default:
                     error_log("Invalid type");

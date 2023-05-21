@@ -16,7 +16,7 @@ if (!is_valid_email($_POST['email'])) {
   die(header('Location: ../pages/landing_page.php'));
 }
 if (!is_valid_string($_POST['password'])) {
-  $session->addMessage('error', 'Empty password! Please fill in your password');
+  $session->addMessage('error', 'Empty password! Please fill in your password.');
   die(header('Location: ../pages/landing_page.php'));
 }
 

@@ -116,15 +116,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH'){
         echo_json_csrf($session, array('error' => 'You are not authorized.'));
         exit();
     }
-
-    // verify if all parameters are set
     if (!isset($_GET['displayed'])) {
         http_response_code(400); // Bad request
         echo_json_csrf($session, array('error' => 'There are missing parameters.'));
         exit();
     }
-
-    // verify is displayed is valid (0 or 1)
     if (!($_GET['displayed'] === '0' || $_GET['displayed'] === '1')) {
         http_response_code(400); // Bad request
         echo_json_csrf($session, array('error' => 'Invalid parameters.'));

@@ -10,6 +10,7 @@ let cardLimit;
 let cardIncrease;
 let currentPage;
 let pageCount;
+const userType = document.querySelector("body").getAttribute("data-userType");
 let cardType = 'invalid';
 let pageType = 'invalid';
 if (title) {
@@ -25,13 +26,13 @@ function updateCardIncrease() {
   const cardsPerRow = Math.floor(cardContainer.clientWidth / cardWidth);
 
   if (cardsPerRow >= 4) {
-    cardIncrease = 4;
+    cardIncrease = (cardType === 'department') ? 8 : 4;
   } else if (cardsPerRow === 3) {
-    cardIncrease = 3;
+    cardIncrease = (cardType === 'department') ? 6 : 3;
   } else if (cardsPerRow === 2) {
-    cardIncrease = 2;
+    cardIncrease = (cardType === 'department') ? 4 : 2;
   } else {
-    cardIncrease = 1;
+    cardIncrease = (cardType === 'department') ? 2 : 1;
   }
 }
 
@@ -81,25 +82,25 @@ function createCard(index) {
 }
 
 async function queryMore(endRange) {
-  if (endRange % 12 == 0) {
+  if (endRange % 24 == 0) {
 
     switch (cardType) {
       case 'ticket': {
-        const json = await getTicketsByPage(checkedValues, pageType, (endRange / 12) + 1);
+        const json = await getTicketsByPage(checkedValues, pageType, (endRange / 24) + 1);
         data.tickets = data.tickets.concat(json.tickets);
         data.count = json.count;
         cardLimit = data.count;
         break;
       }
       case 'user': {
-        const json = await getUsersByPage(checkedValues, (endRange / 12) + 1);
+        const json = await getUsersByPage(checkedValues, (endRange / 24) + 1);
         data.users = data.users.concat(json.users);
         data.count = json.count;
         cardLimit = data.count;
         break;
       }
       case 'department': {
-        const json = await getDepartmentsByPage(checkedValues, (endRange / 12) + 1);
+        const json = await getDepartmentsByPage(checkedValues, (endRange / 24) + 1);
         data.departments = data.departments.concat(json.departments);
         data.count = json.count;
         cardLimit = data.count;
@@ -176,6 +177,10 @@ if (cardContainer) {
 function getCards(content) {
   data = content;
   cardContainer.innerHTML = '';
+  if (data.count === 0) {
+    noValues(`No ${cardType}s found`);
+    return;
+  }
   cardLimit = data.count;
   cardTotalElem.innerHTML = cardLimit;
   pageCount = Math.ceil(cardLimit / cardIncrease);
@@ -325,40 +330,45 @@ async function drawUserCard(card, curr) {
   contentDiv.appendChild(nrTicketsAssignedSpan);
   contentDiv.appendChild(document.createElement("br"));
 
-  const deleteCardBtn = document.createElement("button");
-  deleteCardBtn.classList.add("delete-faq");
-  deleteCardBtn.classList.add("delete-card");
-  deleteCardBtn.classList.add("openModal");
-  deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
-  contentDiv.appendChild(deleteCardBtn);
-
-  const modal = document.createElement("div");
-  modal.classList.add("modal");
-  modal.classList.add("d-none");
-
-  const modalContent = document.createElement("div");
-  modalContent.classList.add("modalContent");
-
-  const closeButton = document.createElement("span");
-  closeButton.classList.add("close");
-  closeButton.textContent = '×';
-  modalContent.appendChild(closeButton);
-
-  const message = document.createElement("p");
-  message.textContent = "Are you sure you want to delete this user?";
-  modalContent.appendChild(message);
-
-  const deleteButtonModal = document.createElement("button");
-  deleteButtonModal.classList.add("confirm-del");
-  deleteButtonModal.textContent = "Delete";
-  modalContent.appendChild(deleteButtonModal);
-
-  modal.appendChild(modalContent);
-
-
   article.appendChild(header);
   article.appendChild(contentDiv);
-  article.appendChild(modal);
+
+  let deleteCardBtn;
+  if (userType === 'Admin') {
+    deleteCardBtn = document.createElement("button");
+    deleteCardBtn.classList.add("delete-faq");
+    deleteCardBtn.classList.add("delete-card");
+    deleteCardBtn.classList.add("openModal");
+    deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
+    contentDiv.appendChild(deleteCardBtn);
+
+    const modal = document.createElement("div");
+    modal.classList.add("modal");
+    modal.classList.add("d-none");
+
+    const modalContent = document.createElement("div");
+    modalContent.classList.add("modalContent");
+
+    const closeButton = document.createElement("span");
+    closeButton.classList.add("close");
+    closeButton.textContent = '×';
+    modalContent.appendChild(closeButton);
+
+    const message = document.createElement("p");
+    message.textContent = "Are you sure you want to delete this user?";
+    modalContent.appendChild(message);
+
+    const deleteButtonModal = document.createElement("button");
+    deleteButtonModal.classList.add("confirm-del");
+    deleteButtonModal.textContent = "Delete";
+    modalContent.appendChild(deleteButtonModal);
+
+    modal.appendChild(modalContent);
+
+    article.appendChild(modal);
+  }
+
+
   card.appendChild(article);
 
 
@@ -383,7 +393,8 @@ async function drawUserCard(card, curr) {
     console.log(json);
   });
 
-  handleDeleteCard(deleteCardBtn);
+  if ( userType === 'Admin') handleDeleteCard(deleteCardBtn);
+
 
 }
 
@@ -589,8 +600,6 @@ function drawTicketCard(card, curr) {
   handleDeleteCard(deleteCardBtn);
 
   console.log(card);
-
-  // Add class to set background color based on priority value
   if (curr.priority === 'high') {
     card.querySelector('.card-priority').classList.add('highP');
   } else if (curr.priority === 'medium') {
@@ -634,7 +643,6 @@ function updateSkeletonCards() {
 if (cardContainer) {
   updateSkeletonCards(); // Call the function on page load
 }
-
 
 function noValues(message) {
   const noCards = document.getElementById("no-cards");

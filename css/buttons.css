@@ -6,16 +6,18 @@ button {
   font-size: 0.9rem; /* or any other appropriate font size */
   border: none;
   border-radius: 10px;
-  padding: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: fit-content;
   margin: 0 auto;
+  font-family: 'Martel Sans', sans-serif;
+  padding: 0.3rem 0.5rem 0.2rem;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+  font-family: 'Martel Sans', sans-serif;
 }
 
 button:hover {
@@ -29,16 +31,25 @@ div.buttons {
   gap: 2rem;
 }
 
-div.buttons.center { /* use this for centered buttons */
+div.buttons.center { 
   justify-content: center;
 }
-div.buttons.left { /* use this for left-aligned buttons */
+div.buttons.left { 
   justify-content: flex-start;
 }
 div.buttons button {
   margin-left: 0;
   margin-right: 0;
+  width: fit-content;
 }
+
 button.inactive {
   opacity: 50%;
+}
+
+@media screen and (min-width: 768px) {
+
+  #faq-form.textarea-form button {
+    width: 10%;
+  }
 }

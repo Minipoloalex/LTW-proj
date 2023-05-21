@@ -33,11 +33,9 @@ require_once(__DIR__ . '/common.tpl.php');
 					<span class="close">×</span>
 				<p>Are you sure you want to delete this FAQ?</p>
 					<button class="confirm-del">Delete</button>
-					<!-- <button class="cancel" onclick="hideModal()">Cancel</button> -->
 				</div>
 			</div>
 
-			<!-- // !FIXME: esta verificação tem que passar para js. Todos têm que ter este botão. -->
 			<?php if ($faq->answer === NULL) { ?>
 				<button id="answerFaq" class="answer-faq">Answer question</button>
 				<button id="saveAnswerBtn" class="save-answer" hidden>Save answer</button>
@@ -64,7 +62,6 @@ require_once(__DIR__ . '/common.tpl.php');
 <?php function output_faq_form(Forum $faq = null)
 { ?>
 	<header class="faq-page">
-		<!-- <h2 class="faq-header">Frequently Asked Questions</h2> -->
 		<p>Browse our FAQs for quick answers to common questions! If you can't find what you're looking for, use the form
 			below to ask a question about our service. Our agents will answer your question as soon as possible.
 		</p>

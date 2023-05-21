@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
     exit();
   }
   $id = intval($_GET['id']);
+
   $new_user_type = $_GET['user_type'];
   $department = ($_GET['department'] === '' ? NULL : intval($_GET['department']));
   $curr_user_type = Client::getType($db, $id);
@@ -58,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
     } else if ($new_user_type === 'Admin') {
       Client::upgradeToAdminFromClient($db, $id);
     }
-
   } elseif ($curr_user_type === 'Agent') {
     if ($new_user_type === 'Client') {
       Client::demoteToClient($db, $id);
@@ -66,6 +66,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
       Client::upgradeToAdminFromAgent($db, $id);
     }
   } else if ($curr_user_type === 'Admin') {
+    if ($curr_user_type !== $new_user_type && $id === $session->getId()) {
+      http_response_code(400); // Bad Request
+      echo_json_csrf($session, array('error' => 'Demoting your own account is not allowed'));
+      exit();
+    }
     if ($new_user_type === 'Client') {
       Client::demoteToClient($db, $id);
     } else if ($new_user_type === 'Agent') {
@@ -114,6 +119,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
   }
   
   $id = intval($_GET['id']);
+  if ($id === $session->getId()) {
+    http_response_code(400); // Bad Request
+    echo_json_csrf($session, array('error' => 'Deleting own account is not allowed'));
+    exit();
+  }
   $success = Client::deleteAccount($db, $id);
   if (!$success) {
     http_response_code(500); // Internal Server Error
@@ -122,11 +132,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
   }
   http_response_code(200); // OK
   echo_json_csrf($session, array('success' => 'User deleted'));
-  if ($id === $session->getId()) {
-    $session->logout();
-    // exit(header('Location: ../pages/landing_page.php'));
-    // header('Location: ../actions/action_logout.php');
-  }
   exit();
 }
 

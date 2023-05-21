@@ -170,11 +170,13 @@
 
 .card-info::-webkit-scrollbar{
   height: 5px;
+  width: 5px;
   background-color: #aaa;
 }
 
 .hashtags-container::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
   background-color: #aaa;
 }
 

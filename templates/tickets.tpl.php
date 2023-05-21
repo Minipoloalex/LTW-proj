@@ -16,13 +16,13 @@ require_once(__DIR__ . '/common.tpl.php');
         drawMenuTitle('Filters');
         ?>
         <section id="filter-section" class="menu hidden filter-section" data-type="<?=$type?>" data-pageType="<?=$pageType?>">
-            <div id="filter-values" class="filter-options">
+            <div class="filter-options" data-type="<?=$type?>" data-pageType="<?=$pageType?>">
                 <?php
                 drawDropdownTitle('Status');
                 drawDropdownOptions("status-section", "status", $filterValues[0], $type);
 
                 drawDropdownTitle('Priority');
-                drawDropdownOptions("priority-section", "priority", $filterValues[1], $type);
+                drawDropdownOptions("priority-section", "priorities", $filterValues[1], $type);
                 
                 drawDropdownTitle('Hashtags');
                 drawDropdownOptions("hashtags-section", "hashtags", $filterValues[2], $type, "hashtags");

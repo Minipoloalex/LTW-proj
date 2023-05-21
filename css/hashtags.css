@@ -70,16 +70,19 @@ ul.hashtag-list {
     padding: 0;
     list-style-type: none;
     margin-top: 2rem;
-}
-
-li.list-hashtags {
+    overflow-x: scroll;
+  }
+  
+  li.list-hashtags {
     background-color: #ddd;
     margin: 0.5rem 0;
     border-radius: 5px;
     font-size: 0.9rem;
     padding: 0 0.5rem;
     width: fit-content;
-}
+    overflow: auto; /* Add this line */
+  }
+  
 
 .hashtag-options {
     margin-bottom: 20px;
@@ -109,4 +112,5 @@ li.list-hashtags {
 
 .hashtags-menu button {
     margin-left: 1rem;
+    padding: 0.3rem 0.5rem 0.2rem;
 }

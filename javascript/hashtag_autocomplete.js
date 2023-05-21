@@ -17,11 +17,8 @@ async function addHashtag(event) {
     event.preventDefault();
     const hashtag = input.value;
     const json = await getData('../api/api_hashtag.php', {'hashtagName': hashtag});
-    if (json['error']) {
-        console.error(json['error']);
-        return;
-    }
-    else if (json['success']) {
+    
+    if (json['success']) {
         input.value = "";
         const hashtagID = json['hashtagID'];
 

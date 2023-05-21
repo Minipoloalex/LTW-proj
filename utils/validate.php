@@ -48,7 +48,7 @@ function is_valid_password(?String $password): bool {
     return isset($password) && !empty($password) && preg_match('/' . get_password_regex() . '/', $password);
 }
 function is_valid_hashtag_name(?string $hashtag_name) {
-    return is_valid_string($hashtag_name) && strlen($hashtag_name) <= 20 && preg_match('/' . get_hashtag_regex() . '/', $hashtag_name);
+    return is_valid_string($hashtag_name) && strlen($hashtag_name) <= 21 && preg_match('/' . get_hashtag_regex() . '/', $hashtag_name);
 }
 function transform_hashtag(string $hashtag_name) {
     $hashtag_name = strtolower($hashtag_name);

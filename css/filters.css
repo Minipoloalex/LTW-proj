@@ -100,15 +100,21 @@ section.filter-section div.filter-options div.clicked + section {
 .filter-manage-hashtag-grid {
   display: grid;
   grid-template-rows: repeat(2, auto);
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: 8rem auto;
   grid-template-areas:
-  "filter-title   button"
+  "filter-title  button"
   "filter-section filter-section";
 }
-.filter-manage-hashtag-grid button {
+
+.filter-manage-hashtag-grid button{
+  margin: 0 0.5rem;
+}
+.filter-manage-hashtag-grid > button {
   grid-area: button;
+  justify-self: right;
   height: fit-content;
   margin: auto;
+  margin-right: 10%;
 }
 .filter-manage-hashtag-grid #filter-title {
   grid-area: filter-title;
@@ -116,3 +122,7 @@ section.filter-section div.filter-options div.clicked + section {
 .filter-manage-hashtag-grid #filter-section {
   grid-area: filter-section;
 }
+
+/* .filter-manage-hashtag-grid > button{
+margin-right: 10%;
+} */

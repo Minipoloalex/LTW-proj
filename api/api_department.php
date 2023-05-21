@@ -71,34 +71,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
   handle_check_admin($session, $db);
 
   $department_id = $_GET['id'] ?? NULL;
-
-  if (isset($department_id)) {
-    $department = Department::getById($db, intval($department_id));
-    if ($department === NULL) {
-      http_response_code(404); // Not found
-      echo_json_csrf($session, array('error' => 'Department not found.'));
-      exit();
-    }
-    $department_name = $department->departmentName;
-    $department_id = $department->departmentId;
-    
-    $success = Department::deleteDepartment($db, $department_id);
-    if (!$success) {
-      http_response_code(500); // Internal server error
-      echo_json_csrf($session, array('error' => 'Failed to delete department.'));
-      exit();
-    }
-    http_response_code(200); // OK
-    echo_json_csrf($session, array(
-      'success' => 'Deleted department "' . $department_name . '"'));
-    exit();
-
-  } else {
+  if (!is_valid_department_id($db, $department_id)) {
     http_response_code(400); // Bad request
-    echo_json_csrf($session, array('error' => 'Invalid request parameters.'));
+    echo_json_csrf($session, array('error' => 'Invalid department id parameter.'));
     exit();
   }
+  $department = Department::getById($db, intval($department_id));
+  if ($department === NULL) {
+    http_response_code(404); // Not found
+    echo_json_csrf($session, array('error' => 'Department not found.'));
+    exit();
+  }
+  $departmentName = $department->departmentName;
+  $departmentID = $department->departmentId;
+  
+  $success = Department::deleteDepartment($db, $departmentID);
+  if (!$success) {
+    http_response_code(500); // Internal server error
+    echo_json_csrf($session, array('error' => 'Failed to delete department.'));
+    exit();
+  }
+  http_response_code(200); // OK
+  echo_json_csrf($session, array(
+    'success' => 'Deleted department "' . $departmentName . '"'));
+  exit();
 }
+
 
 http_response_code(405); // Method not allowed
 echo json_encode(array('error' => 'Invalid request method.'));

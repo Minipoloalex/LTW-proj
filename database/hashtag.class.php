@@ -11,8 +11,8 @@ class Hashtag {
   }
 
   static function getHashtags(PDO $db) : array {
-      $stmt = $db->prepare('SELECT * FROM Hashtag ORDER BY HashtagName'); /* podia ser NAO PODE NADA SOFIA NAO FAÇAS ISSO :)) //Sergio (... (LIMIT ) .$count) e depois execute sem receber nenhum argumento -> nao é aconselhavel */
-      $stmt->execute(array()); // o execute leva os argumentos do ponto de interrogação
+      $stmt = $db->prepare('SELECT * FROM Hashtag ORDER BY HashtagName');
+      $stmt->execute();
   
       $hashtags = array();
       while ($hashtag = $stmt->fetch()) {

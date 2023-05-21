@@ -78,8 +78,8 @@ div.password-change button#changepass  {
   transition: background-color 0.3s ease;
   position: absolute;
   right: 5%;
-  margin-top: 0.3rem;
   width: fit-content;
+  margin-top: 0.6rem;
 }
 
 .profile-password-container button span.material-symbols-outlined {

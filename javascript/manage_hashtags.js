@@ -3,7 +3,7 @@ const newHashtagInp = document.querySelector('#add-new-hashtag input');
 const hashtagList = document.querySelector('.hashtag-list');
 const deleteHashtagButton = document.querySelector('button#delete-hashtag');
 const deletehashtagInp = document.querySelector('#delete-hashtag-form #hashtag-search');
-
+const hashtagFeedback = document.querySelector('#hashtag-feedback');
 if (addNewHashtagButton) {
     addNewHashtagButton.addEventListener('click', async (event) => {
         event.preventDefault();
@@ -19,6 +19,7 @@ if (addNewHashtagButton) {
             addToHashtagList(json['hashtagName']);
             newHashtagInp.value = '';
         }
+        displayFeedback(hashtagFeedback, json);
     });
 }
 
@@ -32,12 +33,14 @@ if(deleteHashtagButton){
         // displayFeedback(manageHashtags, json);
         if (json['error']) {
             console.log(json['error']);
+
         }
         else {
             removeFromDataList(hashtag);
             removeFromHashtagList(hashtag);
             deletehashtagInp.value = '';
         }
+        displayFeedback(hashtagFeedback, json);
     });
 }
 

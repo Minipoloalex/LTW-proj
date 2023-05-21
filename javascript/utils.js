@@ -40,7 +40,6 @@ async function urlFetch(path, data, method) {
 }
 async function postData(path, data) {
     data['csrf'] = getCsrf();
-    console.log(getCsrf());
     const json = await bodyFetch(path, data, 'POST');
     setCsrf(json['csrf']);
     return json;

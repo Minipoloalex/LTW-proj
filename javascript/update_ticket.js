@@ -40,19 +40,14 @@ async function updateTicketInformation(event) {
     }
     const json = await putData("../api/api_ticket.php",{
         'ticketID': ticketID,
-        'ticketID': ticketID,
         'department': ticketDepartment,
         'agent': ticketAgent,
         'priority': ticketPriority,
         'hashtags': ticketHashtagIDs,
     })
-    console.log(json)
     displayFeedback(ticketInfoFeedback, json)
-    if (json['error']) {
-        console.error(json['error'])
-    }
-    else if (json['success']) {
-        console.log(json['success'])
+
+    if (json['success']) {
         ticketStatus = document.querySelector("#individual-ticket #ticket-status")
         for (const status of ticketStatus.classList) {
             ticketStatus.classList.remove(status)
@@ -81,11 +76,7 @@ async function handleDepartmentSelect(event) {
     const departmentID = event.currentTarget.value;
     const agentSelect = document.querySelector("#ticket-info select[name='agent']");
     const json = await getData("../api/api_agent.php", {'departmentID': departmentID});
-    console.log(json);
 
-    if (json['error']) {
-        console.error(json['error']);
-    }
     if (json['success']) {
         agentSelect.innerHTML = "";
         
@@ -107,12 +98,7 @@ async function closeTicket(event) {
         'status': 'closed',
     });
     displayFeedback(ticketInfoFeedback, json);
-    if (json['error']) {
-        console.error(json['error']);
-    }
-    else if (json['success']) {
-        console.log(json['success']);
-
+    if (json['success']) {
         const status = document.querySelector("#individual-ticket #ticket-status");
         for (st of status.classList) {
             status.classList.remove(st);
@@ -120,59 +106,29 @@ async function closeTicket(event) {
         status.textContent = 'closed';
         status.classList.add("closed");
 
-        // Remove the forms
-        const answerForms = document.querySelector("#answer-forms");
-        if (answerForms) answerForms.remove();
+        removeOpenTicketForms();
+        const reopenTicketForm = createReopenTicketForm();
         
-        const priority = document.querySelector("#priority");
-        if (priority) priority.remove();
-        const department = document.querySelector("#department");
-        if (department) department.remove();
-        const agent = document.querySelector("#agent");
-        if (agent) agent.remove();
-        const hashtags = document.querySelector("#hashtags");
-        if (hashtags) hashtags.remove();
-        const closeTicket = document.querySelector("#close-ticket");
-        if (closeTicket) closeTicket.remove();
-        const updateTicket = document.querySelector("#update-ticket");
-        if (updateTicket) updateTicket.remove();
-
-
-        const reopenTicketForm = document.createElement("form");
-        reopenTicketForm.setAttribute("id", "reopen-ticket-form");
-        reopenTicketForm.setAttribute("method", "post");
-        reopenTicketForm.setAttribute("action", "../actions/action_reopen_ticket.php");
-        
-        const reopenTicketID = document.createElement("input");
-        reopenTicketID.setAttribute("type", "hidden");
-        reopenTicketID.setAttribute("id", "ticket-id");
-        reopenTicketID.setAttribute("name", "ticketID");
-        reopenTicketID.setAttribute("value", ticketID);
+        const reopenTicketID = createReopenTicketID(ticketID);
         reopenTicketForm.appendChild(reopenTicketID);
 
-        const reopenTicketCSRF = document.createElement("input");
-        reopenTicketCSRF.setAttribute("type", "hidden");
-        reopenTicketCSRF.setAttribute("name", "csrf");
-        reopenTicketCSRF.setAttribute("value", json['csrf']);
+        const reopenTicketCSRF = createReopenTicketCSRF(json['csrf']);
         reopenTicketForm.appendChild(reopenTicketCSRF);
 
-        const reopenTicketButton = document.createElement("button");
-        reopenTicketButton.setAttribute("id", "reopen-ticket");
-        reopenTicketButton.setAttribute("type", "submit");
-        reopenTicketButton.textContent = "Reopen Ticket";
+        const reopenTicketButton = createReopenTicketButton();
         reopenTicketForm.appendChild(reopenTicketButton);
         
         const prioritySpan = document.createElement("span");
         prioritySpan.setAttribute("id", "priority");
-        prioritySpan.textContent = "Priority: " + (json['priority'] ?? "None");
+        setTextContent(prioritySpan, "Priority: " + (json['priority'] ?? "None"));
         
         const departmentSpan = document.createElement("span");
         departmentSpan.setAttribute("id", "department");
-        departmentSpan.textContent = "Department: " + (json['department'] ?? "None");
+        setTextContent(departmentSpan, "Department: " + (json['department'] ?? "None"));
         
         const agentSpan = document.createElement("span");
         agentSpan.setAttribute("id", "agent");
-        agentSpan.textContent = "Agent: " + (json['agent'] ?? "None");
+        setTextContent(agentSpan, "Agent: " + (json['agent'] ?? "None"));
 
         const hashtagsDiv = document.createElement('div');
         hashtagsDiv.setAttribute("id", 'hashtags');
@@ -198,4 +154,52 @@ async function closeTicket(event) {
 
         addActionToDOM(json['action_username'], json['action_date'], json['action_text']);
     }
+}
+
+function removeOpenTicketForms() {
+    const answerForms = document.querySelector("#answer-forms");
+    if (answerForms) answerForms.remove();
+    
+    const priority = document.querySelector("#priority");
+    if (priority) priority.remove();
+    const department = document.querySelector("#department");
+    if (department) department.remove();
+    const agent = document.querySelector("#agent");
+    if (agent) agent.remove();
+    const hashtags = document.querySelector("#hashtags");
+    if (hashtags) hashtags.remove();
+    const closeTicket = document.querySelector("#close-ticket");
+    if (closeTicket) closeTicket.remove();
+    const updateTicket = document.querySelector("#update-ticket");
+    if (updateTicket) updateTicket.remove();
+}
+function createReopenTicketForm() {
+    const reopenTicketForm = document.createElement("form");
+    reopenTicketForm.setAttribute("id", "reopen-ticket-form");
+    reopenTicketForm.setAttribute("method", "post");
+    reopenTicketForm.setAttribute("action", "../actions/action_reopen_ticket.php");
+    return reopenTicketForm;
+}
+function createReopenTicketID(ticketID) {
+    const reopenTicketID = document.createElement("input");
+    reopenTicketID.setAttribute("type", "hidden");
+    reopenTicketID.setAttribute("id", "ticket-id");
+    reopenTicketID.setAttribute("name", "ticketID");
+    reopenTicketID.setAttribute("value", ticketID);
+    return reopenTicketID;
+}
+
+function createReopenTicketCSRF(csrf) {
+    const reopenTicketCSRF = document.createElement("input");
+    reopenTicketCSRF.setAttribute("type", "hidden");
+    reopenTicketCSRF.setAttribute("name", "csrf");
+    reopenTicketCSRF.setAttribute("value", csrf);
+    return reopenTicketCSRF;
+}
+function createReopenTicketButton() {
+    const reopenTicketButton = document.createElement("button");
+    reopenTicketButton.setAttribute("id", "reopen-ticket");
+    reopenTicketButton.setAttribute("type", "submit");
+    reopenTicketButton.textContent = "Reopen Ticket";
+    return reopenTicketButton;
 }

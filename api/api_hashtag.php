@@ -44,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     error_log($hashtagName);
     if (!is_valid_hashtag_name($hashtagName)) {
         http_response_code(400); // Bad request
-        echo_json_csrf($session, array('error' => 'Invalid hashtag name. Must have at most 20 characters'));
+        echo_json_csrf($session, array('error' => 'Hashtag name must have at most 20 characters and only contain letters or underscores.'));
         exit();
     }
     $hashtag = Hashtag::getByName($db, $hashtagName);

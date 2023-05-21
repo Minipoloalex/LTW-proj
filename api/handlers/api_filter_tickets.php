@@ -8,6 +8,14 @@ require_once(__DIR__ . '/../../database/ticket.class.php');
 
 function handle_filter_tickets(PDO $db, int $userID, ?string $dataPageType, ?string $dataAgents, ?string $dataDepartments,
 ?string $dataHashtags, ?string $dataPriorities, ?string $dataStatus, ?string $dataPage) {
+  error_log(print_r($dataPageType, true));
+  error_log(print_r($dataAgents, true));
+  error_log(print_r($dataHashtags, true));
+  error_log(print_r($dataPriorities, true));
+  error_log(print_r($dataStatus, true));
+  error_log(print_r($dataPage, true));
+  error_log(print_r($dataDepartments, true));
+  
   if (!is_valid_page_type($dataPageType)) {
     http_response_code(400); // Bad Request
     echo json_encode(array("error" => "Invalid page type"));

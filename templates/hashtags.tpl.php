@@ -15,7 +15,7 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
 <section id="hashtag-section" class="menu hashtags-menu">
     <div class="hashtag-options">
         <form id='add-new-hashtag'>
-            <input type="text" name="hashtag" placeholder="Hashtag" required>
+            <input maxlength="20" type="text" name="hashtag" placeholder="Hashtag" required>
             <button id="create-hashtag" type="submit">Add</button>
         </form>
         <form id='delete-hashtag-form'>
@@ -24,7 +24,11 @@ require_once(__DIR__ . '/../database/hashtag.class.php');
             ?>
         </form>
     </div>
-    <?php drawHashtagsList($hashtags); ?>
+
+    <?php 
+    output_empty_feedback_message('hashtag-feedback');
+    drawHashtagsList($hashtags);
+    ?>
 </section>
 
 <?php } ?>

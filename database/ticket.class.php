@@ -11,7 +11,7 @@ class Ticket implements JsonSerializable
   public string $title;
   public string $username;
   public string $status;
-  public int $submitdate; // $date = date('F j', $article['published']);
+  public int $submitdate;
   public ?string $priority;
   public array $hashtags;
   public string $description;
@@ -315,7 +315,9 @@ class Ticket implements JsonSerializable
     $stmt1->execute($params);
     $count = intval($stmt1->fetch()['c']);
 
-    $pageQuery .= " LIMIT 12 OFFSET " . ($page - 1) * 12 . ";";
+    $pageQuery .= " LIMIT 24 OFFSET ?;";
+    $params[] = ($page - 1) * 24;
+
     $stmt2 = $db->prepare($pageQuery);
     $stmt2->execute($params);
 
@@ -335,35 +337,15 @@ class Ticket implements JsonSerializable
     $filters = [];
     $status = ['open', 'assigned', 'closed'];
     $priorities = ['high', 'medium', 'low'];
-    $hashtags = [];
-    $agents = [];
-    $departments = [];
+    $hashtags = Hashtag::getHashtags($db);    
+    $agents = Agent::getAgents($db);
+    $departments = Department::getDepartments($db);
 
     $filters[] = $status;
     $filters[] = $priorities;
-
-    $stmt = $db->prepare('SELECT * from HASHTAG;');
-    $stmt->execute();
-    while ($ht = $stmt->fetch()) {
-      $hashtags[] = $ht;
-    }
     $filters[] = $hashtags;
-
-    $stmt = $db->prepare('SELECT UserID, Username FROM AGENT JOIN CLIENT USING(UserID);');
-    $stmt->execute();
-    while ($ag = $stmt->fetch()) {
-      $agents[] = $ag;
-    }
     $filters[] = $agents;
-
-    $stmt = $db->prepare('SELECT * FROM DEPARTMENT;');
-    $stmt->execute();
-    while ($dp = $stmt->fetch()) {
-      $departments[] = $dp;
-    }
     $filters[] = $departments;
-
-
     return $filters;
   }
   function isClosed()
@@ -391,7 +373,7 @@ class Ticket implements JsonSerializable
     );
     $stmt->execute();
     $counts = [];
-    while ($count = $stmt->fetch()) { // last line will have date = today
+    while ($count = $stmt->fetch()) {
       $counts[] = $count['count'];
     }
     return $counts;

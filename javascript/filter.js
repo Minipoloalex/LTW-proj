@@ -18,7 +18,6 @@ if (clearFilterBtn) {
 // !NOTE: Old way. Works
 
 async function getFilterValues(cardType) {
-  console.log("STARTING FUNCTION GET FILTER VALUES");
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   checkedValues = {};
   checkboxes.forEach(checkbox => {
@@ -36,8 +35,6 @@ async function getFilterValues(cardType) {
   });
   console.log(checkedValues);
 
-
-  // Fetch API
   let json;
   switch (cardType) {
     case 'ticket': {
@@ -64,10 +61,17 @@ async function getFilterValues(cardType) {
   console.log(json);
   const data = json;
   console.log("Filter: ", cardType);
+  // if (data.count !== 0) {
   getCards(data);
+  // } 
+  /*else {
+    console.log(cardContainer);
+    cardContainer.innerHTML = '';
+    noValues(`No ${cardType}s found`);
+  }*/
 }
 
-async function getTicketsByPage(checkedValues, pageType ,page = 0) {
+async function getTicketsByPage(checkedValues, pageType, page = 0) {
   const data = {...checkedValues, page: page, pageType: pageType};
   const path = '../api/api_ticket.php';
   return json = await getData(path, data);
@@ -93,8 +97,6 @@ function clearFilters(cardType) {
   getFilterValues(cardType);
 }
 
-
-/*dropdown */
 const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
 if (dropdownToggles) {
     dropdownToggles.forEach(dropdown => {
@@ -106,25 +108,3 @@ if (dropdownToggles) {
     });
   })
 }
-// const filterToggle = document.querySelector(".filter-toggle");
-// if (filterToggle) {
-//   const caretIcon = filterToggle.querySelector("i");
-
-//   filterToggle.addEventListener("click", function() {
-//     filterToggle.classList.toggle("clicked");
-//     caretIcon.classList.toggle("fa-caret-right");
-//     caretIcon.classList.toggle("fa-caret-down");
-//   });
-// }
-
-// const dropdowns = document.querySelectorAll("div.filter-options div");
-// dropdowns.forEach(dropdown => {
-
-//   const caretIcon = dropdown.querySelector("i");
-
-//   dropdown.addEventListener("click", () => {
-//     dropdown.classList.toggle("clicked");
-//     caretIcon.classList.toggle("fa-caret-right");
-//     caretIcon.classList.toggle("fa-caret-down");
-//   });
-// });

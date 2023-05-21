@@ -12,7 +12,7 @@ if (fileInput) {
 
     fileInput.addEventListener('change', () => {
         if (fileInput.files.length > 0) {
-          fileName.textContent = fileInput.files[0].name; // no need to decodeHTML (setTextContent)
+          fileName.textContent = fileInput.files[0].name;
           removeImageBtn.classList.remove('d-none');
           uploadImageBtn.classList.add('d-none');
         } else {

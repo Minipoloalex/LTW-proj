@@ -6,23 +6,15 @@ if (closedTicketsChart) {
 }
 async function createClosedTicketsChart(element) {
     const json = await getData('../api/api_ticket.php', {'request': 'closedTicketsLast7Days'});
-    console.log(json);
-    if (json['error']) {
-        console.error(json['error']);
-        return;
+    if (json['success']) {
+        newBarChart(element, json['tickets'], '# of Closed tickets');
     }
-    console.log(json['success']);
-    newBarChart(element, json['tickets'], '# of Closed tickets');
 }
 async function createOpenTicketsChart(element) {
     const json = await getData('../api/api_ticket.php', {'request': 'openTicketsLast7Days'});
-    console.log(json);
-    if (json['error']) {
-        console.error(json['error']);
-        return;
+    if (json['success']) {
+        newBarChart(element, json['tickets'], '# of Open tickets');
     }
-    console.log(json['success']);
-    newBarChart(element, json['tickets'], '# of Open tickets');
 }
 function newBarChart(element, data, chartLabel) {
     new Chart(element, {

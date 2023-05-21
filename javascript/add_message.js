@@ -39,11 +39,9 @@ async function submitNewMessage(event) {
 
     const messageText = messageInput.value;
     const ticketID = getIndividualTicketID();
-    console.log(messageText);
     messageInput.value = "";
 
     const json = await postNewMessage(messageText, ticketID, fileInput);
-    console.log(json);
     if (json['success']) {
         if (fileInput.files.length > 0) {
             addMessageWithFileToDOM(messagesList, json['text'], json['username'], json['date'], json['id']);

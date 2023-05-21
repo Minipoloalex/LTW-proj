@@ -63,28 +63,8 @@ class Forum
         }
         return $faqs;
     }
-
-    static function getFaq(PDO $db, string $question, string $answer): ?Forum
-    {
-        $stmt = $db->prepare('SELECT * FROM FORUM WHERE Question = ? AND Answer = ?');
-        $stmt->execute(array($question, $answer));
-
-        $faq = $stmt->fetch();
-        if (!$faq) {
-            return null;
-        }
-
-        return new Forum(
-            intval($faq['ForumID']),
-            $faq['Question'],
-            $faq['Answer'],
-            intval($faq['Displayed'])
-        );
-    }
-
     static function addFaq(PDO $db, string $question): Forum
     {
-        // $question = trim($question);
         $stmt = $db->prepare('INSERT INTO FORUM (Question) VALUES (?)');
         $stmt->execute(array($question));
 
@@ -95,32 +75,12 @@ class Forum
             0
         );
     }
-
-    static function getFaqWithoutAnswer(PDO $db, int $count): array
-    {
-        $stmt = $db->prepare('SELECT * FROM FORUM WHERE Answer IS NULL LIMIT ? ');
-        $stmt->execute(array($count));
-
-        $faqs = array();
-        while ($faq = $stmt->fetch()) {
-            $faqs[] = new Forum(
-                intval($faq['ForumID']),
-                $faq['Question'],
-                $faq['Answer'],
-                0
-            );
-        }
-        return $faqs;
-    }
-
     static function updateFaq(PDO $db, string $question, string $answer, string $forumID): Forum
     {
         $stmt = $db->prepare('UPDATE FORUM SET Question = ?, Answer = ? WHERE ForumID = ?');
 
         $id = intval($forumID);
         $stmt->execute(array($question, $answer, $id));
-
-        // print_r('UPDATE FORUM SET Question = ?, Answer = ? WHERE ForumID = ?');
 
         return new Forum(
             intval($forumID),
@@ -129,11 +89,9 @@ class Forum
             1
         );
     }
-
     static function deleteFaq(PDO $db, string $forumID): bool
     {
         $stmt = $db->prepare('DELETE FROM FORUM WHERE ForumID = ?');
-        // $id = intval($forumID);
         $stmt->execute(array($forumID));
         return $stmt->rowCount() > 0;
     }

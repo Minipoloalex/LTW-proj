@@ -7,7 +7,6 @@ require_once(__DIR__ . '/../../database/client.class.php');
 function handle_check_logged_in(Session $session) {
     if (!$session->isLoggedIn()) {
         http_response_code(401); // Unauthorized
-        // csrf may be required
         echo_json_csrf($session, array('error' => 'User not logged in'));
         exit();
     }

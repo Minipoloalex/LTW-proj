@@ -8,15 +8,14 @@ if (form) {
         const question = document.getElementById('question-form').value;
         const json = await postData('../api/api_FAQ.php', {'question': question});
 
+        displayFeedback(addFaqFeedback, json);
         if (json['error']) {
-            displayFeedback(addFaqFeedback, json);
+            
             form.reset();
             return;
         }
         else {
-            displayFeedback(addFaqFeedback, json);
             form.reset();
-
             const type = json['type'];
 
             if (type !== 'Client') {
