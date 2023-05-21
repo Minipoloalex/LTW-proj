@@ -127,7 +127,9 @@
   position: relative;
 }
 
-.card article div span.card-hashtags {
+
+/* .card article div span.card-hashtags  */
+.card-hashtags {
   background-color: #ddd;
   padding: 1px 6px;
   border-radius: 5px;
@@ -164,18 +166,23 @@
   overflow-wrap: anywhere;
 }
 
-.card-info::-webkit-scrollbar, .hashtags-container::-webkit-scrollbar {
-  height: 6px; /* Adjust the height of the scroll bar */
+/*scroll bar on cards*/
+
+.card-info::-webkit-scrollbar{
+  height: 5px;
+  background-color: #aaa;
 }
 
 .hashtags-container::-webkit-scrollbar {
-  width: 6px;
-  height: fit-content;
+  width: 5px;
+  background-color: #aaa;
 }
 
-.card-info::-webkit-scrollbar-thumb, .hashtags-container::-webkit-scrollbar {
-  background-color: rgba(0, 0, 0, 0.2);
+.card-info::-webkit-scrollbar-thumb, .hashtags-container::-webkit-scrollbar-thumb {
+  background:rgba(75, 69, 69, 0.684);
 }
+
+/*==================*/
 
 .card article label {
   font-weight: bold;

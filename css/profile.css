@@ -11,6 +11,7 @@
   max-width: 500px;
   margin: 0 auto;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
+  position: relative;
 }
   
 div.password-change {
@@ -68,4 +69,30 @@ div.password-change button#changepass  {
 
 .profile input[readonly]:focus {
   outline: none;
+}
+
+.profile-password-container button {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  right: 5%;
+  margin-top: 0.3rem;
+  width: fit-content;
+}
+
+.profile-password-container button span.material-symbols-outlined {
+  color: #606081;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
+  font-size: 20px;
+}
+
+.profile-password-container button:hover {
+  background-color: transparent;
+  color: #a492a9;
 }

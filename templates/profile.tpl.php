@@ -23,10 +23,19 @@ require_once(__DIR__ . '/../utils/session.php');
     <label id="oldpasswordlabel" for="old-password" hidden>Current password:</label>
     <button type=button id='changepass' hidden>Change password</button>
     </div>
+
+    <div class="profile-password-container">
     <input id="old-password" type="password" name="old_password" value="" readonly hidden>
+    <button type="button" id="profile-hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
+		<button type="button" id="profile-showpass" class="showpass" hidden><span class="material-symbols-outlined showpass">visibility</span></button>
+    </div>
 
     <label for="new-password" hidden>New password:</label>
+    <div class="profile-password-container">
     <input id="new-password" type="password" name="new_password" value="" readonly hidden>
+    <button type="button" id="profile-new-hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
+		<button type="button" id="profile-new-showpass" class="showpass" hidden><span class="material-symbols-outlined showpass">visibility</span></button>
+    </div>
     
     <label for="type">Type:</label>
     <input id="type" type="text" value="<?=$type?>" readonly>

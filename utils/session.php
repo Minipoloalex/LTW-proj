@@ -42,8 +42,6 @@ class Session
     public function verifyCsrf(?string $csrf): bool {
         if (!isset($csrf) || empty($csrf)) $return_value = false;
         else $return_value = $_SESSION['csrf'] === $csrf;
-        error_log("input csrf   " . $csrf);
-        error_log("session csrf " . $_SESSION['csrf']);
         $_SESSION['csrf'] = Session::generate_random_token();
         return $return_value;
     }

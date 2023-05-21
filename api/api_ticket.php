@@ -41,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH') {
     handle_check_logged_in($session);
     handle_check_csrf($session, $_GET['csrf']);
 
-    // $db = getDatabaseConnection();
     handle_api_close_ticket($session, $db, $_GET['ticketID'], $_GET['status']);
     exit();
 }
@@ -50,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $input = file_get_contents('php://input');
     parse_str($input, $_POST);
     handle_check_csrf($session, $_POST['csrf']);
-    // $db = getDatabaseConnection();
     handle_update_ticket($session, $db, $_POST['hashtags'], $_POST['ticketID'], $_POST['department'], $_POST['agent'], $_POST['priority']);
     exit();
 }

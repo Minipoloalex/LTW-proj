@@ -304,6 +304,7 @@ async function drawUserCard(card, curr) {
   contentDiv.appendChild(userTypeSelect);
   contentDiv.appendChild(document.createElement("br"));
 
+
   const nrTicketsCreatedLabel = document.createElement("label");
   nrTicketsCreatedLabel.textContent = "Created tickets: ";
   contentDiv.appendChild(nrTicketsCreatedLabel);

@@ -1,15 +1,6 @@
 
 async function patchFaqData(data) {
-  console.log(data);
-  const url = `../api/api_FAQ.php?id=${data.id}&${encodeForAjax({ displayed: data.displayed })}`;
-
-  return await fetch(url, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: encodeForAjax(data)
-  });
+  return await patchData('../api/api_FAQ.php', { 'id': data.id, 'displayed': data.displayed });
 }
 
 const editFaqBtns = document.querySelectorAll('#editFaqBtn');

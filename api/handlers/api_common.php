@@ -27,7 +27,7 @@ function echo_json_csrf(Session $session, array $message) {
 function handle_check_admin(Session $session, PDO $db) {
     if (!Client::isAdmin($db, $session->getId())) {
         http_response_code(403); // Forbidden
-        echo json_encode(array('error' => 'You do not have permission for that.'));
+        echo_json_csrf($session, array('error' => 'You do not have permission for that.'));
         exit();
     }
 }

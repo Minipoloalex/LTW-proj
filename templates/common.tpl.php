@@ -200,3 +200,62 @@ function output_session_message(Session $session, string $id) {
   output_nav_submenu_list_item("../pages/create_ticket.php", "Create ticket");
 } ?>
 
+<?php function output_hashtag_search(array $hashtags, ?string $label, string $button_id, string $button_text, ?string $input_placeholder = NULL) { ?>
+  <?php
+  if ($label !== NULL) { ?>
+    <label for="hashtag-search"><?=$label?></label>
+  <?php }
+  if ($input_placeholder !== NULL) { ?>
+    <input autocomplete="off" type="text" name="hashtag" id="hashtag-search" value="" list="hashtag-datalist" placeholder="<?=$input_placeholder?>">
+  <?php } else { ?>
+    <input autocomplete="off" type="text" name="hashtag" id="hashtag-search" value="" list="hashtag-datalist">
+  <?php } ?>
+  <datalist id="hashtag-datalist">
+    <?php foreach ($hashtags as $hashtag) { ?>
+      <option value="<?= $hashtag->hashtagname ?>">
+    <?php } ?>
+  </datalist>
+  <button id="<?=$button_id?>" type="submit"><?=$button_text?></button>
+<?php } ?>
+<?php function drawFilterButtons() { ?>
+    <button type="button" id="clear-filters">Clear Filters</button>
+    <button type="submit" id="filter-values">Filter</button>
+<?php } ?>
+<?php function drawMenuTitle(string $name) { ?>
+    <div id="filter-title" class="dropdown-toggle">
+        <h3><?=$name?> <i class="fa fa-caret-right"></i></h3>
+    </div>
+<?php } ?>
+<?php function drawDropdownTitle(string $name) { ?>
+    <div class="dropdown-toggle">
+        <legend><?=$name?> <i class="fa fa-caret-right"></i></legend>
+    </div>
+<?php } ?>
+<?php function outputDropdownOption(string $name, string $fv_name, string $fv_id) { ?>
+    <input type="checkbox" name="<?=$name?>" id="<?=$name . $fv_name?>" value="<?=$fv_id?>"/>
+    <label for="<?=$name . $fv_name?>"><?=$fv_name?></label><br />
+<?php } ?>
+<?php function drawDropdownOptions(string $sectionId, string $name, array $filterValues, string $type, string $dropdownType="normal") { ?>
+    <section id="<?=$sectionId?>" class="<?=$name?> hidden filter-section" data-type="<?=$type?>">
+        <?php foreach ($filterValues as $fv) {
+            switch($dropdownType) {
+                case 'normal':
+                    outputDropdownOption($name, $fv, $fv);
+                    break;
+                case 'department':
+                    outputDropdownOption($name, $fv['DepartmentName'], $fv['DepartmentID']);
+                    break;
+                case 'agent':
+                    outputDropdownOption($name, $fv['Username'], $fv['UserID']);
+                    break;
+                case 'hashtags':
+                    outputDropdownOption($name, $fv['HashtagName'], $fv['HashtagID']);
+                    break;
+                default:
+                    error_log("Invalid type");
+                    break;
+            }
+            ?>
+        <?php } ?>
+    </section>
+<?php } ?>
