@@ -71,6 +71,19 @@ class Hashtag {
     $hashtag = $stmt->fetch();
     return $hashtag != NULL;
   }
+
+  static function create(PDO $db, string $hashtagName): ?Hashtag {
+    $stmt = $db->prepare('INSERT INTO HASHTAG (HashtagName) VALUES (?)');
+    $stmt->execute(array($hashtagName));
+    $hashtag = Hashtag::getByName($db, $hashtagName);
+    if ($hashtag == NULL) return NULL;
+    return $hashtag;
+  }
+
+  static function delete(PDO $db, int $hashtagID): void {
+    $stmt = $db->prepare('DELETE FROM HASHTAG WHERE HashtagID = ?');
+    $stmt->execute(array($hashtagID));
+  }
 }
 
 ?>

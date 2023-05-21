@@ -1,0 +1,1 @@
+const addNewHashtagButton = document.getElementById('add-new-hashtag-button');
