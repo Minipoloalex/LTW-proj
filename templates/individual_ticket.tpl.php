@@ -76,7 +76,7 @@ array $all_hashtags, array $agents, array $all_departments, Session $session, bo
         <section id="actions-list" class="column-list d-none">
             <?php
             foreach($actions as $action) {
-                output_action($action, $session->getName(), $ticket->username);
+                output_action($action, $session->getUsername(), $ticket->username);
             }
             ?>
         </section>
@@ -123,7 +123,7 @@ array $all_hashtags, array $agents, array $all_departments, Session $session, bo
             <span class="date"><?=date('F j', $action->date)?></span>
         </header>
         <div class="message-body">
-            <p class="text"><?=$action->type?></p>
+            <p class="text"><?=$action->text?></p>
         </div>
     </article>
 <?php } ?>

@@ -6,12 +6,12 @@ require_once(__DIR__ . '/ticket.class.php');
 class Action {
     public int $id;
     public string $username;
-    public string $type;
+    public string $text;
     public int $date;
-    public function __construct(int $actionID, string $username, string $type, int $date) {
+    public function __construct(int $actionID, string $username, string $text, int $date) {
         $this->id = $actionID;
         $this->username = $username;
-        $this->type = $type;    // type is already sanitized by us
+        $this->text = $text;    // this text is already sanitized by us
         $this->date = $date;
     }
     static function getByTicket(PDO $db, int $ticketID) : array {

@@ -40,7 +40,7 @@ $messages = Message::getByTicket($db, $ticketID);
 $actions = Action::getByTicket($db, $ticketID);
 $hashtags = Hashtag::getHashtags($db);
 $departments = Department::getDepartments($db);
-$isAgentView = $type === 'Admin' ? true : !($session->getName() === $ticket->username);
+$isAgentView = $type === 'Admin' ? true : !($session->getUsername() === $ticket->username);
 
 $ticketDepartment = Department::getByName($db, $ticket->departmentName);
 $agents = $ticketDepartment != null ? Agent::getByDepartment($db, $ticketDepartment->departmentId) 

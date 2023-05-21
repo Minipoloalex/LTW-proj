@@ -8,7 +8,7 @@ $session = new Session();
 if (!$session->isLoggedIn()) {
     die(header('Location: ../pages/main_page.php'));
 }
-if (!$session->verifyCsrf($_POST['csrf'] )) {
+if (!$session->verifyCsrf($_POST['csrf'])) {
     die(header('Location: ../pages/create_ticket.php'));
 }
 
@@ -35,12 +35,13 @@ if (!is_valid_array_hashtag_ids($db, $hashtags)) {
 $hashtags = array_map('intval', array_unique($hashtags));
 
 
-if (is_valid_string($departmentID) && !is_valid_department_id($db, $_POST['department'])) {
+if (is_valid_string($_POST['department']) && !is_valid_department_id($db, $_POST['department'])) {
     // Can be null. But if it's not null, then must be valid
     $session->addMessage('error', "Invalid department.");
     die(header('Location: ../pages/create_ticket.php'));
 }
-$departmentID = empty($_POST['department']) ? NULL : intval($_POST['department']); /* Department can be null */
+
+$departmentID = empty($_POST['department']) ? NULL : intval($_POST['department']);
 
 if (!is_valid_priority($_POST['priority'])) {
     $session->addMessage('error', "Invalid priority.");
@@ -48,8 +49,8 @@ if (!is_valid_priority($_POST['priority'])) {
 }
 $priority = $_POST['priority'];
 
-$userID = $session->getId();     /* session userID */
-$username = $session->getName();  /* session username */
+$userID = $session->getId();
+$username = $session->getUsername();
 
 
 if (Ticket::existsTicket($db, $title, $userID)) {
@@ -57,7 +58,6 @@ if (Ticket::existsTicket($db, $title, $userID)) {
     die(header('Location: ../pages/create_ticket.php'));
 }
 
-/* status is "open", submit date is now, agent always null: defined inside createTicket */
 $id = Ticket::createTicket($db, $title, $userID, $priority, $hashtags, $description, $departmentID);
 $session->addMessage('success', "Ticket created successfully.");
 
