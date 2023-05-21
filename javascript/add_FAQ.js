@@ -104,7 +104,7 @@ if (form) {
                 modalContent.appendChild(closeButton);
 
                 const message = document.createElement('p');
-                message.textContent = 'Are you sure you want to delete?';
+                message.textContent = 'Are you sure you want to delete this FAQ?';
                 modalContent.appendChild(message);
 
                 const deleteButtonModal = document.createElement('button');

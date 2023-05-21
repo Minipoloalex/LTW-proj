@@ -26,10 +26,10 @@ require_once(__DIR__ . '/../utils/session.php');
     <p3>As a <?=$type?>, you can:</p3>
     <ul>
       <li>Create tickets</li>
-      <li>View your tickets</li>
+      <li>View your created tickets</li>
       <li>Reply to ticket messages from agents</li>
       <li>Edit your profile</li>
-      <li>Check FAQs and ask questions</li>
+      <li>Check FAQs and ask more questions</li>
     </ul>
 
     <?php } else if ($type === 'Agent') { ?>
@@ -40,7 +40,7 @@ require_once(__DIR__ . '/../utils/session.php');
       <li>Send ticket messages to clients</li>
       <li>Change the status of a ticket</li>
       <li>Assign tickets to other agents</li>
-      <li>List all changes done to a ticket (e.g., status changes, assignments, edits).</li>
+      <li>View all changes done to a ticket</li>
       <li>Edit your profile</li>
       <li>Answer to FAQs and create new ones</li>
     </ul>
@@ -49,16 +49,16 @@ require_once(__DIR__ . '/../utils/session.php');
         <p3>As an <?=$type?>, you can:</p3>
     <ul>
       <li>Create tickets</li>
-      <li>View your tickets and all tickets</li>
+      <li>View your tickets, assigned tickets and all tickets</li>
       <li>Send ticket messages to clients</li>
       <li>Change the status of a ticket</li>
       <li>Assign tickets to other agents</li>
-      <li>List all changes done to a ticket (e.g., status changes, assignments, edits).</li>
+      <li>View all changes done to a ticket</li>
       <li>Edit your profile</li>
-      <li>Upgrade a client to an agent or an admin.</li>
-      <li>Add new departments, statuses, and other relevant entities.</li>
-      <li>Assign agents to departments.</li>
-      <li>Control the whole system.</li>
+      <li>Control all users</li>
+      <li>Manage FAQs</li>
+      <li>Add new departments and hashtags</li>
+      <li>Control the whole system</li>
     </ul>
   <?php } ?>
   </div>

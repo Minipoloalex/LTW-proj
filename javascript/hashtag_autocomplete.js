@@ -1,4 +1,4 @@
-const addHashtagButton = document.getElementById("add-hashtag");
+const addHashtagButton = document.querySelector("button#add-hashtag");
 const input = document.getElementById("hashtag-search");
 if (addHashtagButton && input) {
     addHashtagButton.addEventListener("click", addHashtag);

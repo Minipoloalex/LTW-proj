@@ -204,7 +204,6 @@ class Ticket implements JsonSerializable
     $stmt->execute(array($status, $ticketID));
   }
 
-  // adicionar filtros por data
   static function filter(PDO $db, ?int $userID, string $pageType, array $status = [], array $priorities = [], array $hashtags = [], array $agents = [], array $departments = [], int $page = 1): array
   {
 

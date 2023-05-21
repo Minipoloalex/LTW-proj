@@ -30,6 +30,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <script src="../javascript/charts.js" defer></script>
     <script src="../javascript/file_input.js" defer></script>
     <script src="../javascript/add_department.js" defer></script>
+    <script src="../javascript/manage_hashtags.js" defer></script>
 
     <link rel="icon" href="../css/images/logomobile-escuro.png" type="image/png">
     <link rel="stylesheet" href="../css/buttons.css">
@@ -243,13 +244,13 @@ function output_session_message(Session $session, string $id) {
                     outputDropdownOption($name, $fv, $fv);
                     break;
                 case 'department':
-                    outputDropdownOption($name, $fv['DepartmentName'], $fv['DepartmentID']);
+                    outputDropdownOption($name, $fv['DepartmentName'], strval($fv['DepartmentID']));
                     break;
                 case 'agent':
-                    outputDropdownOption($name, $fv['Username'], $fv['UserID']);
+                    outputDropdownOption($name, $fv['Username'], strval($fv['UserID']));
                     break;
                 case 'hashtags':
-                    outputDropdownOption($name, $fv['HashtagName'], $fv['HashtagID']);
+                    outputDropdownOption($name, $fv['HashtagName'], strval($fv['HashtagID']));
                     break;
                 default:
                     error_log("Invalid type");

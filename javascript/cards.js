@@ -443,7 +443,7 @@ function drawDepartmentCard(card, curr) {
   modalContent.appendChild(closeButton);
 
   const message = document.createElement("p");
-  message.textContent = "Are you sure you want to delete this user?";
+  message.textContent = "Are you sure you want to delete this department?";
   modalContent.appendChild(message);
 
   const deleteButtonModal = document.createElement("button");
@@ -570,7 +570,7 @@ function drawTicketCard(card, curr) {
   modalContent.appendChild(closeButton);
 
   const message = document.createElement("p");
-  message.textContent = "Are you sure you want to delete this user?";
+  message.textContent = "Are you sure you want to delete this ticket?";
   modalContent.appendChild(message);
 
   const deleteButtonModal = document.createElement("button");

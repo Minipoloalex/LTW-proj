@@ -11,7 +11,7 @@ class Hashtag {
   }
 
   static function getHashtags(PDO $db) : array {
-      $stmt = $db->prepare('SELECT * FROM Hashtag'); /* podia ser NAO PODE NADA SOFIA NAO FAÇAS ISSO :)) //Sergio (... (LIMIT ) .$count) e depois execute sem receber nenhum argumento -> nao é aconselhavel */
+      $stmt = $db->prepare('SELECT * FROM Hashtag ORDER BY HashtagName'); /* podia ser NAO PODE NADA SOFIA NAO FAÇAS ISSO :)) //Sergio (... (LIMIT ) .$count) e depois execute sem receber nenhum argumento -> nao é aconselhavel */
       $stmt->execute(array()); // o execute leva os argumentos do ponto de interrogação
   
       $hashtags = array();
@@ -70,6 +70,19 @@ class Hashtag {
     $stmt->execute(array($hashtagID));
     $hashtag = $stmt->fetch();
     return $hashtag != NULL;
+  }
+
+  static function create(PDO $db, string $hashtagName): ?Hashtag {
+    $stmt = $db->prepare('INSERT INTO HASHTAG (HashtagName) VALUES (?)');
+    $stmt->execute(array($hashtagName));
+    $hashtag = Hashtag::getByName($db, $hashtagName);
+    if ($hashtag == NULL) return NULL;
+    return $hashtag;
+  }
+
+  static function delete(PDO $db, int $hashtagID): void {
+    $stmt = $db->prepare('DELETE FROM HASHTAG WHERE HashtagID = ?');
+    $stmt->execute(array($hashtagID));
   }
 }
 
