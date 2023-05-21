@@ -243,13 +243,13 @@ function output_session_message(Session $session, string $id) {
                     outputDropdownOption($name, $fv, $fv);
                     break;
                 case 'department':
-                    outputDropdownOption($name, $fv['DepartmentName'], $fv['DepartmentID']);
+                    outputDropdownOption($name, $fv['DepartmentName'], strval($fv['DepartmentID']));
                     break;
                 case 'agent':
-                    outputDropdownOption($name, $fv['Username'], $fv['UserID']);
+                    outputDropdownOption($name, $fv['Username'], strval($fv['UserID']));
                     break;
                 case 'hashtags':
-                    outputDropdownOption($name, $fv['HashtagName'], $fv['HashtagID']);
+                    outputDropdownOption($name, $fv['HashtagName'], strval($fv['HashtagID']));
                     break;
                 default:
                     error_log("Invalid type");

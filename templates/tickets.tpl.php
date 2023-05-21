@@ -16,7 +16,7 @@ require_once(__DIR__ . '/common.tpl.php');
         drawMenuTitle('Filters');
         ?>
         <section id="filter-section" class="menu hidden filter-section" data-type="<?=$type?>" data-pageType="<?=$pageType?>">
-            <div class="filter-options">
+            <div id="filter-values" class="filter-options">
                 <?php
                 drawDropdownTitle('Status');
                 drawDropdownOptions("status-section", "status", $filterValues[0], $type);
