@@ -86,7 +86,7 @@ section#filter-section div.filter-options section.hidden {
 /* show filter section when user clicks on filter header */
 .dropdown-toggle.clicked + section.filter-section {
   display: block;
-  width: 85%;
+  width: auto;
 }
 
 section.filter-section div.filter-options div.clicked + section {
@@ -114,7 +114,7 @@ section.filter-section div.filter-options div.clicked + section {
   justify-self: right;
   height: fit-content;
   margin: auto;
-  margin-right: 10%;
+  margin-right: 0%;
 }
 .filter-manage-hashtag-grid #filter-title {
   grid-area: filter-title;

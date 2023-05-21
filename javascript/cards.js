@@ -36,8 +36,6 @@ function updateCardIncrease() {
   }
 }
 
-
-
 const addCards = (pageIndex) => {
   window.removeEventListener("scroll", handleInfiniteScroll);
   currentPage = pageIndex;
@@ -177,8 +175,10 @@ if (cardContainer) {
 function getCards(content) {
   data = content;
   cardContainer.innerHTML = '';
+  refreshNoValues();
   if (data.count === 0) {
     noValues(`No ${cardType}s found`);
+    removeInfiniteScroll();
     return;
   }
   cardLimit = data.count;
@@ -193,7 +193,6 @@ function getCards(content) {
   addCards(currentPage);
   flag = true;
 }
-
 
 async function getPartialTickets() {
   return await getData('../api/api_ticket.php', { 'pageType': pageType });
@@ -238,7 +237,6 @@ function checkLoader() {
 
   else return false;
 }
-
 
 async function drawUserCard(card, curr) {
   console.log(curr);
@@ -393,7 +391,7 @@ async function drawUserCard(card, curr) {
     console.log(json);
   });
 
-  if ( userType === 'Admin') handleDeleteCard(deleteCardBtn);
+  if (userType === 'Admin') handleDeleteCard(deleteCardBtn);
 
 
 }
@@ -561,43 +559,48 @@ function drawTicketCard(card, curr) {
   contentDiv.appendChild(prioritySpan);
   contentDiv.appendChild(document.createElement("br"));
 
-  const deleteCardBtn = document.createElement('button');
-  deleteCardBtn.classList.add('delete-faq');
-  deleteCardBtn.classList.add('delete-card');
-  deleteCardBtn.classList.add('openModal');
-  deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
-  contentDiv.appendChild(deleteCardBtn);
-
-  const modal = document.createElement("div");
-  modal.classList.add("modal");
-  modal.classList.add("d-none");
-
-  const modalContent = document.createElement("div");
-  modalContent.classList.add("modalContent");
-
-  const closeButton = document.createElement("span");
-  closeButton.classList.add("close");
-  closeButton.textContent = '×';
-  modalContent.appendChild(closeButton);
-
-  const message = document.createElement("p");
-  message.textContent = "Are you sure you want to delete this ticket?";
-  modalContent.appendChild(message);
-
-  const deleteButtonModal = document.createElement("button");
-  deleteButtonModal.classList.add("confirm-del");
-  deleteButtonModal.textContent = "Delete";
-  modalContent.appendChild(deleteButtonModal);
-
-  modal.appendChild(modalContent);
-
   link.appendChild(header);
   link.appendChild(contentDiv);
   article.appendChild(link);
-  article.appendChild(modal);
+
+  let deleteCardBtn;
+  if (userType === 'Admin') {
+    deleteCardBtn = document.createElement('button');
+    deleteCardBtn.classList.add('delete-faq');
+    deleteCardBtn.classList.add('delete-card');
+    deleteCardBtn.classList.add('openModal');
+    deleteCardBtn.innerHTML = '<span class="material-symbols-outlined">delete</span>';
+    contentDiv.appendChild(deleteCardBtn);
+
+    const modal = document.createElement("div");
+    modal.classList.add("modal");
+    modal.classList.add("d-none");
+
+    const modalContent = document.createElement("div");
+    modalContent.classList.add("modalContent");
+
+    const closeButton = document.createElement("span");
+    closeButton.classList.add("close");
+    closeButton.textContent = '×';
+    modalContent.appendChild(closeButton);
+
+    const message = document.createElement("p");
+    message.textContent = "Are you sure you want to delete this ticket?";
+    modalContent.appendChild(message);
+
+    const deleteButtonModal = document.createElement("button");
+    deleteButtonModal.classList.add("confirm-del");
+    deleteButtonModal.textContent = "Delete";
+    modalContent.appendChild(deleteButtonModal);
+
+    modal.appendChild(modalContent);
+
+    article.appendChild(modal);
+  }
+
   card.appendChild(article);
 
-  handleDeleteCard(deleteCardBtn);
+  if(userType === 'Admin') handleDeleteCard(deleteCardBtn);
 
   console.log(card);
   if (curr.priority === 'high') {
@@ -642,6 +645,12 @@ function updateSkeletonCards() {
 
 if (cardContainer) {
   updateSkeletonCards(); // Call the function on page load
+}
+
+function refreshNoValues() {
+  const noCards = document.getElementById("no-cards");
+  noCards.classList.add("d-none");
+  noCards.textContent = "";
 }
 
 function noValues(message) {

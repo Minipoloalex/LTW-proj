@@ -61,14 +61,7 @@ async function getFilterValues(cardType) {
   console.log(json);
   const data = json;
   console.log("Filter: ", cardType);
-  // if (data.count !== 0) {
   getCards(data);
-  // } 
-  /*else {
-    console.log(cardContainer);
-    cardContainer.innerHTML = '';
-    noValues(`No ${cardType}s found`);
-  }*/
 }
 
 async function getTicketsByPage(checkedValues, pageType, page = 0) {
