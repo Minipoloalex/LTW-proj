@@ -10,7 +10,7 @@ class Action {
     public int $date;
     public function __construct(int $actionID, string $username, string $type, int $date) {
         $this->id = $actionID;
-        $this->username = htmlentities($username);
+        $this->username = $username;
         $this->type = $type;    // type is already sanitized by us
         $this->date = $date;
     }
