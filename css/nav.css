@@ -176,10 +176,9 @@ body::-webkit-scrollbar-thumb {
 
 }
 
-/* icons */
 .nav-icon {
   text-decoration: none;
-  color: #b6b6b6;
+  color: var(--text-primary);
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
@@ -194,7 +193,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 li.logo {
-  background-color: #23232e;
+  background-color: var(--bg-primary);
 }
 li.logo a {
   display: inline-block;

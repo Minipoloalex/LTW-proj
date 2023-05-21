@@ -9,15 +9,8 @@ h2 {
 }
 
 :root {
-  --button-color: #846a8b;
-  --button-hover: #a492a9;
-
   font-size: 16px;
   font-family: 'Open Sans';
-  --text-primary: #b6b6b6;
-  --text-secondary: #ececec;
-  --bg-primary: #23232e;
-  --bg-secondary: #141418;
   --transition-speed: 600ms;
 }
 
@@ -43,7 +36,7 @@ main {
 
 .success-message {
   background-color: #d4edda;
-  color: #155724;
+  color: var(--our-green);
   padding: 10px;
   border-radius: 5px;
   margin-top: 10px;
@@ -261,7 +254,7 @@ footer {
   font-size: 0.8em;
   border: none;
   cursor:default;
-  color: #846a8b;
+  color: var(--our-purple);
   font-family: 'Martel Sans', sans-serif;
   align-self: flex-end;
   margin-right: 0.5rem;
@@ -344,4 +337,7 @@ input:not([readonly]) {
   border: 1px solid rgb(51, 51, 51);
   border-radius: 5px;
   background-color: white;
+}
+.showpass:hover {
+  color: var(--visibility-hover);
 }

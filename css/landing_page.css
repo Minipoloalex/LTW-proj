@@ -22,7 +22,7 @@
 }
 
 .password-container button span.material-symbols-outlined {
-  color: #606081;
+  color: var(--visibility);
   font-variation-settings:
     'FILL' 0,
     'wght' 400,
@@ -30,10 +30,9 @@
     'opsz' 48;
   font-size: 20px;
 }
-
-.password-container button:hover {
+.landingbody .showpass:hover {
+  color: var(--visibility-hover);
   background-color: transparent;
-  color: #a492a9;
 }
 
 /*================= LOGIN FORM  =================*/
@@ -97,7 +96,7 @@ body.landingbody {
   width: 100%;
   padding: 0.8em;
   margin-top: 1em;
-  background-color: #846a8b;
+  background-color: var(--our-purple);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -106,7 +105,7 @@ body.landingbody {
 }
 
 .login-form input[type="submit"]:hover {
-  background-color: #a492a9;
+  background-color: var(--button-hover);
 }
 
 .login-form p {
@@ -185,10 +184,6 @@ a.register:hover {
   gap: 1em;
 }
 
-.registerform .create:hover {
-  background-color: #a492a9;
-}
-
 .registerform p {
   text-align: center;
   margin-top: 1em;
@@ -196,7 +191,7 @@ a.register:hover {
 }
 
 .registerform a {
-  color: #846a8b;
+  color: var(--our-purple);
   font-family: 'Martel Sans', sans-serif;
   text-decoration: none;
 }
@@ -224,7 +219,7 @@ a.register:hover {
 }
 
 .custom-shape-divider-top-1681308841 .shape-fill {
-  fill: #846a8b;
+  fill: var(--our-purple);
 }
 
 .landing-register #feedback-message, .login-container #feedback-message {

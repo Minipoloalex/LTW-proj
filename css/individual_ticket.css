@@ -9,7 +9,7 @@
 }
 #individual-ticket #ticket-description {
     margin: 0 auto;       
-    background: #F5F5F5;
+    background: var(--our-gray);
     margin-bottom: 2rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
     border-radius: 10px;
@@ -18,6 +18,10 @@
 
 #individual-ticket h3 {
     margin: 0 auto;
+}
+
+h2.ticket-description{
+    font-size: 1.5rem;
 }
 
 /* =========================== TICKET STATUS ============================ */
@@ -35,6 +39,7 @@
 
 
 /* =========================== CONTAINER TICKET INFO ============================ */
+/* TODO */
 #container-ticket-info {
     width: 30rem;
     margin: auto;
@@ -58,7 +63,7 @@
     border-radius: 20px;
     
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
-    background-color: #f5f5f5;
+    background-color: var(--our-gray);
     width: 100%;
 }
 
@@ -108,7 +113,7 @@
     align-items: center;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    background-color: #846a8b;
+    background-color: var(--our-purple);
     color: white;  
     width: 100%;
 }
@@ -116,12 +121,12 @@
     margin: 1rem 0 1rem 1rem;
     font-size: 1.4em;
 }
-/* ======================== TICKET CHANGE PRIORITY ======================== */
+/* ======================== TICKET PRIORITY ======================== */
 #ticket-info #priority {
     padding-left: 1em;
 }
 
-/* ======================== TICKET CHANGE DEPARTMENT ======================== */
+/* ======================== TICKET DEPARTMENT/AGENT ======================== */
 #ticket-info #department, #ticket-info #agent {
     padding-left: 1em;
 }
@@ -130,23 +135,20 @@
 #ticket-info button#close-ticket {
     padding: 0.5em 1em;
 }
-
-
 /* ======================== FIELDSET STYLING - create ticket ======================== */
 fieldset {
     border: none;
-  }
-  fieldset legend {
+}
+fieldset legend {
     align-self: center;
-  }
-  fieldset#priority {
+}
+fieldset#priority {
     display: flex;
     flex-direction: row;
     align-items: center;
-  }
-  
-  
-  fieldset#priority label.radio-button {
+}
+
+fieldset#priority label.radio-button {
     background-color: #53536e;
     color: white;
     border: 1px solid white;
@@ -156,29 +158,26 @@ fieldset {
     padding-right: 1em;
     flex-grow: 1;
     text-align: center;
-  }
-  
-  fieldset#priority label:hover {
+}
+fieldset#priority label:hover {
     opacity: 80%;
-  }
-  
-  fieldset#priority input[type="radio"] {
+}
+fieldset#priority input[type="radio"] {
     display: none;
-  }
-  fieldset#priority input[type="radio"]:checked + label[for=high].radio-button {
-    background-color: #a82431;  
+}
+fieldset#priority input[type="radio"]:checked + label[for=high].radio-button {
+    background-color: var(--our-red);  
     color: white;
-  }
-  fieldset#priority input[type="radio"]:checked + label[for=medium].radio-button {
+}
+fieldset#priority input[type="radio"]:checked + label[for=medium].radio-button {
     background-color: rgb(208, 179, 14);
     color: white;
-  }
-  fieldset#priority input[type="radio"]:checked + label[for=low].radio-button {
-    background-color: #155724; 
+}
+fieldset#priority input[type="radio"]:checked + label[for=low].radio-button {
+    background-color: var(--our-green); 
     color: white;
-  }
+}
  
-  
 /* ======================== DROPDOWN SELECT ======================== */
 label select {
     padding: 0.2em 1em 0 1em;
@@ -192,33 +191,33 @@ label select {
     cursor: pointer;
     height: 2rem;
     justify-content: center;
-  }
+}
+
   
-  
-  /* ============================= HASHTAGS =========================== */
-  #hashtag-items article.hashtag {
+/* ============================= HASHTAGS =========================== */
+#hashtag-items article.hashtag {
     border:rgba(0, 0, 0, 0.5) 1px solid;
     border-radius: 5px;
     background-color: #53536e;
     color: white;
     font-size: 1rem;
     text-align: center;
-  }
-  
-  #hashtags .hashtag a.remove-hashtag {
+}
+
+#hashtags .hashtag a.remove-hashtag {
     text-decoration: none;
     color: white;
     border-left: white 1px solid;
     padding: 0.3rem 0.5rem;
     margin-left: 0.3rem;
     cursor: pointer;
-  }
+}
   
 /* ======================= TICKET INFO BUTTONS ======================= */
 #ticket-info button {
     margin: 0.5em auto;
-  }
-  
+}
+
 /* ======================== TICKET CREATED (USER AND DATE) ======================== */
 #ticket-info #ticket-created {
     display: flex;
@@ -245,7 +244,9 @@ label select {
     font-weight: normal;
 }
 /* ======================== MARGINS FOR TICKET INFO ======================== */
-#ticket-info #hashtags, #ticket-info #priority, #ticket-info #department, #ticket-info #agent, #ticket-info #ticket-created{
+
+#ticket-info #hashtags, #ticket-info #priority,
+#ticket-info #department, #ticket-info #agent, #ticket-info #ticket-created{
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     margin-left: inherit;
@@ -256,7 +257,7 @@ label select {
     padding: 0.5em 1em;
 }
 
-/* ======================== TICKET MESSAGE LIST ======================== */
+/* ======================== TICKET MESSAGE/ACTION LIST ======================== */
 .column-list {
     display: flex;
     flex-direction: column;
@@ -309,20 +310,19 @@ label select {
 }
 
 .message.self header {
-    background-color: #23232E;
+    background-color: var(--bg-primary);
     color: white;
 }
 .message.original-poster header {
-    background-color: #846a8b;
+    background-color: var(--our-purple);
     color: white;
 }
 .message.other header {
     background-color: #53536E;
     color: white;
 }
-
 .message .message-body {
-    background-color: #F5F5F5;
+    background-color: var(--our-gray);
     margin: 0;
 }
 .message.has-image .message-body {
@@ -331,12 +331,10 @@ label select {
     justify-content: flex-start;
     align-items: flex-start;
 }
-
 .message.has-image .message-body button.view-image {
     margin: 0 auto 0.3rem;
     align-self: flex-end;
 }
-
 .message.has-image .image-container:not(.d-none) {
     position: fixed;
     top: 50vh;
@@ -390,7 +388,6 @@ label select {
 
 /* ======================== RESPONSIVENESS ======================== */
 
-
 /* For mobile devices <= 600 */
 @media only screen and (max-width: 600px) {
     #container-ticket-info {
@@ -405,14 +402,15 @@ label select {
         display: none;
     }
     .createticket textarea {
-        width: 65%;}
+        width: 65%;
+    }
 
     form.createticket fieldset#priority, form.createticket fieldset#hashtags.create-ticket, form.createticket label#department{
         width: 70%;
-        }
+    }
     .createticket button.submit-ticket {
         width: 45%;
-      }
+    }
 
     .createticket input[type="text"], .createticket button.submit-ticket {
       width: 60%;
@@ -432,7 +430,7 @@ label select {
     max-width: 600px;
     margin: 0 auto;
     padding: 1rem;
-    background-color: #f5f5f5;
+    background-color: var(--our-gray);
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
     align-items: start; 
@@ -453,11 +451,9 @@ label select {
     font-family: 'Martel Sans', sans-serif;
 }
 
-
 .createticket textarea {
     resize: vertical;
 }
-
 
 .createticket label,
 .createticket input[type="text"],
@@ -467,9 +463,8 @@ label select {
     grid-column: 1;
 }
 
-
 .createticket option {
-    background-color: #f5f5f5;
+    background-color: var(--our-gray);
     color:black;
 }
 
@@ -477,10 +472,8 @@ label select {
 
 
 .createticket button.submit-ticket {
-    border-radius: 5px;
     padding: 0.5em;
 }
-
 
 .createticket ::placeholder {
     color: #aaa;
@@ -491,6 +484,7 @@ label select {
 }
   
 /* ========================== LABEL DEPARTMENT/AGENT =========================== */
+
 label#department, label#agent {
     display: flex;
     flex-direction: row;

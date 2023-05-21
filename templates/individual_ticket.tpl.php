@@ -34,7 +34,7 @@ function output_single_ticket(Ticket $ticket, array $messages, array $actions,
 array $all_hashtags, array $agents, array $all_departments, Session $session, bool $isAgentView) { ?>
     <article data-id="<?=$ticket->ticketid?>" id="individual-ticket">
         <header><h2 id="ticket-title"><?=$ticket->title?></h2></header>
-        <h2>Ticket description:</h2>
+        <h2 class='ticket-description'>Ticket description:</h2>
         <p id="ticket-description"><?=$ticket->description?></p>
         
         <div id="container-ticket-info">

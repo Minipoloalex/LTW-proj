@@ -53,16 +53,12 @@ div.filter-options section {
 }
 
 .filter-options input[type="checkbox"]:checked+label {
-  background-color: #846a8b;
+  background-color: var(--our-purple);
   color: #fff;
 }
 
 .menu button {
   padding: 0.5rem 1rem;
-}
-
-.menu button:hover {
-  background-color: #a492a9;
 }
 
 section.filter-section.hidden {

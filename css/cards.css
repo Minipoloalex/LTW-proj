@@ -68,7 +68,7 @@
 
 /* ================ Priorities ======================== */
 .highP {
-  background-color: #a82431;
+  background-color: var(--our-red);
   color: white;
 }
 
@@ -78,7 +78,7 @@
 }
 
 .lowP {
-  background-color: #155724;
+  background-color: var(--our-green);
   color: white;
 }
 
@@ -90,7 +90,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5f5f5;
+  background-color: var(--our-gray);
   border-radius: 10px;
   height: 18.75rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -147,7 +147,7 @@
   flex-direction: row;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background-color: #846a8b;
+  background-color: var(--our-purple);
   color: white;
   width: 100%;
 }
@@ -161,16 +161,10 @@
   overflow-wrap: anywhere;
 }
 
-/* scroll bar on cards */
-.card-info::-webkit-scrollbar{
+/*===== scroll bar ====*/
+.card-info::-webkit-scrollbar, .hashtags-container::-webkit-scrollbar {
   height: 5px;
   width: 5px;
-  background-color: #aaa;
-}
-
-.hashtags-container::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
   background-color: #aaa;
 }
 
@@ -205,7 +199,7 @@
   margin-bottom: 0.2rem;
 }
 
-/*for department cards*/
+/* for department cards */
 
 .small-card {
   height: 10rem;
@@ -232,7 +226,7 @@ div.add-department-form{
   max-width: 15rem;
   padding: 1rem;
   /* TODO: generalize these styles */
-  background-color: #f5f5f5;
+  background-color: var(--our-gray);
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   align-items: start;

@@ -63,20 +63,20 @@ require_once(__DIR__ . '/../utils/validate.php');
     <!-- no pattern in email, verified by javascript -->
 
     <div class="password-container">
-    <input id="password" type="password" name="password" placeholder="Password" pattern="<?=get_password_regex()?>">
-    <button type="button" id="hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
-		<button type="button" id="showpass" class="showpass"><span class="material-symbols-outlined showpass">visibility</span></button>
+      <input id="password" type="password" name="password" placeholder="Password" pattern="<?=get_password_regex()?>">
+      <button type="button" id="hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
+      <button type="button" id="showpass" class="showpass"><span class="material-symbols-outlined showpass">visibility</span></button>
     </div>
 
     <div class="password-container">
-    <input id="confirm-password" type="password" name="confirm_password" placeholder="Confirm password" pattern="<?=get_password_regex()?>">
-    <button type="button" id="confirm-hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
-		<button type="button" id="confirm-showpass" class="showpass"><span class="material-symbols-outlined showpass">visibility</span></button>
+      <input id="confirm-password" type="password" name="confirm_password" placeholder="Confirm password" pattern="<?=get_password_regex()?>">
+      <button type="button" id="confirm-hidepass" class="hidepass" hidden><span class="material-symbols-outlined hidepass">visibility_off</span></button>
+      <button type="button" id="confirm-showpass" class="showpass"><span class="material-symbols-outlined showpass">visibility</span></button>
     </div>
 
     <div class="registerbuttons">
-    <p class="loginback">Already have an account? <a href="../pages/landing_page.php">Login</a></p>
-    <button type="submit" class="create">Create Account</button>
+      <p class="loginback">Already have an account? <a href="../pages/landing_page.php">Login</a></p>
+      <button type="submit" class="create">Create Account</button>
     </div>
   </form>
 </div>
@@ -94,6 +94,7 @@ require_once(__DIR__ . '/../utils/validate.php');
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="icon" href="../css/images/logomobile-escuro.png" type="image/png">
+      <link rel="stylesheet" href="../css/colors.css">
       <link rel="stylesheet" href="../css/landing_page.css">
       <link rel="stylesheet" href="../css/general.css">
       <link rel="stylesheet" href="../css/buttons.css">

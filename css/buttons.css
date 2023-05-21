@@ -1,5 +1,5 @@
 button {
-  background-color: #846a8b;
+  background-color: var(--our-purple);
   color: white;
   font-size: 0.9rem;
   border: none;
@@ -19,7 +19,7 @@ a {
 }
 
 button:hover {
-  background-color: #a492a9;
+  background-color: var(--button-hover);
 }
 
 div.buttons {

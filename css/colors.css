@@ -1,0 +1,13 @@
+:root {
+    --our-gray: #f5f5f5;
+    --our-purple: #846a8b;
+    --button-hover: #a492a9;
+    --text-primary: #b6b6b6;
+    --text-secondary: #ececec;
+    --bg-primary: #23232e;
+    --bg-secondary: #141418;  
+    --visibility-hover: rgba(112, 78, 125, 0.562);
+    --visibility: #606081;
+    --our-green: #155724;
+    --our-red: #a82431;
+}

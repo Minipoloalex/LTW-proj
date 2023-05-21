@@ -21,13 +21,12 @@ require_once(__DIR__ . '/common.tpl.php');
 
 			<?php if ($faq->displayed === 1) { ?>
 				<button title="Hide" id="hideBtn" class="hide-faq"><span class="material-symbols-outlined">visibility_off</span></button>
-				<button id="displayBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility</span></button>
+				<button title="Display id="displayBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility</span></button>
 			<?php } else { ?>
-				<button id="hideBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility_off</span></button>
+				<button title="Hide" id="hideBtn" class="hide-faq" hidden><span class="material-symbols-outlined">visibility_off</span></button>
 				<button title="Display" id="displayBtn" class="hide-faq"><span class="material-symbols-outlined">visibility</span></button>
 			<?php } ?>
 
-			<!-- confirm delete -->
 			<div class="modal d-none">
 				<div class="modalContent">
 					<span class="close">×</span>
