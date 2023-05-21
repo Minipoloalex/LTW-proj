@@ -147,15 +147,8 @@ function handleDisplay(displayBtn) {
   displayBtn.addEventListener('click', async () => {
     displayBtn.toggleAttribute('hidden');
     hideBtn.toggleAttribute('hidden');
-    const res = await patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '1' });
-    const json = await res.json();
-    if (res.ok) {
-      displayFeedback(feedback,json);
-    }
-    else {
-      displayFeedback(feedback,json);
-
-    }
+    const json = await patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '1' });    
+    displayFeedback(feedback, json);
   })
 };
 
@@ -167,14 +160,8 @@ function handleHide(hideBtn) {
   hideBtn.addEventListener('click', async () => {
     hideBtn.toggleAttribute('hidden');
     displayBtn.toggleAttribute('hidden');
-    const res = await patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '0' });
-    const json = await res.json();
-    if (res.ok) {
-      displayFeedback(feedback,json);
-    }
-    else {
-      displayFeedback(feedback,json);
-    }
+    const json  = await patchFaqData({ 'id': faq.getAttribute("data-id"), 'displayed': '0' });
+    displayFeedback(feedback, json);
   })
 };
 

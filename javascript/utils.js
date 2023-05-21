@@ -156,5 +156,7 @@ function isEmpty(string) {
     return !string || string.length === 0;
 }
 function setTextContent(element, messageText) {
+    console.log(messageText);
+    console.log(decodeHtml(messageText));
     element.textContent = decodeHtml(messageText);
 }

@@ -196,16 +196,17 @@ label select {
 #hashtag-items article.hashtag {
     border:rgba(0, 0, 0, 0.5) 1px solid;
     border-radius: 5px;
-    background-color: var(--blue-dark);
-    color: white;
-    font-size: 1rem;
+    background-color: var(--hashtags-gray);
+    color: black;
+    font-size: 13px;
     text-align: center;
+    padding: 1px 6px;
 }
 
 #hashtags .hashtag a.remove-hashtag {
     text-decoration: none;
-    color: white;
-    border-left: white 1px solid;
+    color: black;
+    border-left: black 1px solid;
     padding: 0.3rem 0.5rem;
     margin-left: 0.3rem;
     cursor: pointer;

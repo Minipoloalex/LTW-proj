@@ -222,9 +222,11 @@ function output_session_message(Session $session, string $id) {
         <legend><?=$name?> <i class="fa fa-caret-right"></i></legend>
     </div>
 <?php } ?>
-<?php function outputDropdownOption(string $name, string $fv_name, string $fv_id) { ?>
-    <input type="checkbox" name="<?=$name?>" id="<?=$name . $fv_name?>" value="<?=$fv_id?>"/>
-    <label for="<?=$name . $fv_name?>"><?=$fv_name?></label><br />
+<?php function outputDropdownOption(string $name, string $fv_name, string $fv_id) {
+  $id_value = $name . str_replace(' ', '', $fv_name);
+  ?>
+    <input type="checkbox" name="<?=$name?>" id="<?=$id_value?>" value="<?=$fv_id?>"/>
+    <label for="<?=$id_value?>"><?=$fv_name?></label><br />
 <?php } ?>
 <?php function drawDropdownOptions(string $sectionId, string $name, array $filterValues, string $type, string $dropdownType="normal") { ?>
     <section id="<?=$sectionId?>" class="<?=$name?> hidden filter-section" data-type="<?=$type?>">
