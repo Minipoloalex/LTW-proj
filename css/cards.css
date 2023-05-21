@@ -68,7 +68,7 @@
 
 /* ================ Priorities ======================== */
 .highP {
-  background-color: #a82431;
+  background-color: var(--our-red);
   color: white;
 }
 
@@ -78,20 +78,19 @@
 }
 
 .lowP {
-  background-color: #155724;
+  background-color: var(--our-green);
   color: white;
 }
 
 
 /* ================ INDIVIDUAL CARD ======================== */
 
-
 .card {
   transition: all 200ms ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5f5f5;
+  background-color: var(--our-gray);
   border-radius: 10px;
   height: 18.75rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -105,8 +104,6 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
 }
 
-/*info*/
-
 .card article {
   font-size: 13px;
   height: 18.75rem;
@@ -117,7 +114,7 @@
   display: inline-block;
   max-width: 11rem;
   overflow-x: auto;
-  white-space: nowrap; /*normal*/
+  white-space: nowrap;
 }
 
 .card article div:not(.modal):not(.hashtags-container) {
@@ -127,8 +124,6 @@
   position: relative;
 }
 
-
-/* .card article div span.card-hashtags  */
 .card-hashtags {
   background-color: #ddd;
   padding: 1px 6px;
@@ -152,7 +147,7 @@
   flex-direction: row;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background-color: #846a8b;
+  background-color: var(--our-purple);
   color: white;
   width: 100%;
 }
@@ -166,7 +161,7 @@
   overflow-wrap: anywhere;
 }
 
-/*scroll bar on cards*/
+/* scroll bar on cards */
 .card-info::-webkit-scrollbar, .hashtags-container::-webkit-scrollbar{
   height: 5px;
   width: 5px;
@@ -204,7 +199,7 @@
   margin-bottom: 0.2rem;
 }
 
-/*department card */
+/* for department cards */
 
 .small-card {
   height: 10rem;
@@ -213,8 +208,6 @@
 .small-card article {
   height: 10rem;
 }
-
-/*for department cards*/  
 
 div.add-department-form{
   display: grid;
@@ -233,7 +226,7 @@ div.add-department-form{
   max-width: 15rem;
   padding: 1rem;
   /* TODO: generalize these styles */
-  background-color: #f5f5f5;
+  background-color: var(--our-gray);
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   align-items: start;

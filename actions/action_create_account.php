@@ -35,7 +35,7 @@ if ($account_exists[0]) {
 
 $user_id = Client::create_account($db, $name, $username, $email, $password, $confirm_password);
 $session->setId($user_id);
-$session->setName($username);
+$session->setUsername($username);
 $session->addMessage('success', $account_exists[1]);
 
 header('Location: ../pages/main_page.php');

@@ -11,7 +11,6 @@ require_once(__DIR__ . '/../utils/session.php');
 <div class="mainpage">
   <h1>Hello, <?=$client->name?>!</h1>
   <h2>Welcome to our trouble ticket website</h2>
-  <!-- <p>User guide:</p> -->
 
   <?php if ($type === 'Client') { ?>
     <p1>Our website is designed to help you efficiently manage and resolve any issues or problems you may encounter. You can create a ticket to report an issue, view all your tickets and also access our knowledge base for frequently asked questions.</p1>
@@ -67,7 +66,7 @@ require_once(__DIR__ . '/../utils/session.php');
 <?php } ?>
 
 
-<?php function output_admin_chart() { ?>
+<?php function output_admin_charts() { ?>
   <section id="charts">
     <canvas id = "open-tickets-chart"></canvas>  
     <canvas id = "closed-tickets-chart"></canvas>

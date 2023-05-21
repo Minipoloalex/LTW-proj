@@ -1,11 +1,8 @@
 <?php function drawCardContainer()
 { ?>
   <section id="card-wrapper">
-    <!-- This is where the cards will be drawn -->
     <div id="card-container"></div>
-    <!-- loading new cards  -->
     <div id="loader">
-      <!-- <div class="skeleton-card"></div> -->
       <div class="skeleton-card d-none"></div>
       <div class="skeleton-card d-none"></div>
       <div class="skeleton-card d-none"></div>
@@ -19,4 +16,4 @@
       </span>
     </div>
   </section>
-<?php } ?>   
+<?php } ?>

@@ -34,6 +34,7 @@ require_once(__DIR__ . '/../utils/session.php');
     <script src="../javascript/manage_hashtags.js" defer></script>
 
     <link rel="icon" href="../css/images/logomobile-escuro.png" type="image/png">
+    <link rel="stylesheet" href="../css/colors.css">
     <link rel="stylesheet" href="../css/buttons.css">
     <link rel="stylesheet" href="../css/nav.css">
     <link rel="stylesheet" href="../css/individual_ticket.css">

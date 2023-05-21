@@ -74,7 +74,7 @@ function handle_update_ticket(Session $session, PDO $db, ?string $dataHashtags, 
         'hashtags' => array_map(fn($hashtag) => $hashtag->hashtagname, $ticket->hashtags),
         'status' => $ticket->status,
         'action_username' => $action->username,
-        'action_text' => $action->type,
+        'action_text' => $action->text,
         'action_date' => date('F j', $action->date),
     ));
     exit();

@@ -1,4 +1,3 @@
-/* ----- DRAW CARDS ----- */
 async function drawUserCard(card, curr) {
   const deps = await getAllDepartments();
 

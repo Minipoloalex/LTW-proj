@@ -38,7 +38,7 @@ function handle_edit_profile(Session $session, PDO $db, ?string $dataName, ?stri
   
   if (!$client->isEmailEqual($db, $dataEmail)) {
     $email_client = Client::getByEmail($db, $dataEmail);
-    if ($email_client && $email_client->id != $session->getId()) { /* if the email already exists for another user */
+    if ($email_client && $email_client->id != $session->getId()) {
       http_response_code(401); // Unauthorized
       echo_json_csrf($session, array('error' => 'Email already in use.'));
       exit();

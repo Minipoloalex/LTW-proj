@@ -74,7 +74,7 @@ header.faq-page form {
 
 /* individual faq -> question and answer */
 article.faq {
-  background-color: #f5f5f5;
+  background-color: var(--our-gray);
   padding: 20px;
   margin-top: 20px;
   position: relative;
@@ -110,7 +110,7 @@ button.hide-faq span.material-symbols-outlined,
 button.edit-faq span.material-symbols-outlined,
 button.save-faq span.material-symbols-outlined,
 button.delete-faq span.material-symbols-outlined {
-  color: #606081;
+  color: var(--visibility);
   font-variation-settings:
     'FILL' 0,
     'wght' 400,
@@ -183,7 +183,7 @@ button.display-faq span.material-symbols-outlined:hover,
 button.hide-faq span.material-symbols-outlined:hover {
   border: none;
   background-color: transparent;
-  color: rgba(112, 78, 125, 0.562);
+  color: var(--visibility-hover);
   cursor: pointer;
   font-variation-settings:
     'FILL' 0,
@@ -200,7 +200,7 @@ button.hide-faq span.material-symbols-outlined:hover {
   margin-right: 5.2rem;
 }
 
-/* individual faq buttons for javascript */
+/* individual faq buttons */
 .faq input[readonly] {
   user-select: none;
   cursor: default;

@@ -50,7 +50,7 @@ function handle_api_close_ticket(Session $session, PDO $db, ?string $dataTicketI
         'priority' => $ticket->priority,
         'hashtags' => array_column($ticket->hashtags, 'hashtagname'),
         'action_username' => $action->username,
-        'action_text' => $action->type,
+        'action_text' => $action->text,
         'action_date' => date('F j', $action->date)
     ));
 }
