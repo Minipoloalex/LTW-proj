@@ -134,7 +134,6 @@ function handleAnswer(answerBtn) {
 
   answerBtn.addEventListener('click', () => {
     toggle();
-
   });
 
   saveAnsBtn.addEventListener('click', async () => {

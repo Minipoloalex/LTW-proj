@@ -31,7 +31,7 @@ require_once(__DIR__ . '/common.tpl.php');
 			<div class="modal d-none">
 				<div class="modalContent">
 					<span class="close">×</span>
-				<p>Are you sure you want to delete?</p>
+				<p>Are you sure you want to delete this FAQ?</p>
 					<button class="confirm-del">Delete</button>
 					<!-- <button class="cancel" onclick="hideModal()">Cancel</button> -->
 				</div>

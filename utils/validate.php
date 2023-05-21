@@ -12,6 +12,9 @@ function get_password_regex(): string {
 function get_email_regex(): string {
     return "^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
 }
+function get_hashtag_regex(): string {
+    return "^#[A-Za-zÀ-ÖØ-öø-ÿ_\- ]+$";
+}
 function get_department_regex(): string {
     return get_username_regex();
 }
@@ -44,6 +47,17 @@ function is_valid_username(?String $username): bool {
 function is_valid_password(?String $password): bool {
     return isset($password) && !empty($password) && preg_match('/' . get_password_regex() . '/', $password);
 }
+function is_valid_hashtag_name(?string $hashtag_name) {
+    return is_valid_string($hashtag_name) && strlen($hashtag_name) <= 20 && preg_match('/' . get_hashtag_regex() . '/', $hashtag_name);
+}
+function transform_hashtag(string $hashtag_name) {
+    $hashtag_name = strtolower($hashtag_name);
+    if (substr($hashtag_name, 0, 1) != '#') {
+        $hashtag_name = '#' . $hashtag_name;
+    }
+    return $hashtag_name;
+}
+
 function check_valid_data(string $name, string $username, string $email, string $password, string $confirm_password) : array {
     if (!is_valid_name($name) || !is_valid_username($username) || !is_valid_email($email) || !is_valid_string($password) || !is_valid_string($confirm_password)) {
         return array(false, "Username, password, name and email are required");

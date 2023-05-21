@@ -30,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     exit();
 }
 
-/*create new hashtag*/
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     handle_check_logged_in($session);
     handle_check_csrf($session, $_POST['csrf']);
@@ -40,15 +39,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo_json_csrf($session, array('error' => 'Missing hashtag parameter'));
         exit();
     }
-    // if (!is_valid_hashtag_name($_POST['hashtagName'])) 7
-
-    $hashtag = Hashtag::getByName($db, $_POST['hashtagName']);
+    error_log($_POST['hashtagName']);
+    $hashtagName = transform_hashtag($_POST['hashtagName']);
+    error_log($hashtagName);
+    if (!is_valid_hashtag_name($hashtagName)) {
+        http_response_code(400); // Bad request
+        echo_json_csrf($session, array('error' => 'Invalid hashtag name. Must have at most 20 characters'));
+        exit();
+    }
+    $hashtag = Hashtag::getByName($db, $hashtagName);
     if ($hashtag !== NULL) {
         http_response_code(400); // Bad request
         echo_json_csrf($session, array('error' => 'Hashtag already exists'));
         exit();
     }
-    $hashtag = Hashtag::create($db, $_POST['hashtagName']);
+    
+    $hashtag = Hashtag::create($db, $hashtagName);
     if ($hashtag == NULL) {
         http_response_code(500); // Internal server error
         echo_json_csrf($session, array('error' => 'Failed to create hashtag'));
@@ -58,14 +64,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo_json_csrf($session, array(
         'success' => 'Hashtag created',
         'hashtagID' => $hashtag->hashtagid,
+        'hashtagName' => $hashtag->hashtagname
     ));
     exit();
 }
 
-/*delete existing hashtag*/
 if($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     handle_check_logged_in($session);
-    handle_check_csrf($session, $_POST['csrf']);
+    handle_check_csrf($session, $_GET['csrf']);
     handle_check_admin($session, $db);
 
     if (!is_valid_string($_GET['hashtagName'])) {
